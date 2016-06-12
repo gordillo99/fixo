@@ -24,8 +24,15 @@ import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, auth, analytics } from './config';
+import rest from './../routes/users.js';
 
 const app = express();
+
+//
+// Routes Setup
+//
+
+app.use('/api', rest);
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the

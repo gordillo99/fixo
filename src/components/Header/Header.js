@@ -10,26 +10,43 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
-import Link from '../Link';
-import Navigation from '../Navigation';
-import logoUrl from './logo-small.png';
+import classNames from 'classnames';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
+import { NavItem } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
+import fixoLogo from './fixo.png';
 
 function Header() {
+
+  let rightSideComponents;
+
+  if (true) {
+    rightSideComponents = [ { text: "Profile", href: "#" } ]
+  } else {
+    rightSideComponents = [ { text: "Iniciar Sesión", href: "#" } , { text: "Registrarse", href: "#" } ];
+  }
+
   return (
-    <div className={s.root}>
-      <div className={s.container}>
-        <Navigation className={s.nav} />
-        <Link className={s.brand} to="/">
-          <img src={logoUrl} width="38" height="38" alt="React" />
-          <span className={s.brandTxt}>Your Company</span>
-        </Link>
-        <div className={s.banner}>
-          <h1 className={s.bannerTitle}>React</h1>
-          <p className={s.bannerDesc}>Complex web apps made easy</p>
-        </div>
+      <div>
+        <Navbar fixedTop>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <img
+                src={fixoLogo}
+              />
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              {rightSideComponents.map( (navbarLink) => { return <NavItem href={navbarLink.href}> { navbarLink.text } </NavItem> } ) }
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       </div>
-    </div>
-  );
+    );
 }
 
 export default withStyles(s)(Header);

@@ -23,25 +23,27 @@ function Header() {
   let rightSideComponents;
 
   if (true) {
-    rightSideComponents = [ { text: "Profile", href: "#" } ]
+    rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "#" }]
   } else {
-    rightSideComponents = [ { text: "Iniciar Sesión", href: "#" } , { text: "Registrarse", href: "#" } ];
+    rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "#" } , { id: 3, text: "Registrarse", href: "#" } ];
   }
 
   return (
       <div>
         <Navbar fixedTop>
           <Navbar.Header>
-            <Navbar.Brand>
+            <Navbar.Brand className={classNames(s.headerHeight)}>
               <img
                 src={fixoLogo}
+                height="200px"
+                width="80px"
               />
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              {rightSideComponents.map( (navbarLink) => { return <NavItem href={navbarLink.href}> { navbarLink.text } </NavItem> } ) }
+              {rightSideComponents.map( (navbarLink) => { return <NavItem key={navbarLink.id} href={navbarLink.href}> { navbarLink.text } </NavItem> } ) }
             </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -9,4 +9,11 @@
 
 @import '../variables.css';
 
+.headerHeight {
+	height: 60px;
+	padding: 0px;
+}
 
+.rightSideLinks a{
+	color: white;
+}

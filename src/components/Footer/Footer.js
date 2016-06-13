@@ -16,13 +16,15 @@ function Footer() {
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <span className={s.text}>© Your Company</span>
+        <span className={s.text}>© fixo</span>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/">Home</Link>
+        <Link className={s.link} to="/">Inicio</Link>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/privacy">Privacy</Link>
+        <Link className={s.link} to="/">Términos y Condiciones</Link>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/not-found">Not Found</Link>
+        <Link className={s.link} to="/">Contacto</Link>
+        <span className={s.spacer}>·</span>
+        <Link className={s.link} to="/">Sobre fixo</Link>
       </div>
     </div>
   );

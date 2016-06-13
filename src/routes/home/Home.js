@@ -7,41 +7,28 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import classNames from 'classnames';
+import { Jumbotron } from 'react-bootstrap';
+import MainPageStripe1 from './../../components/MainPageStripe1';
+import MainPageStripe2 from './../../components/MainPageStripe2';
+import MainPageStripe3 from './../../components/MainPageStripe3';
 import s from './Home.css';
 
-const title = 'React Starter Kit';
+export default class Home extends Component {
 
-function Home({ news }, context) {
-  context.setTitle(title);
-  return (
-    <div className={s.root}>
-      <div className={s.container}>
-        <h1 className={s.title}>React.js News</h1>
-        <ul className={s.news}>
-          {news.map((item, index) => (
-            <li key={index} className={s.newsItem}>
-              <a href={item.link} className={s.newsTitle}>{item.title}</a>
-              <span
-                className={s.newsDesc}
-                dangerouslySetInnerHTML={{ __html: item.contentSnippet }}
-              />
-            </li>
-          ))}
-        </ul>
+  render() {
+    return (
+      <div className={s.root}>
+        <div className={classNames(s.centralizedDiv)}>
+          <MainPageStripe1 />
+          <MainPageStripe2 />
+          <MainPageStripe3 />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-Home.propTypes = {
-  news: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-    contentSnippet: PropTypes.string,
-  })).isRequired,
-};
-Home.contextTypes = { setTitle: PropTypes.func.isRequired };
 
 export default withStyles(s)(Home);

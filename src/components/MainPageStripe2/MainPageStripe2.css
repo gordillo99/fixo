@@ -1,0 +1,28 @@
+.stripe2Jumbotron {
+  background-color: white;
+  padding-top: 0px;
+}
+
+.inlineSteps {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.stepDesc {
+  color: black;
+}
+
+.nameWithIcon {
+  margin-right: 30px;
+}
+
+.listElement {
+  color: #1A8CF0;
+  padding: 0px;
+  vertical-align: text-bottom;
+  display: table;
+}
+
+.noListStyle {
+  list-style: none;
+}

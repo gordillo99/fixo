@@ -9,9 +9,12 @@
 
 @import '../../components/variables.css';
 
+/*  blue_color: #1A8CF0  */ 
+
+/* general */
+
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
+
 }
 
 .container {
@@ -20,20 +23,14 @@
   max-width: var(--max-content-width);
 }
 
-.news {
-  padding: 0;
+/* misc */
+
+.centralizedDiv {
+  text-align: center;
 }
 
-.newsItem {
-  list-style-type: none;
-  padding-bottom: 6px;
-}
 
-.newsTitle {
-  font-size: 1.125em;
-}
 
-.newsTitle,
-.newsDesc {
-  display: block;
-}
+
+
+

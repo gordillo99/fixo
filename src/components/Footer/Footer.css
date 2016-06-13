@@ -11,7 +11,8 @@
 
 .root {
   background: #333;
-  color: #fff;
+  color: black;
+  background-color: white;
 }
 
 .container {
@@ -22,12 +23,12 @@
 }
 
 .text {
-  color: rgba(255, 255, 255, 0.5);
+  color: black;
 }
 
 .textMuted {
   composes: text;
-  color: rgba(255, 255, 255, 0.3);
+  color: black;
 }
 
 .spacer {
@@ -43,10 +44,10 @@
 .link,
 .link:active,
 .link:visited {
-  color: rgba(255, 255, 255, 0.6);
+  color: black;
   text-decoration: none;
 }
 
 .link:hover {
-  color: rgba(255, 255, 255, 1);
+  /*color: rgba(255, 255, 255, 1);*/
 }

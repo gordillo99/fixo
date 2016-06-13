@@ -10,11 +10,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Navbar } from 'react-bootstrap';
-import { Nav } from 'react-bootstrap';
-import { NavItem } from 'react-bootstrap';
-import { NavDropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import fixoLogo from './fixo.png';
 import s from './Header.css';
 
@@ -43,7 +39,9 @@ function Header() {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              {rightSideComponents.map( (navbarLink) => { return <NavItem key={navbarLink.id} href={navbarLink.href}> { navbarLink.text } </NavItem> } ) }
+              <ul className={classNames(s.noListStyle)}>
+                {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)}><a key={navbarLink.id} href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
+              </ul>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

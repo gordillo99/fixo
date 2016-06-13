@@ -9,7 +9,6 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Header.css';
 import classNames from 'classnames';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
@@ -17,6 +16,7 @@ import { NavItem } from 'react-bootstrap';
 import { NavDropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import fixoLogo from './fixo.png';
+import s from './Header.css';
 
 function Header() {
 

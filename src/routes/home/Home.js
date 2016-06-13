@@ -9,9 +9,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Home.css';
 import classNames from 'classnames';
 import { Jumbotron } from 'react-bootstrap';
+import s from './Home.css';
 
 export default class Home extends Component {
   _createCategoryOptions() {

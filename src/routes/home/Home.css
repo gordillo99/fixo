@@ -29,48 +29,8 @@
   text-align: center;
 }
 
-.noListStyle {
-  list-style: none;
-}
 
-/* Stripe 1 */
 
-.welcomePageHeader {
-  padding-top: 30px;
-}
 
-.stripe1Jumbotron {
-  color: black;
-  margin-bottom: 0px;
-}
-
-.inlineCategories {
-  display: inline-block;
-  padding: 0px 30px 0px 30px ;
-}
-
-.inlineCategories {
-  margin-top: 40px;
-}
-
-/* Stripe 2 */
-
-.stripe2Jumbotron {
-  color: #1A8CF0;
-  background-color: white;
-  padding-top: 0px;
-}
-
-.inlineSteps {
-  display: inline-block;
-}
-
-.nameWithIcon {
-  margin-right: 30px;
-}
-
-.listElement {
-  padding: 0px;
-}
 
 

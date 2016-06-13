@@ -11,6 +11,9 @@
 .root {
   padding-left: 20px;
   padding-right: 20px;
+  height: 100%;
+  margin-top: 90px;
+  text-align: center;
 }
 
 .container {
@@ -19,8 +22,13 @@
   max-width: 380px;
 }
 
+.loginHeader {
+  padding-bottom: 20px;
+}
+
 .lead {
-  font-size: 1.25em;
+  font-size: 1.40em;
+  padding-bottom: 20px;
 }
 
 .formGroup {

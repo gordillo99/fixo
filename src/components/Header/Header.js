@@ -18,10 +18,10 @@ function Header() {
 
   let rightSideComponents;
 
-  if (true) {
+  if (false) {
     rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "#" }]
   } else {
-    rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "#" } , { id: 3, text: "Registrarse", href: "#" } ];
+    rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } , { id: 3, text: "Registrarse", href: "#" } ];
   }
 
   return (
@@ -29,21 +29,21 @@ function Header() {
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand className={classNames(s.headerHeight)}>
-              <img
-                src={fixoLogo}
-                height="200px"
-                width="80px"
-              />
+              <a href='/'>
+                <img
+                  src={fixoLogo}
+                  height='60px'
+                  width='80px'
+                />
+              </a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
-          <Navbar.Collapse>
             <Nav pullRight>
               <ul className={classNames(s.noListStyle)}>
-                {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)}><a key={navbarLink.id} href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
+                {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
               </ul>
             </Nav>
-          </Navbar.Collapse>
         </Navbar>
       </div>
     );

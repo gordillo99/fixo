@@ -9,6 +9,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
+import classNames from 'classnames';
 import s from './App.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -52,9 +53,11 @@ class App extends Component {
 
   render() {
     return !this.props.error ? (
-      <div>
+      <div className={classNames(s.site)}>
         <Header />
-        {this.props.children}
+        <div className={classNames(s.siteContent)}>
+          {this.props.children}
+        </div>
         <Footer />
       </div>
     ) : this.props.children;

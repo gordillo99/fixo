@@ -179,3 +179,15 @@ textarea {
     page-break-after: avoid;
   }
 }
+
+/* */
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.siteContent {
+  flex: 1;
+}

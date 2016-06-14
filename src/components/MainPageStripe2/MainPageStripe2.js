@@ -15,7 +15,7 @@ export default class MainPageStripe2 extends Component {
     let index = 0;
 
     return steps.map((step, index) => {
-      return <li className={classNames(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index++, steps.length)} </li>
+      return <li className={classNames(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index, steps.length)} </li>
     });
   }
 

@@ -10,7 +10,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Jumbotron } from 'react-bootstrap';
 import MainPageStripe1 from './../../components/MainPageStripe1';
 import MainPageStripe2 from './../../components/MainPageStripe2';
 import MainPageStripe3 from './../../components/MainPageStripe3';

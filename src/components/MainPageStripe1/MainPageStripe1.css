@@ -12,11 +12,8 @@
 
 .inlineCategories {
   display: inline-block;
-  padding: 0px 30px 0px 30px ;
-}
-
-.inlineCategories {
-  margin-top: 40px;
+  padding: 0px 30px 0px 30px;
+   margin-top: 40px;
 }
 
 .noListStyle {

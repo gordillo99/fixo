@@ -1,0 +1,23 @@
+@import '../../components/variables.css';
+
+.root {
+	margin-bottom: 70px;
+}
+
+.inlineStages {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px 30px 0px 30px;
+}
+
+.noListStyle {
+  list-style: none;
+}
+
+.rightBorder {
+	border-right: thick solid white;
+}
+
+.withRightPadding {
+	padding-right: 30px;
+}

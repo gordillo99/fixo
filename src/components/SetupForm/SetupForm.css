@@ -34,3 +34,24 @@
 	width: 440px;
 	text-align: left;
 }
+
+.centralizedDiv {
+  text-align: center;
+}
+
+.datePicker {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.morningAfternoonButtons {
+  margin-bottom: 30px;
+}
+
+.dateDesc {
+  margin-bottom: 30px;
+}
+
+.acceptBtn {
+  width: 120px;
+}

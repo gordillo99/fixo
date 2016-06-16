@@ -88,8 +88,8 @@ async function start() {
         if (!err) {
           const bs = Browsersync.create();
           bs.init({
-            notify: DEBUG,
-            ui: DEBUG ? { port: 3001 } : false,
+            ...(DEBUG ? {} : { notify: false, ui: false }),
+
             proxy: {
               target: host,
               middleware: [wpMiddleware, ...hotMiddlewares],

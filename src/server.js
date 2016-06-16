@@ -87,7 +87,7 @@ app.use('/graphql', expressGraphQL(req => ({
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-app.all('/*', async (req, res, next) => {
+app.get('*', async (req, res, next) => {
   try {
     let css = [];
     let statusCode = 200;

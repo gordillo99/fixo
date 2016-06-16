@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { FormGroup, ControlLabel, FormControl, Button, Jumbotron, ButtonGroup } from 'react-bootstrap';
+import DatePicker from './../DatePicker';
 import s from './SetupForm.css';
 
 export default class SetupForm extends Component {
@@ -33,7 +34,10 @@ export default class SetupForm extends Component {
                 <FormGroup controlId="formControlsTextarea">
                   <FormControl componentClass="textarea" placeholder="Detalles sobre el trabajo" />
                 </FormGroup>
-                <div >
+                <div className={classNames(s.datePicker)}>
+                  <DatePicker
+                    dayChange={this._handleDayChange.bind(this)}
+                  />
                 </div>
                 <div className={classNames(s.centralizedDiv)}>
                   <div className={classNames(s.morningAfternoonButtons)}>

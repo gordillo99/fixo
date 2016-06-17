@@ -7,18 +7,16 @@ import s from './SetupForm.css';
 
 export default class SetupForm extends Component {
 
-  constructor(){
-    super();
-    let today = new Date();
-    this.state = {
-      address: '',
-      date: today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear(),
-      morning: true
-    };
+  _getValidationStateOfAddr() {
+    const length = this.props.address.length;
+    if (length == 0) return 'error';
+    return 'success';
   }
 
-  _handleDayChange(date) {
-    this.setState( { date: date } );
+  _getValidationStateOfDetails() {
+    const length = this.props.details.length;
+    if (length == 0) return 'error';
+    return 'success';
   }
 
   render() {
@@ -28,30 +26,38 @@ export default class SetupForm extends Component {
           <div className={classNames(s.root)}>
             <div className={classNames(s.formWrapper)}>
               <form>
-                <FormGroup controlId="formControlsText">
-                  <FormControl type="text" placeholder="Dirección" />
+                <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
+                  <FormControl value={this.props.address} onChange={this.props.updateAddress} type="text" placeholder="Dirección" />
                 </FormGroup>
-                <FormGroup controlId="formControlsTextarea">
-                  <FormControl componentClass="textarea" placeholder="Detalles sobre el trabajo" />
+                <FormGroup validationState={this._getValidationStateOfDetails()} controlId="formControlsTextarea">
+                  <FormControl onChange={this.props.updateDetails} componentClass="textarea" placeholder="Detalles sobre el trabajo" />
                 </FormGroup>
                 <div className={classNames(s.datePicker)}>
                   <DatePicker
-                    dayChange={this._handleDayChange.bind(this)}
+                    dayChange={this.props.updateDay}
                   />
                 </div>
                 <div className={classNames(s.centralizedDiv)}>
                   <div className={classNames(s.morningAfternoonButtons)}>
                     <ButtonGroup>
-                      <Button disabled={this.state.morning}>Mañana</Button>
-                      <Button disabled={!this.state.morning}>Tarde</Button>
+                      <Button 
+                        onClick={this.props.updateTime} 
+                        disabled={this.props.morning}>
+                          Mañana
+                      </Button>
+                      <Button
+                        onClick={this.props.updateTime}
+                        disabled={!this.props.morning}>
+                          Tarde
+                      </Button>
                     </ButtonGroup>
                   </div>
                   <div className={classNames(s.dateDesc)}>
                     <p>
-                      Ha seleccionado el {this.state.date} en la { (this.state.morning) ? 'mañana' : 'tarde' }
+                      Ha seleccionado el {this.props.date} en la { (this.props.morning) ? 'mañana' : 'tarde' }
                     </p>
                   </div>
-                  <Button type="submit" className={classNames(s.acceptBtn)}>
+                  <Button onClick={this.props.toNextStage} type="submit" className={classNames(s.acceptBtn)}>
                     Aceptar
                   </Button>
                 </div>

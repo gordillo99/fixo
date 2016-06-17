@@ -6,13 +6,6 @@ import s from './ProgressionStatus.css';
 
 export default class ProgressionStatus extends Component {
 
-  constructor(){
-    super();
-    this.state = {
-      progressStage: 0
-    };
-  }
-
   _showProgressDisplay() {
     let stages = [ 
       { id: 0, name: 'Describe tu BRproblema' } , 
@@ -25,7 +18,7 @@ export default class ProgressionStatus extends Component {
     return stages.map((stage, index) => {
       return (
         <li className={classNames(s.inlineStages, (index !== stages.length - 1 ? s.rightBorder : ''))} key={'stage-' + stage.id}>
-          <h3 className={classNames(s.withRightPadding)}>
+          <h3 className={classNames(s.withRightPadding, (index === this.props.currentStage ? s.bolded : ''))}>
             {this._getStageNames(stage.name, index)}
           </h3> 
         </li>

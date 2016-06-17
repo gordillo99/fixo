@@ -86,6 +86,7 @@ async function start() {
     let handleServerBundleComplete = () => {
       runServer((err, host) => {
         if (!err) {
+          console.log("the flag DEBUG IS " + DEBUG);
           const bs = Browsersync.create();
           bs.init({
             notify: DEBUG,

@@ -21,3 +21,7 @@
 .withRightPadding {
 	padding-right: 30px;
 }
+
+.bolded {
+	font-weight: bold;
+}

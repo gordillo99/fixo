@@ -71,29 +71,31 @@ export default class FixerFinder extends Component {
 	//TODO: remove this <Button onClick={this._createFixer}>Add fixers</Button> 
 
 	render() {
+		let fixerList = <div>
+							{this.state.fixers.map( (fixer, index) => {return(
+								<div key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
+									<Panel header={fixer.firstname + ' ' + fixer.lastname} className={classNames(s.panelStyle)}>
+									<ul className={classNames(s.noListStyle)}>
+										<li className={classNames(s.inlineFixerEles)}>
+									      <img 
+									      	src={'data:image/png;base64,' + this._arrayBufferToBase64(fixer.profilepic.data)}
+									      	height='50px'
+									      	weight='50px'
+									      	className={classNames(s.fixerImage)}
+									      />
+									   	</li>
+									    <li className={classNames(s.inlineFixerEles)}>
+									      <p>{fixer.description}</p>
+									    </li>
+								      </ul>
+								    </Panel>
+								</div>
+							)})}
+						</div>
+		let loadingScreen = <h1 className={classNames(s.loadingTitlte)}>Cargando datos...</h1>
 		return (
 			<div>
-				<div>
-					{this.state.fixers.map( (fixer, index) => {return(
-						<div key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
-							<Panel header={fixer.firstname + ' ' + fixer.lastname} className={classNames(s.panelStyle)}>
-							<ul className={classNames(s.noListStyle)}>
-								<li className={classNames(s.inlineFixerEles)}>
-							      <img 
-							      	src={'data:image/png;base64,' + this._arrayBufferToBase64(fixer.profilepic.data)}
-							      	height='50px'
-							      	weight='50px'
-							      	className={classNames(s.fixerImage)}
-							      />
-							   	</li>
-							    <li className={classNames(s.inlineFixerEles)}>
-							      <p>{fixer.description}</p>
-							    </li>
-						      </ul>
-						    </Panel>
-						</div>
-					)})}
-				</div>
+				{(this.state.fixers.length === 0) ? loadingScreen : fixerList}
 			</div>
 		);
 	}

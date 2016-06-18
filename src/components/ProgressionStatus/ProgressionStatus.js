@@ -8,17 +8,22 @@ export default class ProgressionStatus extends Component {
 
   _showProgressDisplay() {
     let stages = [ 
-      { id: 0, name: 'Describe tu BRproblema' } , 
-      { id: 1, name: 'Encuentra a BRtu fixer' }, 
-      { id: 2, name: 'Confirma' }
+      { id: 0, name: 'Describe tu BRproblema' },
+      { id: 2, name: 'Encuentra BRa tu fixer' }, 
+      { id: 3, name: 'Confirma' }
     ];
     let index = 0;
-    
 
     return stages.map((stage, index) => {
+      let bolded = '';
+      
+      if ((stage.id === this.props.currentStage) || (this.props.currentStage === 1 && stage.id === 0)) {
+        bolded = s.bolded;
+      }
+    
       return (
         <li className={classNames(s.inlineStages, (index !== stages.length - 1 ? s.rightBorder : ''))} key={'stage-' + stage.id}>
-          <h3 className={classNames(s.withRightPadding, (index === this.props.currentStage ? s.bolded : ''))}>
+          <h3 className={classNames(s.withRightPadding, bolded)}>
             {this._getStageNames(stage.name, index)}
           </h3> 
         </li>
@@ -37,7 +42,7 @@ export default class ProgressionStatus extends Component {
     return (
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
-          <ul>
+          <ul className={classNames(s.listStyle)}>
             {this._showProgressDisplay()}
           </ul>
         </div>

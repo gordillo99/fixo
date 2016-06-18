@@ -43,7 +43,7 @@ export default class MainPageStripe2 extends Component {
   render() {
     return (
       <Jumbotron className={classNames(s.stripe2Jumbotron)}>
-        <h1 className={classNames(s.welcomePageHeader)}>¡Así de Fácil!</h1>
+        <h1 className={classNames(s.welcomePageHeader)}>¡Así de fácil!</h1>
         <ul>
           {this._createSteps()}
         </ul>

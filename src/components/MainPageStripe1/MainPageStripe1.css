@@ -10,7 +10,7 @@
   background-color: #1A8CF0;
 }
 
-.whiteFont{
+.whiteFont {
   color: white;
 }
 
@@ -22,4 +22,5 @@
 
 .noListStyle {
   list-style: none;
+  padding-left: 0px;
 }

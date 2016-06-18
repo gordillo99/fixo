@@ -10,7 +10,7 @@ export default class MainPageStripe1 extends Component {
     let categories = [ 
       { id: 0, name: 'Jardinería', icon: require('./images/gardening.png'), route: 'gardening' }, 
       { id: 1, name: 'Carpintería', icon: require('./images/carpentry.png'), route: 'carpentry' }, 
-      { id: 2, name: 'Aplicación de Pintura', icon: require('./images/painting.png'), route: 'painting' }, 
+      { id: 2, name: 'Aplicación de pintura', icon: require('./images/painting.png'), route: 'painting' }, 
       { id: 3, name: 'Electricista', icon: require('./images/electricity.png'), route: 'electricity' }, 
       { id: 4, name: 'Fontanería' , icon: require('./images/plumbing.png'), route: 'plumbing' }
     ];
@@ -40,8 +40,8 @@ export default class MainPageStripe1 extends Component {
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
           <Jumbotron className={classNames(s.stripe1Jumbotron)}>
-            <h1 className={classNames(s.welcomePageHeader)}>¿Qué Necesitas?</h1>
-            <ul>
+            <h1 className={classNames(s.welcomePageHeader)}>¿Qué necesitas?</h1>
+            <ul className={classNames(s.noListStyle)}>
               {this._createCategoryOptions()}
             </ul>
           </Jumbotron>

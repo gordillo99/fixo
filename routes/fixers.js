@@ -16,38 +16,39 @@ router.route('/crud')
 
   .get(function(req, res) {
     db.manyOrNone({
-        name: "find-user",
-        text: "select * from users where firstname = $1",
-        values: ['Jose']
+      name: "find-user",
+      text: "select * from fixers",
+      values: []
     })
-        .then(function (user) {
-            res.send(user);
+      .then(function (fixers) {
+          res.send(fixers);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+  })
+
+  .post(function(req, res) {
+    var fs = require('fs');
+    // read in image in raw format (as type Buffer):
+    fs.readFile(__dirname+'/../routes/'+req.body.profilepic, function (err, imgData) {
+      db.none({
+        name: "create-fixer",
+        text: "insert into fixers (firstname, lastname, phone, email, age, gender, description, profilepic) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
+        values: [req.body.firstname, req.body.lastname, req.body.phone, req.body.email, req.body.age, req.body.gender, req.body.description, imgData]
+      })
+        .then(function () {
+            res.send(true);
+            console.log('fixer created successfully!');
         })
         .catch(function (error) {
             console.log(error);
             res.send(error);    
         });
-  });
-
-
-
-  /*
-      .post(function(req, res) {
-
-        var video = new Video();
-        video.title = req.body.title;
-
-        video.save(function(err) {
-      if (err)
-        res.send(err);
-
-      res.json({ message: 'Video criado!' });
+      });
     });
 
-
-      })
-
-  */
 
   /*
 

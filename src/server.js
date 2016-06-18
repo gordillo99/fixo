@@ -24,15 +24,10 @@ import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, auth, analytics } from './config';
-import rest from './../routes/users.js';
+import usersRest from './../routes/users.js';
+import fixersRest from './../routes/fixers.js';
 
 const app = express();
-
-//
-// Routes Setup
-//
-
-app.use('/api', rest);
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -48,6 +43,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//
+// Routes Setup
+//
+app.use('/api/users', usersRest);
+app.use('/api/fixers', fixersRest);
 
 //
 // Authentication

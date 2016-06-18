@@ -7,8 +7,28 @@
 }
 
 .container {
-  margin: 0 auto;
   padding: 20px 15px;
-  max-width: var(--max-content-width);
   text-align: center;
+}
+
+.resultsWrapper {
+	margin: 30px auto;
+  	width: 440px;
+}
+
+.panelStyle {
+	text-align: left;
+}
+
+.inlineFixerEles {
+  display: inline-block;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.fixerImage {
+	padding-right: 10px;
 }

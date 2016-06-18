@@ -91,9 +91,11 @@ export default class AdditionalQuestions extends Component {
               )}
             </div>
           </FormGroup>
-          <Button onClick={this._updateAnswers.bind(this, this.state[this.props.category + 'Qs'])} type="submit">
-            Aceptar
-          </Button>
+          <div className={classNames(s.centralizedDiv)}>
+            <Button onClick={this._updateAnswers.bind(this, this.state[this.props.category + 'Qs'])} className={classNames(s.acceptBtn)} type="submit">
+              Aceptar
+            </Button>
+          </div>
         </form>
       </div>
     );

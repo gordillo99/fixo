@@ -1,0 +1,27 @@
+@import '../variables.css';
+
+.resultsWrapper {
+  margin: 30px auto;
+  width: 440px;
+}
+
+.panelStyle {
+  text-align: left;
+}
+
+.selectedPanel {
+  border: 2px solid green;
+}
+
+.inlineFixerEles {
+  display: inline-block;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.fixerImage {
+  padding-right: 10px;
+}

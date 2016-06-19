@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Button, Panel } from 'react-bootstrap';
+import arrBuffToBase64 from '../../helpers/helpers.js';
+import FixerPanel from '../FixerPanel';
 import $ from 'jquery';
 import s from './FixerFinder.css';
 
@@ -78,17 +80,6 @@ export default class FixerFinder extends Component {
 	    });
 	}
 
-	_arrayBufferToBase64( buffer ) {
-	    let binary = '';
-	    let bytes = new Uint8Array( buffer );
-	    let len = bytes.byteLength;
-	    let i;
-	    for (i = 0; i < len; i++) {
-	        binary += String.fromCharCode(bytes[ i ]);
-	    }
-	    return window.btoa(binary);
-	}
-
 	//TODO: remove this <Button onClick={this._createFixer}>Add fixers</Button> 
 
 	render() {
@@ -96,26 +87,12 @@ export default class FixerFinder extends Component {
 							<h1>Selecciona a tu fixer</h1>
 							{this.state.fixers.map( (fixer, index) => {return(
 								<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
-									<Panel bsStyle='primary' header={fixer.firstname + ' ' + fixer.lastname} className={classNames(s.panelStyle, (fixer.selected) ? s.selectedPanel : '')}>
-									<ul className={classNames(s.noListStyle)}>
-										<li className={classNames(s.inlineFixerEles)}>
-									      <img 
-									      	src={'data:image/png;base64,' + this._arrayBufferToBase64(fixer.profilepic.data)}
-									      	height='50px'
-									      	weight='50px'
-									      	className={classNames(s.fixerImage)}
-									      />
-									   	</li>
-									    <li className={classNames(s.inlineFixerEles)}>
-									      <p>{fixer.description}</p>
-									    </li>
-								      </ul>
-								    </Panel>
+									<FixerPanel fixer={fixer} showSelected={true}/>
 								</div>
 							)})}
 							<Button className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
 						</div>
-		let loadingScreen = <h1 className={classNames(s.loadingTitlte)}>Cargando datos...</h1>
+		let loadingScreen = <h1 className={classNames(s.loadingTitle)}>Cargando datos...</h1>
 		return (
 			<div>
 				{(this.state.fixers.length === 0) ? loadingScreen : fixerList}

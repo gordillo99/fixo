@@ -16,16 +16,16 @@ export default {
   			break;
   		case 'painting':
   			categoria = 'Aplicación de Pintura';
- 			break;
- 		case 'electricity':
- 			categoria = 'Electricista';
- 			break;
- 		case 'plumbing':
- 			categoria = 'Fontanería';
- 			break;
- 		default:
- 			categoria = 'Categoría Inválida';
- 			break;
+ 			  break;
+   		case 'electricity':
+   			categoria = 'Electricista';
+   			break;
+   		case 'plumbing':
+   			categoria = 'Fontanería';
+   			break;
+   		default:
+   			categoria = 'Categoría Inválida';
+   			break;
   	}
     return <Setup categoria={categoria} category={params.category} />;
   },

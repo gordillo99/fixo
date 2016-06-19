@@ -19,6 +19,11 @@ export default class SetupForm extends Component {
     return 'success';
   }
 
+  _confirm(evt) {
+    evt.preventDefault();
+    this.props.toNextStage();
+  }
+
   render() {
     return (
       <div>
@@ -35,6 +40,7 @@ export default class SetupForm extends Component {
                 <div className={classNames(s.datePicker)}>
                   <DatePicker
                     dayChange={this.props.updateDay}
+                    selectedDay={this.props.date}
                   />
                 </div>
                 <div className={classNames(s.centralizedDiv)}>
@@ -54,10 +60,10 @@ export default class SetupForm extends Component {
                   </div>
                   <div className={classNames(s.dateDesc)}>
                     <p>
-                      Ha seleccionado el {this.props.date} en la { (this.props.morning) ? 'mañana' : 'tarde' }
+                      Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
                     </p>
                   </div>
-                  <Button onClick={this.props.toNextStage} type="submit" className={classNames(s.acceptBtn)}>
+                  <Button onClick={this._confirm.bind(this)} type="submit" className={classNames(s.acceptBtn)}>
                     Aceptar
                   </Button>
                 </div>

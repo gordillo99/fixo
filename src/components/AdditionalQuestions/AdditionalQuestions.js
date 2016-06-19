@@ -2,101 +2,57 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Button, FormGroup, ControlLabel, FormControl, Jumbotron } from 'react-bootstrap';
+import Questionnaire from '../questionComponents/Questionnaire';
 import s from './AdditionalQuestions.css';
 
 export default class AdditionalQuestions extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    let addQsAndAs;
+    switch(this.props.category) {
+      case 'gardening':
+        addQsAndAs = [
+                  { q: 'Explica tu proyecto', a: '', type: 'textarea'},
+                  { q: '¿De qué tamaño es tu jardín?', a: 'Pequeño (menos de 100 m\u00B2)', type: 'select', opts: [ 'Pequeño (menos de 100 m\u00B2)' , 'Mediano (100 m\u00B2 - 450 m\u00B2)', 'Grande (450 m\u00B2 - 950 m\u00B2)', 'Muy grande (más de 950 m\u00B2)'] },
+                  { q: '¿Tiene las herramientas para realizar el trabajo?', a: 'Sí', opts: ['Sí', 'No', 'No todas'] , type: 'select'},
+                  { q: '¿Tienes las plantas, tierra y otros para realizar el trabajo?', a: 'Sí', opts: ['Sí', 'No, necesito que el fixer lo compre'] , type: 'select'}
+                ]; 
+        break;
+      case 'carpentry':
+        addQsAndAs = 'Carpintería';
+        break;
+      case 'painting':
+        addQsAndAs = 'Aplicación de Pintura';
+        break;
+      case 'electricity':
+        addQsAndAs = 'Electricista';
+        break;
+      case 'plumbing':
+        addQsAndAs = 'Fontanería';
+        break;
+      default:
+        addQsAndAs = null;
+        break;
+    }
     this.state = {
-      questions: [],
-      answers: [],
-      gardeningQs: {
-                      o0: {q0: 'Pregunta 1', a0: ''},
-                      o1: {q1: 'Pregunta 1', a1: ''},
-                      o2: {q2: 'Pregunta 1', a2: ''},
-                      o3: {q3: 'Pregunta 1', a3: ''}
-                    }, 
-      carpentryQs: {
-                      o0: {q0: 'Pregunta 1', a0: ''},
-                      o1: {q1: 'Pregunta 1', a1: ''},
-                      o2: {q2: 'Pregunta 1', a2: ''},
-                      o3: {q3: 'Pregunta 1', a3: ''}
-                    },
-      paintingQs: {
-                    o0: {q0: 'Pregunta 1', a0: ''},
-                    o1: {q1: 'Pregunta 1', a1: ''},
-                    o2: {q2: 'Pregunta 1', a2: ''},
-                    o3: {q3: 'Pregunta 1', a3: ''}
-                  },
-      electricityQs: {
-                        o0: {q0: 'Pregunta 1', a0: ''},
-                        o1: {q1: 'Pregunta 1', a1: ''},
-                        o2: {q2: 'Pregunta 1', a2: ''},
-                        o3: {q3: 'Pregunta 1', a3: ''}
-                      }, 
-      plumbingQs: {
-                      o0: {q0: 'Pregunta 1', a0: ''},
-                      o1: {q1: 'Pregunta 1', a1: ''},
-                      o2: {q2: 'Pregunta 1', a2: ''},
-                      o3: {q3: 'Pregunta 1', a3: ''}
-                  }
+      qsAndAs: addQsAndAs
     };
   }
 
-  _handleAnswers(index, event) {
-    let stateProp = this.props.category + 'Qs';
-    let copyOfState = this.state[stateProp];
-
-    copyOfState['o' + index]['a' + index] = event.target.value;
-    this.setState( { [stateProp]: copyOfState } );
+  _updateAnswers(answers, event){
+    this.setState( { qsAndAs: answers } );
   }
 
-  _updateAnswers(answers, event) {
-    event.preventDefault();
+  _updateFinalAnswers(answers) {
     this.props.saveAnswers(answers);
   }
 
   render() {
-    let qsAndAs = this.state[this.props.category + 'Qs'];
-    let qArray = [];
-    let counter = 0;
-
-    for(var propertyName in qsAndAs) {
-      qArray.push(qsAndAs[propertyName]['q' + counter.toString()]);
-      counter++;
-    }
 
     return (
       <div className={classNames(s.formWrapper)}>
-        <form>
-          <FormGroup
-            controlId='addQsControl'
-          >
-            <div>
-              {qArray.map((qAndA, index) => {
-                  return (
-                    <div key={'cLabel-' + index}>
-                      <ControlLabel className={classNames(s.questionLabel)}>
-                        {qAndA}
-                      </ControlLabel>
-                      <FormControl
-                        type='text'
-                        onChange={this._handleAnswers.bind(this, index)}
-                        className={classNames(s.qAnswers)}
-                      />
-                    </div>
-                  )
-                }
-              )}
-            </div>
-          </FormGroup>
-          <div className={classNames(s.centralizedDiv)}>
-            <Button onClick={this._updateAnswers.bind(this, this.state[this.props.category + 'Qs'])} className={classNames(s.acceptBtn)} type="submit">
-              Aceptar
-            </Button>
-          </div>
-        </form>
+        <Questionnaire qsAndAs={this.state.qsAndAs} updateAnswers={this._updateAnswers.bind(this)} submitFinalAnswers={this._updateFinalAnswers.bind(this)}/>
       </div>
     );
   }

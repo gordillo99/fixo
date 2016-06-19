@@ -6,17 +6,15 @@ import s from './DatePicker.style';
 
 export default class DatePicker extends Component {
   
-  constructor() {
-    super();
-    this.state = {
-      selectedDay: new Date(),
-    };
+  constructor(props) {
+    super(props);
+    selectedDay: this.props.selectedDay
   }
   
   _handleDayClick(e, day) {
-    this.setState({ selectedDay: day });
-    this.props.dayChange(day.getDate() + '/' + (day.getMonth() + 1) + '/' + day.getFullYear());
+    this.props.dayChange(day);
   }
+
   render() {
 
     let WEEKDAYS_LONG = {
@@ -52,6 +50,7 @@ export default class DatePicker extends Component {
           disabledDays={ DateUtils.isPastDay }
           firstDayOfWeek={0}
         />
+
       </div>
     )
   }

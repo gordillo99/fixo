@@ -1,0 +1,6 @@
+{
+  "name": "FixerPanel",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FixerPanel.js"
+}

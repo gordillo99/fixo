@@ -6,18 +6,18 @@ import ProgressionStatus from './../../components/ProgressionStatus';
 import SetupForm from './../../components/SetupForm';
 import AdditionalQuestions from './../../components/AdditionalQuestions';
 import FixerFinder from './../../components/FixerFinder';
+import ProposalConfirmation from './../../components/ProposalConfirmation';
 import s from './Setup.css';
 
 export default class Setup extends Component {
 
   constructor(){
     super();
-    let today = new Date();
     this.state = {
       setupStage: 0,
       address: '',
       details: '',
-      date: today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear(),
+      date: new Date(),
       morning: true,
       qsAndAs: {},
       selectedFixer: {}
@@ -25,9 +25,10 @@ export default class Setup extends Component {
   }
 
   _handleAnswers(answAndQs) {
+    console.log(answAndQs);
     this.setState( {  
-                      qsAndAs: answAndQs,
-                      setupStage: ++this.state.setupStage
+                      setupStage: ++this.state.setupStage,
+                      qsAndAs: answAndQs
                    } );
   }
 
@@ -83,7 +84,7 @@ export default class Setup extends Component {
         content = <FixerFinder toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
         break;
       case 3:
-        content = null;
+        content = <ProposalConfirmation selection={this.state} />;
         break;
       default:
         content = null; 

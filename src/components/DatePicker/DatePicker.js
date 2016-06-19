@@ -21,15 +21,15 @@ export default class DatePicker extends Component {
 
     let WEEKDAYS_LONG = {
       "en": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      "es": ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
+      "es": ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
     };
     let WEEKDAYS_SHORT = {
       "en": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-      "es": ["L", "M", "M", "J", "V", "S", "D"]
+      "es": ["D", "L", "M", "M", "J", "V", "S"]
     };
     let MONTHS = {
       "en": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      "es": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "Diciembre"]
+      "es": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
     };
     let FIRST_DAY = {
       "en": 0

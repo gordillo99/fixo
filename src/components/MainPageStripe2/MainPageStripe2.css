@@ -19,6 +19,8 @@
 .listElement {
   color: #1A8CF0;
   padding: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
   vertical-align: text-bottom;
   display: table;
 }

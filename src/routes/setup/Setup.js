@@ -19,7 +19,8 @@ export default class Setup extends Component {
       details: '',
       date: today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear(),
       morning: true,
-      qsAndAs: {}
+      qsAndAs: {},
+      selectedFixer: {}
     };
   }
 
@@ -32,6 +33,10 @@ export default class Setup extends Component {
 
   _handleDayChange(date) {
     this.setState( { date: date } );
+  }
+
+  _handleFixerChange(fixer) {
+    this.setState( { selectedFixer: fixer } );
   }
 
   _handleAddressChange(e) {
@@ -47,7 +52,7 @@ export default class Setup extends Component {
   }
 
   _nextStage(e) {
-    e.preventDefault();
+    if (e !== undefined) e.preventDefault();
     this.setState({ setupStage: ++this.state.setupStage });
   }
 
@@ -75,7 +80,7 @@ export default class Setup extends Component {
                   />
         break;
       case 2:
-        content = <FixerFinder />
+        content = <FixerFinder toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
         break;
       case 3:
         content = null;

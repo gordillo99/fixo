@@ -13,11 +13,15 @@
 
 .resultsWrapper {
 	margin: 30px auto;
-  	width: 440px;
+  width: 440px;
 }
 
 .panelStyle {
 	text-align: left;
+}
+
+.selectedPanel {
+  border: 2px solid green;
 }
 
 .inlineFixerEles {
@@ -35,4 +39,8 @@
 
 .loadingTitlte {
 	padding-top: 20px;
+}
+
+.acceptButton {
+  margin-bottom: 20px;
 }

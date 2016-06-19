@@ -11,6 +11,7 @@ export default class FixerFinder extends Component {
 		super();
 		this.state = {
 			fixers: [],
+			selectedFixer: {}
 		}
 	}
 
@@ -21,12 +22,32 @@ export default class FixerFinder extends Component {
 	      	dataType: 'json',
 	      	cache: false,
 	      	success: function(data) {
+	      		data.map((fixer) => fixer['selected'] = false);
 	      		this.setState( { fixers: data } );
 	      	}.bind(this),
 	      	error: function(xhr, status, err) {
 	       		console.log(err);
 	      	}.bind(this)
 	    });
+	}
+
+	_setFixer(fixer, index) {
+		let updatedFixers = this.state.fixers;
+		updatedFixers.map( fixer => { fixer.selected = false; return fixer });
+		updatedFixers[index].selected = true;
+		this.setState(
+			{ selectedFixer: fixer, 
+			  fixers: updatedFixers }
+		);
+	}
+
+	_validateFixerSelection(fixer) {
+		if (!$.isEmptyObject(fixer)) {
+			this.props.changeFixer(fixer);
+			this.props.toNextStage();
+		} else {
+			alert('Por favor escoja un fixer.');
+		}
 	}
 
 	// TODO: move to appropriate file
@@ -63,18 +84,19 @@ export default class FixerFinder extends Component {
 	    let len = bytes.byteLength;
 	    let i;
 	    for (i = 0; i < len; i++) {
-	        binary += String.fromCharCode( bytes[ i ] );
+	        binary += String.fromCharCode(bytes[ i ]);
 	    }
-	    return window.btoa( binary );
+	    return window.btoa(binary);
 	}
 
 	//TODO: remove this <Button onClick={this._createFixer}>Add fixers</Button> 
 
 	render() {
 		let fixerList = <div>
+							<h1>Selecciona a tu fixer</h1>
 							{this.state.fixers.map( (fixer, index) => {return(
-								<div key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
-									<Panel header={fixer.firstname + ' ' + fixer.lastname} className={classNames(s.panelStyle)}>
+								<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
+									<Panel bsStyle='primary' header={fixer.firstname + ' ' + fixer.lastname} className={classNames(s.panelStyle, (fixer.selected) ? s.selectedPanel : '')}>
 									<ul className={classNames(s.noListStyle)}>
 										<li className={classNames(s.inlineFixerEles)}>
 									      <img 
@@ -91,6 +113,7 @@ export default class FixerFinder extends Component {
 								    </Panel>
 								</div>
 							)})}
+							<Button className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
 						</div>
 		let loadingScreen = <h1 className={classNames(s.loadingTitlte)}>Cargando datos...</h1>
 		return (

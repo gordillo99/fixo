@@ -16,17 +16,17 @@ router.route('/crud')
 
   .get(function(req, res) {
     db.manyOrNone({
-        name: "find-user",
-        text: "select * from users where firstname = $1",
-        values: ['Jose']
+      name: "find-user",
+      text: "select * from users where firstname = $1",
+      values: ['Jose']
     })
-        .then(function (user) {
-            res.send(user);
-        })
-        .catch(function (error) {
-            console.log(error);
-            res.send(error);    
-        });
+      .then(function (user) {
+          res.send(user);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
   });
 
 

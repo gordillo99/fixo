@@ -90,7 +90,7 @@ export default class FixerFinder extends Component {
 									<FixerPanel fixer={fixer} showSelected={true}/>
 								</div>
 							)})}
-							<Button className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
+							<Button bsStyle='primary' className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
 						</div>
 		let loadingScreen = <h1 className={classNames(s.loadingTitle)}>Cargando datos...</h1>
 		return (

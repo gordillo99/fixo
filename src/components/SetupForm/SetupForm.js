@@ -63,7 +63,7 @@ export default class SetupForm extends Component {
                       Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
                     </p>
                   </div>
-                  <Button onClick={this._confirm.bind(this)} type="submit" className={classNames(s.acceptBtn)}>
+                  <Button bsStyle='primary' onClick={this._confirm.bind(this)} type="submit" className={classNames(s.acceptBtn)}>
                     Aceptar
                   </Button>
                 </div>

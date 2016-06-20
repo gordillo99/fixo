@@ -16,7 +16,7 @@ export default class ThankYouDisplay extends Component {
           El fixer que has escogido será notificado de esta propuesta. <br/>
           Te contactaremos por correo o teléfono.
         </h4>
-        <Button className={classNames(s.homeButton)} href='/'>Ir a la página principal</Button>
+        <Button bsStyle='primary'  className={classNames(s.homeButton)} href='/'>Ir a la página principal</Button>
       </div>
     );
   }

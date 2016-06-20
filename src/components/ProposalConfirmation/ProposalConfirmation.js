@@ -26,7 +26,7 @@ export default class ProposalConfirmation extends Component {
 					<h1>Potencial fecha</h1>
 					<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
 					<div className={classNames(s.confirmBtnWrapper)}>
-						<Button onClick={this.props.toNextStage} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
+						<Button bsStyle='primary' onClick={this.props.toNextStage} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
 					</div>
 				</div>
 			</div>

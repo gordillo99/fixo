@@ -58,7 +58,7 @@ export default class Questionnaire extends Component {
             )
           })}
           <div className={classNames(s.centralizedDiv)}>
-            <Button onClick={this._submitFinalAnswers.bind(this)} className={classNames(s.acceptBtn)} type="submit">
+            <Button bsStyle='primary' onClick={this._submitFinalAnswers.bind(this)} className={classNames(s.acceptBtn)} type="submit">
               Aceptar
             </Button>
           </div>

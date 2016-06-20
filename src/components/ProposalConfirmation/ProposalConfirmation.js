@@ -21,10 +21,12 @@ export default class ProposalConfirmation extends Component {
 					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<h1>Dirección</h1>
 					<p>{sel.address}</p>
+					<h1>Correo Electrónico</h1>
+					<p>{sel.email}</p>
 					<h1>Potencial fecha</h1>
 					<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
 					<div className={classNames(s.confirmBtnWrapper)}>
-						<Button className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
+						<Button onClick={this.props.toNextStage} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
 					</div>
 				</div>
 			</div>

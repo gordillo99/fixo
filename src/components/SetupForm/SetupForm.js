@@ -9,13 +9,13 @@ export default class SetupForm extends Component {
 
   _getValidationStateOfAddr() {
     const length = this.props.address.length;
-    if (length == 0) return 'error';
+    if (length === 0) return 'error';
     return 'success';
   }
 
-  _getValidationStateOfDetails() {
-    const length = this.props.details.length;
-    if (length == 0) return 'error';
+  _getValidationStateOfEmail() {
+    const length = this.props.email.length;
+    if (length === 0) return 'error';
     return 'success';
   }
 
@@ -34,8 +34,8 @@ export default class SetupForm extends Component {
                 <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
                   <FormControl value={this.props.address} onChange={this.props.updateAddress} type="text" placeholder="Dirección" />
                 </FormGroup>
-                <FormGroup validationState={this._getValidationStateOfDetails()} controlId="formControlsTextarea">
-                  <FormControl onChange={this.props.updateDetails} componentClass="textarea" placeholder="Detalles sobre el trabajo" />
+                <FormGroup validationState={this._getValidationStateOfEmail()} controlId="formControlsTextarea">
+                  <FormControl onChange={this.props.updateEmail} type="text" placeholder="Correo electrónico" />
                 </FormGroup>
                 <div className={classNames(s.datePicker)}>
                   <DatePicker

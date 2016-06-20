@@ -7,6 +7,7 @@ import SetupForm from './../../components/SetupForm';
 import AdditionalQuestions from './../../components/AdditionalQuestions';
 import FixerFinder from './../../components/FixerFinder';
 import ProposalConfirmation from './../../components/ProposalConfirmation';
+import ThankYouDisplay from './../../components/ThankYouDisplay';
 import s from './Setup.css';
 
 export default class Setup extends Component {
@@ -16,7 +17,7 @@ export default class Setup extends Component {
     this.state = {
       setupStage: 0,
       address: '',
-      details: '',
+      email: '',
       date: new Date(),
       morning: true,
       qsAndAs: {},
@@ -44,8 +45,8 @@ export default class Setup extends Component {
     this.setState({ address: e.target.value});
   }
 
-  _handleDetailsChange(e) {
-    this.setState({ details: e.target.value});
+  _handleEmailChange(e) {
+    this.setState({ email: e.target.value});
   }
 
   _handleTimeChange(e) {
@@ -65,11 +66,11 @@ export default class Setup extends Component {
         content = <SetupForm
                     updateDay={this._handleDayChange.bind(this)}
                     updateAddress={this._handleAddressChange.bind(this)}
-                    updateDetails={this._handleDetailsChange.bind(this)}
+                    updateEmail={this._handleEmailChange.bind(this)}
                     updateTime={this._handleTimeChange.bind(this)}
                     morning={this.state.morning}
                     date={this.state.date}
-                    details={this.state.details}
+                    email={this.state.email}
                     address={this.state.address}
                     toNextStage={this._nextStage.bind(this)}
                   />
@@ -84,7 +85,10 @@ export default class Setup extends Component {
         content = <FixerFinder toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
         break;
       case 3:
-        content = <ProposalConfirmation selection={this.state} />;
+        content = <ProposalConfirmation toNextStage={this._nextStage.bind(this)} selection={this.state} />;
+        break;
+      case 4:
+        content = <ThankYouDisplay />;
         break;
       default:
         content = null; 

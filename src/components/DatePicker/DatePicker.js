@@ -8,15 +8,18 @@ export default class DatePicker extends Component {
   
   constructor(props) {
     super(props);
-    selectedDay: this.props.selectedDay
+    this.handleDayClick = this.handleDayClick.bind(this);
   }
-  
-  _handleDayClick(e, day) {
+  state = {
+    selectedDay: null,
+  };
+  handleDayClick(e, day, { selected }) {
+    this.setState({
+      selectedDay: selected ? null : day,
+    });
     this.props.dayChange(day);
   }
-
   render() {
-
     let WEEKDAYS_LONG = {
       "en": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       "es": ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
@@ -41,18 +44,19 @@ export default class DatePicker extends Component {
       getFirstDayOfWeek: (locale='en') => FIRST_DAY[locale]
     };
 
+    const { selectedDay } = this.state;
     return (
       <div>
-        <DayPicker 
-          onDayClick={ this._handleDayClick.bind(this) } 
+        <DayPicker
+          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
+          onDayClick={this.handleDayClick}
           locale='es' 
           localeUtils={ localeUtils }
           disabledDays={ DateUtils.isPastDay }
-          firstDayOfWeek={0}
+          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
         />
-
       </div>
-    )
+    );
   }
 }
 

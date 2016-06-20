@@ -29,7 +29,7 @@ export default {
     login,
     //register,
     content,
-    //error,
+    error,
   ],
 
   async action({ next, render, context }) {

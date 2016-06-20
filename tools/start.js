@@ -86,10 +86,10 @@ async function start() {
     let handleServerBundleComplete = () => {
       runServer((err, host) => {
         if (!err) {
+          console.log("the flag DEBUG IS " + DEBUG);
           const bs = Browsersync.create();
           bs.init({
             ...(DEBUG ? {} : { notify: false, ui: false }),
-
             proxy: {
               target: host,
               middleware: [wpMiddleware, ...hotMiddlewares],

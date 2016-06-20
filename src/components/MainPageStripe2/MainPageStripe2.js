@@ -15,7 +15,7 @@ export default class MainPageStripe2 extends Component {
     let index = 0;
 
     return steps.map((step, index) => {
-      return <li className={classNames(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index++, steps.length)} </li>
+      return <li className={classNames(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index, steps.length)} </li>
     });
   }
 
@@ -43,7 +43,7 @@ export default class MainPageStripe2 extends Component {
   render() {
     return (
       <Jumbotron className={classNames(s.stripe2Jumbotron)}>
-        <h1 className={classNames(s.welcomePageHeader)}>¡Así de Fácil!</h1>
+        <h1 className={classNames(s.welcomePageHeader)}>¡Así de fácil!</h1>
         <ul>
           {this._createSteps()}
         </ul>

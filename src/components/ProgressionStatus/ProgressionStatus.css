@@ -1,0 +1,27 @@
+@import '../../components/variables.css';
+
+.root {
+	margin-bottom: 70px;
+}
+
+.inlineStages {
+	display: inline-block;
+	vertical-align: top;
+	padding: 0px 30px 0px 30px;
+}
+
+.listStyle {
+	padding-left: 0px;
+}
+
+.rightBorder {
+	border-right: solid white;
+}
+
+.withRightPadding {
+	padding-right: 0px;
+}
+
+.bolded {
+	font-weight: bold;
+}

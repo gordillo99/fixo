@@ -1,0 +1,57 @@
+@import '../../components/variables.css';
+
+.root {
+	
+}
+
+.stripeJumbotron {
+  color: black;
+  margin-bottom: 0px;
+  background-color: white;
+  height: 100%;
+}
+
+.inlineStages {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px 30px 0px 30px;
+}
+
+.noListStyle {
+  list-style: none;
+}
+
+.rightBorder {
+	border-right: thick solid white;
+}
+
+.withRightPadding {
+	padding-right: 30px;
+}
+
+.formWrapper {
+	margin: auto;
+	width: 440px;
+	text-align: left;
+}
+
+.centralizedDiv {
+  text-align: center;
+}
+
+.datePicker {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.morningAfternoonButtons {
+  margin-bottom: 30px;
+}
+
+.dateDesc {
+  margin-bottom: 30px;
+}
+
+.acceptBtn {
+  width: 120px;
+}

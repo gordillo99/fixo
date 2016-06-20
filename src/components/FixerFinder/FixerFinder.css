@@ -1,0 +1,46 @@
+@import '../variables.css';
+
+.root {
+  background: #333;
+  color: black;
+  background-color: white;
+}
+
+.container {
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.resultsWrapper {
+	margin: 30px auto;
+  width: 440px;
+}
+
+.panelStyle {
+	text-align: left;
+}
+
+.selectedPanel {
+  border: 2px solid green;
+}
+
+.inlineFixerEles {
+  display: inline-block;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.fixerImage {
+	padding-right: 10px;
+}
+
+.loadingTitle {
+	padding-top: 20px;
+}
+
+.acceptButton {
+  margin-bottom: 20px;
+}

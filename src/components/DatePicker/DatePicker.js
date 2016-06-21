@@ -47,7 +47,14 @@ export default class DatePicker extends Component {
     const { selectedDay } = this.state;
     return (
       <div>
-        
+        <DayPicker
+          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
+          onDayClick={this.handleDayClick}
+          locale='es' 
+          localeUtils={ localeUtils }
+          disabledDays={ DateUtils.isPastDay }
+          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
+        />
       </div>
     );
   }

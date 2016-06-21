@@ -24,7 +24,8 @@ export default class AdditionalQuestions extends Component {
                   { q: '¿Qué tipo de trabajo es?', a: 'Reparación', type: 'select', opts: ['Reparación', 'Instalación', 'Mejora']},
                   { q: '¿En qué ambiente?', a: 'Comedor', type: 'select', opts: [ 'Comedor', 'Cocina', 'Sala', 'Dormitorios' ] },
                   { q: '¿Tiene los materiales para el proyecto?', a: 'Sí', opts: ['Sí', 'No, necesito que el fixer lo compre'] , type: 'select'},
-                  { q: '¿Tiene las herramientas necesarias para el proyecto?', a: 'Sí', opts: ['Sí', 'No, necesito que el fixer traiga'] , type: 'select'}
+                  { q: '¿Tiene las herramientas necesarias para el proyecto?', a: 'Sí', opts: ['Sí', 'No, necesito que el fixer traiga'] , type: 'select'},
+                  { q: 'Selecciona una imagen (opcional)', a: '', type: 'upload'}
                 ]; 
         break;
       case 'painting':

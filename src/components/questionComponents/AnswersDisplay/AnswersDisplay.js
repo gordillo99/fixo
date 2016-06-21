@@ -11,12 +11,20 @@ export default class AnswersDisplay extends Component {
     return (
     	<Panel collapsible header='Información adicional'>
 	        <ListGroup fill>
-	        	{this.props.qsAndAs.map((qAndA, index) => { return (
+	        	{this.props.qsAndAs.map((qAndA, index) => {
+	        		if (qAndA.a === null || qAndA.a === '') return; 
+	        		let answer = null;
+	        		if (qAndA.type === 'upload') {
+	        			answer = <img height='80px' widt='80px' src={URL.createObjectURL(qAndA.a)} alt='image'/>
+	        		} else {
+	        			answer = <p>{qAndA.a}</p>
+	        		}
+	        		return (
 					<ListGroupItem key={'lgi-' + index}>
 						<h4>{qAndA.q}</h4>
-						<p>{qAndA.a}</p>
+						{answer}
 					</ListGroupItem>
-				)})};
+				)})}
 	        </ListGroup>
 	    </Panel>
     );

@@ -17,14 +17,14 @@ export default class ProposalConfirmation extends Component {
 				<div className={classNames(s.leftAlignedDiv)}>
 					<h1>Fixer seleccionado</h1>
 					<FixerPanel fixer={sel.selectedFixer} showSelected={false} />
-					<h1>Preguntas adicionales</h1>
-					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<h1>Dirección</h1>
 					<p>{sel.address}</p>
 					<h1>Correo Electrónico</h1>
 					<p>{sel.email}</p>
 					<h1>Potencial fecha</h1>
 					<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
+					<h1>Preguntas adicionales</h1>
+					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<div className={classNames(s.confirmBtnWrapper)}>
 						<Button bsStyle='primary' onClick={this.props.toNextStage} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
 					</div>

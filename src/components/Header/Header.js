@@ -27,8 +27,7 @@ function Header() {
   return (
       <div>
         <Navbar fixedTop>
-          <Navbar.Header>
-            <Navbar.Brand className={classNames(s.headerHeight)}>
+
               <a href='/'>
                 <img
                   src={fixoLogo}
@@ -36,9 +35,7 @@ function Header() {
                   width='80px'
                 />
               </a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
+
             <Nav pullRight>
               <ul className={classNames(s.noListStyle)}>
                 {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }

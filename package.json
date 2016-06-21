@@ -176,6 +176,6 @@
     "build": "node_modules/.bin/babel-node tools/run build -- --release",
     "deploy": "node_modules/.bin/babel-node tools/run deploy",
     "render": "node_modules/.bin/babel-node tools/run render",
-    "start": "node_modules/.bin/babel-node tools/run start && node_modules/.bin/babel-node tools/run build -- --release"
+    "start": "node_modules/.bin/babel-node tools/run build -- --release && node_modules/.bin/babel-node tools/run start"
   }
 }

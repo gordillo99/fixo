@@ -9,16 +9,21 @@ export default class DatePicker extends Component {
   constructor(props) {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
+    this.state = {
+      selectedDay: null,
+    };
   }
-  state = {
-    selectedDay: null,
-  };
+  
   handleDayClick(e, day, { selected }) {
-    this.setState({
-      selectedDay: selected ? null : day,
-    });
-    this.props.dayChange(day);
+    let today = new Date();
+    if (day >= today) {
+      this.setState({
+        selectedDay: selected ? null : day,
+      });
+      this.props.dayChange(day); 
+    }
   }
+
   render() {
     let WEEKDAYS_LONG = {
       "en": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],

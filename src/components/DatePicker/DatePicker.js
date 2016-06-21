@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import s from './DatePicker.style';
+//import s from './DatePicker.style';
+import s from './DatePicker.css';
 
 export default class DatePicker extends Component {
   

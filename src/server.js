@@ -26,6 +26,8 @@ import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, auth, analytics } from './config';
 import usersRest from './../routes/users.js';
 import fixersRest from './../routes/fixers.js';
+import areasRest from './../routes/areas.js';
+import proposalsRest from './../routes/proposals.js';
 
 const app = express();
 
@@ -41,14 +43,15 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // -----------------------------------------------------------------------------
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+app.use(bodyParser.json({limit:1024*1024*20, type:'application/json'}));
+app.use(bodyParser.urlencoded({ extended:true,limit:1024*1024*20,type:'application/x-www-form-urlencoding' }));
 //
 // Routes Setup
 //
 app.use('/api/users', usersRest);
 app.use('/api/fixers', fixersRest);
+app.use('/api/areas', areasRest);
+app.use('/api/proposals', proposalsRest);
 
 //
 // Authentication

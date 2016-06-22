@@ -8,6 +8,7 @@ import AdditionalQuestions from './../../components/AdditionalQuestions';
 import FixerFinder from './../../components/FixerFinder';
 import ProposalConfirmation from './../../components/ProposalConfirmation';
 import ThankYouDisplay from './../../components/ThankYouDisplay';
+import $ from 'jquery';
 import s from './Setup.css';
 
 export default class Setup extends Component {
@@ -17,16 +18,18 @@ export default class Setup extends Component {
     this.state = {
       setupStage: 0,
       address: '',
+      phone: '',
       email: '',
       date: new Date(),
       morning: true,
       qsAndAs: {},
-      selectedFixer: {}
+      selectedFixer: {},
+      area: '1',
+      areas: []
     };
   }
 
   _handleAnswers(answAndQs) {
-    console.log(answAndQs);
     this.setState( {  
                       setupStage: ++this.state.setupStage,
                       qsAndAs: answAndQs
@@ -41,8 +44,16 @@ export default class Setup extends Component {
     this.setState( { selectedFixer: fixer } );
   }
 
+  _handleAreaChange(e) {
+    this.setState({ area: e.target.value});
+  }
+
   _handleAddressChange(e) {
     this.setState({ address: e.target.value});
+  }
+
+  _handlePhoneChange(e) {
+    this.setState({ phone: e.target.value});
   }
 
   _handleEmailChange(e) {
@@ -58,6 +69,21 @@ export default class Setup extends Component {
     this.setState({ setupStage: ++this.state.setupStage });
   }
 
+  componentWillMount() {
+    $.ajax({
+      url: '/api/areas/crud',
+      type: 'GET',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState( { areas: data } );
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }.bind(this)
+    });
+  }
+
   render() {
     let content = null;
 
@@ -68,11 +94,16 @@ export default class Setup extends Component {
                     updateAddress={this._handleAddressChange.bind(this)}
                     updateEmail={this._handleEmailChange.bind(this)}
                     updateTime={this._handleTimeChange.bind(this)}
+                    updatePhone={this._handlePhoneChange.bind(this)}
+                    updateArea={this._handleAreaChange.bind(this)}
                     morning={this.state.morning}
                     date={this.state.date}
                     email={this.state.email}
                     address={this.state.address}
+                    area={this.state.area}
+                    phone={this.state.phone}
                     toNextStage={this._nextStage.bind(this)}
+                    areas={this.state.areas}
                   />
         break;
       case 1:
@@ -82,7 +113,7 @@ export default class Setup extends Component {
                   />
         break;
       case 2:
-        content = <FixerFinder toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
+        content = <FixerFinder area={this.state.area} toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
         break;
       case 3:
         content = <ProposalConfirmation toNextStage={this._nextStage.bind(this)} selection={this.state} />;

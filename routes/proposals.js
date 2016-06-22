@@ -12,7 +12,7 @@ var cn = {
 };
 
 var db = pgp(cn);
-var createProposal = function(fixerID, userID, date, email, address, area, ) {
+/*var createProposal = function() {
   var fs = require('fs');
   // read in image in raw format (as type Buffer):
   fs.readFile(__dirname+'/../routes/'+req.body.profilepic, function (err, imgData) {
@@ -30,18 +30,18 @@ var createProposal = function(fixerID, userID, date, email, address, area, ) {
           res.send(error);    
     });
   });
-});
+});*/
 
 
 
 router.route('/crud')
 
   .post(function(req, res) {
-
+    console.log(req.body);
     var sampleFile;
-
+/*
     if (!req.files) {
-        res.send('No files were uploaded.');
+        //res.send('No files were uploaded.');
         return;
     }
 
@@ -53,9 +53,8 @@ router.route('/crud')
         else {
             res.send('File uploaded!');
         }
-    });
-
-
+    });*/
+  });
 
     
 

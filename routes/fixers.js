@@ -12,13 +12,13 @@ var cn = {
 
 var db = pgp(cn);
 
-router.route('/crud')
+router.route('/crud/:area')
 
   .get(function(req, res) {
     db.manyOrNone({
       name: "find-user",
-      text: "select * from fixers",
-      values: []
+      text: "select * from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1)",
+      values: [req.params.area]
     })
       .then(function (fixers) {
           res.send(fixers);

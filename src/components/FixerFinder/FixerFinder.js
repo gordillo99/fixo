@@ -19,7 +19,7 @@ export default class FixerFinder extends Component {
 
 	componentWillMount() {
 		$.ajax({
-	      	url: '/api/fixers/crud',
+	      	url: '/api/fixers/crud/' + this.props.area,
 	      	type: 'GET',
 	      	dataType: 'json',
 	      	cache: false,

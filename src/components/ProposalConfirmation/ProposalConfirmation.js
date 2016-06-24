@@ -11,6 +11,24 @@ import s from './ProposalConfirmation.css';
 export default class ProposalConfirmation extends Component {
 
 	_createProposal(sel) {
+		let image = false,
+			object = sel.qsAndAs,
+			stringQsAndAs = '';
+		for (let property in object) {
+		    if (object.hasOwnProperty(property)) {
+		        if (object[property].type === 'upload') {
+		        	image = object[property].q+'*'+object[property].a;
+		        	delete object[property];
+		        } else {
+		        	console.log(object[property].a);
+		        	stringQsAndAs += object[property].q + '*' + object[property].a + '*';
+		        }
+		    }
+		}
+
+		stringQsAndAs = stringQsAndAs.slice(0,-1);
+		console.log(sel);
+		console.log(image);
 		$.ajax({
 	      	url: '/api/proposals/crud/',
 	      	type: 'POST',
@@ -19,11 +37,13 @@ export default class ProposalConfirmation extends Component {
 	      		address: sel.address,
 	      		phone: sel.phone,
 	      		email: sel.email,
-	      		date: sel.date,
-	      		morning: sel.morning,
-	      		qsAndAs: sel.qsAndAs,
-	      		fixer: sel.selectedFixer,
-	      		area: { id: sel.area, description: sel.areas[Number(sel.area) - 1].description }
+	      		date: (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear(),
+	      		morning: sel.morning ? 0 : 1,
+	      		qsAndAs: stringQsAndAs,
+	      		fixer_id: sel.selectedFixer.fixer_id,
+	      		user_id: 1, //TODO: change later
+	      		area: sel.area,
+	      		image: image
 	      	},
 	      	cache: false,
 	      	success: function(data) {

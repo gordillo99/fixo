@@ -43,8 +43,15 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // -----------------------------------------------------------------------------
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use(bodyParser.json({limit:1024*1024*20, type:'application/json'}));
-app.use(bodyParser.urlencoded({ extended:true,limit:1024*1024*20,type:'application/x-www-form-urlencoding' }));
+app.use(bodyParser.urlencoded({ 
+    extended: false,
+    parameterLimit: 10000,
+    limit: 1024 * 1024 * 10 }));
+app.use(bodyParser.json({ 
+    extended: false,
+    parameterLimit: 10000,
+    limit: 1024 * 1024 * 10 }));
+
 //
 // Routes Setup
 //

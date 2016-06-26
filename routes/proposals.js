@@ -36,7 +36,7 @@ var createImageQuestions = function(id) {
 
 var createTxtQuestions = function(id, callback) {
 
-  let values = [],
+  var values = [],
       counter = 1,
       query = '',
       partsOfQsAndAs = data.qsAndAs.split('*');

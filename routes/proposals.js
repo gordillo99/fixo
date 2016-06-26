@@ -34,7 +34,7 @@ var createImageQuestions = function(id) {
   });
 }
 
-var createTxtQuestions = function(id, callback=null) {
+var createTxtQuestions = function(id, callback) {
 
   let values = [],
       counter = 1,

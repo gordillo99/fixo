@@ -11,41 +11,42 @@ import s from './ProposalConfirmation.css';
 export default class ProposalConfirmation extends Component {
 
 	_createProposal(sel) {
-		let image = false,
+		var image = false,
 			object = sel.qsAndAs,
-			stringQsAndAs = '';
+			stringQsAndAs = '',
+			proposal_id = '';
 		for (let property in object) {
 		    if (object.hasOwnProperty(property)) {
 		        if (object[property].type === 'upload') {
-		        	image = object[property].q+'*'+object[property].a;
+		        	image = object[property].a;
 		        	delete object[property];
 		        } else {
-		        	console.log(object[property].a);
 		        	stringQsAndAs += object[property].q + '*' + object[property].a + '*';
 		        }
 		    }
 		}
-
 		stringQsAndAs = stringQsAndAs.slice(0,-1);
-		console.log(sel);
-		console.log(image);
+
+		var formData = new FormData();
+		formData.append('address', sel.address);
+		formData.append('phone', sel.phone);
+		formData.append('email', sel.email);
+		formData.append('date', (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear());
+		formData.append('morning', sel.morning ? 0 : 1);
+		formData.append('qsAndAs', stringQsAndAs);
+		formData.append('fixer_id', sel.selectedFixer.fixer_id);
+		formData.append('user_id', 1); //TODO: change later
+		formData.append('area', sel.area);
+		formData.append('image', image);
+
 		$.ajax({
 	      	url: '/api/proposals/crud/',
 	      	type: 'POST',
 	      	dataType: 'json',
-	      	data: {
-	      		address: sel.address,
-	      		phone: sel.phone,
-	      		email: sel.email,
-	      		date: (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear(),
-	      		morning: sel.morning ? 0 : 1,
-	      		qsAndAs: stringQsAndAs,
-	      		fixer_id: sel.selectedFixer.fixer_id,
-	      		user_id: 1, //TODO: change later
-	      		area: sel.area,
-	      		image: image
-	      	},
+	      	data: formData,
 	      	cache: false,
+	      	contentType: false,
+    		processData: false,
 	      	success: function(data) {
 	      		console.log('Proposal created successfully');
 	      	}.bind(this),

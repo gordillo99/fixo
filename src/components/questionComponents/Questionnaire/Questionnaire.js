@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Button, FormGroup, ControlLabel, FormControl, Jumbotron } from 'react-bootstrap';
+import { Button, FormGroup, ControlLabel, FormControl, Jumbotron, HelpBlock } from 'react-bootstrap';
+import $ from 'jquery';
 import s from './Questionnaire.css';
 
 export default class Questionnaire extends Component {
@@ -15,6 +16,17 @@ export default class Questionnaire extends Component {
   _submitFinalAnswers(event) {
     event.preventDefault();
     this.props.submitFinalAnswers(this.props.qsAndAs);
+  }
+
+  _updateAttachedImage(index, event) {
+    let tempQsAndAs = this.props.qsAndAs;
+    tempQsAndAs[index].a = $(event.target)[0].files[0];
+    // if the image size is bigger than 2 MB, return
+    if (tempQsAndAs[index].a.size > 200000) {
+      alert('Este archivo no sera subido. El límite es 2 MB.');
+      return;
+    }
+    this.props.updateAnswers(tempQsAndAs);
   }
 
   render() {
@@ -41,6 +53,12 @@ export default class Questionnaire extends Component {
                             className={classNames(s.qAnswers)}
                             value={this.props.qsAndAs.a}
                           />
+                break;
+              case 'upload':
+                prompt =  <div>
+                            <FormControl type="file" onChange={this._updateAttachedImage.bind(this, index)} />
+                            <HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+                          </div>
                 break;
               default:
                 prompt = null;

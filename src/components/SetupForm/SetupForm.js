@@ -13,6 +13,12 @@ export default class SetupForm extends Component {
     return 'success';
   }
 
+  _getValidationStateOfPhone() {
+    const length = this.props.phone.length;
+    if (length < 8) return 'error';
+    return 'success';
+  }
+
   _getValidationStateOfEmail() {
     const length = this.props.email.length;
     if (length === 0) return 'error';
@@ -31,12 +37,18 @@ export default class SetupForm extends Component {
           <div className={classNames(s.root)}>
             <div className={classNames(s.formWrapper)}>
               <form>
-                <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
-                  <FormControl value={this.props.address} onChange={this.props.updateAddress} type="text" placeholder="Dirección" />
+                <FormGroup validationState={this._getValidationStateOfPhone()} controlId="formControlsTextarea">
+                  <FormControl onChange={this.props.updatePhone} type="text" placeholder="Número de teléfono" />
                 </FormGroup>
                 <FormGroup validationState={this._getValidationStateOfEmail()} controlId="formControlsTextarea">
                   <FormControl onChange={this.props.updateEmail} type="text" placeholder="Correo electrónico" />
                 </FormGroup>
+                <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
+                  <FormControl value={this.props.address} onChange={this.props.updateAddress} type="text" placeholder="Dirección" />
+                </FormGroup>
+                <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea}>
+                  {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
+                </FormControl>
                 <div className={classNames(s.datePicker)}>
                   <DatePicker
                     dayChange={this.props.updateDay}

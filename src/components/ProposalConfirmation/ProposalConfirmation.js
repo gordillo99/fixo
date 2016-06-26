@@ -10,23 +10,75 @@ import s from './ProposalConfirmation.css';
 
 export default class ProposalConfirmation extends Component {
 
+	_createProposal(sel) {
+		var image = false,
+			object = sel.qsAndAs,
+			stringQsAndAs = '',
+			proposal_id = '';
+		for (let property in object) {
+		    if (object.hasOwnProperty(property)) {
+		        if (object[property].type === 'upload') {
+		        	image = object[property].a;
+		        	delete object[property];
+		        } else {
+		        	stringQsAndAs += object[property].q + '*' + object[property].a + '*';
+		        }
+		    }
+		}
+		stringQsAndAs = stringQsAndAs.slice(0,-1);
+
+		var formData = new FormData();
+		formData.append('address', sel.address);
+		formData.append('phone', sel.phone);
+		formData.append('email', sel.email);
+		formData.append('date', (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear());
+		formData.append('morning', sel.morning ? 0 : 1);
+		formData.append('qsAndAs', stringQsAndAs);
+		formData.append('fixer_id', sel.selectedFixer.fixer_id);
+		formData.append('user_id', 1); //TODO: change later
+		formData.append('area', sel.area);
+		formData.append('image', image);
+
+		$.ajax({
+	      	url: '/api/proposals/crud/',
+	      	type: 'POST',
+	      	dataType: 'json',
+	      	data: formData,
+	      	cache: false,
+	      	contentType: false,
+    		processData: false,
+	      	success: function(data) {
+	      		console.log('Proposal created successfully');
+	      	}.bind(this),
+	      	error: function(xhr, status, err) {
+	       		console.log(err);
+	      	}.bind(this)
+	    });
+	    this.props.toNextStage();
+	}
+
 	render() {
 		let sel = this.props.selection;
+		let areaDesc = sel.areas[Number(sel.area) - 1].description;
 		return(
 			<div className={classNames(s.containerDiv)}>
 				<div className={classNames(s.leftAlignedDiv)}>
 					<h1>Fixer seleccionado</h1>
 					<FixerPanel fixer={sel.selectedFixer} showSelected={false} />
-					<h1>Preguntas adicionales</h1>
-					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<h1>Dirección</h1>
 					<p>{sel.address}</p>
+					<h1>Área</h1>
+					<p>{areaDesc}</p>
+					<h1>Número de teléfono</h1>
+					<p>{sel.phone}</p>
 					<h1>Correo Electrónico</h1>
 					<p>{sel.email}</p>
 					<h1>Potencial fecha</h1>
 					<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
+					<h1>Preguntas adicionales</h1>
+					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<div className={classNames(s.confirmBtnWrapper)}>
-						<Button bsStyle='primary' onClick={this.props.toNextStage} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
+						<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
 					</div>
 				</div>
 			</div>

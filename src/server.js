@@ -28,6 +28,8 @@ import usersRest from './../routes/users.js';
 import fixersRest from './../routes/fixers.js';
 import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
+import fbRest from './../routes/facebook.js';
+import logoutRest from './../routes/logout.js';
 
 const app = express();
 
@@ -59,6 +61,8 @@ app.use('/api/users', usersRest);
 app.use('/api/fixers', fixersRest);
 app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
+app.use('/api/facebook', fbRest);
+app.use('/api/logout', logoutRest);
 
 //
 // Authentication
@@ -73,12 +77,12 @@ app.use(expressJwt({
 app.use(passport.initialize());
 
 app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
+  passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: false })
 );
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
   (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
+    const expiresIn = 60 * 20; // 20 min
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect('/');

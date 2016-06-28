@@ -29,41 +29,4 @@ router.route('/crud')
       });
   });
 
-
-
-  /*
-      .post(function(req, res) {
-
-        var video = new Video();
-        video.title = req.body.title;
-
-        video.save(function(err) {
-      if (err)
-        res.send(err);
-
-      res.json({ message: 'Video criado!' });
-    });
-
-
-      })
-
-  */
-
-  /*
-
-  var fs = require('fs');
-
-  // read in image in raw format (as type Buffer):
-  fs.readFile('image.jpg', function (err, imgData) {
-      // inserting data into column 'img' of type 'bytea':
-      db.none('insert into images(img) values ($1)', imgData)
-          .then(function () {
-              // success;
-          })
-          .catch(function (error) {
-              console.log("ERROR:", error.message || error);
-          });
-  });
-  */
-
 module.exports = router;

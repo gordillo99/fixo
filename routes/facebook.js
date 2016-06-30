@@ -19,19 +19,16 @@ var db = pgp(cn);
 router.route('/logout')
 
   .get(function (req, res){
-    req.logOut()
-    res.redirect('/')
+    req.logout();
+    res.redirect('/');
   });
 
 router.route('/isLoggedIn')
 
-  .get(function (req, res){
-    console.log('is isAuthenticated ' + req.isAuthenticated());
-    if (req.isAuthenticated()) {
+  .get(require('connect-ensure-login').ensureLoggedIn('/login'),
+    function(req, res) {
       res.send(true);
-    }
-    res.send(false);
-  });
+    });
     
 
 module.exports = router;

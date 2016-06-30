@@ -75,6 +75,7 @@ app.use(expressJwt({
   /* jscs:enable requireCamelCaseOrUpperCaseIdentifiers */
 }));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: false })
@@ -82,6 +83,7 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
   (req, res) => {
+    console.log('in the return callback');
     const expiresIn = 60 * 20; // 20 min
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });

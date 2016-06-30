@@ -12,6 +12,7 @@
     "body-parser": "1.15.1",
     "bootstrap": "^3.3.6",
     "classnames": "2.2.5",
+    "connect-ensure-login": "^0.1.1",
     "cookie-parser": "1.4.3",
     "core-js": "2.4.0",
     "eventemitter3": "1.2.0",

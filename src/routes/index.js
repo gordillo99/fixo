@@ -28,7 +28,7 @@ export default {
     setup,
     login,
     //register,
-    //content,
+    content,
     error,
   ],
 

@@ -7,47 +7,24 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { Component }  from 'react';
+import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import fixoLogo from './fixo.png';
-import $ from 'jquery';
 import s from './Header.css';
 
-export default class Header extends Component {
+function Header() {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false
-    };
+  let rightSideComponents;
+
+  if (false) {
+    rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "/logout" }]
+  } else {
+    rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } , { id: 3, text: "Registrarse", href: "/logout" } ];
   }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/api/facebook/isLoggedIn',
-      type: 'GET',
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        console.log('data ' + data);
-        this.setState({ isLoggedIn: data });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-      }.bind(this)
-    });
-  }
-
-  render() {
-    let rightSideComponents;
-    if (this.state.isLoggedIn) {
-      rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "/api/facebook/logout" }]
-    } else {
-      rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" }, { id: 1, text: "Cerrar Sesión", href: "/api/facebook/logout" } ];
-    }
-    return (
+  return (
       <div>
         <Navbar fixedTop>
 
@@ -67,7 +44,6 @@ export default class Header extends Component {
         </Navbar>
       </div>
     );
-  }
 }
 
 export default withStyles(s)(Header);

@@ -10,7 +10,7 @@ var cn = {
     password: 'Jjnl8YHvHHOrLN5YMEm8KyYnc0',
     ssl: true
 };
-var {Facebook, FacebookApiException} = require('fb'),
+var FB = require('fb');,
     options = {version: 'v2.6', appId: '519953108211951', appSecret: '0d15bf3ba472f484779944f31c6f2b4b'};
     fb = new Facebook(options);
 

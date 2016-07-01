@@ -26,7 +26,7 @@ export default class Navigation extends Component {
   componentDidMount() {
     $.ajax({
       url: '/isLoggedIn',
-      type: 'POST',
+      type: 'GET',
       dataType: 'json',
       cache: false,
       success: function(data) {

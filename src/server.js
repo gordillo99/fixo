@@ -91,6 +91,12 @@ app.get('/login/facebook/return',
   }
 );
 
+app.get('/isLoggedIn', (req, res) => {
+    res.send(req.user);
+  }
+);
+
+
 //
 // Register API middleware
 // -----------------------------------------------------------------------------

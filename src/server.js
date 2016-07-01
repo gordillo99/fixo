@@ -87,7 +87,7 @@ app.get('/login/facebook/return',
     const expiresIn = 60 * 20; // 20 min
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
+    res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
   }
 );
 
@@ -95,7 +95,6 @@ app.get('/isLoggedIn', (req, res) => {
     res.send(req.user);
   }
 );
-
 
 //
 // Register API middleware

@@ -46,3 +46,18 @@ export const auth = {
   },
 
 };
+
+
+// Database config
+var pgp = require('pg-promise')();
+
+var cn = {
+    host: 'ec2-50-17-237-148.compute-1.amazonaws.com',
+    port: 5432,
+    database: 'd3bfagflcfut23',
+    user: 'ttqxcdmuatxrvw',
+    password: 'Jjnl8YHvHHOrLN5YMEm8KyYnc0',
+    ssl: true
+};
+
+export const db = pgp(cn);

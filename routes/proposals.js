@@ -1,3 +1,4 @@
+var connection = require('../src/config.js');
 var express = require('express');
 var router = express.Router();
 var pgp = require('pg-promise')();
@@ -5,22 +6,13 @@ var fileUpload = require('express-fileupload');
 var multer = require('multer');
 var app = express();
 
-var cn = {
-    host: 'ec2-50-17-237-148.compute-1.amazonaws.com',
-    port: 5432,
-    database: 'd3bfagflcfut23',
-    user: 'ttqxcdmuatxrvw',
-    password: 'Jjnl8YHvHHOrLN5YMEm8KyYnc0',
-    ssl: true
-};
 
-var db = pgp(cn);
 var data;
 var imageData = null;
 
 var createImageQuestions = function(id) {
 
-  db.none({
+  connection.db.none({
     name: "create-image-questions",
     text: "insert into add_questions_image (proposal_id, question, answer) values ($1, $2, $3);",
     values: [id, 'Image añadida', imageData]
@@ -50,7 +42,7 @@ var createTxtQuestions = function(id, callback) {
 
   query = query.slice(0,-1) + ';';
 
-  db.none({
+  connection.db.none({
     name: "create-txt-questions",
     text: "insert into add_questions_txt (proposal_id, question, answer) values " + query,
     values: values
@@ -69,7 +61,7 @@ var createTxtQuestions = function(id, callback) {
 };
 
 var createProposal = function() {
-  db.one({
+  connection.db.one({
     name: "create-proposal",
     text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning id;",
     values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning]

@@ -7,27 +7,66 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
-import cx from 'classnames';
+import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import classNames from 'classnames';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import fixoLogo from './fixo.png';
+import $ from 'jquery';
 import s from './Navigation.css';
-import Link from '../Link';
 
-function Navigation({ className }) {
-  return (
-    <div className={cx(s.root, className)} role="navigation">
-      <Link className={s.link} to="/about">About</Link>
-      <Link className={s.link} to="/contact">Contact</Link>
-      <span className={s.spacer}> | </span>
-      <Link className={s.link} to="/login">Log in</Link>
-      <span className={s.spacer}>or</span>
-      <Link className={cx(s.link, s.highlight)} to="/register">Sign up</Link>
-    </div>
-  );
+export default class Navigation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false
+    };
+  }
+
+  componentDidMount() {
+    $.ajax({
+      url: '/isLoggedIn',
+      type: 'POST',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        console.log('data ' + data);
+        this.setState({ isLoggedIn: data });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }.bind(this)
+    });
+  }
+  
+  render() {
+    let rightSideComponents;
+
+    if (this.state.isLoggedIn) {
+      rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "/logout" }]
+    } else {
+      rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } , { id: 3, text: "Registrarse", href: "/logout" } ];
+    }
+    return (
+      <div>
+        <Navbar fixedTop>
+          <a href='/'>
+            <img
+              src={fixoLogo}
+              height='60px'
+              width='80px'
+            />
+          </a>
+
+          <Nav pullRight>
+            <ul className={classNames(s.noListStyle)}>
+              {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
+            </ul>
+          </Nav>
+        </Navbar>
+      </div>
+    );
+  }
 }
-
-Navigation.propTypes = {
-  className: PropTypes.string,
-};
 
 export default withStyles(s)(Navigation);

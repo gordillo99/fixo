@@ -15,19 +15,15 @@ var FB = require('fb'),
 
 var db = pgp(cn);
 
-router.route('/logout')
 
-  .get(function (req, res){
-    req.logout();
-    res.redirect('/');
+/*
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.render('profile', { user: req.user });
   });
 
-router.route('/isLoggedIn')
-
-  .get(require('connect-ensure-login').ensureLoggedIn('/login'),
-    function(req, res) {
-      res.send(true);
-    });
-    
+*/
 
 module.exports = router;

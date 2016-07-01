@@ -12,6 +12,7 @@
 
 export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
+const prodFlag = process.env.NODE_ENV === 'production';
 
 export const databaseUrl = 'postgres://ttqxcdmuatxrvw:Jjnl8YHvHHOrLN5YMEm8KyYnc0@ec2-50-17-237-148.compute-1.amazonaws.com:5432/d3bfagflcfut23?ssl=true' || 'sqlite:database.sqlite';
 
@@ -28,8 +29,8 @@ export const auth = {
 
   // https://developers.facebook.com/
   facebook: {
-    id: process.env.FACEBOOK_APP_ID || '519953108211951',
-    secret: process.env.FACEBOOK_APP_SECRET || '0d15bf3ba472f484779944f31c6f2b4b',
+    id: process.env.FACEBOOK_APP_ID || (prodFlag ? '519953108211951' : '525530924320836'),
+    secret: process.env.FACEBOOK_APP_SECRET || (prodFlag ? '0d15bf3ba472f484779944f31c6f2b4b' : '5ac2d619e317dff09bac04497b311679') ,
   },
 
   // https://cloud.google.com/console/project

@@ -26,8 +26,7 @@ passport.use(new FacebookStrategy({
   clientSecret: config.facebook.secret,
   callbackURL: '/login/facebook/return',
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-  passReqToCallback: true,
-  redirect_uri: '/'
+  passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
   /* eslint-disable no-underscore-dangle */
   return done(null, profile);

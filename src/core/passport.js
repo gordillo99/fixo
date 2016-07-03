@@ -16,7 +16,13 @@
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { User, UserLogin, UserClaim, UserProfile } from '../data/models';
-import { auth as config } from '../config';
+import { db, auth as config } from '../config';
+
+export var fbId;
+export var name;
+export var profileUrl;
+export var emails;
+export var gender;
 
 /**
  * Sign in with Facebook.
@@ -30,10 +36,48 @@ passport.use(new FacebookStrategy({
 }, (req, accessToken, refreshToken, profile, done) => {
   /* eslint-disable no-underscore-dangle */
 
+  fbId = profile.id;
+  name = profile.name;
+  profileUrl = profile.profileUrl;
+  emails = profile.emails;
+  gender = profile.gender;
 
+  let genderForDb;
 
-  
-  return done(null, profile);
+  switch(gender) {
+  	case 'male':
+  	  genderForDb = 0;
+  	  break;
+  	case 'female':
+  	  genderForDb = 1;
+  	  break;
+  	default:
+  	  genderForDb = 2;
+  	  break;
+  }
+
+  db.manyOrNone({
+    name: "create-users",
+    text: "insert into users (id, firstname, lastname, email, age, gender, address, profilepic, usertype) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);",
+	values: [ fbId, name.givenName, name.familyName, emails[0].value, null, genderForDb, '', null, 3 ]
+  })
+  	.then(function (areas) {
+      return done(null, profile);
+	})
+	.catch(function (error) {
+	  //console.log(error);
+	  return done(null, profile); 
+	});
 }));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 export default passport;

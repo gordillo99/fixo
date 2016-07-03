@@ -38,14 +38,29 @@ export default class Navigation extends Component {
       }.bind(this)
     });
   }
+
+  _logout() {
+    $.ajax({
+      url: '/logout',
+      type: 'GET',
+      dataType: 'json',
+      cache: false,
+      success: function() {
+        this.setState({ isLoggedIn: false });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }.bind(this)
+    });
+  }
   
   render() {
     let rightSideComponents;
 
     if (this.state.isLoggedIn) {
-      rightSideComponents = [ { id: 0, text: "Perfil", href: "#" } , { id: 1, text: "Cerrar Sesión", href: "/logout" }]
+      rightSideComponents = [ { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
     } else {
-      rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } , { id: 3, text: "Registrarse", href: "/logout" } ];
+      rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } ];
     }
     return (
       <div>
@@ -60,7 +75,7 @@ export default class Navigation extends Component {
 
           <Nav pullRight>
             <ul className={classNames(s.noListStyle)}>
-              {rightSideComponents.map( (navbarLink) => { return <li className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
+              {rightSideComponents.map( (navbarLink) => { return <li onClick={navbarLink.method} className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
             </ul>
           </Nav>
         </Navbar>

@@ -12,8 +12,9 @@
 
 export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
+const prodFlag = process.env.NODE_ENV === 'production';
 
-export const databaseUrl = '' || 'sqlite:database.sqlite';
+export const databaseUrl = 'postgres://ttqxcdmuatxrvw:Jjnl8YHvHHOrLN5YMEm8KyYnc0@ec2-50-17-237-148.compute-1.amazonaws.com:5432/d3bfagflcfut23?ssl=true' || 'sqlite:database.sqlite';
 
 export const analytics = {
 
@@ -24,12 +25,12 @@ export const analytics = {
 
 export const auth = {
 
-  jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
+  jwt: { secret: process.env.JWT_SECRET || 'este es el secreto mas importante de la galaxia' },
 
   // https://developers.facebook.com/
   facebook: {
-    id: process.env.FACEBOOK_APP_ID || '186244551745631',
-    secret: process.env.FACEBOOK_APP_SECRET || 'a970ae3240ab4b9b8aae0f9f0661c6fc',
+    id: process.env.FACEBOOK_APP_ID || (prodFlag ? '519953108211951' : '525530924320836'),
+    secret: process.env.FACEBOOK_APP_SECRET || (prodFlag ? '0d15bf3ba472f484779944f31c6f2b4b' : '5ac2d619e317dff09bac04497b311679') ,
   },
 
   // https://cloud.google.com/console/project
@@ -45,3 +46,18 @@ export const auth = {
   },
 
 };
+
+
+// Database config
+var pgp = require('pg-promise')();
+
+var cn = {
+    host: 'ec2-50-17-237-148.compute-1.amazonaws.com',
+    port: 5432,
+    database: 'd3bfagflcfut23',
+    user: 'ttqxcdmuatxrvw',
+    password: 'Jjnl8YHvHHOrLN5YMEm8KyYnc0',
+    ssl: true
+};
+
+export const db = pgp(cn);

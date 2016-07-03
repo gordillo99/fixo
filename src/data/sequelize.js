@@ -11,6 +11,10 @@ import Sequelize from 'sequelize';
 import { databaseUrl } from '../config';
 
 const sequelize = new Sequelize(databaseUrl, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  },
   define: {
     freezeTableName: true,
   },

@@ -7,39 +7,25 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-.root {
-  margin: 0;
+@import '../variables.css';
+
+.headerHeight {
+  height: 60px;
+  padding: 0px;
 }
 
-.link {
+.rightLinks {
+  color: #1A8CF0;
+  padding-top: 20px;
+  padding-left: 20px;
   display: inline-block;
-  padding: 3px 8px;
+  font-weight: bold;
+}
+
+.rightLinks a:hover {
   text-decoration: none;
-  font-size: 1.125em; /* ~18px */
 }
 
-.link,
-.link:active,
-.link:visited {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.link:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-.highlight {
-  margin-right: 8px;
-  margin-left: 8px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
-}
-
-.highlight:hover {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.spacer {
-  color: rgba(255, 255, 255, 0.3);
+.noListStyle {
+  list-style: none;
 }

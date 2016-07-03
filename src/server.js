@@ -10,6 +10,7 @@
 import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
+import FB from 'fb';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
@@ -19,6 +20,7 @@ import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import passport from './core/passport';
+import fbId from './core/passport';
 import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
@@ -63,6 +65,7 @@ app.use('/api/proposals', proposalsRest);
 //
 // Authentication
 // -----------------------------------------------------------------------------
+
 app.use(expressJwt({
   secret: auth.jwt.secret,
   credentialsRequired: false,
@@ -71,19 +74,55 @@ app.use(expressJwt({
   /* jscs:enable requireCamelCaseOrUpperCaseIdentifiers */
 }));
 app.use(passport.initialize());
+app.use(passport.session());
+app.use(require('express-session')({ secret: auth.jwt.secret, resave: true, saveUninitialized: true }));
 
 app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
+  passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: true })
 );
 app.get('/login/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
+  passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
+    const expiresIn = 60 * 20; // 20 min
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
+    res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
   }
 );
+var request = require('request');
+app.get('/logout', function(req, res) {
+
+  res.cookie("id_token", "", { expires: new Date() });
+  req.logout();
+  req.session.destroy(function(err) {
+    // cannot access session here
+    res.redirect('/');
+  });
+});
+
+app.get('/isLoggedIn', isLoggedIn, (req, res) => {
+    res.send(true);
+  }
+);
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated() ? true : false)
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.send(false);
+}
+
+/*
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+      return next();
+
+  res.sendStatus(401);
+}*/
 
 //
 // Register API middleware

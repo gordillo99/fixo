@@ -1,21 +1,12 @@
+var connection = require('../src/config.js');
 var express = require('express');
 var router = express.Router();
 var pgp = require('pg-promise')();
-var cn = {
-    host: 'ec2-50-17-237-148.compute-1.amazonaws.com',
-    port: 5432,
-    database: 'd3bfagflcfut23',
-    user: 'ttqxcdmuatxrvw',
-    password: 'Jjnl8YHvHHOrLN5YMEm8KyYnc0',
-    ssl: true
-};
-
-var db = pgp(cn);
 
 router.route('/crud/:area')
 
   .get(function(req, res) {
-    db.manyOrNone({
+    connection.db.manyOrNone({
       name: "find-user",
       text: "select * from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1)",
       values: [req.params.area]
@@ -33,7 +24,7 @@ router.route('/crud/:area')
     var fs = require('fs');
     // read in image in raw format (as type Buffer):
     fs.readFile(__dirname+'/../routes/'+req.body.profilepic, function (err, imgData) {
-      db.none({
+      connection.db.none({
         name: "create-fixer",
         text: "insert into fixers (firstname, lastname, phone, email, age, gender, description, profilepic) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
         values: [req.body.firstname, req.body.lastname, req.body.phone, req.body.email, req.body.age, req.body.gender, req.body.description, imgData]

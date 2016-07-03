@@ -16,9 +16,11 @@ export default class DatePicker extends Component {
   
   handleDayClick(e, day, { selected }) {
     let today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
     if (day >= today) {
       this.setState({
-        selectedDay: selected ? null : day,
+        selectedDay: selected ? null : day
       });
       this.props.dayChange(day); 
     }

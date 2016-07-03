@@ -30,7 +30,6 @@ export default class Navigation extends Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        console.log('data ' + data);
         this.setState({ isLoggedIn: data });
       }.bind(this),
       error: function(xhr, status, err) {

@@ -13,12 +13,12 @@ import s from './ErrorPage.css';
 
 function ErrorPage({ error }, context) {
   let title = 'Error';
-  let content = 'Sorry, a critical error occurred on this page.';
+  let content = 'Lo sentimos, un error crítico acaba de ocurrir.';
   let errorMessage = null;
 
   if (error.status === 404) {
-    title = 'Page Not Found';
-    content = 'Sorry, the page you were trying to view does not exist.';
+    title = 'Página no fue encontrada';
+    content = 'Lo sentimos, esta página no existe.';
   } else if (process.env.NODE_ENV !== 'production') {
     errorMessage = <pre>{error.stack}</pre>;
   }

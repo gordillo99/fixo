@@ -88,7 +88,7 @@ app.get('/login/facebook/return',
     res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
   }
 );
-var request = require('request');
+
 app.get('/logout', function(req, res) {
 
   res.cookie("id_token", "", { expires: new Date() });
@@ -100,20 +100,28 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/isLoggedIn', isLoggedIn, (req, res) => {
-    let uT = String(req.user.usertype);
     res.send({ type: req.user.usertype });
   }
 );
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-  console.log('isAuthenticated' + req.isAuthenticated());
+  console.log('isAuthenticated ' + req.isAuthenticated());
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated() ? true : false)
       return next();
 
   // if they aren't redirect them to the home page
   res.send(false);
+}
+
+function isAdmin(req, res, next) {
+  // if user is authenticated in the session and is admin, carry on
+  if ((req.isAuthenticated() ? true : false) && req.user.usertype === 'admin')
+      return next();
+
+  // page not found if not admin
+  res.redirect('/not_authorized');
 }
 
 //
@@ -138,6 +146,19 @@ app.get('*', async (req, res, next) => {
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
+    }
+
+    // auth for admin page
+    if (req.path === '/admin') {
+      if (!req.user) {
+        res.redirect('/not_found');
+        return;
+      } else {
+        if (req.user.usertype !== 'admin') {
+          res.redirect('/not_found');
+          return;
+        }
+      }
     }
 
     await UniversalRouter.resolve(routes, {

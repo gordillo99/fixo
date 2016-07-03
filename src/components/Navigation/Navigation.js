@@ -61,7 +61,7 @@ export default class Navigation extends Component {
         rightSideComponents = [ { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
         break;
       case 'admin':
-        rightSideComponents = [ { id: 90, text: "Admin", href: "/admin" }, { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
+        rightSideComponents = [ { id: 3, text: "Admin", href: "/admin" }, { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
         break;
       default:
         rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } ];

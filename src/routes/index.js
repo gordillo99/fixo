@@ -18,6 +18,7 @@ import register from './register';
 import content from './content';
 import error from './error';
 import setup from './setup';
+import admin from './admin';
 
 export default {
 
@@ -27,9 +28,8 @@ export default {
     home,
     setup,
     login,
-    //register,
-    content,
-    error,
+    admin,
+    error
   ],
 
   async action({ next, render, context }) {

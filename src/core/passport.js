@@ -18,11 +18,12 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { User, UserLogin, UserClaim, UserProfile } from '../data/models';
 import { db, auth as config } from '../config';
 
-export var fbId;
-export var name;
-export var profileUrl;
-export var emails;
-export var gender;
+var fbId,
+		name,
+		profileUrl,
+		emails,
+		gender,
+		userType = '';
 
 /**
  * Sign in with Facebook.
@@ -57,16 +58,39 @@ passport.use(new FacebookStrategy({
   }
 
   db.manyOrNone({
-    name: "create-users",
-    text: "insert into users (id, firstname, lastname, email, age, gender, address, profilepic, usertype) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);",
-	values: [ fbId, name.givenName, name.familyName, emails[0].value, null, genderForDb, '', null, 3 ]
+    name: "search-existing-user",
+    text: "select usertype from users where id=$1",
+		values: [ fbId ]
   })
-  	.then(function (areas) {
-      return done(null, profile);
+  	.then(function (data) {
+  	  if (data.length === 0) { // user doesn't already exist
+  	  	// new user type 3 (regular user)
+  	  	userType = 'regular';
+  	  	db.manyOrNone({
+			    name: "create-user",
+			    text: "insert into users (id, firstname, lastname, email, age, gender, address, profilepic, usertype) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);",
+					values: [ fbId, name.givenName, name.familyName, emails[0].value, null, genderForDb, '', null, userType ]
+		  })
+		  	.then(function () {
+		  		profile.usertype = userType;
+		      return done(null, profile);
+				})
+				.catch(function (error) {
+				  console.log(error);
+				  profile.usertype = userType;
+				  return done(null, profile); 
+				});
+  	  } else { // user already exists
+  	  	userType = data[0].usertype;
+  	  }
+  	  console.log('User type: ' + userType);
+  	  profile.usertype = userType;
+  	  return done(null, profile); 
 	})
 	.catch(function (error) {
-	  //console.log(error);
-	  return done(null, profile); 
+		console.log(error);
+		profile.usertype = userType;
+		return done(null, profile);
 	});
 }));
 

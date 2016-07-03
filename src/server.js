@@ -20,7 +20,6 @@ import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import passport from './core/passport';
-import fbId from './core/passport';
 import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
@@ -101,13 +100,14 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/isLoggedIn', isLoggedIn, (req, res) => {
-    res.send(true);
+    let uT = String(req.user.usertype);
+    res.send({ type: req.user.usertype });
   }
 );
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
+  console.log('isAuthenticated' + req.isAuthenticated());
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated() ? true : false)
       return next();
@@ -115,14 +115,6 @@ function isLoggedIn(req, res, next) {
   // if they aren't redirect them to the home page
   res.send(false);
 }
-
-/*
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-      return next();
-
-  res.sendStatus(401);
-}*/
 
 //
 // Register API middleware

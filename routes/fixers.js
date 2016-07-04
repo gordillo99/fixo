@@ -57,22 +57,22 @@ router.route('/crud/')
       });
     });
 
+router.route('/getAllAreas')
 
-  /*
-
-  var fs = require('fs');
-
-  // read in image in raw format (as type Buffer):
-  fs.readFile('image.jpg', function (err, imgData) {
-      // inserting data into column 'img' of type 'bytea':
-      db.none('insert into images(img) values ($1)', imgData)
-          .then(function () {
-              // success;
-          })
-          .catch(function (error) {
-              console.log("ERROR:", error.message || error);
-          });
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "getAll-fixersToAreas",
+      text: "select * from fixers_to_areas;",
+      values: []
+    })
+      .then(function (fixToAreas) {
+          res.send(fixToAreas);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
   });
-  */
+
 
 module.exports = router;

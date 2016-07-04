@@ -8,13 +8,14 @@ import s from './FixerEdit.css';
 
 export default class FixerEdit extends Component {
 
-	constructor(props) {
-		super(props);
-		console.log(this.props.profilepic);
-
-	}
-
 	render() {
+
+		let selectedAreas = [];
+		this.props.fixersToAreas.map( (fixToArea, index) => {
+			if (fixToArea.fixer_id === Number(this.props.id)) {
+				selectedAreas.push(fixToArea.area_id - 1);
+			} 
+		});
 
 	  return (
 	    <div>
@@ -85,7 +86,20 @@ export default class FixerEdit extends Component {
 			      </Col>
 			    </FormGroup>
 
-			    <FormGroup controlId="formControlsAge">
+			    <FormGroup controlId="formControlsSelectMultipleAreas">
+			      <Col componentClass={ControlLabel} sm={2}>
+			      	Áreas
+			      </Col>
+			      <Col sm={6}>
+				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this.props.updateMultiselect.bind(this, 'fixer', 'fixersToAreas', Number(this.props.id))}>
+				      	{this.props.areas.map( (area, index) =>  { return(
+				      		<option value={index}>{area.description}</option>
+				      	)})}
+				      </FormControl>
+			     	</Col>
+			    </FormGroup>
+
+			    <FormGroup controlId="formControlsDesc">
 			      <Col componentClass={ControlLabel} sm={2}>
 			        Descripción
 			      </Col>
@@ -94,9 +108,8 @@ export default class FixerEdit extends Component {
 			      </Col>
 			    </FormGroup>
 
-			    <img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
-
 			    <div>
+			    	<img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
             <FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />
             <HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
           </div>

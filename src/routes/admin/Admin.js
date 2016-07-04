@@ -27,7 +27,9 @@ export default class Admin extends Component {
 				description: '',
 				phone: '',
 				profilepic: null
-			}
+			},
+			fixersToAreas: [],
+			fixersToCategories: []
 		};
 	}
 
@@ -68,19 +70,49 @@ export default class Admin extends Component {
 				arr = null;
 		}
 
+		var image = $(event.target)[0].files[0],
+				reader = new FileReader(),
+    		localThis = this;
+
     // if the image size is bigger than 2 MB, return
-    if ($(event.target)[0].files[0].size > 200000) {
+    if (image && image.size > 2000000) {
       alert('Este archivo no sera subido. El límite es 2 MB.');
       return;
     }
 
-    var reader = new FileReader();
-    var localThis = this;
     reader.onload = function(){
-      arr[index][property] = { type: "Buffer", data: new Uint8Array(reader.result) };
+      arr[index][property] = { type: 'Buffer', data: new Uint8Array(reader.result), prevType: image.type };
 			localThis.setState( { [targetType]: arr } );
     };
     reader.readAsArrayBuffer($(event.target)[0].files[0]); 
+  }
+
+  _updateFromMultiselect(index, targetType, property, fixerId, event) {
+  	//console.log($(event.target)[0].value);
+
+  	let fixersToAreas = this.state.fixersToAreas;
+  	let alreadyExists = false;
+  	let newAreaId = Number($(event.target)[0].value + 1);
+
+  	fixersToAreas.map((ele, index) => {
+  		/*
+  		console.log('ele.fixer_id ' + ele.fixer_id + ' ' + typeof ele.fixer_id);
+  		console.log('ele.area_id ' + ele.area_id  + ' ' + typeof ele.area_id);
+  		console.log('fixerId ' + fixerId  + ' ' + typeof fixerId);
+  		console.log('newAreaId ' + newAreaId  + ' ' + typeof newAreaId);*/
+  		if(ele.fixer_id === fixerId && ele.area_id === newAreaId) {
+  			alreadyExists = true;
+  			console.log(fixersToAreas);
+  			fixersToAreas.splice(index, 1);
+  			
+  		}
+  	});
+  	console.log(fixersToAreas);
+  	if (!alreadyExists) {
+  		fixersToAreas.push({ fixer_id: fixerId, area_id: newAreaId });
+  	}
+  	
+  	this.setState({ fixersToAreas: fixersToAreas });
   }
 
 	_updateUserInDb(index) {
@@ -97,6 +129,28 @@ export default class Admin extends Component {
     	success: function() {
     		console.log('User updated successfully!');
     		alert('El usuario fue actualizado exitosamente!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+    		alert(err);
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_updateFixerInDb(index) {
+		let fixer = this.state.users[index];
+
+		$.ajax({
+    	url: '/api/fixers/crud/',
+    	type: 'POST',
+    	dataType: 'json',
+    	cache: false,
+    	data: {
+    		
+    	},
+    	success: function() {
+    		console.log('Fixer updated successfully!');
+    		alert('El fixer fue actualizado exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
     		alert(err);
@@ -158,6 +212,33 @@ export default class Admin extends Component {
      		console.log(err);
     	}.bind(this)
 	  });
+
+	  $.ajax({
+    	url: '/api/fixers/getAllAreas/',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(data) {
+    		this.setState( { fixersToAreas: data } );
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+
+	  $.ajax({
+    	url: '/api/fixers/getAllCategories/',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(data) {
+    		this.setState( { fixersToCategories: data } );
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+
 	}
 
 	render() {
@@ -195,6 +276,9 @@ export default class Admin extends Component {
 																	areas={this.state.areas}
 																	categories={this.state.categories}
 																	updateImage={this._updateAttachedImage.bind(this, index)}
+																	fixersToAreas={this.state.fixersToAreas}
+																	fixersToCategories={this.state.fixersToCategories}
+																	updateMultiselect={this._updateFromMultiselect.bind(this, index)}
 																	//updateInDb={}
 																/>);
 												})}

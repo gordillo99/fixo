@@ -46,7 +46,7 @@ export default class ProposalConfirmation extends Component {
 	      	data: formData,
 	      	cache: false,
 	      	contentType: false,
-    		processData: false,
+    			processData: false,
 	      	success: function(data) {
 	      		console.log('Proposal created successfully');
 	      	}.bind(this),

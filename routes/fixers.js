@@ -18,6 +18,23 @@ router.route('/crud/:area')
           console.log(error);
           res.send(error);    
       });
+  });
+
+router.route('/crud/')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-all-fixers",
+      text: "select * from fixers;",
+      values: []
+    })
+      .then(function (fixers) {
+          res.send(fixers);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
   })
 
   .post(function(req, res) {

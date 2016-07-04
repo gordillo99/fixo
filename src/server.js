@@ -82,7 +82,7 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    const expiresIn = 60 * 20; // 20 min
+    const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 3 : 60 * 20; // 20 min in prod, 3 hours in dev
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');

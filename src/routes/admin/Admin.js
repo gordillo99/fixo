@@ -3,6 +3,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Tabs, Tab} from 'react-bootstrap';
 import UserEdit from '../../components/adminComponents/UserEdit';
+import FixerEdit from '../../components/adminComponents/FixerEdit';
+import FixerCreate from '../../components/adminComponents/FixerCreate';
 import $ from 'jquery';
 import s from './Admin.css';
 
@@ -13,7 +15,18 @@ export default class Admin extends Component {
 		this.state = {
 			fixers: [],
 			users: [],
-			proposals: []
+			proposals: [],
+			areas: [],
+			categories: [],
+			newFixer: {
+				firstname: '',
+				lastname: '',
+				email: '',
+				age: 0,
+				gender: 0,
+				description: '',
+				phone: ''
+			}
 		};
 	}
 
@@ -33,7 +46,8 @@ export default class Admin extends Component {
 			default:
 				arr = null;
 		}
-
+		console.log(arr[index][property]);
+		console.log(event.target.value);
 		arr[index][property] = event.target.value;
 		this.setState( { [targetType]: arr } );
 	}
@@ -67,7 +81,6 @@ export default class Admin extends Component {
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
-    		console.log(data);
     		this.setState( { users: data } );
     	}.bind(this),
     	error: function(xhr, status, err) {
@@ -81,7 +94,34 @@ export default class Admin extends Component {
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
+    		console.log(data);
     		this.setState( { fixers: data } );
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+
+	  $.ajax({
+    	url: '/api/areas/crud/',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(data) {
+    		this.setState( { areas: data } );
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+
+	  $.ajax({
+    	url: '/api/categories/crud/',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(data) {
+    		this.setState( { categories: data } );
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
@@ -94,7 +134,7 @@ export default class Admin extends Component {
 		let userContent = <div className={classNames(s.tabContent)}>
 												{this.state.users.map( (user, index) => {
 													return (
-																<UserEdit
+																<UserEdit className={classNames(s.tabContentElement)}
 																	id={user.id}
 																	email={user.email}
 																	firstName={user.firstname}
@@ -106,11 +146,32 @@ export default class Admin extends Component {
 												})}
 											</div>
 
-		let fixerContent = <div>
+		let fixerContent = <div className={classNames(s.tabContent)}>
+
+												{this.state.fixers.map( (fixer, index) => {
+													return (
+																<FixerEdit className={classNames(s.tabContentElement)}
+																	id={fixer.id}
+																	email={fixer.email}
+																	firstName={fixer.firstname}
+																	lastName={fixer.lastname}
+																	update={this._updateProperty.bind(this, index)}
+																	description={fixer.description}
+																	age={fixer.age}
+																	gender={fixer.gender}
+																	phone={fixer.phone}
+																	profilepic={fixer.profilepic}
+																	areas={this.state.areas}
+																	categories={this.state.categories}
+																	//updateInDb={}
+																/>);
+												})}
 											 </div>	
 
 		let proposalContent = <div>
-													</div>								
+													</div>
+		let offerContent = <div>
+											 </div>							
 
 		const tabsInstance = (
 		  <Tabs defaultActiveKey={1} id='admin-tabs'>
@@ -122,6 +183,9 @@ export default class Admin extends Component {
 		    </Tab>
 		    <Tab eventKey={3} title='Propuestas'>
 		    	{proposalContent}
+		    </Tab>
+		    <Tab eventKey={4} title='Ofertas'>
+		    	{offerContent}
 		    </Tab>
 		  </Tabs>
 		);

@@ -1,0 +1,6 @@
+{
+  "name": "FixerEdit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FixerEdit.js"
+}

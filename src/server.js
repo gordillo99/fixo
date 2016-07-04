@@ -29,6 +29,7 @@ import usersRest from './../routes/users.js';
 import fixersRest from './../routes/fixers.js';
 import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
+import categoriesRest from './../routes/categories.js';
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use('/api/users', usersRest);
 app.use('/api/fixers', fixersRest);
 app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
+app.use('/api/categories', categoriesRest);
 
 //
 // Authentication

@@ -1,0 +1,6 @@
+{
+  "name": "FixerCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FixerCreate.js"
+}

@@ -3,9 +3,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Form, FormControl, FormGroup, Col, ControlLabel, Button} from 'react-bootstrap';
 import $ from 'jquery';
-import s from './UserEdit.css';
+import s from './FixerCreate.css';
 
-export default class UserEdit extends Component {
+export default class FixerCreate extends Component {
 
 	render() {
 
@@ -62,4 +62,4 @@ export default class UserEdit extends Component {
 	}
 }
 
-export default withStyles(s)(UserEdit);
+export default withStyles(s)(FixerCreate);

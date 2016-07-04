@@ -29,3 +29,7 @@
 .tabContent {
 	padding-top: 40px;
 }
+
+.tabContentElement {
+  padding-bottom: 50px;
+}

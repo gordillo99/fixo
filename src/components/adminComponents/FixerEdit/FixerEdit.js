@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Form, FormControl, FormGroup, Col, ControlLabel, Button} from 'react-bootstrap';
-import arrBuffToBase64 from '../../../helpers/helpers.js';
+import { Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
+import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import $ from 'jquery';
 import s from './FixerEdit.css';
 
@@ -10,6 +10,7 @@ export default class FixerEdit extends Component {
 
 	constructor(props) {
 		super(props);
+		console.log(this.props.profilepic);
 
 	}
 
@@ -93,7 +94,12 @@ export default class FixerEdit extends Component {
 			      </Col>
 			    </FormGroup>
 
-			    <img height='80px' width='80px' src={'data:image/jpeg;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
+			    <img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
+
+			    <div>
+            <FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />
+            <HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+          </div>
 
 			    <FormGroup>
 			      <Col smOffset={2} sm={10}>

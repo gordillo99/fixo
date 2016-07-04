@@ -1,4 +1,4 @@
-export default function arrBuffToBase64(buffer) {
+export function arrBuffToBase64(buffer) {
     let binary = '';
     let bytes = new Uint8Array( buffer );
     let len = bytes.byteLength;

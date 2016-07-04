@@ -25,7 +25,8 @@ export default class Admin extends Component {
 				age: 0,
 				gender: 0,
 				description: '',
-				phone: ''
+				phone: '',
+				profilepic: null
 			}
 		};
 	}
@@ -46,11 +47,41 @@ export default class Admin extends Component {
 			default:
 				arr = null;
 		}
-		console.log(arr[index][property]);
-		console.log(event.target.value);
 		arr[index][property] = event.target.value;
 		this.setState( { [targetType]: arr } );
 	}
+
+	_updateAttachedImage(index, targetType, property, event) {
+		let arr;
+
+    switch(targetType) {
+			case 'fixer':
+				arr = this.state.fixers;
+				break;
+			case 'user':
+				arr = this.state.users;
+				break;
+			case 'proposal':
+				arr = this.state.proposals;
+				break;
+			default:
+				arr = null;
+		}
+
+    // if the image size is bigger than 2 MB, return
+    if ($(event.target)[0].files[0].size > 200000) {
+      alert('Este archivo no sera subido. El límite es 2 MB.');
+      return;
+    }
+
+    var reader = new FileReader();
+    var localThis = this;
+    reader.onload = function(){
+      arr[index][property] = { type: "Buffer", data: new Uint8Array(reader.result) };
+			localThis.setState( { [targetType]: arr } );
+    };
+    reader.readAsArrayBuffer($(event.target)[0].files[0]); 
+  }
 
 	_updateUserInDb(index) {
 		let user = this.state.users[index];
@@ -163,6 +194,7 @@ export default class Admin extends Component {
 																	profilepic={fixer.profilepic}
 																	areas={this.state.areas}
 																	categories={this.state.categories}
+																	updateImage={this._updateAttachedImage.bind(this, index)}
 																	//updateInDb={}
 																/>);
 												})}

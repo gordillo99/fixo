@@ -37,9 +37,9 @@ var removeAllFixToCatRels = function() {
 
 var insertNewFixerToAreas = function() {
 
-  let valuesToInsert = "";
-  let arrayOfVals = [];
-  let counter = 1;
+  var valuesToInsert = "";
+  var arrayOfVals = [];
+  var counter = 1;
 
   fixerProps.fixersToAreas.map((fixToArea) => {
     valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
@@ -65,9 +65,9 @@ var insertNewFixerToAreas = function() {
 
 var insertNewFixerToCategories = function() {
 
-  let valuesToInsert = "";
-  let arrayOfVals = [];
-  let counter = 1;
+  var valuesToInsert = "";
+  var arrayOfVals = [];
+  var counter = 1;
 
   fixerProps.fixersToCategories.map((fixToCat) => {
     valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";

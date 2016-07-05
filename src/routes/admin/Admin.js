@@ -87,32 +87,44 @@ export default class Admin extends Component {
     reader.readAsArrayBuffer($(event.target)[0].files[0]); 
   }
 
-  _updateFromMultiselect(index, targetType, property, fixerId, event) {
-  	//console.log($(event.target)[0].value);
-
+  _updateFromAreaMultiselect(index, targetType, property, fixerId, event) {
   	let fixersToAreas = this.state.fixersToAreas;
   	let alreadyExists = false;
-  	let newAreaId = Number($(event.target)[0].value + 1);
+  	let newAreaId = Number($(event.target)[0].value) + 1;
+  	let arrLength = fixersToAreas.length;
 
-  	fixersToAreas.map((ele, index) => {
-  		/*
-  		console.log('ele.fixer_id ' + ele.fixer_id + ' ' + typeof ele.fixer_id);
-  		console.log('ele.area_id ' + ele.area_id  + ' ' + typeof ele.area_id);
-  		console.log('fixerId ' + fixerId  + ' ' + typeof fixerId);
-  		console.log('newAreaId ' + newAreaId  + ' ' + typeof newAreaId);*/
-  		if(ele.fixer_id === fixerId && ele.area_id === newAreaId) {
-  			alreadyExists = true;
-  			console.log(fixersToAreas);
-  			fixersToAreas.splice(index, 1);
-  			
-  		}
-  	});
-  	console.log(fixersToAreas);
-  	if (!alreadyExists) {
+  	function removeIfAlreadyExists(fixToArea) {
+		  return (Number(fixToArea.fixer_id) !== Number(fixerId)) || 
+		  			 (Number(fixToArea.fixer_id) === Number(fixerId) && Number(fixToArea.area_id) !== Number(newAreaId));
+		}
+
+  	fixersToAreas = fixersToAreas.filter(removeIfAlreadyExists);
+
+  	if (arrLength === fixersToAreas.length) {
   		fixersToAreas.push({ fixer_id: fixerId, area_id: newAreaId });
   	}
   	
   	this.setState({ fixersToAreas: fixersToAreas });
+  }
+
+  _updateFromCategoryMultiselect(index, targetType, property, fixerId, event) {
+  	let fixersToCategories = this.state.fixersToCategories;
+  	let alreadyExists = false;
+  	let newCategoryId = Number($(event.target)[0].value) + 1;
+  	let arrLength = fixersToCategories.length;
+
+  	function removeIfAlreadyExists(fixToCategory) {
+		  return (Number(fixToCategory.fixer_id) !== Number(fixerId)) || 
+		  			 (Number(fixToCategory.fixer_id) === Number(fixerId) && Number(fixToCategory.category_id) !== Number(newCategoryId));
+		}
+
+  	fixersToCategories = fixersToCategories.filter(removeIfAlreadyExists);
+
+  	if (arrLength === fixersToCategories.length) {
+  		fixersToCategories.push({ fixer_id: fixerId, category_id: newCategoryId });
+  	}
+  	
+  	this.setState({ fixersToCategories: fixersToCategories });
   }
 
 	_updateUserInDb(index) {
@@ -138,16 +150,30 @@ export default class Admin extends Component {
 	}
 
 	_updateFixerInDb(index) {
-		let fixer = this.state.users[index];
+
+		let fixer = this.state.fixers[index];
+		let data = {};
+
+		function relatedToFixer(fixToEle) {
+		  return Number(fixToEle.fixer_id) === Number(fixer.id);
+		}
+
+		let fixersToCategories = this.state.fixersToCategories.filter(relatedToFixer);
+		let fixersToAreas = this.state.fixersToAreas.filter(relatedToFixer);
+
+		data.fixer = fixer;
+		data.fixersToCategories = fixersToCategories;
+		data.fixersToAreas = fixersToAreas;
 
 		$.ajax({
-    	url: '/api/fixers/crud/',
+    	url: '/api/fixers/crud/updateFixer',
     	type: 'POST',
-    	dataType: 'json',
+    	//dataType: 'json',
+    	data: JSON.stringify(data),
     	cache: false,
-    	data: {
-    		
-    	},
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
     	success: function() {
     		console.log('Fixer updated successfully!');
     		alert('El fixer fue actualizado exitosamente!');
@@ -278,8 +304,9 @@ export default class Admin extends Component {
 																	updateImage={this._updateAttachedImage.bind(this, index)}
 																	fixersToAreas={this.state.fixersToAreas}
 																	fixersToCategories={this.state.fixersToCategories}
-																	updateMultiselect={this._updateFromMultiselect.bind(this, index)}
-																	//updateInDb={}
+																	updateAreaMultiselect={this._updateFromAreaMultiselect.bind(this, index)}
+																	updateCategoryMultiselect={this._updateFromCategoryMultiselect.bind(this, index)}
+																	updateInDb={this._updateFixerInDb.bind(this, index)}
 																/>);
 												})}
 											 </div>	

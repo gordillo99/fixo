@@ -11,9 +11,16 @@ export default class FixerEdit extends Component {
 	render() {
 
 		let selectedAreas = [];
+		let selectedCategories = [];
 		this.props.fixersToAreas.map( (fixToArea, index) => {
 			if (fixToArea.fixer_id === Number(this.props.id)) {
 				selectedAreas.push(fixToArea.area_id - 1);
+			} 
+		});
+
+		this.props.fixersToCategories.map( (fixToCat, index) => {
+			if (fixToCat.fixer_id === Number(this.props.id)) {
+				selectedCategories.push(fixToCat.category_id - 1);
 			} 
 		});
 
@@ -91,9 +98,22 @@ export default class FixerEdit extends Component {
 			      	Áreas
 			      </Col>
 			      <Col sm={6}>
-				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this.props.updateMultiselect.bind(this, 'fixer', 'fixersToAreas', Number(this.props.id))}>
+				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this.props.updateAreaMultiselect.bind(this, 'fixer', 'fixersToAreas', Number(this.props.id))}>
 				      	{this.props.areas.map( (area, index) =>  { return(
 				      		<option value={index}>{area.description}</option>
+				      	)})}
+				      </FormControl>
+			     	</Col>
+			    </FormGroup>
+
+			    <FormGroup controlId="formControlsSelectMultipleCategories">
+			      <Col componentClass={ControlLabel} sm={2}>
+			      	Categorías
+			      </Col>
+			      <Col sm={6}>
+				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this.props.updateCategoryMultiselect.bind(this, 'fixer', 'fixersToCategories', Number(this.props.id))}>
+				      	{this.props.categories.map( (category, index) =>  { return(
+				      		<option value={index}>{category.description}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>

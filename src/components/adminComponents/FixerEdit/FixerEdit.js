@@ -129,9 +129,17 @@ export default class FixerEdit extends Component {
 			    </FormGroup>
 
 			    <div>
-			    	<img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
-            <FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />
-            <HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+			    	<Col smOffset={2} sm={10}>
+			    		<ul className={s.horizontalList}>
+			    			<li className={s.horizontalListEle}>
+					    		<img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
+					    	</li>
+					    	<li className={s.horizontalListEle}>
+		            	<FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />
+		            	<HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+		            </li>
+	            </ul>
+            </Col>
           </div>
 
 			    <FormGroup>

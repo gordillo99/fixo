@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Tabs, Tab} from 'react-bootstrap';
+import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import UserEdit from '../../components/adminComponents/UserEdit';
 import FixerEdit from '../../components/adminComponents/FixerEdit';
 import FixerCreate from '../../components/adminComponents/FixerCreate';
@@ -81,7 +82,7 @@ export default class Admin extends Component {
     }
 
     reader.onload = function(){
-      arr[index][property] = { type: 'Buffer', data: new Uint8Array(reader.result), prevType: image.type };
+      arr[index][property] = { type: 'ArrayBuffer', data: new Uint8Array(reader.result), prevType: image.type, fileObject: image };
 			localThis.setState( { [targetType]: arr } );
     };
     reader.readAsArrayBuffer($(event.target)[0].files[0]); 
@@ -162,13 +163,13 @@ export default class Admin extends Component {
 		let fixersToAreas = this.state.fixersToAreas.filter(relatedToFixer);
 
 		data.fixer = fixer;
+		data.fixer.profilepic = fixer.profilepic.fileObject;
 		data.fixersToCategories = fixersToCategories;
 		data.fixersToAreas = fixersToAreas;
 
 		$.ajax({
     	url: '/api/fixers/crud/updateFixer',
     	type: 'POST',
-    	//dataType: 'json',
     	data: JSON.stringify(data),
     	cache: false,
     	contentType:'application/json',
@@ -206,7 +207,9 @@ export default class Admin extends Component {
     	cache: false,
     	success: function(data) {
     		console.log(data);
-    		this.setState( { fixers: data } );
+    		this.setState( { fixers: data.sort(function(a, b) {
+		        return Number(a.id) - Number(b.id);
+		    }) } );
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);

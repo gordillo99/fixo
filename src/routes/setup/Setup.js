@@ -69,7 +69,7 @@ export default class Setup extends Component {
     this.setState({ setupStage: ++this.state.setupStage });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     $.ajax({
       url: '/api/areas/crud',
       type: 'GET',

@@ -9,7 +9,7 @@ var removeAllFixToAreaRels = function() {
   connection.db.manyOrNone({
     name: "clear-fixerToAreaRels",
     text: "delete from fixers_to_areas where fixer_id=$1;",
-    values: [fixerProps.fixer.fixer_id]
+    values: [fixerProps.fixer.id]
   })
     .then(function () {
         insertNewFixerToAreas();
@@ -24,7 +24,7 @@ var removeAllFixToCatRels = function() {
   connection.db.manyOrNone({
     name: "clear-fixerToCatRels",
     text: "delete from fixers_to_categories where fixer_id=$1;",
-    values: [fixerProps.fixer.fixer_id]
+    values: [fixerProps.fixer.id]
   })
     .then(function () {
         insertNewFixerToCategories();
@@ -37,9 +37,13 @@ var removeAllFixToCatRels = function() {
 
 var insertNewFixerToAreas = function() {
 
-  var valuesToInsert = "";
-  var arrayOfVals = [];
-  var counter = 1;
+  let valuesToInsert = "";
+  let arrayOfVals = [];
+  let counter = 1;
+
+  if(fixerProps.fixersToCategories.length === 0) {
+    return;
+  }
 
   fixerProps.fixersToAreas.map((fixToArea) => {
     valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
@@ -69,6 +73,10 @@ var insertNewFixerToCategories = function() {
   var arrayOfVals = [];
   var counter = 1;
 
+  if(fixerProps.fixersToCategories.length === 0) {
+    return;
+  }
+
   fixerProps.fixersToCategories.map((fixToCat) => {
     valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
     arrayOfVals.push(fixToCat.fixer_id);
@@ -95,7 +103,7 @@ router.route('/crud/:area')
 
   .get(function(req, res) {
     connection.db.manyOrNone({
-      name: "find-user",
+      name: "find-fixers-in-area",
       text: "select * from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1)",
       values: [req.params.area]
     })
@@ -117,6 +125,7 @@ router.route('/crud/')
       values: []
     })
       .then(function (fixers) {
+          console.log(fixers[0].profilepic);
           res.send(fixers);
       })
       .catch(function (error) {
@@ -188,10 +197,12 @@ router.route('/getAllAreas')
       fixersToCategories: req.body.fixersToCategories
     };
 
+    console.log( Buffer.from(fixerProps.fixer.profilepic));
+
     connection.db.manyOrNone({
       name: "update-fixer",
-      text: "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9;",
-      values: [req.body.firstname, req.body.lastname, req.body.phone, req.body.email, req.body.age, req.body.gender, req.body.description, req.body.profilepic, req.body.id]
+      text: "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9 ;",
+      values: [fixerProps.fixer.firstname, fixerProps.fixer.lastname, fixerProps.fixer.phone, fixerProps.fixer.email, fixerProps.fixer.age, fixerProps.fixer.gender, fixerProps.fixer.description, Buffer.from(fixerProps.fixer.profilepic), fixerProps.fixer.id]
     })
       .then(function () {
           removeAllFixToAreaRels();

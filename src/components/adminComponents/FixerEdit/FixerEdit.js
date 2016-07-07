@@ -12,6 +12,7 @@ export default class FixerEdit extends Component {
 
 		let selectedAreas = [];
 		let selectedCategories = [];
+		let showImagePreview = null;
 		this.props.fixersToAreas.map( (fixToArea, index) => {
 			if (fixToArea.fixer_id === Number(this.props.id)) {
 				selectedAreas.push(fixToArea.area_id - 1);
@@ -23,6 +24,10 @@ export default class FixerEdit extends Component {
 				selectedCategories.push(fixToCat.category_id - 1);
 			} 
 		});
+
+		if (this.props.profilepic !== null && this.props.profilepic !== undefined) {
+			showImagePreview = <img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>;
+		}
 
 	  return (
 	    <div>
@@ -132,7 +137,7 @@ export default class FixerEdit extends Component {
 			    	<Col smOffset={2} sm={10}>
 			    		<ul className={s.horizontalList}>
 			    			<li className={s.horizontalListEle}>
-					    		<img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>
+					    		{showImagePreview}
 					    	</li>
 					    	<li className={s.horizontalListEle}>
 		            	<FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />

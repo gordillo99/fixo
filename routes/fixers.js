@@ -2,8 +2,10 @@ var connection = require('../src/config.js');
 var express = require('express');
 var router = express.Router();
 var pgp = require('pg-promise')();
+var multer = require('multer');
 
 var fixerProps;
+var imageData = null;
 
 var removeAllFixToAreaRels = function() {
   connection.db.manyOrNone({
@@ -125,7 +127,6 @@ router.route('/crud/')
       values: []
     })
       .then(function (fixers) {
-          console.log(fixers[0].profilepic);
           res.send(fixers);
       })
       .catch(function (error) {
@@ -188,7 +189,70 @@ router.route('/getAllAreas')
       });
   });
 
-  router.route('/crud/updateFixer')
+  var updateFixer = function(fixer, imgData) {
+    let queryUpdateImage = '';
+
+    if (imgData) {
+      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9 ;";
+    } else {
+      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7 where id=$9 ;"
+    }
+
+    connection.db.manyOrNone({
+      name: "update-fixer",
+      text: queryUpdateImage,
+      values: [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, imgData, fixer.id]
+    })
+      .then(function () {
+        return;
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+  }
+
+  router.route('/crud/updateFixerAtributes')
+
+  .post(multer({ dest: __dirname + '/temp/' }).single('profilepic'), function(req, res) {
+
+    var fs = require('fs'),
+        imageFile,
+        imagePath;
+
+    fixer = {
+      id: req.body.id,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      phone: req.body.phone,
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender,
+      description: req.body.description
+    };
+
+    console.log(fixer);
+    console.log(req.file);
+    if (req.file) {
+      imageFile = req.file;
+      imagePath = req.file.path;
+
+      console.log('reading file...');
+      // read in image in raw format (as type Buffer):
+      fs.readFile(imagePath, function (err, imgData) {
+        if (err) console.log(err);
+        fs.unlink(imagePath, function() {
+          updateFixer(fixer, imgData);
+          res.send(true);
+        });
+      });
+    } else {
+      updateFixer(fixer, null);
+      res.send(true);
+    }
+  });
+
+  router.route('/crud/updateFixerCatsAndAreas')
 
   .post(function(req, res) {
     fixerProps = {
@@ -197,21 +261,8 @@ router.route('/getAllAreas')
       fixersToCategories: req.body.fixersToCategories
     };
 
-    console.log( Buffer.from(fixerProps.fixer.profilepic));
-
-    connection.db.manyOrNone({
-      name: "update-fixer",
-      text: "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9 ;",
-      values: [fixerProps.fixer.firstname, fixerProps.fixer.lastname, fixerProps.fixer.phone, fixerProps.fixer.email, fixerProps.fixer.age, fixerProps.fixer.gender, fixerProps.fixer.description, Buffer.from(fixerProps.fixer.profilepic), fixerProps.fixer.id]
-    })
-      .then(function () {
-          removeAllFixToAreaRels();
-          res.send(true);
-      })
-      .catch(function (error) {
-          console.log(error);
-          res.send(error);    
-      });
+    removeAllFixToAreaRels();
+    res.send(true);
   });
 
 

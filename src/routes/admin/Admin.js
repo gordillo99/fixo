@@ -162,26 +162,51 @@ export default class Admin extends Component {
 		let fixersToCategories = this.state.fixersToCategories.filter(relatedToFixer);
 		let fixersToAreas = this.state.fixersToAreas.filter(relatedToFixer);
 
+		var formData = new FormData();
+		formData.append('id', fixer.id);
+		formData.append('firstname', fixer.firstname);
+		formData.append('lastname', fixer.lastname);
+		formData.append('gender', fixer.gender);
+		formData.append('email', fixer.email);
+		formData.append('description', fixer.description);
+		formData.append('age', fixer.age);
+		formData.append('phone', fixer.phone);
+		formData.append('profilepic', fixer.profilepic.fileObject);
+
 		data.fixer = fixer;
-		data.fixer.profilepic = fixer.profilepic.fileObject;
 		data.fixersToCategories = fixersToCategories;
 		data.fixersToAreas = fixersToAreas;
 
 		$.ajax({
-    	url: '/api/fixers/crud/updateFixer',
+    	url: '/api/fixers/crud/updateFixerAtributes',
     	type: 'POST',
-    	data: JSON.stringify(data),
+    	dataType: 'json',
+    	data: formData,
     	cache: false,
-    	contentType:'application/json',
-    	handleAs: 'json',
+    	contentType: false,
 			processData: false,
     	success: function() {
-    		console.log('Fixer updated successfully!');
-    		alert('El fixer fue actualizado exitosamente!');
+    		$.ajax({
+		    	url: '/api/fixers/crud/updateFixerCatsAndAreas',
+		    	type: 'POST',
+		    	data: JSON.stringify(data),
+		    	cache: false,
+		    	contentType:'application/json',
+		    	handleAs: 'json',
+					processData: false,
+		    	success: function() {
+		    		console.log('Fixer updated successfully!');
+		    		alert('El fixer fue actualizado exitosamente!');
+		    	}.bind(this),
+		    	error: function(xhr, status, err) {
+		    		alert(err);
+		     		console.log(err);
+		    	}.bind(this)
+			  });
     	}.bind(this),
     	error: function(xhr, status, err) {
-    		alert(err);
-     		console.log(err);
+    		console.log(err);
+     		alert(err);
     	}.bind(this)
 	  });
 	}

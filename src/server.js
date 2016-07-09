@@ -108,7 +108,6 @@ app.get('/isLoggedIn', isLoggedIn, (req, res) => {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-  console.log('isAuthenticated ' + req.isAuthenticated());
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated() ? true : false)
       return next();

@@ -40,9 +40,9 @@ var removeAllFixToCatRels = function() {
 
 var insertNewFixerToAreas = function() {
 
-  let valuesToInsert = "";
-  let arrayOfVals = [];
-  let counter = 1;
+  var valuesToInsert = "";
+  var arrayOfVals = [];
+  var counter = 1;
 
   if(fixerProps.fixersToCategories.length === 0) {
     insertNewFixerToCategories();
@@ -207,8 +207,8 @@ router.route('/getAllAreas')
   });
 
   var updateFixer = function(fixer, imgData) {
-    let queryUpdateImage = '';
-    let values = [];
+    var queryUpdateImage = '';
+    var values = [];
 
     if (imgData !== null && imgData !== undefined) {
       queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9;";

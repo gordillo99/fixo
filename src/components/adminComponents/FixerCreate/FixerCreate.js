@@ -84,7 +84,6 @@ export default class FixerCreate extends Component {
     	contentType: false,
 			processData: false,
     	success: function(fixerId) {
-    		console.log(fixerId);
     		let data = {};
     		data.fixer = {};
     		data.fixer.id = Number(fixerId[0].id);

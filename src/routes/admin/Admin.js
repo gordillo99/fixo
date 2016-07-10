@@ -15,22 +15,12 @@ export default class Admin extends Component {
 		super(props);
 		this.state = {
 			fixers: [],
+			fixersToAreas: [],
+			fixersToCategories: [],
 			users: [],
 			proposals: [],
 			areas: [],
-			categories: [],
-			newFixer: {
-				firstname: '',
-				lastname: '',
-				email: '',
-				age: 0,
-				gender: 0,
-				description: '',
-				phone: '',
-				profilepic: null
-			},
-			fixersToAreas: [],
-			fixersToCategories: []
+			categories: []
 		};
 	}
 
@@ -126,6 +116,10 @@ export default class Admin extends Component {
   	}
   	
   	this.setState({ fixersToCategories: fixersToCategories });
+  }
+
+  _updateNewUser(property, event) {
+  	this.setState( { [property]: event.target.value } );
   }
 
 	_updateUserInDb(index) {
@@ -312,30 +306,35 @@ export default class Admin extends Component {
 												})}
 											</div>
 
-		let fixerContent = <div className={classNames(s.tabContent)}>
-
-												{this.state.fixers.map( (fixer, index) => {
-													return (
-																<FixerEdit className={classNames(s.tabContentElement)}
-																	id={fixer.id}
-																	email={fixer.email}
-																	firstName={fixer.firstname}
-																	lastName={fixer.lastname}
-																	update={this._updateProperty.bind(this, index)}
-																	description={fixer.description}
-																	age={fixer.age}
-																	gender={fixer.gender}
-																	phone={fixer.phone}
-																	profilepic={fixer.profilepic}
-																	areas={this.state.areas}
-																	categories={this.state.categories}
-																	updateImage={this._updateAttachedImage.bind(this, index)}
-																	fixersToAreas={this.state.fixersToAreas}
-																	fixersToCategories={this.state.fixersToCategories}
-																	updateAreaMultiselect={this._updateFromAreaMultiselect.bind(this, index)}
-																	updateCategoryMultiselect={this._updateFromCategoryMultiselect.bind(this, index)}
-																	updateInDb={this._updateFixerInDb.bind(this, index)}
-																/>);
+		let fixerContent =  <div className={classNames(s.tabContent)}>
+													<h2>Crear Fixer</h2>
+													<FixerCreate 
+														areas={this.state.areas}
+														categories={this.state.categories}
+													/>
+													<h2>Actualizar Fixers</h2>
+													{this.state.fixers.map( (fixer, index) => {
+														return (
+																	<FixerEdit className={classNames(s.tabContentElement)}
+																		id={fixer.id}
+																		email={fixer.email}
+																		firstName={fixer.firstname}
+																		lastName={fixer.lastname}
+																		update={this._updateProperty.bind(this, index)}
+																		description={fixer.description}
+																		age={fixer.age}
+																		gender={fixer.gender}
+																		phone={fixer.phone}
+																		profilepic={fixer.profilepic}
+																		areas={this.state.areas}
+																		categories={this.state.categories}
+																		updateImage={this._updateAttachedImage.bind(this, index)}
+																		fixersToAreas={this.state.fixersToAreas}
+																		fixersToCategories={this.state.fixersToCategories}
+																		updateAreaMultiselect={this._updateFromAreaMultiselect.bind(this, index)}
+																		updateCategoryMultiselect={this._updateFromCategoryMultiselect.bind(this, index)}
+																		updateInDb={this._updateFixerInDb.bind(this, index)}
+																	/>);
 												})}
 											 </div>	
 

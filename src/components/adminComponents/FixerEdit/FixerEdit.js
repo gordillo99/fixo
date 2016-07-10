@@ -8,25 +8,172 @@ import s from './FixerEdit.css';
 
 export default class FixerEdit extends Component {
 
+	constructor(props) {
+		super(props);
+		let fixersToCategories = this.props.fixersToCategories.map(fixToCat => { 
+			if (Number(fixToCat.fixer_id) === Number(this.props.id)) {
+				return fixToCat;
+			}
+		});
+
+		let fixersToAreas = this.props.fixersToAreas.map(fixToAr => { 
+			if (Number(fixToAr.fixer_id) === Number(this.props.id)) {
+				return fixToAr;
+			}
+		});
+
+		this.state = {
+			id: this.props.id,
+			firstname: this.props.firstname,
+			lastname: this.props.lastname,
+			phone: this.props.phone,
+			email: this.props.email,
+			gender: this.props.gender,
+			age: this.props.age,
+			profilepic: this.props.profilepic,
+			description: this.props.description,
+			fixersToAreas: fixersToAreas,
+			fixersToCategories: fixersToCategories
+		};
+	}
+
+	_updateProperty(property, event) {
+		this.setState( { [property]: event.target.value } );
+	}
+
+	_updateAttachedImage(event) {
+
+		var image = $(event.target)[0].files[0],
+				reader = new FileReader(),
+    		localThis = this;
+
+    // if the image size is bigger than 2 MB, return
+    if (image && image.size > 2000000) {
+      alert('Este archivo no sera subido. El límite es 2 MB.');
+      return;
+    }
+
+    reader.onload = function(){
+			this.setState( { profilepic:  { type: 'ArrayBuffer', data: new Uint8Array(reader.result), prevType: image.type, fileObject: image } } );
+    }.bind(this);
+    reader.readAsArrayBuffer($(event.target)[0].files[0]); 
+  }
+
+  _updateFromMultiselect(property, event) {
+  	let fixersToEles = null;
+  	let idPropName = null;
+  	if (property === 'fixersToAreas') {
+			fixersToEles	= this.state.fixersToAreas;
+			idPropName = 'area_id';
+  	} else {
+  		fixersToEles	= this.state.fixersToCategories;
+  		idPropName = 'category_id';
+  	}
+  	let alreadyExists = false;
+  	let newId = Number($(event.target)[0].value) + 1;
+  	let arrLength = fixersToEles.length;
+
+  	function removeIfAlreadyExists(fixToArea) {
+		  return (Number(fixToArea[idPropName]) !== Number(newId));
+		}
+
+  	fixersToEles = fixersToEles.filter(removeIfAlreadyExists);
+
+  	if (arrLength === fixersToEles.length) {
+  		fixersToEles.push({ fixer_id: this.state.id, [idPropName]: newId });
+  	}
+  	
+  	this.setState({ [property]: fixersToEles });
+  }
+
+	_updateFixerInDb() {
+
+		let fixer = {
+			id: this.state.id,
+			firstname: this.state.firstname,
+			lastname: this.state.lastname,
+			phone: this.state.phone,
+			email: this.state.email,
+			gender: this.state.gender,
+			age: this.state.age,
+			description: this.state.description,
+			profilepic: this.state.profilepic
+		};
+
+		let data = {};
+
+		function relatedToFixer(fixToEle) {
+		  return Number(fixToEle.fixer_id) === Number(fixer.id);
+		}
+
+		let fixersToCategories = this.state.fixersToCategories.filter(relatedToFixer);
+		let fixersToAreas = this.state.fixersToAreas.filter(relatedToFixer);
+
+		var formData = new FormData();
+		formData.append('id', fixer.id);
+		formData.append('firstname', fixer.firstname);
+		formData.append('lastname', fixer.lastname);
+		formData.append('gender', fixer.gender);
+		formData.append('email', fixer.email);
+		formData.append('description', fixer.description);
+		formData.append('age', fixer.age);
+		formData.append('phone', fixer.phone);
+		formData.append('profilepic', fixer.profilepic.fileObject);
+
+		data.fixer = fixer;
+		data.fixersToCategories = fixersToCategories;
+		data.fixersToAreas = fixersToAreas;
+
+		$.ajax({
+    	url: '/api/fixers/crud/updateFixerAtributes',
+    	type: 'POST',
+    	dataType: 'json',
+    	data: formData,
+    	cache: false,
+    	contentType: false,
+			processData: false,
+    	success: function() {
+    		$.ajax({
+		    	url: '/api/fixers/crud/updateFixerCatsAndAreas',
+		    	type: 'POST',
+		    	data: JSON.stringify(data),
+		    	cache: false,
+		    	contentType:'application/json',
+		    	handleAs: 'json',
+					processData: false,
+		    	success: function() {
+		    		console.log('Fixer updated successfully!');
+		    		alert('El fixer fue actualizado exitosamente!');
+		    	}.bind(this),
+		    	error: function(xhr, status, err) {
+		    		alert(err);
+		     		console.log(err);
+		    	}.bind(this)
+			  });
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+    		console.log(err);
+     		alert(err);
+    	}.bind(this)
+	  });
+	}
+
 	render() {
 
 		let selectedAreas = [];
 		let selectedCategories = [];
 		let showImagePreview = null;
-		this.props.fixersToAreas.map( (fixToArea, index) => {
-			if (fixToArea.fixer_id === Number(this.props.id)) {
-				selectedAreas.push(fixToArea.area_id - 1);
-			} 
+
+		this.state.fixersToAreas.map( (fixToArea) => {
+			selectedAreas.push(fixToArea.area_id - 1);
 		});
 
-		this.props.fixersToCategories.map( (fixToCat, index) => {
-			if (fixToCat.fixer_id === Number(this.props.id)) {
-				selectedCategories.push(fixToCat.category_id - 1);
-			} 
+		this.state.fixersToCategories.map( (fixToCat) => {
+			selectedCategories.push(fixToCat.category_id - 1);
 		});
 
-		if (this.props.profilepic !== null && this.props.profilepic !== undefined) {
-			showImagePreview = <img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.props.profilepic.data)} alt='image'/>;
+		if (this.state.profilepic !== null && this.state.profilepic !== undefined) {
+			showImagePreview = <img height='80px' width='80px' src={'data:image/png;base64,' + arrBuffToBase64(this.state.profilepic.data)} alt='image'/>;
 		}
 
 	  return (
@@ -37,7 +184,7 @@ export default class FixerEdit extends Component {
 			        ID
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.id} type="text" placeholder="Id" disabled/>
+			        <FormControl value={this.state.id} type="text" placeholder="Id" disabled/>
 			      </Col>
 			    </FormGroup>
 
@@ -46,7 +193,7 @@ export default class FixerEdit extends Component {
 			        Nombre
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.firstName} type="text" placeholder="Nombre" onChange={this.props.update.bind(this, 'fixer', 'firstname')}/>
+			        <FormControl value={this.state.firstname} type="text" placeholder="Nombre" onChange={this._updateProperty.bind(this, 'firstname')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -55,7 +202,7 @@ export default class FixerEdit extends Component {
 			        Apellido
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.lastName} type="text" placeholder="Apellido" onChange={this.props.update.bind(this, 'fixer', 'lastname')}/>
+			        <FormControl value={this.state.lastname} type="text" placeholder="Apellido" onChange={this._updateProperty.bind(this, 'lastname')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -64,7 +211,7 @@ export default class FixerEdit extends Component {
 			        Teléfono
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.phone} type="text" placeholder="Teléfono" onChange={this.props.update.bind(this, 'fixer', 'phone')}/>
+			        <FormControl value={this.state.phone} type="text" placeholder="Teléfono" onChange={this._updateProperty.bind(this, 'phone')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -73,7 +220,7 @@ export default class FixerEdit extends Component {
 			        Email
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.email} type="email" placeholder="Email" onChange={this.props.update.bind(this, 'fixer', 'email')}/>
+			        <FormControl value={this.state.email} type="email" placeholder="Email" onChange={this._updateProperty.bind(this, 'email')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -82,7 +229,7 @@ export default class FixerEdit extends Component {
 			      	Género
 			      </Col>
 			      <Col sm={6}>
-				      <FormControl value={this.props.gender} componentClass="select" onChange={this.props.update.bind(this, 'user', 'gender')}>
+				      <FormControl value={this.state.gender} componentClass="select" onChange={this._updateProperty.bind(this, 'gender')}>
 				        <option value="hombre">hombre</option>
 				        <option value="mujer">mujer</option>
 				      </FormControl>
@@ -94,7 +241,7 @@ export default class FixerEdit extends Component {
 			        Edad
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.age} type="text" placeholder="Edad" onChange={this.props.update.bind(this, 'fixer', 'age')}/>
+			        <FormControl value={this.state.age} type="text" placeholder="Edad" onChange={this._updateProperty.bind(this, 'age')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -103,9 +250,9 @@ export default class FixerEdit extends Component {
 			      	Áreas
 			      </Col>
 			      <Col sm={6}>
-				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this.props.updateAreaMultiselect.bind(this, 'fixer', 'fixersToAreas', Number(this.props.id))}>
+				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this._updateFromMultiselect.bind(this, 'fixersToAreas')}>
 				      	{this.props.areas.map( (area, index) =>  { return(
-				      		<option value={index}>{area.description}</option>
+				      		<option key={'sel-opt1-' + index} value={index}>{area.description}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>
@@ -116,9 +263,10 @@ export default class FixerEdit extends Component {
 			      	Categorías
 			      </Col>
 			      <Col sm={6}>
-				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this.props.updateCategoryMultiselect.bind(this, 'fixer', 'fixersToCategories', Number(this.props.id))}>
-				      	{this.props.categories.map( (category, index) =>  { return(
-				      		<option value={index}>{category.description}</option>
+				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this._updateFromMultiselect.bind(this, 'fixersToCategories')}>
+				      	{this.props.categories.map( (category, index) =>  { 
+				      		return(
+				      			<option key={'sel-opt2-' + index} value={index}>{category.description}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>
@@ -129,7 +277,7 @@ export default class FixerEdit extends Component {
 			        Descripción
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.description} type="text" componentClass="textarea" placeholder="Descripción" onChange={this.props.update.bind(this, 'fixer', 'description')}/>
+			        <FormControl value={this.state.description} type="text" componentClass="textarea" placeholder="Descripción" onChange={this._updateProperty.bind(this, 'description')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -140,7 +288,7 @@ export default class FixerEdit extends Component {
 					    		{showImagePreview}
 					    	</li>
 					    	<li className={s.horizontalListEle}>
-		            	<FormControl type="file" onChange={this.props.updateImage.bind(this, 'fixer', 'profilepic')} />
+		            	<FormControl type="file" onChange={this._updateAttachedImage.bind(this)} />
 		            	<HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
 		            </li>
 	            </ul>
@@ -149,7 +297,7 @@ export default class FixerEdit extends Component {
 
 			    <FormGroup>
 			      <Col smOffset={2} sm={10}>
-			        <Button onClick={this.props.updateInDb}>
+			        <Button onClick={this._updateFixerInDb.bind(this)}>
 			          Actualizar
 			        </Button>
 			      </Col>

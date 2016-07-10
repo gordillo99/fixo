@@ -208,22 +208,26 @@ router.route('/getAllAreas')
 
   var updateFixer = function(fixer, imgData) {
     let queryUpdateImage = '';
+    let values = [];
 
-    if (imgData) {
-      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9 ;";
+    if (imgData !== null && imgData !== undefined) {
+      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9;";
+      values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, imgData, fixer.id];
     } else {
-      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7 where id=$9 ;"
+      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7 where id=$8;"
+      values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.id];
     }
 
     connection.db.manyOrNone({
       name: "update-fixer",
       text: queryUpdateImage,
-      values: [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, imgData, fixer.id]
+      values: values
     })
       .then(function () {
         return;
       })
       .catch(function (error) {
+          console.log('WAAAAZAAAP');
           console.log(error);
           res.send(error);    
       });
@@ -275,7 +279,6 @@ router.route('/getAllAreas')
       fixersToCategories: req.body.fixersToCategories
     };
     console.log(fixerProps);
-
     removeAllFixToAreaRels();
     res.send(true);
   });

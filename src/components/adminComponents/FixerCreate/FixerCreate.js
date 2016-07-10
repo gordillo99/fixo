@@ -215,7 +215,7 @@ export default class FixerCreate extends Component {
 			      <Col sm={6}>
 				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this._updateMultiselect.bind(this, 'fixersToCategories')}>
 				      	{this.props.categories.map( (category, index) =>  { return(
-				      		<option value={index}>{category.description}</option>
+				      		<option key={'select-cat-fixer-' + index} value={index}>{category.description}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>

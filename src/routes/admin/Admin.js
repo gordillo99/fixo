@@ -10,30 +10,7 @@ import s from './Admin.css';
 
 export default class Admin extends Component {
 
-	_updateProperty(index, targetType, property, event) {
-		let arr;
-
-		switch(targetType) {
-			case 'fixer':
-				arr = this.state.fixers;
-				break;
-			case 'user':
-				arr = this.state.users;
-				break;
-			case 'proposal':
-				arr = this.state.proposals;
-				break;
-			default:
-				arr = null;
-		}
-		arr[index][property] = event.target.value;
-		this.setState( { [targetType]: arr } );
-	}
-
 	render() {
-
-		let userContent = <AdminUser _updateProperty={this._updateProperty} />
-		let fixerContent = <AdminFixer _updateProperty={this._updateProperty} />
 		let proposalContent = <div>
 													</div>
 		let offerContent = <div>
@@ -42,10 +19,10 @@ export default class Admin extends Component {
 		const tabsInstance = (
 		  <Tabs defaultActiveKey={1} id='admin-tabs'>
 		    <Tab eventKey={1} title='Usuarios'>
-		    	{userContent}
+		    	<AdminUser />
 		    </Tab>
 		    <Tab eventKey={2} title='Fixers'>
-		    	{fixerContent}
+		    	<AdminFixer />
 		    </Tab>
 		    <Tab eventKey={3} title='Propuestas'>
 		    	{proposalContent}

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Button, Panel } from 'react-bootstrap';
-import arrBuffToBase64 from '../../helpers/helpers.js';
+import { arrBuffToBase64 }from '../../helpers/helpers.js';
 import FixerPanel from '../FixerPanel';
 import $ from 'jquery';
 import s from './FixerFinder.css';

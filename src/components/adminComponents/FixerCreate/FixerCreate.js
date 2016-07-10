@@ -143,7 +143,7 @@ export default class FixerCreate extends Component {
 			        Nombre
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.state.firstName} type="text" placeholder="Nombre" onChange={this._updateProperty.bind(this, 'firstname')}/>
+			        <FormControl value={this.state.firstname} type="text" placeholder="Nombre" onChange={this._updateProperty.bind(this, 'firstname')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -152,7 +152,7 @@ export default class FixerCreate extends Component {
 			        Apellido
 			      </Col>
 			      <Col sm={6}>
-			        <FormControl value={this.props.lastName} type="text" placeholder="Apellido" onChange={this._updateProperty.bind(this, 'lastname')}/>
+			        <FormControl value={this.props.lastname} type="text" placeholder="Apellido" onChange={this._updateProperty.bind(this, 'lastname')}/>
 			      </Col>
 			    </FormGroup>
 
@@ -202,7 +202,7 @@ export default class FixerCreate extends Component {
 			      <Col sm={6}>
 				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this._updateMultiselect.bind(this, 'fixersToAreas')}>
 				      	{this.props.areas.map( (area, index) =>  { return(
-				      		<option value={index}>{area.description}</option>
+				      		<option key={'select-areas-fixer-' + index} value={index}>{area.description}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>

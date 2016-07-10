@@ -103,20 +103,20 @@ var insertNewFixerToCategories = function() {
     });
 }
 
-router.route('/crud/:area')
+router.route('/crud/:area/:category')
 
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "find-fixers-in-area",
-      text: "select * from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1)",
-      values: [req.params.area]
+      text: "select f.* from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1) inner join fixers_to_categories as fc on (f.id = fc.fixer_id) inner join categories as cat on (cat.description = $2) and (cat.id = fc.category_id);",
+      values: [req.params.area, req.params.category]
     })
       .then(function (fixers) {
-          res.send(fixers);
+        res.send(fixers);
       })
       .catch(function (error) {
-          console.log(error);
-          res.send(error);    
+        console.log(error);
+        res.send(error);    
       });
   });
 
@@ -146,11 +146,11 @@ router.route('/crud/')
       values: []
     })
       .then(function (fixers) {
-          res.send(fixers);
+        res.send(fixers);
       })
       .catch(function (error) {
-          console.log(error);
-          res.send(error);    
+        console.log(error);
+        res.send(error);    
       });
   })
 
@@ -181,11 +181,11 @@ router.route('/getAllAreas')
       values: []
     })
       .then(function (fixToAreas) {
-          res.send(fixToAreas);
+        res.send(fixToAreas);
       })
       .catch(function (error) {
-          console.log(error);
-          res.send(error);    
+        console.log(error);
+        res.send(error);    
       });
   });
 
@@ -198,11 +198,11 @@ router.route('/getAllAreas')
       values: []
     })
       .then(function (fixToCats) {
-          res.send(fixToCats);
+        res.send(fixToCats);
       })
       .catch(function (error) {
-          console.log(error);
-          res.send(error);    
+        console.log(error);
+        res.send(error);    
       });
   });
 
@@ -227,9 +227,9 @@ router.route('/getAllAreas')
         return;
       })
       .catch(function (error) {
-          console.log('WAAAAZAAAP');
-          console.log(error);
-          res.send(error);    
+        console.log('WAAAAZAAAP');
+        console.log(error);
+        res.send(error);    
       });
   }
 

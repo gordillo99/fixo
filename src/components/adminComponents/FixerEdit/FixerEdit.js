@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
-import { arrBuffToBase64 } from '../../../helpers/helpers.js';
+import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import $ from 'jquery';
 import s from './FixerEdit.css';
 
@@ -266,7 +266,7 @@ export default class FixerEdit extends Component {
 				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this._updateFromMultiselect.bind(this, 'fixersToCategories')}>
 				      	{this.props.categories.map( (category, index) =>  { 
 				      		return(
-				      			<option key={'sel-opt2-' + index} value={index}>{category.description}</option>
+				      			<option key={'sel-opt2-' + index} value={index}>{catEnglishToSpanish(category.description)}</option>
 				      	)})}
 				      </FormControl>
 			     	</Col>

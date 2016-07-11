@@ -82,6 +82,21 @@ var createProposal = function() {
 
 router.route('/crud')
 
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-all-proposals",
+      text: "select p.*, u.firstname u_firstname, u.lastname as u_lastname, f.firstname as f_firstname, f.lastname as f_lastname from proposals as p inner join users as u on (u.id = p.user_id) inner join fixers as f on (f.id = p.fixer_id);",
+      values: []
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  })
+
   .post(multer({ dest: __dirname + '/temp/' }).single('image'), function(req, res) {
 
     var fs = require('fs'),

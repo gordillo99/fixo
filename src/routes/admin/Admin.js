@@ -5,14 +5,13 @@ import { Jumbotron, Tabs, Tab} from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import AdminUser from '../../components/adminComponents/AdminUser';
 import AdminFixer from '../../components/adminComponents/AdminFixer';
+import AdminProposal from '../../components/adminComponents/AdminProposal';
 import $ from 'jquery';
 import s from './Admin.css';
 
 export default class Admin extends Component {
 
 	render() {
-		let proposalContent = <div>
-													</div>
 		let offerContent = <div>
 											 </div>							
 
@@ -25,7 +24,7 @@ export default class Admin extends Component {
 		    	<AdminFixer />
 		    </Tab>
 		    <Tab eventKey={3} title='Propuestas'>
-		    	{proposalContent}
+		    	<AdminProposal />
 		    </Tab>
 		    <Tab eventKey={4} title='Ofertas'>
 		    	{offerContent}

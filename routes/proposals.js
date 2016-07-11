@@ -49,8 +49,6 @@ var createTxtQuestions = function(id, callback) {
     values: values
   })
     .then(function () {
-        console.log('id for function ' + proposal_id);
-        console.log(callback);
         if (callback) {
           callback(proposal_id);
         } else {
@@ -160,7 +158,6 @@ router.route('/crud')
       console.log('reading file...');
       // read in image in raw format (as type Buffer):
       fs.readFile(imagePath, function (err, imgData) {
-        console.log(imgData);
         if (err) console.log(err);
         imageData = imgData;
         fs.unlink(imagePath, function() {

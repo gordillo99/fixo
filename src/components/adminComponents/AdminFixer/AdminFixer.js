@@ -80,8 +80,8 @@ export default class AdminFixer extends Component {
     	cache: false,
     	success: function(data) {
     		this.setState( { fixers: data.sort(function(a, b) {
-		        return Number(a.id) - Number(b.id);
-		    }) } );
+		      return Number(a.id) - Number(b.id);
+		    })});
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
@@ -90,7 +90,6 @@ export default class AdminFixer extends Component {
 	}
 
 	render() {
-		let counter = 0;
 		return(
 			<div className={classNames(s.tabContent)}>
 				<h2>Crear Fixer</h2>
@@ -118,7 +117,7 @@ export default class AdminFixer extends Component {
 							fixersToCategories={this.state.fixersToCategories}
 						/>);
 			  })}
-		  </div>	
+		  </div>
 		);
 	}
 }

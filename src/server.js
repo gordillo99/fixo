@@ -84,7 +84,7 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 3 : 60 * 20; // 20 min in prod, 3 hours in dev
+    const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 8 : 60 * 40; // 40 min in prod, 8 hours in dev
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
@@ -103,6 +103,11 @@ app.get('/logout', function(req, res) {
 
 app.get('/isLoggedIn', isLoggedIn, (req, res) => {
     res.send({ type: req.user.usertype });
+  }
+);
+
+app.get('/getUserId', isLoggedIn, (req, res) => {
+    res.send(req.user);
   }
 );
 
@@ -212,7 +217,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 /* eslint-disable no-console */
 models.sync().catch(err => console.error(err.stack)).then(() => {
   app.listen(port, () => {
-    console.log(`The server is running at http://localhost:${port}/`);
+    console.log(`The server is running at http://localhost:${(port + 1)}/`);
   });
 });
 /* eslint-enable no-console */

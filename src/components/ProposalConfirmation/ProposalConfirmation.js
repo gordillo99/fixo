@@ -43,6 +43,7 @@ export default class ProposalConfirmation extends Component {
 				formData.append('fixer_id', Number(sel.selectedFixer.id));
 				formData.append('user_id', user.id);
 				formData.append('area', sel.area);
+				formData.append('category', this.props.category);
 				formData.append('image', image);
 
     		$.ajax({

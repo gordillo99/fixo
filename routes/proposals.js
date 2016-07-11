@@ -63,8 +63,8 @@ var createTxtQuestions = function(id, callback) {
 var createProposal = function() {
   connection.db.one({
     name: "create-proposal",
-    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning id;",
-    values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning]
+    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;",
+    values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
   })
     .then(function (data) {
       console.log('proposal created successfully!');
@@ -111,7 +111,8 @@ router.route('/crud')
           email: req.body.email, 
           phone_number: req.body.phone, 
           prop_date: req.body.date, 
-          morning: req.body.morning, 
+          morning: req.body.morning,
+          category: req.body.category, 
           qsAndAs: req.body.qsAndAs
         };
     

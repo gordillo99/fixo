@@ -108,8 +108,11 @@ export default class AdminProposal extends Component {
 							u_firstname={proposal.u_firstname}
 							u_lastname={proposal.u_lastname}
 							user_id={proposal.user_id}
+							category={proposal.category}
 							categories={this.state.categories}
 							areas={this.state.areas}
+							addQuestionsTxt={this.state.addQuestionsTxt}
+							addQuestionsImage={this.state.addQuestionsTxt}
 						/>);
 			  })}
 		  </div>

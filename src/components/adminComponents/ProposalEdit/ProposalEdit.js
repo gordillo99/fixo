@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
+import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import $ from 'jquery';
 import s from './ProposalEdit.css';
 
@@ -33,12 +34,27 @@ export default class ProposalEdit extends Component {
 
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
+		let qsAndAs = [];
+
+		this.props.addQuestionsTxt.map((question) => { 
+			if (Number(question.proposal_id) === Number(this.props.id)) {
+				qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
+			}
+		});
+
+		this.props.addQuestionsImage.map((question) => { 
+			if (Number(question.proposal_id) === Number(this.props.id)) {
+				qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
+			}
+		});
+
 		return(
 			<div>
 				<Button onClick={() => this.setState({ open: !this.state.open })}>
          	{this.state.id + '.) ' + this.state.u_firstname + ' ' + this.state.u_lastname + ', ' + this.state.prop_date + ', ' + this.state.category}
         </Button>
         <Panel collapsible expanded={this.state.open}>
+        	<h3>Descripción de propuesta</h3>
           <Form horizontal>
 		    		<FormGroup controlId="formControlsId">
 				      <Col componentClass={ControlLabel} sm={2}>
@@ -129,6 +145,8 @@ export default class ProposalEdit extends Component {
 				        <FormControl value={this.state.f_firstname + ' ' + this.state.f_lastname} type="text" placeholder="nombre de fixer" disabled/>
 				      </Col>
 				    </FormGroup>
+
+				    <AnswersDisplay rawImages={true} qsAndAs={qsAndAs} />
 
 				    <FormGroup>
 				      <Col smOffset={2} sm={10}>

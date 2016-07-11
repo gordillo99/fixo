@@ -22,7 +22,6 @@ export default class AdminUser extends Component {
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
-    		console.log(data);
     		this.setState( { users: data } );
     	}.bind(this),
     	error: function(xhr, status, err) {
@@ -34,6 +33,7 @@ export default class AdminUser extends Component {
 	render() {
 		return(
 			<div className={classNames(s.tabContent)}>
+				<h2>Actualizar usuarios</h2>
 				{this.state.users.map( (user, index) => {
 					return (
 								<UserEdit key={'userEdit-' + index} className={classNames(s.tabContentElement)}

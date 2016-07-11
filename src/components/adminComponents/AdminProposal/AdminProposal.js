@@ -26,7 +26,6 @@ export default class AdminProposal extends Component {
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
-    		console.log(data);
     		this.setState( { proposals: data } );
     	}.bind(this),
     	error: function(xhr, status, err) {
@@ -59,7 +58,7 @@ export default class AdminProposal extends Component {
      		console.log(err);
     	}.bind(this)
 	  });
-/*
+
 	  $.ajax({
     	url: '/api/proposals/crud/addQuestionsTxt',
     	type: 'GET',
@@ -84,7 +83,7 @@ export default class AdminProposal extends Component {
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
-	  });*/
+	  });
 	}
 
 	render() {
@@ -112,7 +111,7 @@ export default class AdminProposal extends Component {
 							categories={this.state.categories}
 							areas={this.state.areas}
 							addQuestionsTxt={this.state.addQuestionsTxt}
-							addQuestionsImage={this.state.addQuestionsTxt}
+							addQuestionsImage={this.state.addQuestionsImage}
 						/>);
 			  })}
 		  </div>

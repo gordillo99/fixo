@@ -31,7 +31,8 @@ var createTxtQuestions = function(id, callback) {
   var values = [],
       counter = 1,
       query = '',
-      partsOfQsAndAs = data.qsAndAs.split('*');
+      partsOfQsAndAs = data.qsAndAs.split('*'),
+      proposal_id = id;
 
   partsOfQsAndAs.map( (qAndA, index) => {
     if (index % 2 === 0) {
@@ -47,9 +48,11 @@ var createTxtQuestions = function(id, callback) {
     text: "insert into add_questions_txt (proposal_id, question, answer) values " + query,
     values: values
   })
-    .then(function (id) {
+    .then(function () {
+        console.log('id for function ' + proposal_id);
+        console.log(callback);
         if (callback) {
-          callback(id);
+          callback(proposal_id);
         } else {
           console.log('Txt questions created successfully!');
         }
@@ -79,6 +82,40 @@ var createProposal = function() {
       res.send(error);    
   });
 };
+
+router.route('/crud/addQuestionsTxt')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-all-additional-Qs-txt",
+      text: "select * from add_questions_txt;",
+      values: []
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/crud/addQuestionsImage')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-all-additional-Qs-image",
+      text: "select * from add_questions_image;",
+      values: []
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
 
 router.route('/crud')
 

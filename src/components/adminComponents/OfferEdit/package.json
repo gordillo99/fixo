@@ -1,0 +1,6 @@
+{
+  "name": "OfferEdit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./OfferEdit.js"
+}

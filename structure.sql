@@ -34,3 +34,21 @@ create table fixers_to_areas (id bigserial primary key, fixer_id int references 
 FIXERS_TO_CATEGORIES
 create table fixers_to_categories (id bigserial primary key unique, fixer_id int references fixers(id), category_id int references categories(id));
 
+OFFER
+create table offers (id bigserial primary key unique, proposal_id int references proposals(id), user_id varchar(255) references users(id), fixer_id int references fixers(id), actual_date date, actual_time varchar(10) not null, am_pm varchar(2) not null, cost decimal not null, state int not null);
+
+	#possible states:
+	0 draft
+	1 offer email sent to user
+	2 offer accepted by user
+	3 offer refused by user
+
+TODOs: 
+
+	remove fixer, remove proposal, remove offer
+	export offer to several formats
+	add email sending (for users and for fixers)
+	make fetching more effective using maps
+	add all form validation
+	secure routes that need user login or admin only
+

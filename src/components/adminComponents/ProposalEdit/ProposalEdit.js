@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
+import OfferEdit from '../OfferEdit';
 import $ from 'jquery';
 import s from './ProposalEdit.css';
 
@@ -35,6 +36,23 @@ export default class ProposalEdit extends Component {
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
 		let qsAndAs = [];
+		let offerContent = null;
+
+		if (this.props.offer === undefined || this.props.offer === null) {
+			offerContent = <Button>
+						          Crear Oferta
+						        </Button>
+    } else {
+    	offerContent = <OfferEdit
+    									id={this.props.offer.id}
+    									email={this.state.email}
+    									actual_date={this.props.offer.actual_date}
+    									actual_time={this.props.offer.actual_time}
+    									am_pm={this.props.offer.am_pm}
+    									cost={this.props.offer.cost}
+    									state={this.props.offer.state}
+    								 />
+    }
 
 		this.props.addQuestionsTxt.map((question) => { 
 			if (Number(question.proposal_id) === Number(this.props.id)) {
@@ -147,15 +165,8 @@ export default class ProposalEdit extends Component {
 				    </FormGroup>
 
 				    <AnswersDisplay rawImages={true} qsAndAs={qsAndAs} />
-
-				    <FormGroup>
-				      <Col smOffset={2} sm={10}>
-				        <Button>
-				          Crear Oferta
-				        </Button>
-				      </Col>
-				    </FormGroup>
 				  </Form>
+				  {offerContent}
         </Panel>	
 	    </div>
 		);

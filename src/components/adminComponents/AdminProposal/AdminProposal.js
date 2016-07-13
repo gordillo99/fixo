@@ -20,13 +20,37 @@ export default class AdminProposal extends Component {
 	}
 
 	componentDidMount() {
+		let proposalMap;
+		let proposalArray = [];
+
 		$.ajax({
     	url: '/api/proposals/crud/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
-    		this.setState( { proposals: data } );
+    		proposalMap = new Map();
+    		data.map((proposal, index) => {
+    			proposalMap.set(proposal.id, proposal);
+    		});
+
+    		$.ajax({
+		    	url: '/api/offers/crud/',
+		    	type: 'GET',
+		    	dataType: 'json',
+		    	cache: false,
+		    	success: function(offers) {
+		    		offers.map((offer, index) => {
+		    			let tempProposal = proposalMap.get(offer.proposal_id.toString());
+		    			tempProposal.offer = offer;
+		    			proposalArray.push(tempProposal);
+		    		});
+		    		this.setState( { proposals: proposalArray } );
+		    	}.bind(this),
+		    	error: function(xhr, status, err) {
+		     		console.log(err);
+		    	}.bind(this)
+			  });
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
@@ -107,6 +131,7 @@ export default class AdminProposal extends Component {
 							u_firstname={proposal.u_firstname}
 							u_lastname={proposal.u_lastname}
 							user_id={proposal.user_id}
+							offer={proposal.offer}
 							category={proposal.category}
 							categories={this.state.categories}
 							areas={this.state.areas}

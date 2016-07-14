@@ -20,31 +20,32 @@ export default class AdminProposal extends Component {
 	}
 
 	componentDidMount() {
-		let proposalMap;
+		let offerMap;
 		let proposalArray = [];
 
 		$.ajax({
-    	url: '/api/proposals/crud/',
+    	url: '/api/offers/crud/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
     	success: function(data) {
-    		proposalMap = new Map();
-    		data.map((proposal, index) => {
-    			proposalMap.set(proposal.id, proposal);
+    		offerMap = new Map();
+    		data.map((offer, index) => {
+    			offerMap.set(offer.proposal_id, offer);
     		});
-
+    		console.log(offerMap);
     		$.ajax({
-		    	url: '/api/offers/crud/',
+		    	url: '/api/proposals/crud/',
 		    	type: 'GET',
 		    	dataType: 'json',
 		    	cache: false,
-		    	success: function(offers) {
-		    		offers.map((offer, index) => {
-		    			let tempProposal = proposalMap.get(offer.proposal_id.toString());
-		    			tempProposal.offer = offer;
-		    			proposalArray.push(tempProposal);
+		    	success: function(proposals) {
+		    		proposals.map((proposal, index) => {
+		    			console.log(proposal.id);
+		    			proposal.offer = offerMap.get(Number(proposal.id));
+		    			proposalArray.push(proposal);
 		    		});
+		    		console.log(proposalArray);
 		    		this.setState( { proposals: proposalArray } );
 		    	}.bind(this),
 		    	error: function(xhr, status, err) {

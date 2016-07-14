@@ -39,12 +39,27 @@ export default class OfferEdit extends Component {
 		}
 	}
 
+	_sendEmailToUser() {
+		$.ajax({
+    	url: '/proposalMailer/mail/proposal',
+    	type: 'POST',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(proposals) {
+    		alert('Email fue enviado!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
 	render() {
 		let emailButton = null;
 
 		if (this.state.state == 0) {
-			emailButton = <Button>
-											Enviar oferta a usuario (via email)
+			emailButton = <Button onClick={this._sendEmailToUser.bind(this)}>
+											Enviar oferta a usuario (vía email)
 										</Button>
 		}
 

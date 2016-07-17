@@ -33,7 +33,6 @@ export default class AdminProposal extends Component {
     		data.map((offer, index) => {
     			offerMap.set(offer.proposal_id, offer);
     		});
-    		console.log(offerMap);
     		$.ajax({
 		    	url: '/api/proposals/crud/',
 		    	type: 'GET',
@@ -45,7 +44,6 @@ export default class AdminProposal extends Component {
 		    			proposal.offer = offerMap.get(Number(proposal.id));
 		    			proposalArray.push(proposal);
 		    		});
-		    		console.log(proposalArray);
 		    		this.setState( { proposals: proposalArray } );
 		    	}.bind(this),
 		    	error: function(xhr, status, err) {

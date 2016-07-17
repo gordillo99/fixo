@@ -40,12 +40,19 @@ export default class OfferEdit extends Component {
 	}
 
 	_sendEmailToUser() {
+		let data = {};
+		data.proposal = this.props.proposal;
+		data.offer = this.state;
+		console.log(data);
 		$.ajax({
-    	url: '/proposalMailer/mail/proposal',
+    	url: '/offerMailer/mail/offer',
     	type: 'POST',
-    	dataType: 'json',
+    	data: JSON.stringify(data),
     	cache: false,
-    	success: function(proposals) {
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
+    	success: function() {
     		alert('Email fue enviado!');
     	}.bind(this),
     	error: function(xhr, status, err) {

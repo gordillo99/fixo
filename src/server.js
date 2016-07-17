@@ -31,7 +31,7 @@ import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
 import categoriesRest from './../routes/categories.js';
 import offersRest from './../routes/offers.js';
-import proposalMailer from './../routes/proposalMailer.js';
+import offerMailer from './../routes/offerMailer.js';
 
 const app = express();
 
@@ -65,7 +65,7 @@ app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
 app.use('/api/categories', categoriesRest);
 app.use('/api/offers', offersRest);
-app.use('/proposalMailer', proposalMailer);
+app.use('/offerMailer', offerMailer);
 
 //
 // Authentication

@@ -90,7 +90,7 @@ export default class ProposalConfirmation extends Component {
 					<h1>Preguntas adicionales</h1>
 					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<div className={classNames(s.confirmBtnWrapper)}>
-						<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
+						<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Informar al fixer</Button>
 					</div>
 				</div>
 			</div>

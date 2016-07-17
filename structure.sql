@@ -20,7 +20,7 @@ create table categories (id int primary key unique, description varchar(255) not
 insert into categories (id, description) values (1, 'gardening');
 
 PROPOSALS
-create table proposals (id bigserial primary key, user_id varchar(255) references users(id), fixer_id int references fixers(id), area int references areas(id), address varchar(255), email varchar(255), phone_number varchar(20), prop_date date, morning int, category varchar(30));
+create table proposals (id bigserial primary key, user_id varchar(255) references users(id), fixer_id int references fixers(id), area int references areas(id), address varchar(255), email varchar(255), phone_number varchar(20), prop_date date, morning int, category varchar(30), created_at date);
 
 ADD_QUESTIONS_TXT
 create table add_questions_txt (id bigserial primary key, proposal_id int references proposals(id), question varchar(255) not null, answer varchar(255) not null);
@@ -51,4 +51,5 @@ TODOs:
 	make fetching more effective using maps
 	add all form validation
 	secure routes that need user login or admin only
+	implement created_at in proposals
 

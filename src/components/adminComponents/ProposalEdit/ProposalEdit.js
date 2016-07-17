@@ -51,6 +51,7 @@ export default class ProposalEdit extends Component {
     									am_pm={this.props.offer.am_pm}
     									cost={this.props.offer.cost}
     									state={this.props.offer.state}
+    									proposal={this.state}
     								 />
     }
 

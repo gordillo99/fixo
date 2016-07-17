@@ -89,8 +89,7 @@ export default class FixerCreate extends Component {
     		data.fixer.id = Number(fixerId[0].id);
 				data.fixersToAreas = this.state.fixersToAreas.map((ele) => { return { fixer_id: Number(data.fixer.id), area_id: Number(ele.category_id) } });
 				data.fixersToCategories = this.state.fixersToCategories.map((ele) => { return { fixer_id: Number(data.fixer.id), category_id: Number(ele.category_id) } });
-				console.log(data.fixersToAreas);
-				console.log(data.fixersToCategories);
+
     		$.ajax({
 		    	url: '/api/fixers/crud/updateFixerCatsAndAreas',
 		    	type: 'POST',

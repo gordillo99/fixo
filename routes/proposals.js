@@ -5,7 +5,9 @@ var pgp = require('pg-promise')();
 var fileUpload = require('express-fileupload');
 var multer = require('multer');
 var app = express();
-
+var config = require('../src/config.js');
+var nodemailer = require('nodemailer');
+var emailTemplates = require('../emailTemplates/proposalEmailForAdmins.js');
 
 var data;
 var imageData = null;
@@ -34,7 +36,7 @@ var createTxtQuestions = function(id, callback) {
       partsOfQsAndAs = data.qsAndAs.split('*'),
       proposal_id = id;
 
-  partsOfQsAndAs.map( (qAndA, index) => {
+  partsOfQsAndAs.map((qAndA, index) => {
     if (index % 2 === 0) {
       values.push(id, qAndA, partsOfQsAndAs[index + 1]);
       query += '($' + (counter++) + ',$' + (counter++) + ',$' + (counter++) + '),';
@@ -68,12 +70,38 @@ var createProposal = function() {
     values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
   })
     .then(function (data) {
+      // create reusable transporter object using the default SMTP transport
+      var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+
       console.log('proposal created successfully!');
-      if (imageData) {
-        createTxtQuestions(data.id, createImageQuestions);
-      } else {
-        createTxtQuestions(data.id);
-      }
+      var adminEmails = '';
+      config.adminEmails.map((email) => {
+        adminEmails += `${email},`
+      });
+
+      adminEmails = adminEmails.slice(0,-1);
+      // setup e-mail data with unicode symbols
+      var mailOptions = {
+        from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
+        to: adminEmails, // list of receivers
+        subject: 'fixo: Propuesta para fixer', // Subject line
+        text: 'fixo: Propuesta para fixer', // plaintext body
+        html: emailTemplates.createProposalEmail(data.id) // html body
+      };
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          res.send(false);
+          return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+        if (imageData) {
+          createTxtQuestions(data.id, createImageQuestions);
+        } else {
+          createTxtQuestions(data.id);
+        }
+      });
     })
     .catch(function (error) {
       console.log(error);

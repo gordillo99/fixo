@@ -20,7 +20,6 @@ import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import passport from './core/passport';
-import fbId from './core/passport';
 import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
@@ -30,6 +29,9 @@ import usersRest from './../routes/users.js';
 import fixersRest from './../routes/fixers.js';
 import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
+import categoriesRest from './../routes/categories.js';
+import offersRest from './../routes/offers.js';
+import offerMailer from './../routes/offerMailer.js';
 
 const app = express();
 
@@ -61,6 +63,9 @@ app.use('/api/users', usersRest);
 app.use('/api/fixers', fixersRest);
 app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
+app.use('/api/categories', categoriesRest);
+app.use('/api/offers', offersRest);
+app.use('/offerMailer', offerMailer);
 
 //
 // Authentication
@@ -83,13 +88,13 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    const expiresIn = 60 * 20; // 20 min
+    const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 8 : 60 * 40; // 40 min in prod, 8 hours in dev
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
   }
 );
-var request = require('request');
+
 app.get('/logout', function(req, res) {
 
   res.cookie("id_token", "", { expires: new Date() });
@@ -101,13 +106,17 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/isLoggedIn', isLoggedIn, (req, res) => {
-    res.send(true);
+    res.send({ type: req.user.usertype });
+  }
+);
+
+app.get('/getUserId', isLoggedIn, (req, res) => {
+    res.send(req.user);
   }
 );
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated() ? true : false)
       return next();
@@ -116,13 +125,14 @@ function isLoggedIn(req, res, next) {
   res.send(false);
 }
 
-/*
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
+function isAdmin(req, res, next) {
+  // if user is authenticated in the session and is admin, carry on
+  if ((req.isAuthenticated() ? true : false) && req.user.usertype === 'admin')
       return next();
 
-  res.sendStatus(401);
-}*/
+  // page not found if not admin
+  res.redirect('/not_authorized');
+}
 
 //
 // Register API middleware
@@ -146,6 +156,19 @@ app.get('*', async (req, res, next) => {
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
+    }
+
+    // auth for admin page
+    if (req.path === '/admin') {
+      if (!req.user) {
+        res.redirect('/not_found');
+        return;
+      } else {
+        if (req.user.usertype !== 'admin') {
+          res.redirect('/not_found');
+          return;
+        }
+      }
     }
 
     await UniversalRouter.resolve(routes, {

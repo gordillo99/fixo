@@ -27,34 +27,46 @@ export default class ProposalConfirmation extends Component {
 		}
 		stringQsAndAs = stringQsAndAs.slice(0,-1);
 
-		var formData = new FormData();
-		formData.append('address', sel.address);
-		formData.append('phone', sel.phone);
-		formData.append('email', sel.email);
-		formData.append('date', (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear());
-		formData.append('morning', sel.morning ? 0 : 1);
-		formData.append('qsAndAs', stringQsAndAs);
-		formData.append('fixer_id', sel.selectedFixer.fixer_id);
-		formData.append('user_id', 1); //TODO: change later
-		formData.append('area', sel.area);
-		formData.append('image', image);
-
 		$.ajax({
+    	url: '/getUserId',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(user) {
+    		var formData = new FormData();
+				formData.append('address', sel.address);
+				formData.append('phone', sel.phone);
+				formData.append('email', sel.email);
+				formData.append('date', (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear());
+				formData.append('morning', sel.morning ? 0 : 1);
+				formData.append('qsAndAs', stringQsAndAs);
+				formData.append('fixer_id', Number(sel.selectedFixer.id));
+				formData.append('user_id', user.id);
+				formData.append('area', sel.area);
+				formData.append('category', this.props.category);
+				formData.append('image', image);
+
+    		$.ajax({
 	      	url: '/api/proposals/crud/',
 	      	type: 'POST',
 	      	dataType: 'json',
 	      	data: formData,
 	      	cache: false,
 	      	contentType: false,
-    		processData: false,
+    			processData: false,
 	      	success: function(data) {
 	      		console.log('Proposal created successfully');
 	      	}.bind(this),
 	      	error: function(xhr, status, err) {
 	       		console.log(err);
 	      	}.bind(this)
-	    });
-	    this.props.toNextStage();
+		    });
+		    this.props.toNextStage();
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
 	}
 
 	render() {
@@ -78,7 +90,7 @@ export default class ProposalConfirmation extends Component {
 					<h1>Preguntas adicionales</h1>
 					<AnswersDisplay qsAndAs={sel.qsAndAs} />
 					<div className={classNames(s.confirmBtnWrapper)}>
-						<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Confirmar propuesta</Button>
+						<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Informar al fixer</Button>
 					</div>
 				</div>
 			</div>

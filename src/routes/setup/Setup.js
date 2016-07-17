@@ -69,7 +69,7 @@ export default class Setup extends Component {
     this.setState({ setupStage: ++this.state.setupStage });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     $.ajax({
       url: '/api/areas/crud',
       type: 'GET',
@@ -113,10 +113,19 @@ export default class Setup extends Component {
                   />
         break;
       case 2:
-        content = <FixerFinder area={this.state.area} toNextStage={this._nextStage.bind(this)} changeFixer={this._handleFixerChange.bind(this)} />
+        content = <FixerFinder 
+                    category={this.props.category}
+                    area={this.state.area}
+                    toNextStage={this._nextStage.bind(this)}
+                    changeFixer={this._handleFixerChange.bind(this)}
+                  />
         break;
       case 3:
-        content = <ProposalConfirmation toNextStage={this._nextStage.bind(this)} selection={this.state} />;
+        content = <ProposalConfirmation
+                    category={this.props.category}
+                    toNextStage={this._nextStage.bind(this)}
+                    selection={this.state}
+                  />;
         break;
       case 4:
         content = <ThankYouDisplay />;

@@ -36,6 +36,21 @@ router.route('/crud')
       });
   })
 
+  .delete(function(req, res) {
+    connection.db.manyOrNone({
+      name: "delete-user",
+      text: "delete from users where id=$1;",
+      values: [req.body.id]
+    })
+      .then(function () {
+          res.send(true);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+  });
+
 
 
 module.exports = router;

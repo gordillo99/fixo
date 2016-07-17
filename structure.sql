@@ -47,9 +47,10 @@ TODOs:
 
 	remove fixer, remove proposal, remove offer
 	export offer to several formats
-	add email sending (for users and for fixers)
-	make fetching more effective using maps
+	finish email templates
+	make fetching more efficient using maps
 	add all form validation
 	secure routes that need user login or admin only
 	implement created_at in proposals
+	add delete on cascade to relevant tables
 

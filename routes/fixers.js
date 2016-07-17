@@ -170,6 +170,21 @@ router.route('/crud/')
     } else {
       return createFixer(fixer);
     }
+  })
+
+  .delete(function(req, res) {
+    connection.db.manyOrNone({
+      name: "delete-fixer",
+      text: "delete from fixers where id=$1;",
+      values: [req.body.id]
+    })
+      .then(function () {
+          res.send(true);
+      })
+      .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
   });
 
 router.route('/getAllAreas')

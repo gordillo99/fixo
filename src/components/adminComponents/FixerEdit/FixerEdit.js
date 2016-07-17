@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
+import { Row, Panel, Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import $ from 'jquery';
 import s from './FixerEdit.css';
@@ -33,7 +33,8 @@ export default class FixerEdit extends Component {
 			profilepic: this.props.profilepic,
 			description: this.props.description,
 			fixersToAreas: fixersToAreas,
-			fixersToCategories: fixersToCategories
+			fixersToCategories: fixersToCategories,
+			open: false
 		};
 	}
 
@@ -42,7 +43,6 @@ export default class FixerEdit extends Component {
 	}
 
 	_updateAttachedImage(event) {
-
 		var image = $(event.target)[0].files[0],
 				reader = new FileReader(),
     		localThis = this;
@@ -158,6 +158,28 @@ export default class FixerEdit extends Component {
 	  });
 	}
 
+	_deleteFixerInDb() {
+		if (confirm('Está seguro que desea borrar a este fixer?')) {
+			$.ajax({
+	    	url: '/api/fixers/crud/',
+	    	type: 'DELETE',
+	    	dataType: 'json',
+	    	cache: false,
+	    	data: {
+	    		id: this.state.id
+	    	},
+	    	success: function() {
+	    		console.log('Fixer borrado successfully!');
+	    		alert('El fixer fue borrado exitosamente!');
+	    	}.bind(this),
+	    	error: function(xhr, status, err) {
+	    		alert(err);
+	     		console.log(err);
+	    	}.bind(this)
+		  });
+		}
+	}
+
 	render() {
 
 		let selectedAreas = [];
@@ -178,131 +200,147 @@ export default class FixerEdit extends Component {
 
 	  return (
 	    <div>
-	    	<Form horizontal>
-	    		<FormGroup controlId="formControlsId">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        ID
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.id} type="text" placeholder="Id" disabled/>
-			      </Col>
-			    </FormGroup>
+	    	<Button onClick={() => this.setState({ open: !this.state.open })}>
+         	{`${this.state.id}.) ${this.state.firstname} ${this.state.lastname}, ${this.state.phone}, ${this.state.email}`}
+        </Button>
+        <Panel collapsible expanded={this.state.open}>
+		    	<Form horizontal>
+		    		<FormGroup controlId="formControlsId">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        ID
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.id} type="text" placeholder="Id" disabled/>
+				      </Col>
+				    </FormGroup>
 
-	    		<FormGroup controlId="formControlsFirstName">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Nombre
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.firstname} type="text" placeholder="Nombre" onChange={this._updateProperty.bind(this, 'firstname')}/>
-			      </Col>
-			    </FormGroup>
+		    		<FormGroup controlId="formControlsFirstName">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Nombre
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.firstname} type="text" placeholder="Nombre" onChange={this._updateProperty.bind(this, 'firstname')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsLastName">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Apellido
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.lastname} type="text" placeholder="Apellido" onChange={this._updateProperty.bind(this, 'lastname')}/>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsLastName">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Apellido
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.lastname} type="text" placeholder="Apellido" onChange={this._updateProperty.bind(this, 'lastname')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsPhone">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Teléfono
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.phone} type="text" placeholder="Teléfono" onChange={this._updateProperty.bind(this, 'phone')}/>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsPhone">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Teléfono
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.phone} type="text" placeholder="Teléfono" onChange={this._updateProperty.bind(this, 'phone')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsEmail">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Email
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.email} type="email" placeholder="Email" onChange={this._updateProperty.bind(this, 'email')}/>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsEmail">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Email
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.email} type="email" placeholder="Email" onChange={this._updateProperty.bind(this, 'email')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsSelect">
-			    	<Col componentClass={ControlLabel} sm={2}>
-			      	Género
-			      </Col>
-			      <Col sm={6}>
-				      <FormControl value={this.state.gender} componentClass="select" onChange={this._updateProperty.bind(this, 'gender')}>
-				        <option value="hombre">hombre</option>
-				        <option value="mujer">mujer</option>
-				      </FormControl>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsSelect">
+				    	<Col componentClass={ControlLabel} sm={2}>
+				      	Género
+				      </Col>
+				      <Col sm={6}>
+					      <FormControl value={this.state.gender} componentClass="select" onChange={this._updateProperty.bind(this, 'gender')}>
+					        <option value="hombre">hombre</option>
+					        <option value="mujer">mujer</option>
+					      </FormControl>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsAge">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Edad
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.age} type="text" placeholder="Edad" onChange={this._updateProperty.bind(this, 'age')}/>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsAge">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Edad
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.age} type="text" placeholder="Edad" onChange={this._updateProperty.bind(this, 'age')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsSelectMultipleAreas">
-			      <Col componentClass={ControlLabel} sm={2}>
-			      	Áreas
-			      </Col>
-			      <Col sm={6}>
-				      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this._updateFromMultiselect.bind(this, 'fixersToAreas')}>
-				      	{this.props.areas.map( (area, index) =>  { return(
-				      		<option key={'sel-opt1-' + index} value={index}>{area.description}</option>
-				      	)})}
-				      </FormControl>
-			     	</Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsSelectMultipleAreas">
+				      <Col componentClass={ControlLabel} sm={2}>
+				      	Áreas
+				      </Col>
+				      <Col sm={6}>
+					      <FormControl componentClass="select" multiple value={selectedAreas} onChange={this._updateFromMultiselect.bind(this, 'fixersToAreas')}>
+					      	{this.props.areas.map( (area, index) =>  { return(
+					      		<option key={'sel-opt1-' + index} value={index}>{area.description}</option>
+					      	)})}
+					      </FormControl>
+				     	</Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsSelectMultipleCategories">
-			      <Col componentClass={ControlLabel} sm={2}>
-			      	Categorías
-			      </Col>
-			      <Col sm={6}>
-				      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this._updateFromMultiselect.bind(this, 'fixersToCategories')}>
-				      	{this.props.categories.map( (category, index) =>  { 
-				      		return(
-				      			<option key={'sel-opt2-' + index} value={index}>{catEnglishToSpanish(category.description)}</option>
-				      	)})}
-				      </FormControl>
-			     	</Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsSelectMultipleCategories">
+				      <Col componentClass={ControlLabel} sm={2}>
+				      	Categorías
+				      </Col>
+				      <Col sm={6}>
+					      <FormControl componentClass="select" multiple value={selectedCategories} onChange={this._updateFromMultiselect.bind(this, 'fixersToCategories')}>
+					      	{this.props.categories.map( (category, index) =>  { 
+					      		return(
+					      			<option key={'sel-opt2-' + index} value={index}>{catEnglishToSpanish(category.description)}</option>
+					      	)})}
+					      </FormControl>
+				     	</Col>
+				    </FormGroup>
 
-			    <FormGroup controlId="formControlsDesc">
-			      <Col componentClass={ControlLabel} sm={2}>
-			        Descripción
-			      </Col>
-			      <Col sm={6}>
-			        <FormControl value={this.state.description} type="text" componentClass="textarea" placeholder="Descripción" onChange={this._updateProperty.bind(this, 'description')}/>
-			      </Col>
-			    </FormGroup>
+				    <FormGroup controlId="formControlsDesc">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Descripción
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.description} type="text" componentClass="textarea" placeholder="Descripción" onChange={this._updateProperty.bind(this, 'description')}/>
+				      </Col>
+				    </FormGroup>
 
-			    <div>
-			    	<Col smOffset={2} sm={10}>
-			    		<ul className={s.horizontalList}>
-			    			<li className={s.horizontalListEle}>
-					    		{showImagePreview}
-					    	</li>
-					    	<li className={s.horizontalListEle}>
-		            	<FormControl type="file" onChange={this._updateAttachedImage.bind(this)} />
-		            	<HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
-		            </li>
-	            </ul>
-            </Col>
-          </div>
+				    <div>
+				    	<Col smOffset={2} sm={10}>
+				    		<ul className={s.horizontalList}>
+				    			<li className={s.horizontalListEle}>
+						    		{showImagePreview}
+						    	</li>
+						    	<li className={s.horizontalListEle}>
+			            	<FormControl type="file" onChange={this._updateAttachedImage.bind(this)} />
+			            	<HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+			            </li>
+		            </ul>
+	            </Col>
+	          </div>
 
-			    <FormGroup>
-			      <Col smOffset={2} sm={10}>
-			        <Button onClick={this._updateFixerInDb.bind(this)}>
-			          Actualizar
-			        </Button>
-			      </Col>
-			    </FormGroup>
-			  </Form>
+				    <FormGroup>
+				    	<Row>
+					      <Col smOffset={2} sm={5}>
+					      	<ul className={classNames(s.noListStyle)}>
+					      		<li className={classNames(s.inline)}>
+							        <Button onClick={this._updateFixerInDb.bind(this)}>
+							          Actualizar
+							        </Button>
+							      </li>
+							      <li className={classNames(s.inline)} onClick={this._deleteFixerInDb.bind(this)}>
+							        <Button bsStyle="danger">
+							          Borrar
+							        </Button>
+							      </li>
+					        </ul>
+					      </Col>
+				      </Row>
+				    </FormGroup>
+				  </Form>
+				</Panel>
 	    </div>
 	  );
 	}

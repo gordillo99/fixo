@@ -82,7 +82,25 @@ export default class ProposalEdit extends Component {
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
-	  });	
+	  });
+	}
+
+	_generatePDF() {
+		let data = {
+			id: this.state.id
+		};
+
+		$.ajax({
+    	url: '/pdf/pdfGenerator/' + this.state.id,
+    	type: 'GET',
+    	success: function(response) {
+    		console.log(response);
+    		//alert('Propuesta fue borrada exitosamente!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
 	}
 
 	render() {
@@ -247,7 +265,7 @@ export default class ProposalEdit extends Component {
 			      <Col sm={10}>
 			      	<ul className={classNames(s.noListStyle)}>
 			      		<li className={classNames(s.inline)}>
-					        <Button>
+					        <Button onClick={this._generatePDF.bind(this)}>
 								  	Exportar a PDF
 								  </Button>
 					      </li>

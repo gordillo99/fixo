@@ -62,7 +62,6 @@ var insertNewFixerToAreas = function() {
     values: arrayOfVals
   })
     .then(function () {
-      console.log();
       removeAllFixToCatRels();
     })
     .catch(function (error) {
@@ -127,7 +126,6 @@ var createFixer = function(fixer, res) {
     values: [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.imgData]
   })
     .then(function (data) {
-      console.log('id ' + data);
       console.log('fixer created successfully!');
       response.send(data);
     })
@@ -242,7 +240,6 @@ router.route('/getAllAreas')
         return;
       })
       .catch(function (error) {
-        console.log('WAAAAZAAAP');
         console.log(error);
         res.send(error);    
       });
@@ -293,7 +290,7 @@ router.route('/getAllAreas')
       fixersToAreas: req.body.fixersToAreas,
       fixersToCategories: req.body.fixersToCategories
     };
-    console.log(fixerProps);
+
     removeAllFixToAreaRels();
     res.send(true);
   });

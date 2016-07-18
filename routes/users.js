@@ -51,6 +51,4 @@ router.route('/crud')
       });
   });
 
-
-
 module.exports = router;

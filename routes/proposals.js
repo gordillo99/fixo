@@ -204,8 +204,9 @@ router.route('/crud')
       text: "delete from proposals where id=$1;",
       values: [req.body.id]
     })
-      .then(function (data) {
-        res.send(data);
+      .then(function () {
+        console.log('Proposal was deleted successfully');
+        res.send(true);
       })
       .catch(function (error) {
         console.log(error);

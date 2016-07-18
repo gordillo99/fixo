@@ -69,7 +69,7 @@ export default class ProposalEdit extends Component {
 		};
 
 		$.ajax({
-    	url: '/api/proposals/crud/delete',
+    	url: '/api/proposals/crud',
     	type: 'DELETE',
     	data: JSON.stringify(data),
     	cache: false,

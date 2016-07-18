@@ -25,3 +25,14 @@
 .tabContentElement {
   padding-bottom: 50px;
 }
+
+.inline {
+  display: inline-block;
+	margin-right: 15px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 10px;
+  
+}

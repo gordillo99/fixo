@@ -20,7 +20,11 @@ create table categories (id int primary key unique, description varchar(255) not
 insert into categories (id, description) values (1, 'gardening');
 
 PROPOSALS
-create table proposals (id bigserial primary key, user_id varchar(255) references users(id), fixer_id int references fixers(id), area int references areas(id), address varchar(255), email varchar(255), phone_number varchar(20), prop_date date, morning int, category varchar(30), created_at date);
+create table proposals (id bigserial primary key, user_id varchar(255) references users(id), fixer_id int references fixers(id), area int references areas(id), address varchar(255), email varchar(255), phone_number varchar(20), prop_date date, morning int, category varchar(30), created_at date, status int not null);
+
+	#possible states:
+	0 fixer has not been notified
+	1 fixer notified
 
 ADD_QUESTIONS_TXT
 create table add_questions_txt (id bigserial primary key, proposal_id int references proposals(id), question varchar(255) not null, answer varchar(255) not null);
@@ -43,14 +47,14 @@ create table offers (id bigserial primary key unique, proposal_id int references
 	2 offer accepted by user
 	3 offer refused by user
 
-TODOs: 
+TODOs:
 
-	remove fixer, remove proposal, remove offer
-	export offer to several formats
-	finish email templates
+	finish up profile view
+	make client side responsive
+	export proposal to several formats
 	make fetching more efficient using maps
 	add all form validation
 	secure routes that need user login or admin only
 	implement created_at in proposals
-	add delete on cascade to relevant tables
+	add on delete cascade to relevant tables
 

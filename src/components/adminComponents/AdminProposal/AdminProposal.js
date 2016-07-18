@@ -20,7 +20,7 @@ export default class AdminProposal extends Component {
 	}
 
 	componentDidMount() {
-		let offerMap;
+		/*let offerMap;
 		let proposalArray = [];
 
 		$.ajax({
@@ -50,6 +50,19 @@ export default class AdminProposal extends Component {
 		     		console.log(err);
 		    	}.bind(this)
 			  });
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });*/
+
+	  $.ajax({
+    	url: '/api/proposals/crud/',
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(proposals) {
+    		this.setState( { proposals: proposals } );
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
@@ -131,6 +144,7 @@ export default class AdminProposal extends Component {
 							u_lastname={proposal.u_lastname}
 							user_id={proposal.user_id}
 							offer={proposal.offer}
+							status={proposal.status}
 							category={proposal.category}
 							categories={this.state.categories}
 							areas={this.state.areas}

@@ -66,7 +66,7 @@ var createTxtQuestions = function(id, callback) {
 var createProposal = function() {
   connection.db.one({
     name: "create-proposal",
-    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;",
+    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
     values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
   })
     .then(function (data) {
@@ -196,6 +196,38 @@ router.route('/crud')
       createProposal();
     }
     res.send(true);
+  })
+
+  .delete(function(req, res) {
+    connection.db.manyOrNone({
+      name: "delete-proposal",
+      text: "delete from proposals where id=$1;",
+      values: [req.body.id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
   });
+
+router.route('/updateProposalState')
+
+  .post(function(req, res) {
+    connection.db.manyOrNone({
+      name: "update-state-proposal",
+      text: "update proposals set status=$1 where id=$2;",
+      values: [req.body.status, req.body.id]
+    })
+      .then(function () {
+        res.send(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  })
 
 module.exports = router;

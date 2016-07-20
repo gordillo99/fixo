@@ -45,6 +45,8 @@
     "pg": "^5.1.0",
     "pg-promise": "^4.6.2",
     "pretty-error": "2.0.0",
+    "qs": "^6.2.0",
+    "querystring": "^0.2.0",
     "react": "15.1.0",
     "react-bootstrap": "^0.29.4",
     "react-day-picker": "^2.2.0",

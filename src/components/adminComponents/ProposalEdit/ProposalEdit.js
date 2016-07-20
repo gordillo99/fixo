@@ -5,6 +5,7 @@ import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } f
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import OfferEdit from '../OfferEdit';
+import qs from 'qs';
 import $ from 'jquery';
 import s from './ProposalEdit.css';
 
@@ -109,6 +110,8 @@ export default class ProposalEdit extends Component {
 		let qsAndAs = [];
 		let statusLabel = '';
 		let buttonStatusText = '';
+		let stringifiedState = qs.stringify(this.state);
+		console.log(stringifiedState);
 
 		switch (this.state.status) {
 			case 0:
@@ -275,8 +278,8 @@ export default class ProposalEdit extends Component {
 			      <Col sm={10}>
 			      	<ul className={classNames(s.noListStyle)}>
 			      		<li className={classNames(s.inline)}>
-			      			<a href={'/pdf/pdfGenerator/' + this.state.id}>
-						        <Button>
+			      			<a href={`/pdf/pdfGenerator/${this.state.id}?${stringifiedState}`}>
+						        <Button onClick={this._generatePDF.bind(this)}>
 									  	Exportar a PDF
 									  </Button>
 								 	</a>

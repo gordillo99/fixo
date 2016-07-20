@@ -110,8 +110,9 @@ export default class ProposalEdit extends Component {
 		let qsAndAs = [];
 		let statusLabel = '';
 		let buttonStatusText = '';
-		let stringifiedState = qs.stringify(this.state);
-		console.log(stringifiedState);
+		let pdfParameters = this.state;
+		let stringifiedState = '';
+		let counter = 1;
 
 		switch (this.state.status) {
 			case 0:
@@ -130,15 +131,24 @@ export default class ProposalEdit extends Component {
 
 		this.props.addQuestionsTxt.map((question) => { 
 			if (Number(question.proposal_id) === Number(this.props.id)) {
+				pdfParameters[`qt${counter}`] = question.question;
+				pdfParameters[`at${counter}`] = question.answer;
+				counter++;
 				qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
 			}
 		});
 
 		this.props.addQuestionsImage.map((question) => { 
 			if (Number(question.proposal_id) === Number(this.props.id)) {
+				pdfParameters[`qt${counter}`] = question.question;
+				pdfParameters[`at${counter}`] = question.answer;
+				counter++;
 				qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
 			}
 		});
+
+		pdfParameters.numberOfQs = counter;
+		stringifiedState = qs.stringify(pdfParameters);
 
 		/*
 		if (this.props.offer === undefined || this.props.offer === null) {
@@ -278,8 +288,8 @@ export default class ProposalEdit extends Component {
 			      <Col sm={10}>
 			      	<ul className={classNames(s.noListStyle)}>
 			      		<li className={classNames(s.inline)}>
-			      			<a href={`/pdf/pdfGenerator/${this.state.id}?${stringifiedState}`}>
-						        <Button onClick={this._generatePDF.bind(this)}>
+			      			<a href={`/pdf/pdfGenerator?${stringifiedState}`}>
+						        <Button>
 									  	Exportar a PDF
 									  </Button>
 								 	</a>

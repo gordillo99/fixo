@@ -49,12 +49,12 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
+	add all the review related code
 	prompt login at right time
 	save users preliminary info before prompting login
 	finish up profile view
 	make client side responsive
 	fix the 'loading data' label when loading fixers
-	export proposal to pdf
 	make fetching more efficient using maps
 	add all form validation
 	secure routes that need user login or admin only

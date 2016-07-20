@@ -143,7 +143,8 @@ export default class AdminProposal extends Component {
 							u_firstname={proposal.u_firstname}
 							u_lastname={proposal.u_lastname}
 							user_id={proposal.user_id}
-							offer={proposal.offer}
+							//offer={proposal.offer}
+							created_at={proposal.created_at}
 							status={proposal.status}
 							category={proposal.category}
 							categories={this.state.categories}

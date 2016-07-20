@@ -59,5 +59,4 @@ TODOs:
 	add all form validation
 	secure routes that need user login or admin only
 	implement created_at in proposals
-	add on delete cascade to users
 

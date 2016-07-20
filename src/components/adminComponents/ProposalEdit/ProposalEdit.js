@@ -21,6 +21,7 @@ export default class ProposalEdit extends Component {
 			u_lastname: this.props.u_lastname,
 			phone: this.props.phone,
 			prop_date: dateFormat(this.props.prop_date, 'dd/mm/yyyy').toString(),
+			created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
 			morning: this.props.morning,
 			email: this.props.email,
 			address: this.props.address,
@@ -234,6 +235,15 @@ export default class ProposalEdit extends Component {
 				      </Col>
 				    </FormGroup>
 
+				    <FormGroup controlId="formControlsId">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Fecha de creación
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.created_at} type="text" placeholder="fecha de creación" disabled/>
+				      </Col>
+				    </FormGroup>
+
 				    <FormGroup controlId="formUserId">
 				      <Col componentClass={ControlLabel} sm={2}>
 				        ID de fixer
@@ -265,9 +275,11 @@ export default class ProposalEdit extends Component {
 			      <Col sm={10}>
 			      	<ul className={classNames(s.noListStyle)}>
 			      		<li className={classNames(s.inline)}>
-					        <Button onClick={this._generatePDF.bind(this)}>
-								  	Exportar a PDF
-								  </Button>
+			      			<a href={'/pdf/pdfGenerator/' + this.state.id}>
+						        <Button>
+									  	Exportar a PDF
+									  </Button>
+								 	</a>
 					      </li>
 					      <li className={classNames(s.inline)}>
 					        <Button onClick={this._updateProposalStatus.bind(this)}>

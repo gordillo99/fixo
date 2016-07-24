@@ -229,6 +229,55 @@ router.route('/updateProposalState')
         console.log(error);
         res.send(error);    
     });
+  });
+
+router.route('/get/:user_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-proposal-for-user",
+      text: "select p.id, p.area, p.address, p.email, p.phone_number, p.prop_date, p.morning, p.category, p.created_at, p.status, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1;",
+      values: [req.params.user_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  })
+
+router.route('/get/additional_info/:proposal_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "add-info-txt",
+      text: "select * from add_questions_txt where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function (data) {
+        console.log(data);
+        connection.db.manyOrNone({
+          name: "add-info-image",
+          text: "select * from add_questions_image where proposal_id = $1;",
+          values: [req.params.proposal_id]
+        })
+          .then(function (data2) {
+            res.send({
+              addQuestionsTxt: data,
+              addQuestionsImage: data2
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.send(error);    
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
   })
 
 module.exports = router;

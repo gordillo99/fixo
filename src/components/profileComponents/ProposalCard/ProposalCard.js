@@ -1,18 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Col, Row, Button, Panel } from 'react-bootstrap';
+import { Col, Row, Button, Panel, Glyphicon } from 'react-bootstrap';
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import FixerPanel from '../../FixerPanel';
+import ReviewForm from '../ReviewForm';
+import ReviewDisplay from '../ReviewDisplay';
 import s from './ProposalCard.css';
 import $ from 'jquery';
 
 export default class ProposalCard extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      review: {
+        rating: 0,
+        comment: ''
+      },
+      hasReview: this.props.proposal.has_review === 'yes',
       addQuestionsTxt: null,
       addQuestionsImage: null,
       open: false
@@ -20,28 +27,49 @@ export default class ProposalCard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     $.ajax({
-      url: `/api/proposals/get/additional_info/${this.props.proposal.id}`,
+      url: `/api/proposals/get/additional_info/${this.props.proposal.proposal_id}`,
       type: 'GET',
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState( { 
+        this.setState({ 
           addQuestionsTxt: data.addQuestionsTxt,
           addQuestionsImage: data.addQuestionsImage
-        } );
+        });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
       }.bind(this)
     });
+
+    if (this.state.hasReview) {
+      $.ajax({
+        url: `/api/reviews/crud/${this.props.proposal.proposal_id}`,
+        type: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          this.setState({
+            review: data[0]
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log(err);
+        }.bind(this)
+      });
+    }
+  }
+
+  _updateHasReviewProp(value, review) {
+    this.setState({ hasReview: value, review: review });
   }
 
   render() {
     let dateFormat = require('dateformat');
     let answersDisplay = null;
     let qsAndAs = [];
+    let reviewContent = null;
     let createdAt = dateFormat(this.props.proposal.created_at, 'dd/mm/yyyy').toString();
     let propDate = `${dateFormat(this.props.proposal.prop_date, 'dd/mm/yyyy').toString()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
     let fixer = {
@@ -60,6 +88,17 @@ export default class ProposalCard extends Component {
         qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
       });
       answersDisplay = <AnswersDisplay qsAndAs={qsAndAs} />;
+    }
+
+    if (this.state.hasReview) {
+      reviewContent = <ReviewDisplay review={this.state.review} />;
+    } else {
+      reviewContent = <ReviewForm 
+        user_id={this.props.proposal.user_id}
+        fixer_id={this.props.proposal.fixer_id}
+        proposal_id={this.props.proposal.proposal_id}
+        updateHasReview={this._updateHasReviewProp.bind(this)}
+      />;
     }
 
     return (
@@ -83,6 +122,7 @@ export default class ProposalCard extends Component {
                   <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
                 </div>
                 <FixerPanel fixer={fixer} />
+                {reviewContent}
                 <div className={s.leftAlignedDiv}>
                   {answersDisplay}
                 </div>

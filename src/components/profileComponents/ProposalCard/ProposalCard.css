@@ -22,3 +22,7 @@
 .proposalTitle {
 	font-weight: bold;
 }
+
+.reviewButton {
+	margin-bottom: 10px;
+}

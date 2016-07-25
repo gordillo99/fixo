@@ -25,7 +25,6 @@ export default class Profile extends Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-      	console.log(data);
         this.setState( {
         	id: data.id,
           familyName: data.name.familyName,
@@ -41,7 +40,7 @@ export default class Profile extends Component {
 
   render() {
   	let proposalsEle = null;
-  	
+
   	if (this.state.id) {
   		proposalsEle = <ProfileProposals id={this.state.id} />
   	}

@@ -1,0 +1,19 @@
+@import '../../variables.css';
+
+.inlineEles {
+  display: inline-block;
+  padding-right: 4px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.boldedText {
+	font-weight: bold;
+}
+
+.leftAlignedDiv {
+	text-align: left;
+}

@@ -31,6 +31,7 @@ import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
 import categoriesRest from './../routes/categories.js';
 import offersRest from './../routes/offers.js';
+import reviewsRest from './../routes/reviews.js';
 //import offerMailer from './../routes/offerMailer.js';
 import pdfGenerator from './../routes/pdf/pdfGenerator.js';
 
@@ -66,6 +67,7 @@ app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
 app.use('/api/categories', categoriesRest);
 app.use('/api/offers', offersRest);
+app.use('/api/reviews', reviewsRest);
 //app.use('/offerMailer', offerMailer);
 app.use('/pdf', pdfGenerator);
 

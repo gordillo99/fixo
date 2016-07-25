@@ -21,7 +21,7 @@ export default class ProfileProposals extends Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState( { proposals: data } );
+        this.setState({ proposals: data });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);

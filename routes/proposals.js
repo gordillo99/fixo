@@ -7,10 +7,39 @@ var multer = require('multer');
 var app = express();
 var config = require('../src/config.js');
 var nodemailer = require('nodemailer');
-var emailTemplates = require('../emailTemplates/proposalEmailForAdmins.js');
+
+var emailTemplateProposalForAdmin = require('../emailTemplates/proposalEmailForAdmins.js');
+var emailTemplateReviewForUser = require('../emailTemplates/reviewReminderEmailForUsers.js');
 
 var data;
 var imageData = null;
+
+var emailForReview = function() {
+  var dataCopy = data;
+  var schedule = require('node-schedule');
+  //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
+  var date = new Date(Date.now() + (1000 * 60 * 3));
+  var job = schedule.scheduleJob(date, function(y){
+    
+    // create reusable transporter object using the default SMTP transport
+    var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+      from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
+      to: dataCopy.email, // list of receivers
+      subject: 'fixo: Cuéntanos sobre tu fixer', // Subject line
+      text: 'fixo: Cuéntanos sobre tu fixer', // plaintext body
+      html: emailTemplateReviewForUser.createReviewEmail() // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+      console.log('Email de reseña enviado exitosamente.');
+    });
+
+  }.bind(null, dataCopy));
+}
 
 var createImageQuestions = function(id) {
 
@@ -64,6 +93,7 @@ var createTxtQuestions = function(id, callback) {
 };
 
 var createProposal = function() {
+  emailForReview();
   connection.db.one({
     name: "create-proposal",
     text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
@@ -86,7 +116,7 @@ var createProposal = function() {
         to: adminEmails, // list of receivers
         subject: 'fixo: Propuesta para fixer', // Subject line
         text: 'fixo: Propuesta para fixer', // plaintext body
-        html: emailTemplates.createProposalEmail(data.id) // html body
+        html: emailTemplateProposalForAdmin.createProposalEmail(data.id) // html body
       };
 
       // send mail with defined transport object

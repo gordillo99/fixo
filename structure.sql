@@ -52,15 +52,14 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	add scheduler for reviews
-	add all the review related code
+	add all the review related code (on fixer finder)
 	prompt login at right time
 	save users preliminary info before prompting login
-	finish up profile view
 	make client side responsive
 	code for no proposals in profile
 	fix the 'loading data' label when loading fixers
-	make fetching more efficient using maps
 	secure routes that need user login or admin only
+	make fetching more efficient using maps
 	add all form validation
+	fine tune scheduler time
 

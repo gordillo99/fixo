@@ -1,0 +1,9 @@
+@import '../../variables.css';
+
+.centralizedDiv {
+	text-align: center;
+}
+
+.paddingAbove {
+	padding-top: 10px;
+}

@@ -24,7 +24,6 @@ export default class FixerFinder extends Component {
       	dataType: 'json',
       	cache: false,
       	success: function(data) {
-      		console.log(data);
       		data.map((fixer) => fixer['selected'] = false);
       		this.setState( { fixers: data } );
       	}.bind(this),

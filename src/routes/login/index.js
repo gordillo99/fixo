@@ -14,8 +14,8 @@ export default {
 
   path: '/login',
 
-  action() {
-    return <Login />;
+  action(req) {
+    return <Login redirectTo={req.query.redirectTo} />;
   },
 
 };

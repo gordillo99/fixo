@@ -86,16 +86,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('express-session')({ secret: auth.jwt.secret, resave: true, saveUninitialized: true }));
 
-app.get('/login/facebook',
+/*app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: true })
-);
+);*/
+
+app.get('/login/facebook', function(req,res,next) {
+  if (req.query.redirectTo) {
+    res.cookie('redirectCookie', req.query.redirectTo, { maxAge: 900000, httpOnly: true });
+  }
+  passport.authenticate(
+    'facebook', { scope: ['email', 'user_location', 'user_friends'], session: true }
+  )(req,res,next);
+});
+
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
+    let redirectionRoute = (process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001';
+    if (req.cookies.redirectCookie) {
+      redirectionRoute += `/${req.cookies.redirectCookie}`;
+      res.clearCookie('redirectCookie');
+    }
     const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 8 : 60 * 40; // 40 min in prod, 8 hours in dev
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
+    res.redirect(redirectionRoute);
   }
 );
 

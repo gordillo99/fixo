@@ -31,7 +31,9 @@ import areasRest from './../routes/areas.js';
 import proposalsRest from './../routes/proposals.js';
 import categoriesRest from './../routes/categories.js';
 import offersRest from './../routes/offers.js';
-import offerMailer from './../routes/offerMailer.js';
+import reviewsRest from './../routes/reviews.js';
+//import offerMailer from './../routes/offerMailer.js';
+import pdfGenerator from './../routes/pdf/pdfGenerator.js';
 
 const app = express();
 
@@ -65,7 +67,9 @@ app.use('/api/areas', areasRest);
 app.use('/api/proposals', proposalsRest);
 app.use('/api/categories', categoriesRest);
 app.use('/api/offers', offersRest);
-app.use('/offerMailer', offerMailer);
+app.use('/api/reviews', reviewsRest);
+//app.use('/offerMailer', offerMailer);
+app.use('/pdf', pdfGenerator);
 
 //
 // Authentication
@@ -82,16 +86,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('express-session')({ secret: auth.jwt.secret, resave: true, saveUninitialized: true }));
 
-app.get('/login/facebook',
+/*app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: true })
-);
+);*/
+
+app.get('/login/facebook', function(req,res,next) {
+  if (req.query.redirectTo) {
+    res.cookie('redirectCookie', req.query.redirectTo, { maxAge: 900000, httpOnly: true });
+  }
+  passport.authenticate(
+    'facebook', { scope: ['email', 'user_location', 'user_friends'], session: true }
+  )(req,res,next);
+});
+
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
+    let redirectionRoute = (process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001';
+    if (req.cookies.redirectCookie) {
+      redirectionRoute += `/${req.cookies.redirectCookie}`;
+      res.clearCookie('redirectCookie');
+    }
     const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 8 : 60 * 40; // 40 min in prod, 8 hours in dev
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect((process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001');
+    res.redirect(redirectionRoute);
   }
 );
 

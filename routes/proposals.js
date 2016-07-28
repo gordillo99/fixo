@@ -7,10 +7,39 @@ var multer = require('multer');
 var app = express();
 var config = require('../src/config.js');
 var nodemailer = require('nodemailer');
-var emailTemplates = require('../emailTemplates/proposalEmailForAdmins.js');
+
+var emailTemplateProposalForAdmin = require('../emailTemplates/proposalEmailForAdmins.js');
+var emailTemplateReviewForUser = require('../emailTemplates/reviewReminderEmailForUsers.js');
 
 var data;
 var imageData = null;
+
+var emailForReview = function() {
+  var dataCopy = data;
+  var schedule = require('node-schedule');
+  //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
+  var date = new Date(Date.now() + (1000 * 60 * 3));
+  var job = schedule.scheduleJob(date, function(y){
+    
+    // create reusable transporter object using the default SMTP transport
+    var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+      from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
+      to: dataCopy.email, // list of receivers
+      subject: 'fixo: Cuéntanos sobre tu fixer', // Subject line
+      text: 'fixo: Cuéntanos sobre tu fixer', // plaintext body
+      html: emailTemplateReviewForUser.createReviewEmail() // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+      console.log('Email de reseña enviado exitosamente.');
+    });
+
+  }.bind(null, dataCopy));
+}
 
 var createImageQuestions = function(id) {
 
@@ -64,9 +93,10 @@ var createTxtQuestions = function(id, callback) {
 };
 
 var createProposal = function() {
+  emailForReview();
   connection.db.one({
     name: "create-proposal",
-    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;",
+    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
     values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
   })
     .then(function (data) {
@@ -86,7 +116,7 @@ var createProposal = function() {
         to: adminEmails, // list of receivers
         subject: 'fixo: Propuesta para fixer', // Subject line
         text: 'fixo: Propuesta para fixer', // plaintext body
-        html: emailTemplates.createProposalEmail(data.id) // html body
+        html: emailTemplateProposalForAdmin.createProposalEmail(data.id) // html body
       };
 
       // send mail with defined transport object
@@ -196,6 +226,104 @@ router.route('/crud')
       createProposal();
     }
     res.send(true);
+  })
+
+  .delete(function(req, res) {
+    connection.db.manyOrNone({
+      name: "delete-proposal",
+      text: "delete from proposals where id=$1;",
+      values: [req.body.id]
+    })
+      .then(function () {
+        console.log('Proposal was deleted successfully');
+        res.send(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/updateProposalState')
+
+  .post(function(req, res) {
+    connection.db.manyOrNone({
+      name: "update-state-proposal",
+      text: "update proposals set status=$1 where id=$2;",
+      values: [req.body.status, req.body.id]
+    })
+      .then(function () {
+        res.send(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/get/:user_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-proposal-for-user",
+      text: "select p.id as proposal_id, p.user_id, p.has_review, p.area, p.address, p.email, p.phone_number, p.prop_date, p.morning, p.category, p.created_at, p.status, f.id as fixer_id, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1;",
+      values: [req.params.user_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/get/additional_info/:proposal_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "add-info-txt",
+      text: "select * from add_questions_txt where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function (data) {
+        connection.db.manyOrNone({
+          name: "add-info-image",
+          text: "select * from add_questions_image where proposal_id = $1;",
+          values: [req.params.proposal_id]
+        })
+          .then(function (data2) {
+            res.send({
+              addQuestionsTxt: data,
+              addQuestionsImage: data2
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.send(error);    
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/updateHasReview/:proposal_id')
+
+  .post(function(req, res) {
+    connection.db.manyOrNone({
+      name: "update-has-review-for-proposal",
+      text: "update proposals set has_review = $1 where id = $2;",
+      values: [req.body.has_review, req.params.proposal_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
   });
 
 module.exports = router;

@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import OfferEdit from '../OfferEdit';
+import qs from 'qs';
 import $ from 'jquery';
 import s from './ProposalEdit.css';
 
@@ -21,6 +22,7 @@ export default class ProposalEdit extends Component {
 			u_lastname: this.props.u_lastname,
 			phone: this.props.phone,
 			prop_date: dateFormat(this.props.prop_date, 'dd/mm/yyyy').toString(),
+			created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
 			morning: this.props.morning,
 			email: this.props.email,
 			address: this.props.address,
@@ -29,15 +31,126 @@ export default class ProposalEdit extends Component {
 			f_firstname: this.props.f_firstname,
 			f_lastname: this.props.f_lastname,
 			category: catEnglishToSpanish(this.props.category),
+			status: this.props.status,
 			open: false
 		};
+	}
+
+	_updateProposalStatus() {
+		let status = 0;
+		let data = {};
+
+		if (!this.state.status) {
+			status = 1;
+		}
+
+		data.id = this.state.id;
+		data.status = status;
+
+		$.ajax({
+    	url: '/api/proposals/updateProposalState',
+    	type: 'POST',
+    	data: JSON.stringify(data),
+    	cache: false,
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
+    	success: function() {
+    		alert('Propuesta fue actualizada exitosamente!');
+    		this.setState({ status: status });
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_deleteProposalInDb() {
+		let data = {
+			id: this.state.id
+		};
+
+		$.ajax({
+    	url: '/api/proposals/crud',
+    	type: 'DELETE',
+    	data: JSON.stringify(data),
+    	cache: false,
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
+    	success: function() {
+    		alert('Propuesta fue borrada exitosamente!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_generatePDF() {
+		let data = {
+			id: this.state.id
+		};
+
+		$.ajax({
+    	url: '/pdf/pdfGenerator/' + this.state.id,
+    	type: 'GET',
+    	success: function(response) {
+    		console.log(response);
+    		//alert('Propuesta fue borrada exitosamente!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
 	}
 
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
 		let qsAndAs = [];
-		let offerContent = null;
+		let statusLabel = '';
+		let buttonStatusText = '';
+		let pdfParameters = this.state;
+		let stringifiedState = '';
+		let counter = 1;
 
+		switch (this.state.status) {
+			case 0:
+				buttonStatusText = 'Marcar como "Enviada al fixer"';
+				statusLabel = 'Propuesta no ha sido enviada al fixer';
+				break;
+			case 1:
+				buttonStatusText = 'Marcar como "Aún no ha sido enviada al fixer"';
+				statusLabel = 'El fixer ha sido notificado';
+				break;
+			default:
+				buttonStatusText = 'Error: status desconocido';
+				statusLabel = 'Error: status desconocido';
+				break;
+		}
+
+		this.props.addQuestionsTxt.map((question) => { 
+			if (Number(question.proposal_id) === Number(this.props.id)) {
+				pdfParameters[`qt${counter}`] = question.question;
+				pdfParameters[`at${counter}`] = question.answer;
+				counter++;
+				qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
+			}
+		});
+
+		this.props.addQuestionsImage.map((question) => { 
+			if (Number(question.proposal_id) === Number(this.props.id)) {
+				pdfParameters[`qt${counter}`] = question.question;
+				pdfParameters[`at${counter}`] = question.answer;
+				counter++;
+				qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
+			}
+		});
+
+		pdfParameters.numberOfQs = counter;
+		stringifiedState = qs.stringify(pdfParameters);
+
+		/*
 		if (this.props.offer === undefined || this.props.offer === null) {
 			offerContent = <Button>
 						          Crear Oferta
@@ -53,19 +166,7 @@ export default class ProposalEdit extends Component {
     									state={this.props.offer.state}
     									proposal={this.state}
     								 />
-    }
-
-		this.props.addQuestionsTxt.map((question) => { 
-			if (Number(question.proposal_id) === Number(this.props.id)) {
-				qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
-			}
-		});
-
-		this.props.addQuestionsImage.map((question) => { 
-			if (Number(question.proposal_id) === Number(this.props.id)) {
-				qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
-			}
-		});
+    }*/
 
 		return(
 			<div>
@@ -147,6 +248,15 @@ export default class ProposalEdit extends Component {
 				      </Col>
 				    </FormGroup>
 
+				    <FormGroup controlId="formControlsId">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Fecha de creación
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={this.state.created_at} type="text" placeholder="fecha de creación" disabled/>
+				      </Col>
+				    </FormGroup>
+
 				    <FormGroup controlId="formUserId">
 				      <Col componentClass={ControlLabel} sm={2}>
 				        ID de fixer
@@ -164,10 +274,39 @@ export default class ProposalEdit extends Component {
 				        <FormControl value={this.state.f_firstname + ' ' + this.state.f_lastname} type="text" placeholder="nombre de fixer" disabled/>
 				      </Col>
 				    </FormGroup>
-
 				    <AnswersDisplay rawImages={true} qsAndAs={qsAndAs} />
+				    <FormGroup controlId="formUserId">
+				      <Col componentClass={ControlLabel} sm={2}>
+				        Estado de propuesta
+				      </Col>
+				      <Col sm={6}>
+				        <FormControl value={statusLabel} type="text" placeholder="estado de propuesta" disabled/>
+				      </Col>
+				    </FormGroup>
 				  </Form>
-				  {offerContent}
+				  <Row>
+			      <Col sm={10}>
+			      	<ul className={classNames(s.noListStyle)}>
+			      		<li className={classNames(s.inline)}>
+			      			<a href={`/pdf/pdfGenerator?${stringifiedState}`}>
+						        <Button>
+									  	Exportar a PDF
+									  </Button>
+								 	</a>
+					      </li>
+					      <li className={classNames(s.inline)}>
+					        <Button onClick={this._updateProposalStatus.bind(this)}>
+								  	{buttonStatusText}
+								  </Button>
+					      </li>
+					      <li className={classNames(s.inline)}>
+					        <Button bsStyle="danger" onClick={this._deleteProposalInDb.bind(this)}>
+								  	Borrar
+								  </Button>
+					      </li>
+			        </ul>
+			      </Col>
+		      </Row>
         </Panel>	
 	    </div>
 		);

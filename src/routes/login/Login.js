@@ -13,16 +13,17 @@ import classNames from 'classnames';
 import s from './Login.css';
 
 const title = 'Inicio de Sesión';
+let redirectAddress = '';
 
 function Login(props, context) {
-  context.setTitle(title);
+  redirectAddress = (props.redirectTo) ? `/login/facebook?redirectTo=${props.redirectTo}` : '/login/facebook';
   return (
     <div className={s.root}>
       <div className={s.container}>
         <h1 className={classNames(s.loginHeader)}>{title}</h1>
         <p className={s.lead}>Inicia sesión usando tu cuenta de Facebook</p>
         <div className={s.formGroup}>
-          <a className={s.facebook} href="/login/facebook">
+          <a className={s.facebook} href={redirectAddress}>
             <svg
               className={s.icon}
               width="30"

@@ -1,0 +1,17 @@
+@import '../../variables.css';
+
+.radioButtonLabel {
+	margin-right: 20px;
+}
+
+.radioGroup {
+	margin-bottom: 10px;
+}
+
+.submitButton {
+	margin-bottom: 10px;
+}
+
+.boldedText {
+	font-weight: bold;
+}

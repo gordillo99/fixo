@@ -1,0 +1,31 @@
+@import '../../variables.css';
+
+.welcomePageHeader {
+  padding-top: 30px;
+}
+
+.stripeJumbotron {
+  color: white;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+  background-color: #1A8CF0;
+}
+
+.whiteFont {
+  color: white;
+}
+
+.inlineCategories {
+  display: inline-block;
+  padding: 0px 30px 0px 30px;
+  margin-top: 40px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.centralizedDiv {
+  text-align: center;
+}

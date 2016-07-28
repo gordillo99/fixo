@@ -19,6 +19,7 @@ import content from './content';
 import error from './error';
 import setup from './setup';
 import admin from './admin';
+import profile from './profile';
 
 export default {
 
@@ -29,6 +30,7 @@ export default {
     setup,
     login,
     admin,
+    profile,
     error
   ],
 
@@ -39,5 +41,4 @@ export default {
       <App context={context}>{component}</App>
     );
   },
-
 };

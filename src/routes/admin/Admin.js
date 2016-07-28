@@ -11,10 +11,7 @@ import s from './Admin.css';
 
 export default class Admin extends Component {
 
-	render() {
-		let offerContent = <div>
-											 </div>							
-
+	render() {					
 		const tabsInstance = (
 		  <Tabs defaultActiveKey={1} id='admin-tabs'>
 		    <Tab eventKey={1} title='Usuarios'>
@@ -25,9 +22,6 @@ export default class Admin extends Component {
 		    </Tab>
 		    <Tab eventKey={3} title='Propuestas'>
 		    	<AdminProposal />
-		    </Tab>
-		    <Tab eventKey={4} title='Ofertas'>
-		    	{offerContent}
 		    </Tab>
 		  </Tabs>
 		);

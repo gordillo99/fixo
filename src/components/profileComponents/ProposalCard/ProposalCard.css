@@ -1,0 +1,28 @@
+@import '../../variables.css';
+
+.inlineCategories {
+  display: inline-block;
+  padding: 0px 30px 0px 30px;
+  margin-top: 40px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.centralizedDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+	text-align: left;
+}
+
+.proposalTitle {
+	font-weight: bold;
+}
+
+.reviewButton {
+	margin-bottom: 10px;
+}

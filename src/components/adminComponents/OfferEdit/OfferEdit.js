@@ -43,7 +43,6 @@ export default class OfferEdit extends Component {
 		let data = {};
 		data.proposal = this.props.proposal;
 		data.offer = this.state;
-		console.log(data);
 		$.ajax({
     	url: '/offerMailer/mail/offer',
     	type: 'POST',

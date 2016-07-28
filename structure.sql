@@ -62,4 +62,5 @@ TODOs:
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
+	google analytics
 

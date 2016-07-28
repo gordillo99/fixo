@@ -35,12 +35,12 @@ router.route('/crud')
           values: [req.body.fixer_id]
         })
           .then(function (data) {
-            let sum = 4; //default starting value
-            let totalEles = data.length + 1; //default starting review
+            var sum = 4; //default starting value
+            var totalEles = data.length + 1; //default starting review
             data.map((review, index) =>{
               sum += review.rating;
             });
-            let avg = (sum / totalEles).toPrecision(2);
+            var avg = (sum / totalEles).toPrecision(2);
             console.log(`avg: ${avg} ${typeof avg}`);
             console.log(`sum: ${sum} ${typeof sum}`);
             console.log(`totalEles: ${totalEles} ${typeof totalEles}`);

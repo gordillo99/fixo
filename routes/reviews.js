@@ -40,13 +40,13 @@ router.route('/crud')
             data.map((review, index) =>{
               sum += review.rating;
             });
-            var avg = (sum / totalEles).toPrecision(2);
+            var avg = sum / totalEles;
             console.log(`avg: ${avg} ${typeof avg}`);
             console.log(`sum: ${sum} ${typeof sum}`);
             console.log(`totalEles: ${totalEles} ${typeof totalEles}`);
             connection.db.manyOrNone({
               name: "update-rating-fixer",
-              text: "update fixers set avg_rating=$1 and num_ratings=$2 where id=$3;",
+              text: "update fixers set avg_rating=$1, num_ratings=$2 where id=$3;",
               values: [avg, totalEles, req.body.fixer_id]
             })
               .then(function () {

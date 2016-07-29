@@ -30,7 +30,7 @@ export default class FixerPanel extends Component {
 		    </li>
 	  	</ul>
 		  	<FixerReviewsDisplay 
-		  		showAllReviews={true}
+		  		showMoreReviews={this.props.showReviews}
 		  		fixerRating={this.props.fixer.avg_rating}
 		  		numRatings={this.props.fixer.num_ratings}
 		  		fixerId={this.props.fixer.id}

@@ -45,9 +45,11 @@ export default class FixerReviewsDisplay extends Component {
 		if (this.state.showAllReviews) {
 			seeMoreReviews = <ReviewDisplay reviews={this.state.reviews} hideReviews={this._hideReviews.bind(this)} fixerId={this.props.fixerId}/>;
 		} else if (this.props.numRatings > 1) {
-			seeMoreReviews = <div className={classNames(s.centralizedDiv, s.paddingAbove)}>
-									       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más las reseñas</a>
-								       </div>
+			if (this.props.showMoreReviews) {
+				seeMoreReviews = <div className={classNames(s.centralizedDiv, s.paddingAbove)}>
+										       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más las reseñas</a>
+									       </div>
+			}
 		}
 
 		return(

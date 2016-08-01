@@ -51,16 +51,17 @@ create table offers (id bigserial primary key unique, proposal_id int references
 	3 offer refused by user
 
 TODOs:
+	fix the 'loading data' label when loading fixers
+	code for no proposals in profile
+	static pages
 
-	add all the review related code (on fixer finder)
 	prompt login at right time
 	save users preliminary info before prompting login
-	make client side responsive
-	code for no proposals in profile
-	fix the 'loading data' label when loading fixers
 	secure routes that need user login or admin only
+	
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
+	make client side responsive
 	google analytics
 

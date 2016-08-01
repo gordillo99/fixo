@@ -21,6 +21,7 @@ import error from './error';
 import setup from './setup';
 import admin from './admin';
 import profile from './profile';
+import terms from './terms';
 
 export default {
 
@@ -34,6 +35,7 @@ export default {
     admin,
     contact,
     about,
+    terms,
 
     //place new routes before these:
     //content,

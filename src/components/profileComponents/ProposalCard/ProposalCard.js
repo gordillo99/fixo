@@ -76,7 +76,9 @@ export default class ProposalCard extends Component {
       profilepic: this.props.proposal.profilepic,
       description: this.props.proposal.description,
       firstname: this.props.proposal.firstname,
-      lastname: this.props.proposal.lastname
+      lastname: this.props.proposal.lastname,
+      avg_rating: this.props.proposal.avg_rating,
+      num_ratings: this.props.proposal.num_ratings
     };
 
     if (this.state.addQuestionsTxt || this.state.addQuestionsImage) {
@@ -121,7 +123,7 @@ export default class ProposalCard extends Component {
                 <div>
                   <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
                 </div>
-                <FixerPanel fixer={fixer} />
+                <FixerPanel showReviews={false} fixer={fixer} />
                 {reviewContent}
                 <div className={s.leftAlignedDiv}>
                   {answersDisplay}

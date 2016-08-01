@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Panel } from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
+import FixerReviewsDisplay from '../reviewComponents/FixerReviewsDisplay';
 import s from './FixerPanel.css';
 
 export default class FixerPanel extends Component {
@@ -23,12 +24,18 @@ export default class FixerPanel extends Component {
 			<ul className={classNames(s.noListStyle)}>
 				<li className={classNames(s.inlineFixerEles)}>
 			    {showImage}
-			   	</li>
-			    <li className={classNames(s.inlineFixerEles)}>
-			      <p>{this.props.fixer.description}</p>
-			    </li>
-		      </ul>
-		    </Panel>
+		   	</li>
+		    <li className={classNames(s.inlineFixerEles)}>
+		      <p>{this.props.fixer.description}</p>
+		    </li>
+	  	</ul>
+		  	<FixerReviewsDisplay 
+		  		showMoreReviews={this.props.showReviews}
+		  		fixerRating={this.props.fixer.avg_rating}
+		  		numRatings={this.props.fixer.num_ratings}
+		  		fixerId={this.props.fixer.id}
+		  	/>
+		  </Panel>
 		);
 	}
 }

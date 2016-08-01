@@ -1,0 +1,10 @@
+@import '../../variables.css';
+
+.centralizedDiv {
+	text-align: center;
+}
+
+.inlineEles {
+  display: inline-block;
+  padding-right: 4px;
+}

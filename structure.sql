@@ -52,7 +52,6 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	add redirect code from login
 	add all the review related code (on fixer finder)
 	prompt login at right time
 	save users preliminary info before prompting login
@@ -63,4 +62,5 @@ TODOs:
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
+	google analytics
 

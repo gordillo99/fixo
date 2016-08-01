@@ -1,0 +1,20 @@
+@import '../../variables.css';
+
+.centralizedDiv {
+	text-align: center;
+}
+
+.inlineEles {
+  display: inline-block;
+  padding-right: 4px;
+}
+
+.noListStyle {
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.noBottomMargin {
+	margin-bottom: 0px;
+}

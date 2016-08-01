@@ -24,7 +24,6 @@ export default class FixerFinder extends Component {
       	dataType: 'json',
       	cache: false,
       	success: function(data) {
-      		console.log(data);
       		data.map((fixer) => fixer['selected'] = false);
       		this.setState( { fixers: data } );
       	}.bind(this),
@@ -58,7 +57,7 @@ export default class FixerFinder extends Component {
 											<h1>Selecciona a tu fixer</h1>
 											{this.state.fixers.map( (fixer, index) => {return(
 												<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
-													<FixerPanel fixer={fixer} showSelected={true}/>
+													<FixerPanel showReviews={true} fixer={fixer} showSelected={true}/>
 												</div>
 											)})}
 											<Button bsStyle='primary' className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>

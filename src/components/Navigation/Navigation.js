@@ -67,29 +67,34 @@ export default class Navigation extends Component {
         rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } ];
         break;
     }
-
+    const Header = Navbar.Header;
+    const Collapse = Navbar.Collapse;
+    const Brand = Navbar.Brand;
+    const Toggle = Navbar.Toggle;
     return (
-      <Navbar fixedTop>
-        <Navbar.Header>
-          <Navbar.Brand className={s.zeroPaddingTop}>
-            <div className={s.logoDiv}>
-            <a href='/'>
-              <img
-                src={fixoLogo}
-                height='60px'
-                width='80px'
-              />
-            </a>
-            </div>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {rightSideComponents.map( (navbarLink, index) => { return <NavItem href={navbarLink.href} eventKey={index+1} onClick={navbarLink.method} key={navbarLink.id}> { navbarLink.text } </NavItem> } ) }
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <div>
+        <Navbar fixedTop>
+          <Header>
+            <Brand className={s.zeroPaddingTop}>
+              <div className={s.logoDiv}>
+              <a href='/'>
+                <img
+                  src={fixoLogo}
+                  height='60px'
+                  width='80px'
+                />
+              </a>
+              </div>
+            </Brand>
+            <Toggle />
+          </Header>
+          <Collapse>
+            <Nav pullRight>
+              {rightSideComponents.map( (navbarLink, index) => { return <NavItem href={navbarLink.href} eventKey={index+1} onClick={navbarLink.method} key={navbarLink.id}> { navbarLink.text } </NavItem> } ) }
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
     );
   }
 }

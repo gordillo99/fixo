@@ -52,7 +52,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	static pages
+	add terms and conditions
 
 	prompt login at right time
 	save users preliminary info before prompting login

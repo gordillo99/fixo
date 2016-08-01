@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import fixoLogo from './fixo.png';
 import $ from 'jquery';
-import s from './Navigation.css';
+import s from './Navigation.style';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -71,23 +71,33 @@ export default class Navigation extends Component {
     return (
       <div>
         <Navbar fixedTop>
-          <a href='/'>
-            <img
-              src={fixoLogo}
-              height='60px'
-              width='80px'
-            />
-          </a>
-
-          <Nav pullRight>
-            <ul className={classNames(s.noListStyle)}>
-              {rightSideComponents.map( (navbarLink) => { return <li onClick={navbarLink.method} className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
-            </ul>
-          </Nav>
+          <Navbar.Header>
+            <Navbar.Brand className={s.zeroPaddingTop}>
+              <div className={s.logoDiv}>
+              <a href='/'>
+                <img
+                  src={fixoLogo}
+                  height='60px'
+                  width='80px'
+                />
+              </a>
+              </div>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              {rightSideComponents.map( (navbarLink, index) => { return <NavItem href={navbarLink.href} eventKey={index+1} onClick={navbarLink.method} key={navbarLink.id}> { navbarLink.text } </NavItem> } ) }
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
       </div>
     );
   }
 }
+
+/*
+
+*/
 
 export default withStyles(s)(Navigation);

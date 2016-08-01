@@ -13,24 +13,32 @@ export default class FixerFinder extends Component {
 		super();
 		this.state = {
 			fixers: [],
-			selectedFixer: {}
+			selectedFixer: {},
+			resultsTitle: <h1 className={classNames(s.loadingTitle)}>Cargando datos...</h1>,
+			noResults: true
 		}
 	}
 
 	componentWillMount() {
 		$.ajax({
-      	url: '/api/fixers/crud/' + this.props.area + '/' + this.props.category,
-      	type: 'GET',
-      	dataType: 'json',
-      	cache: false,
-      	success: function(data) {
-      		data.map((fixer) => fixer['selected'] = false);
-      		this.setState( { fixers: data } );
-      	}.bind(this),
-      	error: function(xhr, status, err) {
-       		console.log(err);
-      	}.bind(this)
-    });
+			url: '/api/fixers/crud/' + this.props.area + '/' + this.props.category,
+			type: 'GET',
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				let titleToShow = null;
+				let noData = false;
+				data.map((fixer) => fixer['selected'] = false);
+				if (data.length === 0) {
+					noData = true;
+					titleToShow = <h1 className={classNames(s.loadingTitle)}>No se encontraron resultados.</h1>;
+				}
+				this.setState( { fixers: data, resultsTitle: titleToShow, noResults: noData } );
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
+		});
 	}
 
 	_setFixer(fixer, index) {
@@ -53,19 +61,24 @@ export default class FixerFinder extends Component {
 	}
 
 	render() {
-		let fixerList = <div>
-											<h1>Selecciona a tu fixer</h1>
-											{this.state.fixers.map( (fixer, index) => {return(
-												<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
-													<FixerPanel showReviews={true} fixer={fixer} showSelected={true}/>
-												</div>
-											)})}
-											<Button bsStyle='primary' className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
-										</div>
-		let loadingScreen = <h1 className={classNames(s.loadingTitle)}>Cargando datos...</h1>
+		let fixerList = null;
+
+		if (!this.state.noResults) {
+			fixerList = <div>
+							<h1>Selecciona a tu fixer</h1>
+							{this.state.fixers.map( (fixer, index) => {return(
+								<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
+									<FixerPanel showReviews={true} fixer={fixer} showSelected={true}/>
+								</div>
+							)})}
+							<Button bsStyle='primary' className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
+						</div>
+		}
+		
 		return (
 			<div>
-				{(this.state.fixers.length === 0) ? loadingScreen : fixerList}
+				{this.state.resultsTitle}
+				{fixerList}
 			</div>
 		);
 	}

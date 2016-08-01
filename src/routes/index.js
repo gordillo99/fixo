@@ -30,7 +30,11 @@ export default {
     setup,
     login,
     admin,
+    contact,
     profile,
+
+    //place new routes before these:
+    //content,
     error
   ],
 

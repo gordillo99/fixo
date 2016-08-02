@@ -26,12 +26,12 @@ export default class MainPageStripe1 extends Component {
 
   _createCatsWithIcons(id, name, icon, route) {
     return (
-      <Link to={'/setup/' + route} className={classNames(s.whiteFont)}>
+      <a href={'/setup/' + route} className={classNames(s.whiteFont)}>
         <ul key={'catEle-' + id} className={classNames(s.noListStyle)}> 
           <li><img src={icon} height='40px' width='40px' /></li>
           <li><h3>{name}</h3></li> 
         </ul>
-      </Link>
+      </a>
     )
   }
 

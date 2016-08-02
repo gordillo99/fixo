@@ -90,7 +90,7 @@ export default class Navigation extends Component {
           </Header>
           <Collapse>
             <Nav pullRight>
-              {rightSideComponents.map( (navbarLink, index) => { return <NavItem href={navbarLink.href} eventKey={index+1} onClick={navbarLink.method} key={navbarLink.id}> { navbarLink.text } </NavItem> } ) }
+              {rightSideComponents.map( (navbarLink) => { return <li onClick={navbarLink.method} className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
             </Nav>
           </Collapse>
         </Navbar>

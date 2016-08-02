@@ -1,25 +1,32 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { Jumbotron, Col, Row } from 'react-bootstrap';
+import classNames from 'classnames';
 import s from './Contact.css';
 
-const title = 'Contact Us';
-
 function Contact(props, context) {
-  context.setTitle(title);
+
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <h1>{title}</h1>
-        <p>...</p>
+        <Jumbotron className={s.headerJumbotron}>
+          <h1 className={s.centeringDiv}>Contáctanos</h1>
+        </Jumbotron>
+        <Row>
+          <Col sm={4} xsOffset={4}>
+            <div className={s.centeringDiv}>
+              <div className={classNames(s.leftAlignedDiv)}>
+                <h2>¡Queremos escuchar de ti!</h2>
+                <p>Si tienes dudas o comentarios por favor escríbenos. Apreciamos cualquier comentario que nos pueda ayudar a darte un mejor servicio. :)</p>
+                <br/>
+                <p className={classNames(s.centeringDiv, s.boldedText)}>Información de contacto</p>
+                <p>Email: fixo.comercial@gmail.com</p>
+                <p>Número de teléfono: 4586 8659</p>
+              </div>
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );

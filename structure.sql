@@ -51,9 +51,8 @@ create table offers (id bigserial primary key unique, proposal_id int references
 	3 offer refused by user
 
 TODOs:
-	fix the 'loading data' label when loading fixers
-	code for no proposals in profile
-	static pages
+
+	add right text to terms, about, and contact
 
 	prompt login at right time
 	save users preliminary info before prompting login

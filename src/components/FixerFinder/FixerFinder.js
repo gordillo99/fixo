@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Jumbotron, Button, Panel } from 'react-bootstrap';
+import { Jumbotron, Button, Panel, Row, Col } from 'react-bootstrap';
 import { arrBuffToBase64 }from '../../helpers/helpers.js';
 import FixerPanel from '../FixerPanel';
 import $ from 'jquery';
@@ -77,8 +77,14 @@ export default class FixerFinder extends Component {
 		
 		return (
 			<div>
-				{this.state.resultsTitle}
-				{fixerList}
+			  <Row>
+			  	<Col md={4} xs={10} className={s.centerBlock}>
+				  <div className={s.centeringDiv}>
+					{this.state.resultsTitle}
+					{fixerList}
+				  </div>
+				</Col>
+			  </Row>
 			</div>
 		);
 	}

@@ -35,10 +35,10 @@ export default class SetupForm extends Component {
       <div>
         <Jumbotron className={classNames(s.stripeJumbotron)}>
           <div className={classNames(s.root)}>
-            <div className={classNames(s.formWrapper)}>
-              <form>
-                <Row>
-                  <Col>
+            <Row>
+              <Col md={4} xs={10} className={s.centerBlock}>
+                <div className={classNames(s.formWrapper)}>
+                  <form>
                     <FormGroup validationState={this._getValidationStateOfPhone()} controlId="formControlsTextarea">
                       <FormControl onChange={this.props.updatePhone} type="text" placeholder="Número de teléfono" />
                     </FormGroup>
@@ -81,10 +81,10 @@ export default class SetupForm extends Component {
                         Aceptar
                       </Button>
                     </div>
-                  </Col>
-                </Row>
-              </form>
-            </div>
+                  </form>
+                </div>
+              </Col>
+            </Row>
           </div>
         </Jumbotron>
       </div>

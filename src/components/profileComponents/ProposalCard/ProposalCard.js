@@ -107,7 +107,7 @@ export default class ProposalCard extends Component {
       <div className={s.root}>
         <div>
           <Row>
-            <Col sm={4} xsOffset={4}>
+            <Col md={12} xs={12} className={s.centerBlock}>
               <Button onClick={() => this.setState({ open: !this.state.open })}>
                 {`${this.props.counter}) Propuesta creada el ${createdAt}`}
               </Button>

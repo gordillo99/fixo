@@ -27,19 +27,19 @@
   margin: 0 auto;
 }
 
-.headerJumbotron {
-  color: white;
-  margin-bottom: 0px;
-  background-color: #1A8CF0;
-  padding-bottom: 5px;
-}
-
 .centeringDiv {
   text-align: center;
 }
 
 .leftAlignedDiv {
   text-align: left;
+}
+
+.headerJumbotron {
+  color: white;
+  margin-bottom: 0px;
+  background-color: #1A8CF0;
+  padding-bottom: 5px;
 }
 
 .topPadding {

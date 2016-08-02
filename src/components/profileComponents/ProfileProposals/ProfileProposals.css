@@ -14,3 +14,16 @@
 .centralizedDiv {
   text-align: center;
 }
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
+.centeringDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+  text-align: left;
+}

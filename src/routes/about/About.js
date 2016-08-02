@@ -16,7 +16,7 @@ function About(props, context) {
         <Row>
           <Col md={8} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
-              <div >
+              <div>
                 <p className={s.topPadding}>fixo es una compañía dedicada a facilitar la búsqueda de personas para realizar trabajos en tu vivienda.</p>
                 <br/>
                 <p className={classNames(s.centeringDiv, s.boldedText)}>Equipo detrás de fixo</p>

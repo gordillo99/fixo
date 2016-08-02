@@ -8,15 +8,10 @@
   padding: 20px 15px;
 }
 
-.leftAlignedDiv {
-	text-align: left; 
-}
-
 .containerDiv {
 	margin: auto;
-  	width: 440px;
-  	text-align: left;
-  	margin-top: 40px;
+	text-align: left;
+	margin-top: 40px;
 }
 
 .confirmBtnWrapper {
@@ -36,4 +31,17 @@
 
 .fixerImage {
 	padding-right: 10px;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
+.centeringDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+  text-align: left;
 }

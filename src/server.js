@@ -57,6 +57,11 @@ app.use(bodyParser.json({
     extended: false,
     parameterLimit: 10000,
     limit: 1024 * 1024 * 10 }));
+//
+// Setup Helmet
+//
+var helmet = require('helmet');
+app.use(helmet());
 
 //
 // Routes Setup
@@ -75,6 +80,46 @@ app.use('/pdf', pdfGenerator);
 // Authentication
 // -----------------------------------------------------------------------------
 
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated() ? true : false)
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.send(false);
+}
+
+// route middleware to make sure a user is logged in (redirect if not)
+function redirectIfNotLoggedIn(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated() ? true : false)
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}
+
+// route middleware to make sure a user is logged in (redirect if not)
+function handleCategoryRedirection(req, res, next) {
+  console.log(req.params);
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated() ? true : false)
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect(`/login?redirectTo=setup/${req.params.cat}`);
+}
+
+function isAdmin(req, res, next) {
+  // if user is authenticated in the session and is admin, carry on
+  if ((req.isAuthenticated() ? true : false) && req.user.usertype === 'admin')
+      return next();
+
+  // page not found if not admin
+  res.redirect('/not_authorized');
+}
+
 app.use(expressJwt({
   secret: auth.jwt.secret,
   credentialsRequired: false,
@@ -86,9 +131,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('express-session')({ secret: auth.jwt.secret, resave: true, saveUninitialized: true }));
 
-/*app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location', 'user_friends'], session: true })
-);*/
+app.all('/profile', redirectIfNotLoggedIn, function(req, res, next) {
+  next(); 
+});
+
+app.all('/setup/:cat', handleCategoryRedirection, function(req, res, next) {
+  next(); 
+});
+
+app.all('/admin', isAdmin, function(req, res, next) {
+  next(); 
+});
 
 app.get('/login/facebook', function(req,res,next) {
   if (req.query.redirectTo) {
@@ -134,25 +187,6 @@ app.get('/getUserId', isLoggedIn, (req, res) => {
   }
 );
 
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated() ? true : false)
-      return next();
-
-  // if they aren't redirect them to the home page
-  res.send(false);
-}
-
-function isAdmin(req, res, next) {
-  // if user is authenticated in the session and is admin, carry on
-  if ((req.isAuthenticated() ? true : false) && req.user.usertype === 'admin')
-      return next();
-
-  // page not found if not admin
-  res.redirect('/not_authorized');
-}
-
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
@@ -175,19 +209,6 @@ app.get('*', async (req, res, next) => {
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
-    }
-
-    // auth for admin page
-    if (req.path === '/admin') {
-      if (!req.user) {
-        res.redirect('/not_found');
-        return;
-      } else {
-        if (req.user.usertype !== 'admin') {
-          res.redirect('/not_found');
-          return;
-        }
-      }
     }
 
     await UniversalRouter.resolve(routes, {

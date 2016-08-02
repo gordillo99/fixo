@@ -42,7 +42,7 @@ export default class ProgressionStatus extends Component {
     return (
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
-          <Row>
+          <Row className={s.row}>
             <Col md={8} xs={10} className={s.centerBlock}>
               <div className={s.centeringDiv}>
                 <ul className={classNames(s.listStyle)}>

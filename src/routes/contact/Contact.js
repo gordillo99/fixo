@@ -13,7 +13,7 @@ function Contact(props, context) {
         <Jumbotron className={s.headerJumbotron}>
           <h1 className={classNames(s.centeringDiv, s.pageHeader)}>Contáctanos</h1>
         </Jumbotron>
-        <Row>
+         <Row className={s.row}>
           <Col md={8} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
               <div className={classNames(s.leftAlignedDiv)}>

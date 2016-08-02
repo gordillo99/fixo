@@ -48,7 +48,7 @@ export default class ProfileProposals extends Component {
         <div className={classNames(s.centralizedDiv)}>
           <h2>Tus propuestas</h2>
           {resultTitle}
-          <Row>
+          <Row className={s.row}>
             <Col md={5} xs={10} className={s.centerBlock}>
               <div className={s.centeringDiv}>
                 {this.state.proposals.map((proposal, counter) => {

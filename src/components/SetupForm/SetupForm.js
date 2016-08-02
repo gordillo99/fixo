@@ -35,7 +35,7 @@ export default class SetupForm extends Component {
       <div>
         <Jumbotron className={classNames(s.stripeJumbotron)}>
           <div className={classNames(s.root)}>
-            <Row>
+            <Row className={s.row}>
               <Col md={4} xs={10} className={s.centerBlock}>
                 <div className={classNames(s.formWrapper)}>
                   <form>

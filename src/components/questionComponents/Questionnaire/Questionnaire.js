@@ -35,7 +35,7 @@ export default class Questionnaire extends Component {
       <div className={s.root}>
         <div className={s.container}>
           <div >
-            <Row>
+            <Row className={s.row}>
               <Col md={4} xs={10} className={s.centerBlock}>
                 <div className={s.leftAlignedDiv}>
                   <form>

@@ -13,7 +13,7 @@ function About(props, context) {
         <Jumbotron className={s.headerJumbotron}>
           <h1 className={classNames(s.pageHeader, s.centeringDiv)}>Sobre fixo</h1>
         </Jumbotron>
-        <Row>
+        <Row className={s.row}>
           <Col md={8} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
               <div>

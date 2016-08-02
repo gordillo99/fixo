@@ -36,13 +36,13 @@ export default class AdminUser extends Component {
 				<h2>Actualizar usuarios</h2>
 				{this.state.users.map( (user, index) => {
 					return (
-								<UserEdit key={'userEdit-' + index} className={classNames(s.tabContentElement)}
-									id={user.id}
-									email={user.email}
-									firstname={user.firstname}
-									lastname={user.lastname}
-									usertype={user.usertype}
-								/>);
+						<UserEdit key={'userEdit-' + index} className={classNames(s.tabContentElement)}
+							id={user.id}
+							email={user.email}
+							firstname={user.firstname}
+							lastname={user.lastname}
+							usertype={user.usertype}
+						/>);
 				})}
 			</div>);
 	}

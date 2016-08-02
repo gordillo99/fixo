@@ -47,7 +47,7 @@ export default class MainPageStripe2 extends Component {
     return (
       <Jumbotron className={classNames(s.stripe2Jumbotron)}>
         <h1 className={classNames(s.welcomePageHeader)}>¡Así de fácil!</h1>
-        <Row>
+        <Row className={s.row}>
           <Col xs={12}>
             <ul>
               {this._createSteps()}

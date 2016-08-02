@@ -17,6 +17,10 @@
 
 .noListStyle {
   list-style: none;
-  padding-left: 10px;
-  
+  padding-left: 10px; 
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
 }

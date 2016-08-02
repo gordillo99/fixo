@@ -75,7 +75,7 @@ export default class ProposalConfirmation extends Component {
 		return(
 			<div className={classNames(s.containerDiv)}>
 				<div className={classNames(s.leftAlignedDiv)}>
-					<Row>
+					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>
 							<div className={s.centeringDiv}>
 								<h1>Fixer seleccionado</h1>

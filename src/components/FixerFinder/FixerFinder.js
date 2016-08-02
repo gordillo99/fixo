@@ -77,7 +77,7 @@ export default class FixerFinder extends Component {
 		
 		return (
 			<div>
-			  <Row>
+			  <Row className={s.row}>
 			  	<Col md={4} xs={10} className={s.centerBlock}>
 				  <div className={s.centeringDiv}>
 					{this.state.resultsTitle}

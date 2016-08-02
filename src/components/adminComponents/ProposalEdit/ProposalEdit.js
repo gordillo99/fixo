@@ -284,7 +284,7 @@ export default class ProposalEdit extends Component {
 				      </Col>
 				    </FormGroup>
 				  </Form>
-				  <Row>
+				  <Row className={s.row}>
 			      <Col sm={10}>
 			      	<ul className={classNames(s.noListStyle)}>
 			      		<li className={classNames(s.inline)}>

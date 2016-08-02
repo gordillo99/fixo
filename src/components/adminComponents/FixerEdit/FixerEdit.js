@@ -322,7 +322,7 @@ export default class FixerEdit extends Component {
 	          </div>
 
 				    <FormGroup>
-				    	<Row>
+				    	<Row className={s.row}>
 					      <Col smOffset={2} sm={5}>
 					      	<ul className={classNames(s.noListStyle)}>
 					      		<li className={classNames(s.inline)}>

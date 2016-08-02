@@ -11,10 +11,10 @@ function Terms(props, context) {
     <div className={s.root}>
       <div className={s.container}>
         <Jumbotron className={s.headerJumbotron}>
-          <h1 className={s.centeringDiv}>Términos de servicio</h1>
+          <h1 className={classNames(s.centeringDiv, s.pageHeader)}>Términos de servicio</h1>
         </Jumbotron>
         <Row>
-          <Col sm={4} xsOffset={4}>
+          <Col md={8} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
               <div className={classNames(s.leftAlignedDiv)}>
                 <h2 className={s.centeringDiv}>fixo es un prototipo</h2>

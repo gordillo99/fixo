@@ -30,3 +30,7 @@
   color: #1A8CF0;
   font-weight: bold;
 }
+
+.whiteBackground {
+  background-color: white;
+}

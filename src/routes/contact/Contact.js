@@ -11,18 +11,20 @@ function Contact(props, context) {
     <div className={s.root}>
       <div className={s.container}>
         <Jumbotron className={s.headerJumbotron}>
-          <h1 className={s.centeringDiv}>Contáctanos</h1>
+          <h1 className={classNames(s.centeringDiv, s.pageHeader)}>Contáctanos</h1>
         </Jumbotron>
         <Row>
-          <Col sm={4} xsOffset={4}>
+          <Col md={8} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
               <div className={classNames(s.leftAlignedDiv)}>
-                <h2>¡Queremos escuchar de ti!</h2>
+                <h2 className={s.centeringDiv}>¡Queremos escucharte!</h2>
                 <p>Si tienes dudas o comentarios por favor escríbenos. Apreciamos cualquier comentario que nos pueda ayudar a darte un mejor servicio. :)</p>
                 <br/>
                 <p className={classNames(s.centeringDiv, s.boldedText)}>Información de contacto</p>
-                <p>Email: fixo.comercial@gmail.com</p>
-                <p>Número de teléfono: 4586 8659</p>
+                <Col md={6} mdOffset={3}>
+                  <p>Email: fixo.comercial@gmail.com</p>
+                  <p>Número de teléfono: 4586 8659</p>
+                </Col>
               </div>
             </div>
           </Col>

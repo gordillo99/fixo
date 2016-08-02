@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron, Row, Col } from 'react-bootstrap';
 import s from './MainPageStripe2.css';
 
 export default class MainPageStripe2 extends Component {
@@ -31,22 +31,29 @@ export default class MainPageStripe2 extends Component {
             <li className={classNames(s.stepDesc)}><p >{descArr[0]}<br/>{descArr[1]}</p></li>
           </ul>
         </li>
-        <li className={classNames(s.inlineSteps)}>
-          <div>
-            {(index !== len - 1) ? <img className={classNames(s.mainPageArrows)} src={require('./images/arrow.png')}/> : null}
-          </div>
-        </li>
       </ul>
     );
   }
+
+  /*
+<li className={classNames(s.inlineSteps)}>
+  <div>
+    {(index !== len - 1) ? <img className={classNames(s.mainPageArrows)} src={require('./images/arrow.png')}/> : null}
+  </div>
+</li>
+   */
 
   render() {
     return (
       <Jumbotron className={classNames(s.stripe2Jumbotron)}>
         <h1 className={classNames(s.welcomePageHeader)}>¡Así de fácil!</h1>
-        <ul>
-          {this._createSteps()}
-        </ul>
+        <Row>
+          <Col xs={12}>
+            <ul>
+              {this._createSteps()}
+            </ul>
+          </Col>
+        </Row>
       </Jumbotron>
     );
   }

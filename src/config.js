@@ -26,7 +26,7 @@ export const databaseUrl = 'postgres://ttqxcdmuatxrvw:Jjnl8YHvHHOrLN5YMEm8KyYnc0
 export const analytics = {
 
   // https://analytics.google.com/
-  google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-XXXXX-X' },
+  google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-81781810-1' },
 
 };
 

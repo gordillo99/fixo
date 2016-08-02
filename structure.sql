@@ -54,13 +54,9 @@ TODOs:
 
 	add right text to terms, about, and contact
 
-	prompt login at right time
-	save users preliminary info before prompting login
-	secure routes that need user login or admin only
-	
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
 	make client side responsive
-	google analytics
+	security checks
 

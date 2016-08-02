@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron, Row, Col } from 'react-bootstrap';
 import s from './ProgressionStatus.css';
 
 export default class ProgressionStatus extends Component {
@@ -22,10 +22,10 @@ export default class ProgressionStatus extends Component {
       }
     
       return (
-        <li className={classNames(s.inlineStages, (index !== stages.length - 1 ? s.rightBorder : ''))} key={'stage-' + stage.id}>
-          <h3 className={classNames(s.withRightPadding, bolded)}>
+        <li className={classNames(s.inlineStages)} key={'stage-' + stage.id}>
+          <h4 className={classNames(s.withRightPadding, bolded)}>
             {this._getStageNames(stage.name, index)}
-          </h3> 
+          </h4> 
         </li>
       );
     });
@@ -42,9 +42,15 @@ export default class ProgressionStatus extends Component {
     return (
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
-          <ul className={classNames(s.listStyle)}>
-            {this._showProgressDisplay()}
-          </ul>
+          <Row>
+            <Col md={8} xs={10} className={s.centerBlock}>
+              <div className={s.centeringDiv}>
+                <ul className={classNames(s.listStyle)}>
+                  {this._showProgressDisplay()}
+                </ul>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     );

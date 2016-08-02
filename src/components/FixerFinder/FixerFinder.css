@@ -13,7 +13,6 @@
 
 .resultsWrapper {
 	margin: 30px auto;
-  width: 440px;
 }
 
 .panelStyle {
@@ -43,4 +42,17 @@
 
 .acceptButton {
   margin-bottom: 20px;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
+.centeringDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+  text-align: left;
 }

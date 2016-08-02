@@ -20,11 +20,11 @@ function Footer() {
         <span className={s.spacer}>·</span>
         <Link className={s.link} to="/">Inicio</Link>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/terms">Términos y Condiciones</Link>
+        <Link className={s.link} to="/about">Sobre fixo</Link>
         <span className={s.spacer}>·</span>
         <Link className={s.link} to="/contact">Contacto</Link>
         <span className={s.spacer}>·</span>
-        <Link className={s.link} to="/about">Sobre fixo</Link>
+        <Link className={s.link} to="/terms">Términos y Condiciones</Link>
       </div>
     </div>
   );

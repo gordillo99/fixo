@@ -11,7 +11,7 @@ export default class ProfileHeader extends Component {
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
           <Jumbotron className={classNames(s.stripeJumbotron)}>
-            <h1>Perfil de<br/>{`${this.props.givenName} ${this.props.middleName} ${this.props.familyName}`}</h1>
+            <h1 className={s.pageHeader}>Perfil de<br/>{`${this.props.givenName} ${this.props.middleName} ${this.props.familyName}`}</h1>
           </Jumbotron>
         </div>
       </div>

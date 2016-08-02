@@ -18,6 +18,15 @@
   padding: 0 0 40px;
 }
 
+.pageHeader {
+  padding-top: 30px;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
 .headerJumbotron {
   color: white;
   margin-bottom: 0px;

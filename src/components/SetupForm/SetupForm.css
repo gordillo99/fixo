@@ -31,12 +31,24 @@
 
 .formWrapper {
 	margin: auto;
-	width: 440px;
 	text-align: left;
 }
 
 .centralizedDiv {
   text-align: center;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
+.centeringDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+  text-align: left;
 }
 
 .datePicker {

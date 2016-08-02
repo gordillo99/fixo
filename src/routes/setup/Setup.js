@@ -139,7 +139,7 @@ export default class Setup extends Component {
       <div className={s.root}>
         <div className={s.centralizedDiv}>
           <Jumbotron className={s.stripeJumbotron}>
-            <h1>{this.props.categoria}</h1>
+            <h1 className={s.pageHeader}>{this.props.categoria}</h1>
             <ProgressionStatus currentStage={this.state.setupStage}/>
           </Jumbotron>
           {content}

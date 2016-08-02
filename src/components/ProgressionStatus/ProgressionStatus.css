@@ -10,6 +10,19 @@
 	padding: 0px 30px 0px 30px;
 }
 
+.centeringDiv {
+  text-align: center;
+}
+
+.leftAlignedDiv {
+  text-align: left;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
 .listStyle {
 	padding-left: 0px;
 }

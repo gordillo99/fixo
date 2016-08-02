@@ -73,7 +73,7 @@ export default class Navigation extends Component {
     const Toggle = Navbar.Toggle;
     return (
       <div>
-        <Navbar fixedTop>
+        <Navbar className={s.whiteBackground} fixedTop>
           <Header>
             <Brand className={s.zeroPaddingTop}>
               <div className={s.logoDiv}>

@@ -60,3 +60,7 @@ TODOs:
 	make client side responsive
 	security checks
 
+
+alternative to google analytics
+https://piwik.org/
+

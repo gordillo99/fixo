@@ -155,7 +155,7 @@ app.get('/login/facebook', function(req,res,next) {
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    let redirectionRoute = (process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001';
+    let redirectionRoute = (process.env.NODE_ENV === 'production') ? 'fixo.herokuapp.com/' : 'http://localhost:3001';
     if (req.cookies.redirectCookie) {
       redirectionRoute += `/${req.cookies.redirectCookie}`;
       res.clearCookie('redirectCookie');

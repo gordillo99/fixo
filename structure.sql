@@ -57,7 +57,7 @@ TODOs:
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
-	security checks
+	security measures for website
 
 
 alternative to google analytics

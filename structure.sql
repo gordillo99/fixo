@@ -57,7 +57,6 @@ TODOs:
 	make fetching more efficient using maps
 	add all form validation
 	fine tune scheduler time
-	make client side responsive
 	security checks
 
 

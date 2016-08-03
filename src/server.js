@@ -155,9 +155,9 @@ app.get('/login/facebook', function(req,res,next) {
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: true }),
   (req, res) => {
-    let redirectionRoute = (process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001';
+    let redirectionRoute = (process.env.NODE_ENV === 'production') ? '/' : 'http://localhost:3001/';
     if (req.cookies.redirectCookie) {
-      redirectionRoute += `/${req.cookies.redirectCookie}`;
+      redirectionRoute += `${req.cookies.redirectCookie}`;
       res.clearCookie('redirectCookie');
     }
     const expiresIn = (process.env.NODE_ENV === 'production') ? 60 * 60 * 8 : 60 * 40; // 40 min in prod, 8 hours in dev

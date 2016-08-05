@@ -18,7 +18,7 @@ var emailForReview = function() {
   var dataCopy = data;
   var schedule = require('node-schedule');
   //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
-  var date = new Date(Date.now() + (1000 * 60 * 3));
+  var date = new Date(Date.now() + (1000 * 60 * 60 *24));
   var job = schedule.scheduleJob(date, function(y){
     
     // create reusable transporter object using the default SMTP transport
@@ -30,9 +30,9 @@ var emailForReview = function() {
       to: dataCopy.email, // list of receivers
       subject: 'fixo: Cuéntanos sobre tu fixer', // Subject line
       text: 'fixo: Cuéntanos sobre tu fixer', // plaintext body
-      html: emailTemplateReviewForUser.createReviewEmail() // html body
+      html: emailTemplateReviewForUser.createReviewEmail(process.env.NODE_ENV === 'production') // html body
     };
-
+    console.log('Scheduling job...');
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
       console.log('Email de reseña enviado exitosamente.');

@@ -48,3 +48,11 @@
   margin-right: 0px;
   margin-left: 0px;
 }
+
+.nav-tabs.nav-justified>li>a {
+	color: white;
+}
+
+.nav-tabs.nav-justified>.active>a {
+	color: #1A8CF0;
+}

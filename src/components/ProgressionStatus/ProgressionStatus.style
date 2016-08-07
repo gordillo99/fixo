@@ -1,7 +1,7 @@
 @import '../../components/variables.css';
 
 .root {
-	margin-bottom: 70px;
+	margin-bottom: 10px;
 }
 
 .inlineStages {
@@ -39,7 +39,20 @@
 	font-weight: bold;
 }
 
+.nav-tabs.nav-justified>li>a {
+	color: black;
+	font-weight: bold;
+}
+
 .row {
   margin-right: 0px;
   margin-left: 0px;
+}
+
+.nav-tabs.nav-justified>li>a {
+	color: white;
+}
+
+.nav-tabs.nav-justified>.active>a {
+	color: #1A8CF0;
 }

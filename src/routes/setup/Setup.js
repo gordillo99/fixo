@@ -30,10 +30,10 @@ export default class Setup extends Component {
   }
 
   _handleAnswers(answAndQs) {
-    this.setState( {  
-                      setupStage: ++this.state.setupStage,
-                      qsAndAs: answAndQs
-                   } );
+    this.setState({  
+      setupStage: ++this.state.setupStage,
+      qsAndAs: answAndQs
+    });
   }
 
   _handleDayChange(date) {
@@ -44,20 +44,8 @@ export default class Setup extends Component {
     this.setState( { selectedFixer: fixer } );
   }
 
-  _handleAreaChange(e) {
-    this.setState({ area: e.target.value});
-  }
-
-  _handleAddressChange(e) {
-    this.setState({ address: e.target.value});
-  }
-
-  _handlePhoneChange(e) {
-    this.setState({ phone: e.target.value});
-  }
-
-  _handleEmailChange(e) {
-    this.setState({ email: e.target.value});
+  _updateProperty(property, e) {
+    this.setState({ [property]: e.target.value });
   }
 
   _handleTimeChange(e) {
@@ -89,13 +77,19 @@ export default class Setup extends Component {
 
     switch(this.state.setupStage) {
       case 0:
+        content = <AdditionalQuestions
+                    category={this.props.category}
+                    saveAnswers={this._handleAnswers.bind(this)}
+                  />
+        break;
+      case 1:
         content = <SetupForm
                     updateDay={this._handleDayChange.bind(this)}
-                    updateAddress={this._handleAddressChange.bind(this)}
-                    updateEmail={this._handleEmailChange.bind(this)}
+                    updateAddress={this._updateProperty.bind(this)}
+                    updateEmail={this._updateProperty.bind(this)}
                     updateTime={this._handleTimeChange.bind(this)}
-                    updatePhone={this._handlePhoneChange.bind(this)}
-                    updateArea={this._handleAreaChange.bind(this)}
+                    updatePhone={this._updateProperty.bind(this)}
+                    updateArea={this._updateProperty.bind(this)}
                     morning={this.state.morning}
                     date={this.state.date}
                     email={this.state.email}
@@ -104,12 +98,6 @@ export default class Setup extends Component {
                     phone={this.state.phone}
                     toNextStage={this._nextStage.bind(this)}
                     areas={this.state.areas}
-                  />
-        break;
-      case 1:
-        content = <AdditionalQuestions
-                    category={this.props.category}
-                    saveAnswers={this._handleAnswers.bind(this)}
                   />
         break;
       case 2:

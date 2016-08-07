@@ -1,13 +1,25 @@
 @import '../../components/variables.css';
 
 .stripe2Jumbotron {
-  background-color: white;
+  background-color: #f8f8f8;
   padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.header {
+  margin: 0px;
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 .inlineSteps {
   display: inline-block;
   vertical-align: middle;
+  margin-bottom: 0px;
+  text-align: center;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 .stepDesc {
@@ -15,7 +27,7 @@
 }
 
 .nameWithIcon {
-  margin-right: 30px;
+  margin-right: 0px;
 }
 
 .listElement {
@@ -25,6 +37,12 @@
   margin-right: 10px;
   vertical-align: text-bottom;
   display: table;
+  margin-bottom: 30px;
+}
+
+.listEleWrapper {
+  height: 50px;
+  text-align: center;
 }
 
 .noListStyle {
@@ -32,7 +50,68 @@
   padding-left: 0px;
 }
 
+.thickBorder {
+  border: 5px solid #1A8CF0;
+}
+
+.backTile {
+  background-color: #1A8CF0;
+  color: white;
+  height: inherit;
+  width: inherit;
+  border-radius: 10px;
+  border: 3px solid white;
+  border-style: dotted;
+}
+
+.backTileNumber {
+  padding: 50px;
+  margin: 0px;
+}
+
+/* tile positioning */
+
+.absolutePosition {
+  position: absolute;
+}
+
+.relativePosition {
+  position: relative;
+  top: -50px;
+}
+
+/* layout */
+
 .row {
   margin-right: 0px;
   margin-left: 0px;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+}
+
+/* animation */
+
+.flip {
+  backface-visibility: hidden;
+  transform-origin: 50% 50% 0px;
+  transition: all 3s; 
+}
+
+.side1 {
+  transform: rotateY( 0deg );
+}
+
+.side2 {
+  transform: rotateY( 180deg );   
+}
+
+.flipSide1 {    
+  transform: rotateY( 0deg ) !important;
+}
+
+.flipSide2 {
+  transform: rotateY( 180deg ) !important;
 }

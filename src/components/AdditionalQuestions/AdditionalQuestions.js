@@ -66,7 +66,7 @@ export default class AdditionalQuestions extends Component {
   }
 
   _updateAnswers(answers, event){
-    this.setState( { qsAndAs: answers } );
+    this.setState({ qsAndAs: answers });
   }
 
   _updateFinalAnswers(answers) {
@@ -77,6 +77,7 @@ export default class AdditionalQuestions extends Component {
 
     return (
       <div className={classNames(s.formWrapper)}>
+        <h2 className={s.centralizedDiv}>Describe tu problema</h2>
         <Questionnaire qsAndAs={this.state.qsAndAs} updateAnswers={this._updateAnswers.bind(this)} submitFinalAnswers={this._updateFinalAnswers.bind(this)}/>
       </div>
     );

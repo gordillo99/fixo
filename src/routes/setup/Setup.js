@@ -30,10 +30,10 @@ export default class Setup extends Component {
   }
 
   _handleAnswers(answAndQs) {
-    this.setState( {  
-                      setupStage: ++this.state.setupStage,
-                      qsAndAs: answAndQs
-                   } );
+    this.setState({  
+      setupStage: ++this.state.setupStage,
+      qsAndAs: answAndQs
+    });
   }
 
   _handleDayChange(date) {
@@ -89,6 +89,12 @@ export default class Setup extends Component {
 
     switch(this.state.setupStage) {
       case 0:
+        content = <AdditionalQuestions
+                    category={this.props.category}
+                    saveAnswers={this._handleAnswers.bind(this)}
+                  />
+        break;
+      case 1:
         content = <SetupForm
                     updateDay={this._handleDayChange.bind(this)}
                     updateAddress={this._handleAddressChange.bind(this)}
@@ -104,12 +110,6 @@ export default class Setup extends Component {
                     phone={this.state.phone}
                     toNextStage={this._nextStage.bind(this)}
                     areas={this.state.areas}
-                  />
-        break;
-      case 1:
-        content = <AdditionalQuestions
-                    category={this.props.category}
-                    saveAnswers={this._handleAnswers.bind(this)}
                   />
         break;
       case 2:

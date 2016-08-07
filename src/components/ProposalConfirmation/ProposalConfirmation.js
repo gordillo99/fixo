@@ -77,21 +77,22 @@ export default class ProposalConfirmation extends Component {
 				<div className={classNames(s.leftAlignedDiv)}>
 					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>
-							<div className={s.centeringDiv}>
-								<h1>Fixer seleccionado</h1>
+							<h2 className={s.centeringDiv}>Confirma tu solicitud</h2>
+							<div className={s.leftAlignedDiv}>
+								<h3>Fixer seleccionado</h3>
 								<FixerPanel fixer={sel.selectedFixer} showSelected={false} />
 								<div className={s.leftAlignedDiv}>
-									<h1>Dirección</h1>
+									<h3>Dirección</h3>
 									<p>{sel.address}</p>
-									<h1>Área</h1>
+									<h3>Área</h3>
 									<p>{areaDesc}</p>
-									<h1>Número de teléfono</h1>
+									<h3>Número de teléfono</h3>
 									<p>{sel.phone}</p>
-									<h1>Correo Electrónico</h1>
+									<h3>Correo Electrónico</h3>
 									<p>{sel.email}</p>
-									<h1>Potencial fecha</h1>
+									<h3>Potencial fecha</h3>
 									<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
-									<h1>Preguntas adicionales</h1>
+									<h3>Preguntas adicionales</h3>
 									<AnswersDisplay qsAndAs={sel.qsAndAs} />
 									<div className={classNames(s.confirmBtnWrapper)}>
 										<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Informar al fixer</Button>

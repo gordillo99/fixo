@@ -38,6 +38,7 @@ export default class SetupForm extends Component {
             <Row className={s.row}>
               <Col md={4} xs={10} className={s.centerBlock}>
                 <div className={classNames(s.formWrapper)}>
+                  <h2 className={s.centralizedDiv}>Ingresa tus datos</h2>
                   <form>
                     <FormGroup validationState={this._getValidationStateOfPhone()} controlId="formControlsTextarea">
                       <FormControl onChange={this.props.updatePhone} type="text" placeholder="Número de teléfono" />
@@ -51,6 +52,7 @@ export default class SetupForm extends Component {
                     <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea}>
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
+                    <h2 className={s.centralizedDiv}>¿Qué fecha prefieres?</h2>
                     <div className={classNames(s.datePicker)}>
                       <DatePicker
                         dayChange={this.props.updateDay}

@@ -10,14 +10,11 @@
 
 .welcomePageHeader {
   padding-top: 30px;
+  margin-top: 0px;
 }
 
 .centralizedDiv {
   text-align: center;
-}
-
-.noListStyle {
-  list-style: none;
 }
 
 .inlineReasons {
@@ -42,5 +39,8 @@
 
 .noListStyle {
   list-style: none;
-  padding-left: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+
 }

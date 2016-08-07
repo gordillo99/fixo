@@ -14,7 +14,7 @@ function Terms(props, context) {
           <h1 className={classNames(s.centeringDiv, s.pageHeader)}>Términos de servicio</h1>
         </Jumbotron>
         <Row className={s.row}>
-          <Col md={8} xs={10} className={s.centerBlock}>
+          <Col md={6} xs={10} className={s.centerBlock}>
             <div className={s.centeringDiv}>
               <div className={classNames(s.leftAlignedDiv)}>
                 <h2 className={s.centeringDiv}>fixo es un prototipo</h2>

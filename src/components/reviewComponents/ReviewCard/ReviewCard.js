@@ -13,7 +13,7 @@ export default class ReviewCard extends Component {
 		return(
 			<div>
 				<ListGroupItem>
-					<p className={s.noBottomMargin}>Nombre: {this.props.review.firstname} {this.props.review.lastname}<br/></p>
+					<p className={s.noBottomMargin}>Nombre: {this.props.review.firstname} {this.props.review.lastname[0] + '.'}<br/></p>
 					<ul className={s.noListStyle}>
 						<li className={s.inlineEles}><p className={s.noBottomMargin}>Puntuación:</p></li>
 						<li className={s.inlineEles}><StarDisplayer starAmount={this.props.review.rating}/></li>

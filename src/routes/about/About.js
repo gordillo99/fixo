@@ -14,8 +14,8 @@ function About(props, context) {
           <h1 className={classNames(s.pageHeader, s.centeringDiv)}>Sobre fixo</h1>
         </Jumbotron>
         <Row className={s.row}>
-          <Col md={8} xs={10} className={s.centerBlock}>
-            <div className={s.centeringDiv}>
+          <Col md={6} xs={10} className={s.centerBlock}>
+            <div className={s.leftAlignedDiv}>
               <div>
                 <p className={s.topPadding}>fixo es una compañía dedicada a facilitar la búsqueda de personas para realizar trabajos en tu vivienda.</p>
                 <br/>

@@ -1,26 +1,64 @@
 @import '../../components/variables.css';
 
 .welcomePageHeader {
-  padding-top: 30px;
+  padding-top: 10px;
 }
 
 .stripe1Jumbotron {
   color: white;
   margin-bottom: 0px;
   background-color: #1A8CF0;
+  padding-bottom: 20px;
 }
 
-.whiteFont {
-  color: white;
+.catContainer {
+  color: black;
+  width: 146px;
+  height: 210px;
+  border: 3px #f8f8f8 solid;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  margin-bottom: 15px;
+}
+
+.marginWrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.listCatEle {
+
+}
+
+.catTitle {
+  margin: 10px;
+}
+
+.selectCatBtn {
+  margin-bottom: 10px;
 }
 
 .inlineCategories {
   display: inline-block;
-  padding: 0px 30px 0px 30px;
-  margin-top: 40px;
+  padding: 0px;
+  margin-top: 0px;
 }
 
 .noListStyle {
   list-style: none;
   padding-left: 0px;
+}
+
+.catsWrapper {
+  background-color: #1A8CF0;
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
 }

@@ -62,7 +62,7 @@ export default class Questionnaire extends Component {
                         case 'upload':
                           prompt =  <div>
                                       <FormControl key={'qFileUpload-' + index} type="file" onChange={this._updateAttachedImage.bind(this, index)} />
-                                      <HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
+                                      <HelpBlock key={'helpblock-' + index}>Tamaño máximo es 2 MB</HelpBlock>
                                     </div>
                           break;
                         default:

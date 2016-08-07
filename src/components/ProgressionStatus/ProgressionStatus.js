@@ -6,37 +6,6 @@ import s from './ProgressionStatus.style';
 
 export default class ProgressionStatus extends Component {
 
-  _showProgressDisplay() {
-    let stages = [ 
-      { id: 0, name: 'Describe tu BRproblema' },
-      { id: 2, name: 'Encuentra BRa tu fixer' }, 
-      { id: 3, name: 'Confirma' }
-    ];
-
-    return stages.map((stage, index) => {
-      let bolded = '';
-      
-      if ((stage.id === this.props.currentStage) || (this.props.currentStage === 1 && stage.id === 0)) {
-        bolded = s.bolded;
-      }
-    
-      return (
-        <li className={classNames(s.inlineStages)} key={'stage-' + stage.id}>
-          <h4 className={classNames(s.withRightPadding, bolded)}>
-            {this._getStageNames(stage.name, index)}
-          </h4> 
-        </li>
-      );
-    });
-  }
-
-  _getStageNames(name, index) {
-    let nameArr = name.split('BR');
-    let finalName = (index + 1).toString() + '. ';
-    if (nameArr.length > 1) return (<div> {finalName + nameArr[0]} <br/> {nameArr[1]} </div>); 
-    return <div>{finalName + name}</div>;
-  }
-
   _showProgressInTabs() {
     let stages = [ 
       { id: 0, name: 'Describe tu problema' },
@@ -50,9 +19,9 @@ export default class ProgressionStatus extends Component {
       let tabStr = `${index + 1}.) ${stage.name}`;
 
       if ((stage.id === this.props.currentStage)) {
-        tab = <NavItem eventKey={index}>{tabStr}</NavItem>
+        tab = <NavItem key={'stage-' + stage.id} eventKey={index}>{tabStr}</NavItem>
       } else {
-        tab = <NavItem eventKey={index} disabled>{tabStr}</NavItem>
+        tab = <NavItem key={'stage-' + stage.id} eventKey={index} disabled>{tabStr}</NavItem>
       }
     
       return (tab);

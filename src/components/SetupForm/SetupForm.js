@@ -41,15 +41,15 @@ export default class SetupForm extends Component {
                   <h2 className={s.centralizedDiv}>Ingresa tus datos</h2>
                   <form>
                     <FormGroup validationState={this._getValidationStateOfPhone()} controlId="formControlsTextarea">
-                      <FormControl onChange={this.props.updatePhone} type="text" placeholder="Número de teléfono" />
+                      <FormControl onChange={this.props.updatePhone.bind(this, 'phone')} type="text" placeholder="Número de teléfono" />
                     </FormGroup>
                     <FormGroup validationState={this._getValidationStateOfEmail()} controlId="formControlsTextarea">
-                      <FormControl onChange={this.props.updateEmail} type="text" placeholder="Correo electrónico" />
+                      <FormControl onChange={this.props.updateEmail.bind(this, 'email')} type="text" placeholder="Correo electrónico" />
                     </FormGroup>
                     <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
-                      <FormControl value={this.props.address} onChange={this.props.updateAddress} type="text" placeholder="Dirección" />
+                      <FormControl value={this.props.address} onChange={this.props.updateAddress.bind(this, 'address')} type="text" placeholder="Dirección" />
                     </FormGroup>
-                    <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea}>
+                    <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea.bind(this, 'area')}>
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
                     <h2 className={s.centralizedDiv}>¿Qué fecha prefieres?</h2>

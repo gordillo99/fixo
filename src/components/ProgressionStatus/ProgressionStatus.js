@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
-import { Jumbotron, Row, Col } from 'react-bootstrap';
-import s from './ProgressionStatus.css';
+import { Jumbotron, Row, Col, Nav, NavItem } from 'react-bootstrap';
+import s from './ProgressionStatus.style';
 
 export default class ProgressionStatus extends Component {
 
@@ -12,7 +12,6 @@ export default class ProgressionStatus extends Component {
       { id: 2, name: 'Encuentra BRa tu fixer' }, 
       { id: 3, name: 'Confirma' }
     ];
-    let index = 0;
 
     return stages.map((stage, index) => {
       let bolded = '';
@@ -38,16 +37,55 @@ export default class ProgressionStatus extends Component {
     return <div>{finalName + name}</div>;
   }
 
+  _showProgressInTabs() {
+    let stages = [ 
+      { id: 0, name: 'Describe tu problema' },
+      { id: 1, name: 'Ingresa tus datos' },
+      { id: 2, name: 'Encuentra a tu fixer' }, 
+      { id: 3, name: 'Confirma' }
+    ];
+
+    return stages.map((stage, index) => {
+      let tab = null;
+      let tabStr = `${index + 1}.) ${stage.name}`;
+
+      if ((stage.id === this.props.currentStage)) {
+        tab = <NavItem eventKey={index}>{tabStr}</NavItem>
+      } else {
+        tab = <NavItem eventKey={index} disabled>{tabStr}</NavItem>
+      }
+    
+      return (tab);
+    });
+  }
+
   render() {
+    let activeKey = 0;
+
+    switch(this.props.currentStage) {
+      case 0:
+        activeKey = 0;
+        break;
+      case 1:
+        activeKey = 1;
+        break;
+      case 2:
+        activeKey = 2;
+        break;
+      case 3:
+        activeKey = 3;
+        break;
+    }
+
     return (
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
           <Row className={s.row}>
             <Col md={8} xs={10} className={s.centerBlock}>
               <div className={s.centeringDiv}>
-                <ul className={classNames(s.listStyle)}>
-                  {this._showProgressDisplay()}
-                </ul>
+                <Nav bsStyle="tabs" justified activeKey={activeKey}>
+                  {this._showProgressInTabs()}
+                </Nav>
               </div>
             </Col>
           </Row>

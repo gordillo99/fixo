@@ -39,6 +39,11 @@
 	font-weight: bold;
 }
 
+.nav-tabs.nav-justified>li>a {
+	color: black;
+	font-weight: bold;
+}
+
 .row {
   margin-right: 0px;
   margin-left: 0px;

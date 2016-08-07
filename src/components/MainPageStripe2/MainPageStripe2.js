@@ -11,7 +11,7 @@ export default class MainPageStripe2 extends Component {
     super();
     this.state = {
       stage: 1,
-      tile0: false,
+      tile0: true,
       tile1: true,
       tile2: true
     };
@@ -29,28 +29,30 @@ export default class MainPageStripe2 extends Component {
   }
 
   _flipTiles() {
-    let tile0 = false;
-    let tile1 = false;
-    let tile2 = false;
+    let tile0 = true;
+    let tile1 = true;
+    let tile2 = true;
     let stage = this.state.stage;
 
     switch(stage) {
       case 0:
+        tile0 = tile1 = tile2 = true;
+        stage++;
+        break;
+      case 1:
         tile0 = false;
         tile1 = tile2 = true;
         stage++;
         break;
-      case 1:
-        tile1 = false;
-        tile0 = tile2 = true;
+      case 2:
+        tile2 = true;
+        tile0 = tile1 = false;
         stage++;
         break;
-      case 2:
-        tile2 = false;
-        tile0 = tile1 = true;
-        stage = 0;
-        break;
+      case 3:
       default:
+        tile0 = tile1 = tile2 = false;
+        stage = 0;
         break;
     }
     this.setState({ stage: stage, tile0: tile0, tile1: tile1, tile2: tile2 });

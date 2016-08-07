@@ -24,7 +24,7 @@ function About(props, context) {
                   <div className={s.leftAlignedDiv}>
                     <p>Desarrollador web: José Gordillo</p>
                     <p>Administrador general: Rafael Sologaistoa</p>
-                    <p>Administrador de finanzas: Manuel</p>
+                    <p>Administrador de finanzas: Manuel Franco</p>
                   </div>
                 </Col>
               </div>

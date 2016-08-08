@@ -2,10 +2,42 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap';
+import tools2 from './images/tools2-background.jpg';
+import tools1 from './images/tools-background.jpg';
+import gardening from './images/gardening-background.jpg';
 import s from './MainPageStripe1.css';
+import $ from 'jquery';
 import Link from '../Link';
 
 export default class MainPageStripe1 extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      stage: 0,
+      bgImages: [tools1, tools2, gardening]
+    };
+  }
+
+  componentDidMount() {
+    this._startChangingBackground();
+  }
+
+  _startChangingBackground() {
+    setInterval(() => {
+      this._changeBackground();
+    }, 6000);
+  }
+
+  _changeBackground() {
+    let nextStage = this.state.stage;
+    if (nextStage === 2) {
+      nextStage = 0;
+    } else {
+      nextStage++;
+    }
+    this.setState({ stage: nextStage });
+  }
 
   _createCategoryOptions() {
     let categories = [ 
@@ -40,10 +72,14 @@ export default class MainPageStripe1 extends Component {
   }
 
   render() {
+    let divStyle = {
+      backgroundImage: `url(${this.state.bgImages[this.state.stage]})`
+    }
+
     return (
       <div className={s.root}>
         <div className={classNames(s.centralizedDiv)}>
-          <Jumbotron className={classNames(s.stripe1Jumbotron)}>
+          <Jumbotron style={divStyle} className={classNames(s.stripe1Jumbotron)}>
             <h1 className={classNames(s.welcomePageHeader)}>¿Qué necesitas?</h1>
             <Row className={s.row}>
               <Col md={8} xs={12} className={s.centerBlock}>

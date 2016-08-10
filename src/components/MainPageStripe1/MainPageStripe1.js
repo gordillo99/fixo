@@ -14,8 +14,29 @@ export default class MainPageStripe1 extends Component {
   constructor() {
     super();
     this.state = {
-      bgImage: tools2
+      stage: 0,
+      bgImages: [tools1, tools2, gardening]
     };
+  }
+
+  componentDidMount() {
+    this._startChangingBackground();
+  }
+
+  _startChangingBackground() {
+    setInterval(() => {
+      this._changeBackground();
+    }, 6000);
+  }
+
+  _changeBackground() {
+    let nextStage = this.state.stage;
+    if (nextStage === 2) {
+      nextStage = 0;
+    } else {
+      nextStage++;
+    }
+    this.setState({ stage: nextStage });
   }
 
   _createCategoryOptions() {
@@ -52,7 +73,7 @@ export default class MainPageStripe1 extends Component {
 
   render() {
     let divStyle = {
-      backgroundImage: `url(${this.state.bgImage}})`
+      backgroundImage: `url(${this.state.bgImages[this.state.stage]})`
     }
 
     return (

@@ -15,7 +15,7 @@ export default class MainPageStripe1 extends Component {
     super();
     this.state = {
       stage: 0,
-      bgImages: [tools1, tools2, gardening]
+      bgImages: [tools2, tools1, gardening]
     };
   }
 

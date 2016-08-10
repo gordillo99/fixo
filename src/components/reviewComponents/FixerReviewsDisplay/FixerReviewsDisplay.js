@@ -54,7 +54,7 @@ export default class FixerReviewsDisplay extends Component {
 
 		return(
 			<ListGroup>
-		    <ListGroupItem bsStyle="info">Promedio de reseñas: {this.props.fixerRating} <Glyphicon glyph="star" /><br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
+		    <ListGroupItem bsStyle="info">Promedio de reseñas: {this.props.fixerRating} / 5<br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
 		    {seeMoreReviews}
 		  </ListGroup>
 		);

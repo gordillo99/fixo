@@ -14,7 +14,7 @@ export default class MainPageStripe1 extends Component {
   constructor() {
     super();
     this.state = {
-      bgImage: tools2
+      bgImage: require('./images/tools2-background.jpg')
     };
   }
 

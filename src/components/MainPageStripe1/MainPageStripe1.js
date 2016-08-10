@@ -13,6 +13,9 @@ export default class MainPageStripe1 extends Component {
 
   constructor() {
     super();
+    this.state = {
+      bgImage: tools2
+    };
   }
 
   _createCategoryOptions() {
@@ -49,7 +52,7 @@ export default class MainPageStripe1 extends Component {
 
   render() {
     let divStyle = {
-      backgroundImage: `url(${tools2}})`
+      backgroundImage: `url(${this.state.bgImage}})`
     }
 
     return (

@@ -75,8 +75,8 @@ export default class ReviewForm extends Component {
   render() {
     return (
       <div className={s.root}>
-        <p className={s.boldedText}>Cuéntanos sobre tu fixer</p>
-        <p className={s.boldedText}>¡Ayúdanos a mejorar la experiencia de todos!</p>
+        <p className={s.boldedText}>Cuéntanos sobre tu fixer:<br/>{`${this.props.fixerFirstName} ${this.props.fixerLastName}`}</p>
+        <p className={s.boldedText}>¡Ayúdanos a mejorar<br/>la experiencia de todos!</p>
         <p>1: malo, 2: necesita mejorar,</p>
         <p>3: bueno, 4: muy bueno, 5: excelente</p>
         <RadioGroup

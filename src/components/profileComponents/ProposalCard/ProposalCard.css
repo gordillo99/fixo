@@ -9,6 +9,7 @@
 .noListStyle {
   list-style: none;
   padding-left: 0px;
+  margin-bottom: 0px;
 }
 
 .centralizedDiv {
@@ -19,12 +20,33 @@
 	text-align: left;
 }
 
+.detailsButton {
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 .proposalTitle {
 	font-weight: bold;
 }
 
 .reviewButton {
 	margin-bottom: 10px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.inlineEles {
+  display: inline;
+}
+
+.centerBlock {
+  float: none;
+  margin: 0 auto;
+  padding: 0px;
 }
 
 .row {

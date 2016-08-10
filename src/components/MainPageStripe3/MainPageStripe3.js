@@ -24,9 +24,9 @@ export default class MainPageStripe3 extends Component {
 
     return (
       <ul key={id} className={classNames(s.noListStyle)}>
-        <li><img src={icon} height='40px' width='40px'/></li>
-        <li><h3>{name}</h3></li>  
-        <li className={classNames(s.reasonDesc)}><p >{descArr[0]}<br/>{descArr[1]}</p></li>
+        <li><div className={s.circleBase}><img src={icon} className={s.circleIcon} height='60px' width='60px'/></div></li>
+        <li><h3 className={s.reasonTitle}>{name}</h3></li>  
+        <li className={classNames(s.reasonDesc)}><p>{descArr[0]}<br/>{descArr[1]}</p></li>
       </ul>
     );
   }

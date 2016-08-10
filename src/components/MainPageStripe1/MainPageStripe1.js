@@ -3,8 +3,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import classNames from 'classnames';
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap';
 import tools2 from './images/tools2-background.jpg';
-//import tools1 from './images/tools-background.jpg';
-//import gardening from './images/gardening-background.jpg';
+import tools1 from './images/tools-background.jpg';
+import gardening from './images/gardening-background.jpg';
 import s from './MainPageStripe1.css';
 import $ from 'jquery';
 import Link from '../Link';
@@ -14,7 +14,7 @@ export default class MainPageStripe1 extends Component {
   constructor() {
     super();
     this.state = {
-      bgImage: require('./images/tools2-background.jpg')
+      bgImage: tools2
     };
   }
 

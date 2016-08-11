@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Button, FormGroup, ControlLabel, FormControl, Jumbotron, HelpBlock, Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
 import s from './Questionnaire.css';
@@ -55,7 +55,7 @@ export default class Questionnaire extends Component {
                                       key={'qPromptIn-' + index}
                                       type='text'
                                       onChange={this._updateAnswers.bind(this, index)}
-                                      className={classNames(s.qAnswers)}
+                                      className={cx(s.qAnswers)}
                                       value={this.props.qsAndAs.a}
                                     />
                           break;
@@ -72,7 +72,7 @@ export default class Questionnaire extends Component {
                       return (
                         <div>
                           <FormGroup controlId='addQsControl' key={'qFormGroup-' + index}>
-                            <ControlLabel className={classNames(s.questionLabel)} key={'qControlLabel-' + index}>
+                            <ControlLabel className={cx(s.questionLabel)} key={'qControlLabel-' + index}>
                               {qAndA.q}
                             </ControlLabel>
                             {prompt}
@@ -80,8 +80,8 @@ export default class Questionnaire extends Component {
                         </div>
                       )
                     })}
-                    <div className={classNames(s.centeringDiv)}>
-                      <Button bsStyle='primary' onClick={this._submitFinalAnswers.bind(this)} className={classNames(s.acceptBtn)} type="submit">
+                    <div className={cx(s.centeringDiv)}>
+                      <Button bsStyle='primary' onClick={this._submitFinalAnswers.bind(this)} className={cx(s.acceptBtn)} type="submit">
                         Aceptar
                       </Button>
                     </div>

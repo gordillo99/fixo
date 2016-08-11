@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Button, Panel, Row, Col } from 'react-bootstrap';
 import FixerPanel from '../FixerPanel';
 import AnswersDisplay from '../questionComponents/AnswersDisplay';
@@ -73,8 +73,8 @@ export default class ProposalConfirmation extends Component {
 		let sel = this.props.selection;
 		let areaDesc = sel.areas[Number(sel.area) - 1].description;
 		return(
-			<div className={classNames(s.containerDiv)}>
-				<div className={classNames(s.leftAlignedDiv)}>
+			<div className={cx(s.containerDiv)}>
+				<div className={cx(s.leftAlignedDiv)}>
 					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>
 							<h2 className={s.centeringDiv}>Confirma tu solicitud</h2>
@@ -94,8 +94,8 @@ export default class ProposalConfirmation extends Component {
 									<p>{sel.date.toLocaleDateString('es') + ' en la ' + ((sel.morning) ? 'manaña' : 'tarde')}</p>
 									<h3>Preguntas adicionales</h3>
 									<AnswersDisplay qsAndAs={sel.qsAndAs} />
-									<div className={classNames(s.confirmBtnWrapper)}>
-										<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={classNames(s.confirmBtn)}>Informar al fixer</Button>
+									<div className={cx(s.confirmBtnWrapper)}>
+										<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={cx(s.confirmBtn)}>Informar al fixer</Button>
 									</div>
 								</div>
 							</div>

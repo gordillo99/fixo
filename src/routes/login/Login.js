@@ -9,7 +9,7 @@
 
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import s from './Login.css';
 
 const title = 'Inicio de Sesión';
@@ -20,7 +20,7 @@ function Login(props, context) {
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <h1 className={classNames(s.loginHeader)}>{title}</h1>
+        <h1 className={cx(s.loginHeader)}>{title}</h1>
         <p className={s.lead}>Inicia sesión usando tu cuenta de Facebook</p>
         <div className={s.formGroup}>
           <a className={s.facebook} href={redirectAddress}>

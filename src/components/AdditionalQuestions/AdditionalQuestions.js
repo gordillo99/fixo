@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Button, FormGroup, ControlLabel, FormControl, Jumbotron } from 'react-bootstrap';
 import Questionnaire from '../questionComponents/Questionnaire';
 import s from './AdditionalQuestions.css';
@@ -76,7 +76,7 @@ export default class AdditionalQuestions extends Component {
   render() {
 
     return (
-      <div className={classNames(s.formWrapper)}>
+      <div className={cx(s.formWrapper)}>
         <h2 className={s.centralizedDiv}>Describe tu problema</h2>
         <Questionnaire qsAndAs={this.state.qsAndAs} updateAnswers={this._updateAnswers.bind(this)} submitFinalAnswers={this._updateFinalAnswers.bind(this)}/>
       </div>

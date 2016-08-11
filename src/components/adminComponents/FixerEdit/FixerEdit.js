@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Row, Panel, Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock} from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import $ from 'jquery';
@@ -324,13 +324,13 @@ export default class FixerEdit extends Component {
 				    <FormGroup>
 				    	<Row className={s.row}>
 					      <Col smOffset={2} sm={5}>
-					      	<ul className={classNames(s.noListStyle)}>
-					      		<li className={classNames(s.inline)}>
+					      	<ul className={cx(s.noListStyle)}>
+					      		<li className={cx(s.inline)}>
 							        <Button onClick={this._updateFixerInDb.bind(this)}>
 							          Actualizar
 							        </Button>
 							      </li>
-							      <li className={classNames(s.inline)} onClick={this._deleteFixerInDb.bind(this)}>
+							      <li className={cx(s.inline)} onClick={this._deleteFixerInDb.bind(this)}>
 							        <Button bsStyle="danger">
 							          Borrar
 							        </Button>

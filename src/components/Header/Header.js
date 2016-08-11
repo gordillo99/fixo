@@ -9,7 +9,7 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Navigation from '../Navigation';
 import s from './Header.css';
 

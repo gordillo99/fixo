@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import fixoLogo from './fixo.png';
 import $ from 'jquery';
@@ -90,7 +90,7 @@ export default class Navigation extends Component {
           </Header>
           <Collapse>
             <Nav pullRight>
-              {rightSideComponents.map( (navbarLink) => { return <li onClick={navbarLink.method} className={classNames(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
+              {rightSideComponents.map( (navbarLink) => { return <li onClick={navbarLink.method} className={cx(s.rightLinks)} key={navbarLink.id}><a href={navbarLink.href}> { navbarLink.text } </a></li> } ) }
             </Nav>
           </Collapse>
         </Navbar>

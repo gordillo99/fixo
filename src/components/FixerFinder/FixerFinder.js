@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Button, Panel, Row, Col } from 'react-bootstrap';
 import { arrBuffToBase64 }from '../../helpers/helpers.js';
 import FixerPanel from '../FixerPanel';
@@ -14,7 +14,7 @@ export default class FixerFinder extends Component {
 		this.state = {
 			fixers: [],
 			selectedFixer: {},
-			resultsTitle: <h1 className={classNames(s.loadingTitle)}>Cargando datos...</h1>,
+			resultsTitle: <h1 className={cx(s.loadingTitle)}>Cargando datos...</h1>,
 			noResults: true
 		}
 	}
@@ -31,7 +31,7 @@ export default class FixerFinder extends Component {
 				data.map((fixer) => fixer['selected'] = false);
 				if (data.length === 0) {
 					noData = true;
-					titleToShow = <h1 className={classNames(s.loadingTitle)}>No se encontraron resultados.</h1>;
+					titleToShow = <h1 className={cx(s.loadingTitle)}>No se encontraron resultados.</h1>;
 				}
 				this.setState( { fixers: data, resultsTitle: titleToShow, noResults: noData } );
 			}.bind(this),
@@ -67,11 +67,11 @@ export default class FixerFinder extends Component {
 			fixerList = <div>
 							<h1>Selecciona a tu fixer</h1>
 							{this.state.fixers.map( (fixer, index) => {return(
-								<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={classNames(s.resultsWrapper)}>
+								<div onClick={this._setFixer.bind(this, fixer, index)} key={'fixer-' + index} className={cx(s.resultsWrapper)}>
 									<FixerPanel showReviews={true} fixer={fixer} showSelected={true}/>
 								</div>
 							)})}
-							<Button bsStyle='primary' className={classNames(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
+							<Button bsStyle='primary' className={cx(s.acceptButton)} onClick={this._validateFixerSelection.bind(this, this.state.selectedFixer)}>Confirmar fixer </Button>
 						</div>
 		}
 		

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Panel, Form, FormControl, FormGroup, Col, Row, ControlLabel, Button} from 'react-bootstrap';
 import $ from 'jquery';
 import s from './UserEdit.css';
@@ -116,13 +116,13 @@ export default class UserEdit extends Component {
 							<FormGroup>
 								<Row className={s.row}>
 									<Col smOffset={2} sm={5}>
-										<ul className={classNames(s.noListStyle)}>
-											<li className={classNames(s.inline)}>
+										<ul className={cx(s.noListStyle)}>
+											<li className={cx(s.inline)}>
 												<Button onClick={this._updateUserInDb.bind(this)}>
 													Actualizar
 												</Button>
 											</li>
-											<li className={classNames(s.inline)}>
+											<li className={cx(s.inline)}>
 												<Button bsStyle="danger" onClick={this._deleteUserInDb.bind(this)}>
 													Borrar
 												</Button>

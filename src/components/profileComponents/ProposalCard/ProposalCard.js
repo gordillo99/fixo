@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Col, Row, Button, Panel, Glyphicon } from 'react-bootstrap';
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { FormGroup, ControlLabel, FormControl, Button, Jumbotron, ButtonGroup, Row, Col } from 'react-bootstrap';
 import DatePicker from './../DatePicker';
 import s from './SetupForm.css';
@@ -33,11 +33,11 @@ export default class SetupForm extends Component {
   render() {
     return (
       <div>
-        <Jumbotron className={classNames(s.stripeJumbotron)}>
-          <div className={classNames(s.root)}>
+        <Jumbotron className={cx(s.stripeJumbotron)}>
+          <div className={cx(s.root)}>
             <Row className={s.row}>
               <Col md={4} xs={10} className={s.centerBlock}>
-                <div className={classNames(s.formWrapper)}>
+                <div className={cx(s.formWrapper)}>
                   <h2 className={s.centralizedDiv}>Ingresa tus datos</h2>
                   <form>
                     <FormGroup validationState={this._getValidationStateOfPhone()} controlId="formControlsTextarea">
@@ -53,14 +53,14 @@ export default class SetupForm extends Component {
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
                     <h2 className={s.centralizedDiv}>¿Qué fecha prefieres?</h2>
-                    <div className={classNames(s.datePicker)}>
+                    <div className={cx(s.datePicker)}>
                       <DatePicker
                         dayChange={this.props.updateDay}
                         selectedDay={this.props.date}
                       />
                     </div>
-                    <div className={classNames(s.centralizedDiv)}>
-                      <div className={classNames(s.morningAfternoonButtons)}>
+                    <div className={cx(s.centralizedDiv)}>
+                      <div className={cx(s.morningAfternoonButtons)}>
                         <ButtonGroup>
                           <Button 
                             onClick={this.props.updateTime} 
@@ -74,12 +74,12 @@ export default class SetupForm extends Component {
                           </Button>
                         </ButtonGroup>
                       </div>
-                      <div className={classNames(s.dateDesc)}>
+                      <div className={cx(s.dateDesc)}>
                         <p>
                           Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
                         </p>
                       </div>
-                      <Button bsStyle='primary' onClick={this._confirm.bind(this)} type="submit" className={classNames(s.acceptBtn)}>
+                      <Button bsStyle='primary' onClick={this._confirm.bind(this)} type="submit" className={cx(s.acceptBtn)}>
                         Aceptar
                       </Button>
                     </div>

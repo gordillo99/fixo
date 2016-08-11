@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Tabs, Tab} from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import AdminUser from '../../components/adminComponents/AdminUser';

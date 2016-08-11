@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import s from './ProgressionStatus.style';
 
@@ -48,7 +48,7 @@ export default class ProgressionStatus extends Component {
 
     return (
       <div className={s.root}>
-        <div className={classNames(s.centralizedDiv)}>
+        <div className={cx(s.centralizedDiv)}>
           <Row className={s.row}>
             <Col md={8} xs={10} className={s.centerBlock}>
               <div className={s.centeringDiv}>

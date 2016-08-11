@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Carousel } from 'react-bootstrap';
 import image1 from './image-1.jpeg';
 import image2 from './image-2.jpeg';

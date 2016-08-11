@@ -20,7 +20,7 @@
 }
 
 .carouselImage {
-	width: 100%;
+	/*width: 100%;*/
 	/*border: 3px dotted white;*/
 	z-index: -1;
 }

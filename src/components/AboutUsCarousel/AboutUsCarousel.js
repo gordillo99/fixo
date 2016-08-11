@@ -34,15 +34,6 @@ export default class AboutUsCarousel extends Component {
 			        <img width={190} height={165} alt='fixo' src={fixoWhite} />
 			      </Caption>
 			    </Item>
-			    <Item>
-			    	<div className={s.centralizedDiv}>
-			    		<h1 className={s.header}>Encontrar a tu fixer es gratis</h1>
-			      	<img className={s.carouselImage} width={900} height={500} alt='Dollars' src={dollarsImage}/>
-			      </div>
-			      <Caption>
-			        <img width={190} height={165} alt='fixo' src={fixoWhite} />
-			      </Caption>
-			    </Item>
 			  </Carousel>
       </div>
     );

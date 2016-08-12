@@ -52,6 +52,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 	
+	add created_at for users and fixers
 	fix shared variables under proposals
 	add right text to terms, about, and contact
 

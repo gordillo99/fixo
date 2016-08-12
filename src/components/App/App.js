@@ -9,7 +9,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
-import classNames from 'classnames';
+import cx from 'classnames';
 import s from './App.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -53,9 +53,9 @@ class App extends Component {
 
   render() {
     return !this.props.error ? (
-      <div className={classNames(s.site)}>
+      <div className={cx(s.site)}>
         <Header />
-        <div className={classNames(s.siteContent)}>
+        <div className={cx(s.siteContent)}>
           {this.props.children}
         </div>
         <Footer />

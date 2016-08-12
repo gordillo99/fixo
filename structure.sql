@@ -51,12 +51,13 @@ create table offers (id bigserial primary key unique, proposal_id int references
 	3 offer refused by user
 
 TODOs:
-
+	
+	fix shared variables under proposals
 	add right text to terms, about, and contact
 
 	make fetching more efficient using maps
 	add all form validation
-	fine tune scheduler time
+	find scheduler workaround
 	security measures for website
 
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Form, FormGroup, Button, Glyphicon, FormControl } from 'react-bootstrap';
 import { RadioGroup, Radio } from "react-radio-group";
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
@@ -12,7 +12,7 @@ export default class ReviewForm extends Component {
   constructor() {
     super();
     this.state = {
-      selectedValue: '5',
+      selectedValue: 5,
       comment: ''
     };
   }
@@ -75,7 +75,8 @@ export default class ReviewForm extends Component {
   render() {
     return (
       <div className={s.root}>
-        <p className={s.boldedText}>¡Ayúdanos a mejorar la experiencia de todos!</p>
+        <p className={s.boldedText}>Cuéntanos sobre tu fixer:<br/>{`${this.props.fixerFirstName} ${this.props.fixerLastName}`}</p>
+        <p className={s.boldedText}>¡Ayúdanos a mejorar<br/>la experiencia de todos!</p>
         <p>1: malo, 2: necesita mejorar,</p>
         <p>3: bueno, 4: muy bueno, 5: excelente</p>
         <RadioGroup
@@ -84,19 +85,19 @@ export default class ReviewForm extends Component {
           selectedValue={this.state.selectedValue}
           onChange={this._handleChange.bind(this)}>
           <label className={s.radioButtonLabel}>
-            <Radio className={s.radioButtonLabel} value="1" />  1
+            <Radio className={s.radioButtonLabel} value={1} />  1
           </label>
           <label className={s.radioButtonLabel}>
-            <Radio className={s.radioButtonLabel} value="2" />  2
+            <Radio className={s.radioButtonLabel} value={2} />  2
           </label>
           <label className={s.radioButtonLabel}>
-            <Radio className={s.radioButtonLabel} value="3" />  3
+            <Radio className={s.radioButtonLabel} value={3} />  3
           </label>
           <label className={s.radioButtonLabel}>
-            <Radio className={s.radioButtonLabel} value="4" />  4
+            <Radio className={s.radioButtonLabel} value={4} />  4
           </label>
           <label className={s.radioButtonLabel}>
-            <Radio className={s.radioButtonLabel} value="5" />  5
+            <Radio className={s.radioButtonLabel} value={5} />  5
           </label>
         </RadioGroup>
         <FormControl 

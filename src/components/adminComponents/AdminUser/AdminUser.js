@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import UserEdit from '../UserEdit';
 import $ from 'jquery';
@@ -32,11 +32,11 @@ export default class AdminUser extends Component {
 
 	render() {
 		return(
-			<div className={classNames(s.tabContent)}>
+			<div className={cx(s.tabContent)}>
 				<h2>Actualizar usuarios</h2>
 				{this.state.users.map( (user, index) => {
 					return (
-						<UserEdit key={'userEdit-' + index} className={classNames(s.tabContentElement)}
+						<UserEdit key={'userEdit-' + index} className={cx(s.tabContentElement)}
 							id={user.id}
 							email={user.email}
 							firstname={user.firstname}

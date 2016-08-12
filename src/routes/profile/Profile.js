@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import ProfileHeader from '../../components/profileComponents/ProfileHeader';
 import ProfileProposals from '../../components/profileComponents/ProfileProposals';
 import s from './Profile.css';

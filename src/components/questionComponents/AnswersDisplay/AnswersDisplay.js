@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import s from './AnswersDisplay.css';

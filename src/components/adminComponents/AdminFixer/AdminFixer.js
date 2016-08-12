@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import FixerEdit from '../FixerEdit';
 import FixerCreate from '../FixerCreate';
@@ -91,7 +91,7 @@ export default class AdminFixer extends Component {
 
 	render() {
 		return(
-			<div className={classNames(s.tabContent)}>
+			<div className={cx(s.tabContent)}>
 				<h2>Crear Fixer</h2>
 				<FixerCreate 
 					areas={this.state.areas}
@@ -100,7 +100,7 @@ export default class AdminFixer extends Component {
 				<h2>Actualizar Fixers</h2>
 				{this.state.fixers.map( (fixer, index) => {
 					return (
-						<FixerEdit className={classNames(s.tabContentElement)}
+						<FixerEdit className={cx(s.tabContentElement)}
 							key={'fixerEdit-' + index}
 							id={fixer.id}
 							email={fixer.email}

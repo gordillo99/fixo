@@ -266,7 +266,7 @@ router.route('/get/:user_id')
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "get-proposal-for-user",
-      text: "select p.id as proposal_id, p.user_id, p.has_review, p.area, p.address, p.email, p.phone_number, p.prop_date, p.morning, p.category, p.created_at, p.status, f.id as fixer_id, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic, f.avg_rating, f.num_ratings from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1;",
+      text: "select p.id as proposal_id, p.user_id, p.has_review, p.area, p.address, p.email, p.phone_number, p.prop_date, p.morning, p.category, p.created_at, p.status, f.id as fixer_id, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic, f.avg_rating, f.num_ratings from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1 order by created_at desc;",
       values: [req.params.user_id]
     })
       .then(function (data) {

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import ProposalEdit from '../ProposalEdit';
 import $ from 'jquery';
@@ -124,11 +124,11 @@ export default class AdminProposal extends Component {
 
 	render() {
 		return(
-			<div className={classNames(s.tabContent)}>
+			<div className={cx(s.tabContent)}>
 				<h2>Ver Propuestas</h2>
 				{this.state.proposals.map( (proposal, index) => {
 					return (
-						<ProposalEdit className={classNames(s.tabContentElement)}
+						<ProposalEdit className={cx(s.tabContentElement)}
 							key={'proposal-Edit-' + index}
 							id={proposal.id}
 							email={proposal.email}

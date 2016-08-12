@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Panel } from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import FixerReviewsDisplay from '../reviewComponents/FixerReviewsDisplay';
@@ -15,17 +15,17 @@ export default class FixerPanel extends Component {
 							      	src={'data:image/png;base64,' + arrBuffToBase64(this.props.fixer.profilepic.data)}
 							      	height='50px'
 							      	weight='50px'
-							      	className={classNames(s.fixerImage)}
+							      	className={cx(s.fixerImage)}
 							      />;
 		}
 
 		return(						
-			<Panel bsStyle='primary' header={this.props.fixer.firstname + ' ' + this.props.fixer.lastname} className={classNames(s.panelStyle, (this.props.fixer.selected && this.props.showSelected) ? s.selectedPanel : '')}>
-			<ul className={classNames(s.noListStyle)}>
-				<li className={classNames(s.inlineFixerEles)}>
+			<Panel bsStyle='primary' header={this.props.fixer.firstname + ' ' + this.props.fixer.lastname} className={cx(s.panelStyle, (this.props.fixer.selected && this.props.showSelected) ? s.selectedPanel : '')}>
+			<ul className={cx(s.noListStyle)}>
+				<li className={cx(s.inlineFixerEles)}>
 			    {showImage}
 		   	</li>
-		    <li className={classNames(s.inlineFixerEles)}>
+		    <li className={cx(s.inlineFixerEles)}>
 		      <p>{this.props.fixer.description}</p>
 		    </li>
 	  	</ul>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron } from 'react-bootstrap';
 import ProgressionStatus from './../../components/ProgressionStatus';
 import SetupForm from './../../components/SetupForm';
@@ -74,6 +74,7 @@ export default class Setup extends Component {
 
   render() {
     let content = null;
+    let progression = <ProgressionStatus currentStage={this.state.setupStage}/>;
 
     switch(this.state.setupStage) {
       case 0:
@@ -117,6 +118,7 @@ export default class Setup extends Component {
         break;
       case 4:
         content = <ThankYouDisplay />;
+        progression = null;
         break;
       default:
         content = null; 
@@ -128,7 +130,7 @@ export default class Setup extends Component {
         <div className={s.centralizedDiv}>
           <Jumbotron className={s.stripeJumbotron}>
             <h1 className={s.pageHeader}>{this.props.categoria}</h1>
-            <ProgressionStatus currentStage={this.state.setupStage}/>
+            {progression}
           </Jumbotron>
           {content}
         </div>

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Col, Row, Button, Panel, Glyphicon } from 'react-bootstrap';
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
@@ -22,6 +22,7 @@ export default class ProposalCard extends Component {
       hasReview: this.props.proposal.has_review === 'yes',
       addQuestionsTxt: null,
       addQuestionsImage: null,
+      showProposalContent: true,
       open: false
     };
   }
@@ -65,6 +66,30 @@ export default class ProposalCard extends Component {
     this.setState({ hasReview: value, review: review });
   }
 
+  _showProposalDetailsBtn() {
+    if (this.state.open) {
+      if (this.state.showProposalContent) {
+        this.setState({ open: !this.state.open });
+      } else {
+        this.setState({ showProposalContent: true }, );
+      }
+    } else {
+      this.setState({ open: !this.state.open, showProposalContent: true });
+    }
+  }
+
+  _showReviewFormBtn() {
+    if (this.state.open) {
+      if (!this.state.showProposalContent) {
+        this.setState({ open: !this.state.open });
+      } else {
+        this.setState({ showProposalContent: false }, );
+      }
+    } else {
+      this.setState({ open: !this.state.open, showProposalContent: false });
+    }
+  }
+
   render() {
     let dateFormat = require('dateformat');
     let answersDisplay = null;
@@ -72,6 +97,8 @@ export default class ProposalCard extends Component {
     let reviewContent = null;
     let createdAt = dateFormat(this.props.proposal.created_at, 'dd/mm/yyyy').toString();
     let propDate = `${dateFormat(this.props.proposal.prop_date, 'dd/mm/yyyy').toString()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
+    let panelContent = null;
+    let reviewBtnText = '';
     let fixer = {
       profilepic: this.props.proposal.profilepic,
       description: this.props.proposal.description,
@@ -93,14 +120,59 @@ export default class ProposalCard extends Component {
     }
 
     if (this.state.hasReview) {
-      reviewContent = <ReviewDisplay review={this.state.review} />;
+      reviewContent = <ReviewDisplay
+                        review={this.state.review}
+                        fixerFirstName={fixer.firstname}
+                        fixerLastName={fixer.lastname}
+                      />;
     } else {
       reviewContent = <ReviewForm 
         user_id={this.props.proposal.user_id}
         fixer_id={this.props.proposal.fixer_id}
         proposal_id={this.props.proposal.proposal_id}
         updateHasReview={this._updateHasReviewProp.bind(this)}
+        fixerFirstName={fixer.firstname}
+        fixerLastName={fixer.lastname}
       />;
+    }
+
+    /*
+
+    <div className={s.leftAlignedDiv}>
+      <p>{`Categoría: ${catEnglishToSpanish(this.props.proposal.category)}`}</p>
+      <p>{`Dirección: ${this.props.proposal.address}`}</p>
+      <p>{`Número de teléfono: ${this.props.proposal.phone}`}</p>
+      <p>{`Email: ${this.props.proposal.email}`}</p>
+      <p>{`Fecha propuesta: ${propDate}`}</p>
+      <p>{`Estado: ${(this.props.proposal.status === 0) ? 'Fixer aún no ha sido notificado' : 'Fixer ha sido notificado'}`}</p>
+    </div>
+
+    */
+
+    if (this.state.showProposalContent) {
+       panelContent = <div>
+                        <div className={s.leftAlignedDiv}>
+                          <p>{`Categoría: ${catEnglishToSpanish(this.props.proposal.category)}`}</p>
+                          <p>{`Estado: ${(this.props.proposal.status === 0) ? 'Fixer aún no ha sido notificado' : 'Fixer ha sido notificado'}`}</p>
+                        </div>
+                        <div>
+                          <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
+                          <FixerPanel showReviews={false} fixer={fixer} />
+                        </div>
+                        <div className={s.leftAlignedDiv}>
+                          {answersDisplay}
+                        </div>
+                      </div>
+    } else {
+      panelContent = reviewContent;
+    }
+
+    if (this.state.open && !this.state.showProposalContent) {
+      reviewBtnText = 'Ocultar tu reseña';
+    } else if (this.state.hasReview) {
+      reviewBtnText = 'Mostrar tu reseña';
+    } else {
+      reviewBtnText = 'Escribir una reseña'; 
     }
 
     return (
@@ -108,25 +180,33 @@ export default class ProposalCard extends Component {
         <div>
           <Row className={s.row}>
             <Col md={12} xs={12} className={s.centerBlock}>
-              <Button onClick={() => this.setState({ open: !this.state.open })}>
-                {`${this.props.counter}) Propuesta creada el ${createdAt}`}
-              </Button>
+              <div className={s.leftAlignedDiv}>
+                <ul className={s.noListStyle}>
+                  <li className={s.inlineEles}>
+                    <h4>{`Propuesta del ${createdAt}`}</h4>
+                  </li>
+                  <li className={s.inlineEles, s.centralizedDiv}>
+                    <Button 
+                      bsStyle='primary'
+                      onClick={this._showProposalDetailsBtn.bind(this)}
+                      className={s.detailsButton}
+                    >
+                      {(this.state.open && this.state.showProposalContent) ? 'Ocultar detalles' : 'Mostrar detalles'}
+                    </Button>
+                    <Button 
+                      bsStyle='info'
+                      onClick={this._showReviewFormBtn.bind(this)} 
+                      //hidden={this.state.hasReview}
+                      className={s.detailsButton}
+                    >
+                      {reviewBtnText}
+                    </Button>
+                  </li>
+                </ul>
+              </div>
               <Panel collapsible expanded={this.state.open}>
-                <div className={s.leftAlignedDiv}>
-                  <p>{`Categoría: ${catEnglishToSpanish(this.props.proposal.category)}`}</p>
-                  <p>{`Dirección: ${this.props.proposal.address}`}</p>
-                  <p>{`Número de teléfono: ${this.props.proposal.phone}`}</p>
-                  <p>{`Email: ${this.props.proposal.email}`}</p>
-                  <p>{`Fecha propuesta: ${propDate}`}</p>
-                  <p>{`Estado: ${(this.props.proposal.status === 0) ? 'Fixer aún no ha sido notificado' : 'Fixer ha sido notificado'}`}</p>
-                </div>
                 <div>
-                  <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
-                </div>
-                <FixerPanel showReviews={false} fixer={fixer} />
-                {reviewContent}
-                <div className={s.leftAlignedDiv}>
-                  {answersDisplay}
+                  {panelContent}
                 </div>
               </Panel>
             </Col>

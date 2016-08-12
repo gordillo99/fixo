@@ -1,0 +1,26 @@
+@import '../variables.css';
+
+.root {
+	background-color: #1A8CF0;
+}
+
+.centralizedDiv {
+  text-align: center;
+}
+
+.header {
+	color: white;
+	font-weight: bold;
+	position: absolute;
+	top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+
+.carouselImage {
+	/*width: 100%;*/
+	/*border: 3px dotted white;*/
+	z-index: -1;
+}

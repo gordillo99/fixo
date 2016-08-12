@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 import ReviewDisplay from '../ReviewDisplay';
 import $ from 'jquery';
@@ -46,7 +46,7 @@ export default class FixerReviewsDisplay extends Component {
 			seeMoreReviews = <ReviewDisplay reviews={this.state.reviews} hideReviews={this._hideReviews.bind(this)} fixerId={this.props.fixerId}/>;
 		} else if (this.props.numRatings > 1) {
 			if (this.props.showMoreReviews) {
-				seeMoreReviews = <div className={classNames(s.centralizedDiv, s.paddingAbove)}>
+				seeMoreReviews = <div className={cx(s.centralizedDiv, s.paddingAbove)}>
 										       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más las reseñas</a>
 									       </div>
 			}
@@ -54,7 +54,7 @@ export default class FixerReviewsDisplay extends Component {
 
 		return(
 			<ListGroup>
-		    <ListGroupItem bsStyle="info">Promedio de reseñas: {this.props.fixerRating} <Glyphicon glyph="star" /><br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
+		    <ListGroupItem bsStyle="info">Promedio de reseñas: {this.props.fixerRating} / 5<br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
 		    {seeMoreReviews}
 		  </ListGroup>
 		);

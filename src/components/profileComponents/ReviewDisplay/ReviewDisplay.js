@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Form, FormGroup, Button, Glyphicon } from 'react-bootstrap';
 import { RadioGroup, Radio } from "react-radio-group";
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
@@ -19,7 +19,7 @@ export default class ReviewDisplay extends Component {
     
     return (
       <div className={s.root}>
-        <p className={s.boldedText}>Tu reseña</p>
+        <p className={s.boldedText}>{`Tu reseña de ${this.props.fixerFirstName} ${this.props.fixerLastName}`}</p>
         <div className={s.leftAlignedDiv}>
           <ul className={s.noListStyle}>
             <li className={s.inlineEles}><p>Calidad de Servicio:</p></li>

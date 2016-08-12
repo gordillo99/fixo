@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import { Row, Panel, Form, FormControl, FormGroup, Col, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 import $ from 'jquery';
@@ -251,13 +251,13 @@ export default class FixerCreate extends Component {
 				    <FormGroup>
 				    	<Row className={s.row}>
 					      <Col smOffset={2} sm={5}>
-					      	<ul className={classNames(s.noListStyle)}>
-					      		<li className={classNames(s.inline)}>
+					      	<ul className={cx(s.noListStyle)}>
+					      		<li className={cx(s.inline)}>
 							        <Button onClick={this._createFixer.bind(this)}>
 							          Crear Fixer
 							        </Button>
 							      </li>
-							      <li className={classNames(s.inline)}>
+							      <li className={cx(s.inline)}>
 							        <Button onClick={() => this.setState( { open: !this.state.open } )}>
 							          Cancelar
 							        </Button>

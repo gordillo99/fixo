@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
 import s from './MainPageStripe2.css';
@@ -67,7 +67,7 @@ export default class MainPageStripe2 extends Component {
     let index = 0;
 
     return steps.map((step, index) => {
-      return <li className={classNames(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index, steps.length)} </li>
+      return <li className={cx(s.inlineSteps)} key={'step-' + step.id}> {this._createStepEles(step.id, step.name, step.desc, step.icon, index, steps.length)} </li>
     });
   }
 
@@ -83,20 +83,20 @@ export default class MainPageStripe2 extends Component {
     }
 
     return (
-      <ul className={classNames(s.listElement)}>
-        <li className={classNames(s.inlineSteps, s.nameWithIcon)}>
-          <div id={`front-tile-${id}`} className={classNames(s.flip, s.side1, flipStyle1)}>
+      <ul className={cx(s.listElement)}>
+        <li className={cx(s.inlineSteps, s.nameWithIcon)}>
+          <div id={`front-tile-${id}`} className={cx(s.flip, s.side1, flipStyle1)}>
             <div className={s.listEleWrapper}>
-              <ul key={id} className={classNames(s.noListStyle)}>
+              <ul key={id} className={cx(s.noListStyle)}>
               
                 <li><img src={icon} height='40px' width='40px'/></li>
                 <li><h3>{name}</h3></li>  
-                <li className={classNames(s.stepDesc)}><p >{descArr[0]}<br/>{descArr[1]}</p></li>
+                <li className={cx(s.stepDesc)}><p >{descArr[0]}<br/>{descArr[1]}</p></li>
               
               </ul>
             </div>
           </div>
-          <div id={`back-tile-${id}`} className={classNames(s.backTile, s.relativePosition, s.flip, s.side2, flipStyle2)}>
+          <div id={`back-tile-${id}`} className={cx(s.backTile, s.relativePosition, s.flip, s.side2, flipStyle2)}>
             <h1 className={s.backTileNumber}>{Number(id) + 1}</h1>
           </div>
         </li>
@@ -106,8 +106,8 @@ export default class MainPageStripe2 extends Component {
 
   render() {
     return (
-      <Jumbotron className={classNames(s.stripe2Jumbotron)}>
-        <h1 className={classNames(s.header)}>¡Así de fácil!</h1>
+      <Jumbotron className={cx(s.stripe2Jumbotron)}>
+        <h1 className={cx(s.header)}>¡Así de fácil!</h1>
         <Row className={s.row}>
           <Col md={12} xs={12} className={s.centerBlock}>
               {this._createSteps()}

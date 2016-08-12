@@ -1,7 +1,7 @@
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ * Copyright © 2014_2016 Kriasoft, LLC. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -28,4 +28,198 @@
   --screen-sm-min: 768px;  /* Small screen / tablet */
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
+}
+
+
+.visible_xs,
+.visible_sm,
+.visible_md,
+.visible_lg {
+  display: none !important;
+}
+.visible_xs_block,
+.visible_xs_inline,
+.visible_xs_inline_block,
+.visible_sm_block,
+.visible_sm_inline,
+.visible_sm_inline_block,
+.visible_md_block,
+.visible_md_inline,
+.visible_md_inline_block,
+.visible_lg_block,
+.visible_lg_inline,
+.visible_lg_inline_block {
+  display: none !important;
+}
+@media (max_width: 767px) {
+  .visible_xs {
+    display: block !important;
+  }
+  table.visible_xs {
+    display: table !important;
+  }
+  tr.visible_xs {
+    display: table_row !important;
+  }
+  th.visible_xs,
+  td.visible_xs {
+    display: table_cell !important;
+  }
+}
+@media (max_width: 767px) {
+  .visible_xs_block {
+    display: block !important;
+  }
+}
+@media (max_width: 767px) {
+  .visible_xs_inline {
+    display: inline !important;
+  }
+}
+@media (max_width: 767px) {
+  .visible_xs_inline_block {
+    display: inline_block !important;
+  }
+}
+@media (min_width: 768px) and (max_width: 991px) {
+  .visible_sm {
+    display: block !important;
+  }
+  table.visible_sm {
+    display: table !important;
+  }
+  tr.visible_sm {
+    display: table_row !important;
+  }
+  th.visible_sm,
+  td.visible_sm {
+    display: table_cell !important;
+  }
+}
+@media (min_width: 768px) and (max_width: 991px) {
+  .visible_sm_block {
+    display: block !important;
+  }
+}
+@media (min_width: 768px) and (max_width: 991px) {
+  .visible_sm_inline {
+    display: inline !important;
+  }
+}
+@media (min_width: 768px) and (max_width: 991px) {
+  .visible_sm_inline_block {
+    display: inline_block !important;
+  }
+}
+@media (min_width: 992px) and (max_width: 1199px) {
+  .visible_md {
+    display: block !important;
+  }
+  table.visible_md {
+    display: table !important;
+  }
+  tr.visible_md {
+    display: table_row !important;
+  }
+  th.visible_md,
+  td.visible_md {
+    display: table_cell !important;
+  }
+}
+@media (min_width: 992px) and (max_width: 1199px) {
+  .visible_md_block {
+    display: block !important;
+  }
+}
+@media (min_width: 992px) and (max_width: 1199px) {
+  .visible_md_inline {
+    display: inline !important;
+  }
+}
+@media (min_width: 992px) and (max_width: 1199px) {
+  .visible_md_inline_block {
+    display: inline_block !important;
+  }
+}
+@media (min_width: 1200px) {
+  .visible_lg {
+    display: block !important;
+  }
+  table.visible_lg {
+    display: table !important;
+  }
+  tr.visible_lg {
+    display: table_row !important;
+  }
+  th.visible_lg,
+  td.visible_lg {
+    display: table_cell !important;
+  }
+}
+@media (min_width: 1200px) {
+  .visible_lg_block {
+    display: block !important;
+  }
+}
+@media (min_width: 1200px) {
+  .visible_lg_inline {
+    display: inline !important;
+  }
+}
+@media (min_width: 1200px) {
+  .visible_lg_inline_block {
+    display: inline_block !important;
+  }
+}
+@media (max_width: 767px) {
+  .hidden_xs {
+    display: none !important;
+  }
+}
+@media (min_width: 768px) and (max_width: 991px) {
+  .hidden_sm {
+    display: none !important;
+  }
+}
+@media (min_width: 992px) and (max_width: 1199px) {
+  .hidden_md {
+    display: none !important;
+  }
+}
+@media (min_width: 1200px) {
+  .hidden_lg {
+    display: none !important;
+  }
+}
+.hide_fully {
+  display: none !important;
+  visibility: hidden;
+}
+.hide_visually {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: _1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.hide_overflow {
+  overflow: hidden;
+}
+.hide_visibility {
+  visibility: hidden;
+}
+.display_block {
+  display: block;
+}
+.display_inline {
+  display: inline;
+}
+.display_inline_block {
+  display: inline_block;
+}
+.hide_temporarily {
+  display: none;
 }

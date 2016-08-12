@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
@@ -286,20 +286,20 @@ export default class ProposalEdit extends Component {
 				  </Form>
 				  <Row className={s.row}>
 			      <Col sm={10}>
-			      	<ul className={classNames(s.noListStyle)}>
-			      		<li className={classNames(s.inline)}>
+			      	<ul className={cx(s.noListStyle)}>
+			      		<li className={cx(s.inline)}>
 			      			<a href={`/pdf/pdfGenerator?${stringifiedState}`}>
 						        <Button>
 									  	Exportar a PDF
 									  </Button>
 								 	</a>
 					      </li>
-					      <li className={classNames(s.inline)}>
+					      <li className={cx(s.inline)}>
 					        <Button onClick={this._updateProposalStatus.bind(this)}>
 								  	{buttonStatusText}
 								  </Button>
 					      </li>
-					      <li className={classNames(s.inline)}>
+					      <li className={cx(s.inline)}>
 					        <Button bsStyle="danger" onClick={this._deleteProposalInDb.bind(this)}>
 								  	Borrar
 								  </Button>

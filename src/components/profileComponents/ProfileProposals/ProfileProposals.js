@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 import ProposalCard from '../ProposalCard';
 import s from './ProfileProposals.css';
@@ -45,11 +45,11 @@ export default class ProfileProposals extends Component {
     }
     return (
       <div className={s.root}>
-        <div className={classNames(s.centralizedDiv)}>
+        <div className={cx(s.centralizedDiv)}>
           <h2>Tus propuestas</h2>
           {resultTitle}
           <Row className={s.row}>
-            <Col md={5} xs={10} className={s.centerBlock}>
+            <Col md={5} xs={12} className={s.centerBlock}>
               <div className={s.centeringDiv}>
                 {this.state.proposals.map((proposal, counter) => {
                   return <ProposalCard 

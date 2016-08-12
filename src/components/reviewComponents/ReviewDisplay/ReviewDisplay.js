@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { Jumbotron, Button, Panel } from 'react-bootstrap';
 import ReviewCard from '../ReviewCard';
 import $ from 'jquery';
@@ -27,7 +27,7 @@ export default class ReviewDisplay extends Component {
 		return(
 			<div>
 				{reviewCards}
-				<div className={classNames(s.centralizedDiv, s.paddingAbove)}>  
+				<div className={cx(s.centralizedDiv, s.paddingAbove)}>  
 				  <a onClick={this.props.hideReviews}>Ocultar reseñas</a>
 				</div>
 			</div>

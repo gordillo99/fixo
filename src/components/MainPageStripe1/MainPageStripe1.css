@@ -2,12 +2,13 @@
 
 .welcomePageHeader {
   padding-top: 10px;
+  font-weight: bold;
 }
 
 .stripe1Jumbotron {
   color: white;
   margin-bottom: 0px;
-  background-color: #1A8CF0;
+  /*background-color: #1A8CF0;*/
   padding-bottom: 20px;
 }
 
@@ -27,7 +28,7 @@
 }
 
 .listCatEle {
-
+  /*background-color: #1A8CF0;*/
 }
 
 .catTitle {
@@ -50,7 +51,7 @@
 }
 
 .catsWrapper {
-  background-color: #1A8CF0;
+
 }
 
 .row {
@@ -61,4 +62,13 @@
 .centerBlock {
   float: none;
   margin: 0 auto;
+}
+
+/* Animations */
+
+.fade {
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }

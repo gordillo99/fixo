@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
-import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import FixerEdit from '../FixerEdit';
 import FixerCreate from '../FixerCreate';
 import $ from 'jquery';
@@ -21,72 +20,84 @@ export default class AdminFixer extends Component {
 	}
 
 	componentDidMount() {
-	  $.ajax({
+		let areas = null;
+		let categories = null;
+		let fixersToAreas = null;
+		let fixersToCategories = null;
+		let fixers = null;
+
+ 	  let getAreas = $.ajax({
     	url: '/api/areas/crud/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
-    	success: function(data) {
-    		this.setState( { areas: data } );
+    	success: function(areasData) {
+    		areas = areasData;
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
 
-	  $.ajax({
+	  let getCategories = $.ajax({
     	url: '/api/categories/crud/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
-    	success: function(data) {
-    		this.setState( { categories: data } );
+    	success: function(categoriesData) {
+    		categories = categoriesData;
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
 
-	  $.ajax({
+	  let getFixerToAreas = $.ajax({
     	url: '/api/fixers/getAllAreas/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
-    	success: function(data) {
-    		this.setState( { fixersToAreas: data } );
+    	success: function(fixersToAreasData) {
+    		fixersToAreas = fixersToAreasData;
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
 
-	  $.ajax({
+	  let getFixerToCategories = $.ajax({
     	url: '/api/fixers/getAllCategories/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
-    	success: function(data) {
-    		this.setState( { fixersToCategories: data } );
+    	success: function(fixersToCategoriesData) {
+    		fixersToCategories = fixersToCategoriesData;
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
 
-	  $.ajax({
+	  let getFixers = $.ajax({
     	url: '/api/fixers/crud/',
     	type: 'GET',
     	dataType: 'json',
     	cache: false,
-    	success: function(data) {
-    		this.setState( { fixers: data.sort(function(a, b) {
-		      return Number(a.id) - Number(b.id);
-		    })});
+    	success: function(fixers) {
+    		this.setState({
+    			fixers: fixers.sort(function(a, b) { return Number(a.id) - Number(b.id) }),
+    			areas: areas,
+    			categories: categories,
+    			fixersToAreas: fixersToAreas,
+    			fixersToCategories: fixersToCategories
+    		});
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
+
+	  $.when(getAreas, getCategories, getFixerToAreas, getFixerToCategories).then(getFixers);
 	}
 
 	render() {

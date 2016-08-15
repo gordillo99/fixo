@@ -91,6 +91,7 @@ export default class ProposalCard extends Component {
   }
 
   render() {
+    console.log('render');
     let dateFormat = require('dateformat');
     let answersDisplay = null;
     let qsAndAs = [];

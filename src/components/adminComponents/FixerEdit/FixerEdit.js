@@ -10,15 +10,19 @@ export default class FixerEdit extends Component {
 
 	constructor(props) {
 		super(props);
-		let fixersToCategories = this.props.fixersToCategories.map(fixToCat => { 
+		let fixersToCategories = [];
+
+		this.props.fixersToCategories.map(fixToCat => { 
 			if (Number(fixToCat.fixer_id) === Number(this.props.id)) {
-				return fixToCat;
+				fixersToCategories.push(fixToCat);
 			}
 		});
 
-		let fixersToAreas = this.props.fixersToAreas.map(fixToAr => { 
+		let fixersToAreas = [];
+
+		this.props.fixersToAreas.map(fixToAr => { 
 			if (Number(fixToAr.fixer_id) === Number(this.props.id)) {
-				return fixToAr;
+				fixersToAreas.push(fixToAr);
 			}
 		});
 

@@ -11,134 +11,6 @@ var nodemailer = require('nodemailer');
 var emailTemplateProposalForAdmin = require('../emailTemplates/proposalEmailForAdmins.js');
 var emailTemplateReviewForUser = require('../emailTemplates/reviewReminderEmailForUsers.js');
 
-var data;
-var imageData = null;
-
-var emailForReview = function() {
-  var dataCopy = data;
-  var schedule = require('node-schedule');
-  //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
-  var date = new Date(Date.now() + (1000 * 60 * 3));
-  var job = schedule.scheduleJob(date, function(y){
-    
-    // create reusable transporter object using the default SMTP transport
-    var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
-
-    // setup e-mail data with unicode symbols
-    var mailOptions = {
-      from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
-      to: dataCopy.email, // list of receivers
-      subject: 'fixo: Cuéntanos sobre tu fixer', // Subject line
-      text: 'fixo: Cuéntanos sobre tu fixer', // plaintext body
-      html: emailTemplateReviewForUser.createReviewEmail() // html body
-    };
-
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info){
-      console.log('Email de reseña enviado exitosamente.');
-    });
-
-  }.bind(null, dataCopy));
-}
-
-var createImageQuestions = function(id) {
-
-  connection.db.none({
-    name: "create-image-questions",
-    text: "insert into add_questions_image (proposal_id, question, answer) values ($1, $2, $3);",
-    values: [id, 'Image añadida', imageData]
-  })
-    .then(function () {
-      console.log('Image questions created successfully!');
-    })
-    .catch(function (error) {
-      console.log(error);
-      res.send(error);    
-  });
-}
-
-var createTxtQuestions = function(id, callback) {
-
-  var values = [],
-      counter = 1,
-      query = '',
-      partsOfQsAndAs = data.qsAndAs.split('*'),
-      proposal_id = id;
-
-  partsOfQsAndAs.map((qAndA, index) => {
-    if (index % 2 === 0) {
-      values.push(id, qAndA, partsOfQsAndAs[index + 1]);
-      query += '($' + (counter++) + ',$' + (counter++) + ',$' + (counter++) + '),';
-    }
-  });
-
-  query = query.slice(0,-1) + ';';
-
-  connection.db.none({
-    name: "create-txt-questions",
-    text: "insert into add_questions_txt (proposal_id, question, answer) values " + query,
-    values: values
-  })
-    .then(function () {
-        if (callback) {
-          callback(proposal_id);
-        } else {
-          console.log('Txt questions created successfully!');
-        }
-    })
-    .catch(function (error) {
-      console.log(error);
-      res.send(error);    
-  });
-};
-
-var createProposal = function() {
-  emailForReview();
-  connection.db.one({
-    name: "create-proposal",
-    text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
-    values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
-  })
-    .then(function (data) {
-      // create reusable transporter object using the default SMTP transport
-      var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
-
-      console.log('proposal created successfully!');
-      var adminEmails = '';
-      config.adminEmails.map((email) => {
-        adminEmails += `${email},`
-      });
-
-      adminEmails = adminEmails.slice(0,-1);
-      // setup e-mail data with unicode symbols
-      var mailOptions = {
-        from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
-        to: adminEmails, // list of receivers
-        subject: 'fixo: Propuesta para fixer', // Subject line
-        text: 'fixo: Propuesta para fixer', // plaintext body
-        html: emailTemplateProposalForAdmin.createProposalEmail(data.id) // html body
-      };
-
-      // send mail with defined transport object
-      transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-          res.send(false);
-          return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
-        if (imageData) {
-          createTxtQuestions(data.id, createImageQuestions);
-        } else {
-          createTxtQuestions(data.id);
-        }
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-      res.send(error);    
-  });
-};
-
 router.route('/crud/addQuestionsTxt')
 
   .get(function(req, res) {
@@ -196,18 +68,145 @@ router.route('/crud')
         imageFile,
         imagePath;
 
-        data = {
-          user_id: req.body.user_id, 
-          fixer_id: req.body.fixer_id, 
-          area: req.body.area, 
-          address: req.body.address, 
-          email: req.body.email, 
-          phone_number: req.body.phone, 
-          prop_date: req.body.date, 
-          morning: req.body.morning,
-          category: req.body.category, 
-          qsAndAs: req.body.qsAndAs
+    var data;
+    var imageData = null;
+
+    var emailForReview = function() {
+      var dataCopy = data;
+      var schedule = require('node-schedule');
+      //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
+      var date = new Date(Date.now() + (1000 * 60 * 3));
+      var job = schedule.scheduleJob(date, function(y){
+        
+        // create reusable transporter object using the default SMTP transport
+        var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+          from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
+          to: dataCopy.email, // list of receivers
+          subject: 'fixo: Cuéntanos sobre tu fixer', // Subject line
+          text: 'fixo: Cuéntanos sobre tu fixer', // plaintext body
+          html: emailTemplateReviewForUser.createReviewEmail() // html body
         };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, function(error, info){
+          console.log('Email de reseña enviado exitosamente.');
+        });
+
+      }.bind(null, dataCopy));
+    }
+
+    var createImageQuestions = function(id) {
+      connection.db.none({
+        name: "create-image-questions",
+        text: "insert into add_questions_image (proposal_id, question, answer) values ($1, $2, $3);",
+        values: [id, 'Image añadida', imageData]
+      })
+        .then(function () {
+          console.log('Image questions created successfully!');
+        })
+        .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+    };
+
+    var createTxtQuestions = function(id, callback) {
+
+      var values = [],
+          counter = 1,
+          query = '',
+          partsOfQsAndAs = data.qsAndAs.split('*'),
+          proposal_id = id;
+
+      partsOfQsAndAs.map((qAndA, index) => {
+        if (index % 2 === 0) {
+          values.push(id, qAndA, partsOfQsAndAs[index + 1]);
+          query += '($' + (counter++) + ',$' + (counter++) + ',$' + (counter++) + '),';
+        }
+      });
+
+      query = query.slice(0,-1) + ';';
+
+      connection.db.none({
+        name: "create-txt-questions",
+        text: "insert into add_questions_txt (proposal_id, question, answer) values " + query,
+        values: values
+      })
+        .then(function () {
+            if (callback) {
+              callback(proposal_id);
+            } else {
+              console.log('Txt questions created successfully!');
+            }
+        })
+        .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+    };
+
+    var createProposal = function() {
+      emailForReview();
+      connection.db.one({
+        name: "create-proposal",
+        text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
+        values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
+      })
+        .then(function (data) {
+          // create reusable transporter object using the default SMTP transport
+          var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+
+          console.log('proposal created successfully!');
+          var adminEmails = '';
+          config.adminEmails.map((email) => {
+            adminEmails += `${email},`
+          });
+
+          adminEmails = adminEmails.slice(0,-1);
+          // setup e-mail data with unicode symbols
+          var mailOptions = {
+            from: '"fixo" <'+config.customerServiceEmail+'>', // sender address
+            to: adminEmails, // list of receivers
+            subject: 'fixo: Propuesta para fixer', // Subject line
+            text: 'fixo: Propuesta para fixer', // plaintext body
+            html: emailTemplateProposalForAdmin.createProposalEmail(data.id) // html body
+          };
+
+          // send mail with defined transport object
+          transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+              res.send(false);
+              return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+            if (imageData) {
+              createTxtQuestions(data.id, createImageQuestions);
+            } else {
+              createTxtQuestions(data.id);
+            }
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+      });
+    };
+
+    data = {
+      user_id: req.body.user_id, 
+      fixer_id: req.body.fixer_id, 
+      area: req.body.area, 
+      address: req.body.address, 
+      email: req.body.email, 
+      phone_number: req.body.phone, 
+      prop_date: req.body.date, 
+      morning: req.body.morning,
+      category: req.body.category, 
+      qsAndAs: req.body.qsAndAs
+    };
     
     if (req.file !== undefined) { // if there's an image
       imageFile = req.file;

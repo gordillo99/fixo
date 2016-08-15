@@ -70,70 +70,68 @@ export default class UserEdit extends Component {
 
 	  return (
 	    <div>
-				<Col xs={12}>
-					<Button onClick={() => this.setState({ open: !this.state.open })}>
-						{`${this.state.id}.) ${this.state.firstname} ${this.state.lastname}, ${this.state.email}`}
-					</Button>
-					<Panel collapsible expanded={this.state.open}>
-						<Form horizontal>
-							<FormGroup controlId="formControlsId">
-								<Col componentClass={ControlLabel} xs={12}>
-									ID
-								</Col>
-								<Col xs={12}>
-									<FormControl value={this.state.id} type="text" placeholder="Id" disabled/>
-								</Col>
-							</FormGroup>
-							<FormGroup controlId="formControlsName">
-								<Col componentClass={ControlLabel} xs={12}>
-									Nombre
-								</Col>
-								<Col sm={6}>
-									<FormControl value={this.state.firstname + ' ' + this.state.lastname} type="text" placeholder="Name" disabled/>
-								</Col>
-							</FormGroup>
-							<FormGroup controlId="formControlsEmail">
-								<Col componentClass={ControlLabel} xs={12}>
-									Email
-								</Col>
-								<Col sm={6}>
-									<FormControl value={this.state.email} type="email" placeholder="Email" disabled/>
-								</Col>
-							</FormGroup>
-							<FormGroup controlId="formControlsSelect">
-								<Col componentClass={ControlLabel} xs={12}>
-									Tipo
-								</Col>
-								<Col sm={6}>
-									<FormControl value={this.state.usertype} componentClass="select" onChange={this._updateProperty.bind(this, 'usertype')}>
-										<option value="regular">regular</option>
-										<option value="fixer">fixer</option>
-										<option value="admin">admin</option>
-									</FormControl>
-								</Col>
-							</FormGroup>
+				<Button onClick={() => this.setState({ open: !this.state.open })}>
+					{`${this.state.id}.) ${this.state.firstname} ${this.state.lastname}, ${this.state.email}`}
+				</Button>
+				<Panel collapsible expanded={this.state.open}>
+					<Form horizontal>
+						<FormGroup controlId="formControlsId">
+							<Col componentClass={ControlLabel} xs={2}>
+								ID
+							</Col>
+							<Col xs={6}>
+								<FormControl value={this.state.id} type="text" placeholder="Id" disabled/>
+							</Col>
+						</FormGroup>
+						<FormGroup controlId="formControlsName">
+							<Col componentClass={ControlLabel} xs={2}>
+								Nombre
+							</Col>
+							<Col sm={6}>
+								<FormControl value={this.state.firstname + ' ' + this.state.lastname} type="text" placeholder="Name" disabled/>
+							</Col>
+						</FormGroup>
+						<FormGroup controlId="formControlsEmail">
+							<Col componentClass={ControlLabel} xs={2}>
+								Email
+							</Col>
+							<Col sm={6}>
+								<FormControl value={this.state.email} type="email" placeholder="Email" disabled/>
+							</Col>
+						</FormGroup>
+						<FormGroup controlId="formControlsSelect">
+							<Col componentClass={ControlLabel} xs={2}>
+								Tipo
+							</Col>
+							<Col sm={6}>
+								<FormControl value={this.state.usertype} componentClass="select" onChange={this._updateProperty.bind(this, 'usertype')}>
+									<option value="regular">regular</option>
+									<option value="fixer">fixer</option>
+									<option value="admin">admin</option>
+								</FormControl>
+							</Col>
+						</FormGroup>
 
-							<FormGroup>
-								<Row className={s.row}>
-									<Col smOffset={2} sm={5}>
-										<ul className={cx(s.noListStyle)}>
-											<li className={cx(s.inline)}>
-												<Button onClick={this._updateUserInDb.bind(this)}>
-													Actualizar
-												</Button>
-											</li>
-											<li className={cx(s.inline)}>
-												<Button bsStyle="danger" onClick={this._deleteUserInDb.bind(this)}>
-													Borrar
-												</Button>
-											</li>
-										</ul>
-									</Col>
-								</Row>
-							</FormGroup>
-						</Form>
-					</Panel>
-				</Col>
+						<FormGroup>
+							<Row className={s.row}>
+								<Col smOffset={2} sm={5}>
+									<ul className={cx(s.noListStyle)}>
+										<li className={cx(s.inline)}>
+											<Button onClick={this._updateUserInDb.bind(this)}>
+												Actualizar
+											</Button>
+										</li>
+										<li className={cx(s.inline)}>
+											<Button bsStyle="danger" onClick={this._deleteUserInDb.bind(this)}>
+												Borrar
+											</Button>
+										</li>
+									</ul>
+								</Col>
+							</Row>
+						</FormGroup>
+					</Form>
+				</Panel>
 	    </div>
 	  );
 	}

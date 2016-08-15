@@ -34,7 +34,7 @@ export default class AdminUser extends Component {
 		return(
 			<div className={cx(s.tabContent)}>
 				<h2>Actualizar usuarios</h2>
-				{this.state.users.map( (user, index) => {
+				{this.state.users.map((user, index) => {
 					return (
 						<UserEdit key={'userEdit-' + index} className={cx(s.tabContentElement)}
 							id={user.id}

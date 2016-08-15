@@ -47,11 +47,7 @@ export default class Profile extends Component {
 
     return (
     	<div>
-	      <ProfileHeader 
-	      	familyName={this.state.familyName}
-	      	givenName={this.state.givenName}
-	      	middleName={this.state.middleName}
-	      />
+	      <ProfileHeader />
 	      {proposalsEle}
       </div>
     );

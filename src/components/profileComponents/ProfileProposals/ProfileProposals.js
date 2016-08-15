@@ -39,6 +39,7 @@ export default class ProfileProposals extends Component {
   }
 
   render() {
+    console.log('Profile render');
     let resultTitle = null;
     if (this.state.noResults) {
       resultTitle = this.state.resultTitle;

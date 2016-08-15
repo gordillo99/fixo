@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 var pgp = require('pg-promise')();
 
-
 router.route('/crud')
 
   .get(function(req, res) {

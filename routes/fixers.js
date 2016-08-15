@@ -4,110 +4,12 @@ var router = express.Router();
 var pgp = require('pg-promise')();
 var multer = require('multer');
 
-var fixerProps;
-var imageData = null;
-var response = null;
-
-var removeAllFixToAreaRels = function() {
-  connection.db.manyOrNone({
-    name: "clear-fixerToAreaRels",
-    text: "delete from fixers_to_areas where fixer_id=$1;",
-    values: [fixerProps.fixer.id]
-  })
-    .then(function () {
-        insertNewFixerToAreas();
-    })
-    .catch(function (error) {
-        console.log(error);
-        res.send(error);    
-    });
-}
-
-var removeAllFixToCatRels = function() {
-  connection.db.manyOrNone({
-    name: "clear-fixerToCatRels",
-    text: "delete from fixers_to_categories where fixer_id=$1;",
-    values: [fixerProps.fixer.id]
-  })
-    .then(function () {
-        insertNewFixerToCategories();
-    })
-    .catch(function (error) {
-        console.log(error);
-        res.send(error);    
-    });
-}
-
-var insertNewFixerToAreas = function() {
-
-  var valuesToInsert = "";
-  var arrayOfVals = [];
-  var counter = 1;
-
-  if(fixerProps.fixersToCategories.length === 0) {
-    insertNewFixerToCategories();
-  }
-
-  fixerProps.fixersToAreas.map((fixToArea) => {
-    valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
-    arrayOfVals.push(fixToArea.fixer_id);
-    arrayOfVals.push(fixToArea.area_id);
-  });
-
-  valuesToInsert = valuesToInsert.slice(0, -1);
-
-  connection.db.manyOrNone({
-    name: "add-new-fixerToAreaRels",
-    text: "insert into fixers_to_areas (fixer_id, area_id) values " + valuesToInsert,
-    values: arrayOfVals
-  })
-    .then(function () {
-      removeAllFixToCatRels();
-    })
-    .catch(function (error) {
-        console.log(error);
-        return error;   
-    });
-}
-
-var insertNewFixerToCategories = function() {
-
-  var valuesToInsert = "";
-  var arrayOfVals = [];
-  var counter = 1;
-
-  if(fixerProps.fixersToCategories.length === 0) {
-    return;
-  }
-
-  fixerProps.fixersToCategories.map((fixToCat) => {
-    valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
-    arrayOfVals.push(fixToCat.fixer_id);
-    arrayOfVals.push(fixToCat.category_id);
-  });
-
-  valuesToInsert = valuesToInsert.slice(0, -1);
-
-  connection.db.manyOrNone({
-    name: "add-new-fixerToCategoryRels",
-    text: "insert into fixers_to_categories (fixer_id, category_id) values " + valuesToInsert,
-    values: arrayOfVals
-  })
-    .then(function () {
-      return;
-    })
-    .catch(function (error) {
-      console.log(error);
-      return error;    
-    });
-}
-
 router.route('/crud/:area/:category')
 
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "find-fixers-in-area",
-      text: "select f.* from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1) inner join fixers_to_categories as fc on (f.id = fc.fixer_id) inner join categories as cat on (cat.description = $2) and (cat.id = fc.category_id);",
+      text: "select f.* from fixers as f inner join fixers_to_areas as fa on (f.id = fa.fixer_id) and (fa.area_id = $1) inner join fixers_to_categories as fc on (f.id = fc.fixer_id) inner join categories as cat on (cat.description = $2) and (cat.id = fc.category_id) order by random();",
       values: [req.params.area, req.params.category]
     })
       .then(function (fixers) {
@@ -118,22 +20,6 @@ router.route('/crud/:area/:category')
         res.send(error);    
       });
   });
-
-var createFixer = function(fixer, res) {
-  connection.db.manyOrNone({
-    name: "create-fixer",
-    text: "insert into fixers (firstname, lastname, phone, email, age, gender, description, profilepic) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning id;",
-    values: [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.imgData]
-  })
-    .then(function (data) {
-      console.log('fixer created successfully!');
-      response.send(data);
-    })
-    .catch(function (error) {
-      console.log(error);
-      res.send(error);    
-    });
-}
 
 router.route('/crud/')
 
@@ -153,9 +39,25 @@ router.route('/crud/')
   })
 
   .post(multer({ dest: __dirname + '/temp/' }).single('profilepic'), function(req, res) {
-    response = res;
+    var response = res;
     var fs = require('fs'),
         fixer = req.body;
+
+    var createFixer = function(fixer, res) {
+      connection.db.manyOrNone({
+        name: "create-fixer",
+        text: "insert into fixers (firstname, lastname, phone, email, age, gender, description, profilepic) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning id;",
+        values: [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.imgData]
+      })
+        .then(function (data) {
+          console.log('fixer created successfully!');
+          response.send(data);
+        })
+        .catch(function (error) {
+          console.log(error);
+          res.send(error);    
+        });
+    }
 
     if (req.file) {
       // read in image in raw format (as type Buffer):
@@ -285,11 +187,105 @@ router.route('/getAllAreas')
   router.route('/crud/updateFixerCatsAndAreas')
 
   .post(function(req, res) {
-    fixerProps = {
+    var fixerProps = {
       fixer: req.body.fixer,
       fixersToAreas: req.body.fixersToAreas,
       fixersToCategories: req.body.fixersToCategories
     };
+
+    var removeAllFixToAreaRels = function() {
+      connection.db.manyOrNone({
+        name: "clear-fixerToAreaRels",
+        text: "delete from fixers_to_areas where fixer_id=$1;",
+        values: [fixerProps.fixer.id]
+      })
+        .then(function () {
+            insertNewFixerToAreas();
+        })
+        .catch(function (error) {
+            console.log(error);
+            res.send(error);    
+        });
+    }
+
+    var removeAllFixToCatRels = function() {
+      connection.db.manyOrNone({
+        name: "clear-fixerToCatRels",
+        text: "delete from fixers_to_categories where fixer_id=$1;",
+        values: [fixerProps.fixer.id]
+      })
+        .then(function () {
+            insertNewFixerToCategories();
+        })
+        .catch(function (error) {
+            console.log(error);
+            res.send(error);    
+        });
+    }
+
+    var insertNewFixerToAreas = function() {
+
+      var valuesToInsert = "";
+      var arrayOfVals = [];
+      var counter = 1;
+
+      if(fixerProps.fixersToCategories.length === 0) {
+        insertNewFixerToCategories();
+      }
+
+      fixerProps.fixersToAreas.map((fixToArea) => {
+        valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
+        arrayOfVals.push(fixToArea.fixer_id);
+        arrayOfVals.push(fixToArea.area_id);
+      });
+
+      valuesToInsert = valuesToInsert.slice(0, -1);
+
+      connection.db.manyOrNone({
+        name: "add-new-fixerToAreaRels",
+        text: "insert into fixers_to_areas (fixer_id, area_id) values " + valuesToInsert,
+        values: arrayOfVals
+      })
+        .then(function () {
+          removeAllFixToCatRels();
+        })
+        .catch(function (error) {
+            console.log(error);
+            return error;   
+        });
+    }
+
+    var insertNewFixerToCategories = function() {
+
+      var valuesToInsert = "";
+      var arrayOfVals = [];
+      var counter = 1;
+
+      if(fixerProps.fixersToCategories.length === 0) {
+        return;
+      }
+
+      fixerProps.fixersToCategories.map((fixToCat) => {
+        valuesToInsert += " ($" + (counter++) + ",$" + (counter++) + "),";
+        arrayOfVals.push(fixToCat.fixer_id);
+        arrayOfVals.push(fixToCat.category_id);
+      });
+
+      valuesToInsert = valuesToInsert.slice(0, -1);
+
+      connection.db.manyOrNone({
+        name: "add-new-fixerToCategoryRels",
+        text: "insert into fixers_to_categories (fixer_id, category_id) values " + valuesToInsert,
+        values: arrayOfVals
+      })
+        .then(function () {
+          return;
+        })
+        .catch(function (error) {
+          console.log(error);
+          return error;    
+        });
+    }
 
     removeAllFixToAreaRels();
     res.send(true);

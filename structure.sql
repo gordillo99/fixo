@@ -52,18 +52,13 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	random order for fixers
 	handle dates better (2-3 days)
-	fix admin problem
-	figure out all fixer info that should be displayed
-	enforce database entries max-string length
 	find scheduler workaround
-	add created_at for users and fixers
-	fix shared variables under proposals
-	add right text to terms, about, and contact
-	make fetching more efficient using maps
+	make changes to show fixers in grid
 
-	add all form validation
+	figure out all fixer info that should be displayed
+	add right text to terms, about, and contact
+	add all form validation (includes: enforce database entries max-string length)
 	security measures for website
 
 

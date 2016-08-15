@@ -184,7 +184,7 @@ export default class ProposalCard extends Component {
               <div className={s.leftAlignedDiv}>
                 <ul className={s.noListStyle}>
                   <li className={s.inlineEles}>
-                    <h4>{`Propuesta del ${createdAt}`}</h4>
+                    <h4>{`Trabajo para el ${propDate}`}</h4>
                   </li>
                   <li className={s.inlineEles, s.centralizedDiv}>
                     <Button 
@@ -197,7 +197,6 @@ export default class ProposalCard extends Component {
                     <Button 
                       bsStyle='info'
                       onClick={this._showReviewFormBtn.bind(this)} 
-                      //hidden={this.state.hasReview}
                       className={s.detailsButton}
                     >
                       {reviewBtnText}

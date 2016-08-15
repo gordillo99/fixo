@@ -39,7 +39,6 @@ export default class ProfileProposals extends Component {
   }
 
   render() {
-    console.log('Profile render');
     let resultTitle = null;
     if (this.state.noResults) {
       resultTitle = this.state.resultTitle;
@@ -47,7 +46,7 @@ export default class ProfileProposals extends Component {
     return (
       <div className={s.root}>
         <div className={cx(s.centralizedDiv)}>
-          <h2>Tus propuestas</h2>
+          <h2>Tus futuros trabajos</h2>
           {resultTitle}
           <Row className={s.row}>
             <Col md={5} xs={12} className={s.centerBlock}>

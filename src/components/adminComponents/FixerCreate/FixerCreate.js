@@ -67,7 +67,7 @@ export default class FixerCreate extends Component {
 		var formData = new FormData();
 		formData.append('firstname', this.state.firstname);
 		formData.append('lastname', this.state.lastname);
-		formData.append('gender', this.state.gender);
+		formData.append('gender', (this.state.gender === 'hombre') ? 0 : 1);
 		formData.append('email', this.state.email);
 		formData.append('description', this.state.description);
 		formData.append('age', this.state.age);

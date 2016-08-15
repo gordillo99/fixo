@@ -5,7 +5,7 @@ import { Jumbotron } from 'react-bootstrap';
 import s from './ProfileHeader.css';
 
 export default class ProfileHeader extends Component {
-  //<br/>{`${(this.props.givenName) ? this.props.givenName : ''} ${this.props.middleName ? this.props.middleName  : ''} ${this.props.familyName ? this.props.familyName : ''}`}</h1>
+
   render() {
     return (
       <div className={s.root}>

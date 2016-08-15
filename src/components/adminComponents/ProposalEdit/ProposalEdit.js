@@ -150,24 +150,6 @@ export default class ProposalEdit extends Component {
 		pdfParameters.numberOfQs = counter;
 		stringifiedState = qs.stringify(pdfParameters);
 
-		/*
-		if (this.props.offer === undefined || this.props.offer === null) {
-			offerContent = <Button>
-						          Crear Oferta
-						        </Button>
-    } else {
-    	offerContent = <OfferEdit
-    									id={this.props.offer.id}
-    									email={this.state.email}
-    									actual_date={this.props.offer.actual_date}
-    									actual_time={this.props.offer.actual_time}
-    									am_pm={this.props.offer.am_pm}
-    									cost={this.props.offer.cost}
-    									state={this.props.offer.state}
-    									proposal={this.state}
-    								 />
-    }*/
-
 		return(
 			<div>
 				<Button onClick={() => this.setState({ open: !this.state.open })}>

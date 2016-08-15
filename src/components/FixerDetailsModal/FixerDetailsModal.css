@@ -1,14 +1,5 @@
 @import '../variables.css';
 
-.resultsWrapper {
-  margin: 30px auto;
-}
-
-.acceptButton {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 .centerBlock {
   float: none;
   margin: 0 auto;
@@ -20,4 +11,10 @@
 
 .leftAlignedDiv {
   text-align: left;
+}
+
+.fixerPic {
+	margin: auto;
+	width: 35%;
+	height: 35%;
 }

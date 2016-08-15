@@ -39,23 +39,28 @@ export default class FixerReviewsDisplay extends Component {
 		this.setState({ showAllReviews: false });
 	}
 
+	_handleReviewsDisplay() {
+		if (this.state.showAllReviews) {
+			return <ReviewDisplay reviews={this.state.reviews} hideReviews={this._hideReviews.bind(this)} fixerId={this.props.fixerId}/>;
+		} else if (this.props.numRatings > 1) {
+			if (this.props.showMoreReviews) {
+				return <div className={cx(s.centralizedDiv, s.paddingAbove)}>
+					       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más reseñas</a>
+				       </div>
+			}
+		}
+		return null;
+	}
+
 	render() {
 		let seeMoreReviews = null;
 
-		if (this.state.showAllReviews) {
-			seeMoreReviews = <ReviewDisplay reviews={this.state.reviews} hideReviews={this._hideReviews.bind(this)} fixerId={this.props.fixerId}/>;
-		} else if (this.props.numRatings > 1) {
-			if (this.props.showMoreReviews) {
-				seeMoreReviews = <div className={cx(s.centralizedDiv, s.paddingAbove)}>
-										       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más las reseñas</a>
-									       </div>
-			}
-		}
+		
 
 		return(
 			<ListGroup>
-		    <ListGroupItem bsStyle="info">Promedio de reseñas: {this.props.fixerRating} / 5<br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
-		    {seeMoreReviews}
+		    <ListGroupItem bsStyle="info">Calidad de servicio: {this.props.fixerRating} / 5<br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
+		    {this._handleReviewsDisplay()}
 		  </ListGroup>
 		);
 	}

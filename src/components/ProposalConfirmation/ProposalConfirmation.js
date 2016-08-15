@@ -80,7 +80,7 @@ export default class ProposalConfirmation extends Component {
 							<h2 className={s.centeringDiv}>Confirma tu solicitud</h2>
 							<div className={s.leftAlignedDiv}>
 								<h3>Fixer seleccionado</h3>
-								<FixerPanel fixer={sel.selectedFixer} showSelected={false} />
+								<FixerPanel fixer={sel.selectedFixer} showSelected={false} confirmSelection={() => null} showConfirmBtn={false}/>
 								<div className={s.leftAlignedDiv}>
 									<h3>Dirección</h3>
 									<p>{sel.address}</p>

@@ -32,7 +32,6 @@ import proposalsRest from './../routes/proposals.js';
 import categoriesRest from './../routes/categories.js';
 import offersRest from './../routes/offers.js';
 import reviewsRest from './../routes/reviews.js';
-//import offerMailer from './../routes/offerMailer.js';
 import pdfGenerator from './../routes/pdf/pdfGenerator.js';
 
 const app = express();
@@ -73,7 +72,6 @@ app.use('/api/proposals', proposalsRest);
 app.use('/api/categories', categoriesRest);
 app.use('/api/offers', offersRest);
 app.use('/api/reviews', reviewsRest);
-//app.use('/offerMailer', offerMailer);
 app.use('/pdf', pdfGenerator);
 
 //
@@ -104,8 +102,11 @@ function redirectIfNotLoggedIn(req, res, next) {
 function handleCategoryRedirection(req, res, next) {
   console.log(req.params);
   // if user is authenticated in the session, carry on
-  if (req.isAuthenticated() ? true : false)
-      return next();
+  if (req.isAuthenticated()) return next();
+
+  if (req.params.cat === 'favicon.ico') {
+    return;
+  }
 
   // if they aren't redirect them to the home page
   res.redirect(`/login?redirectTo=setup/${req.params.cat}`);

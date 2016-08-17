@@ -129,23 +129,27 @@ export default class ProposalEdit extends Component {
 				break;
 		}
 
-		this.props.addQuestionsTxt.map((question) => { 
-			if (Number(question.proposal_id) === Number(this.props.id)) {
-				pdfParameters[`qt${counter}`] = question.question;
-				pdfParameters[`at${counter}`] = question.answer;
-				counter++;
-				qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
-			}
-		});
-
-		this.props.addQuestionsImage.map((question) => { 
-			if (Number(question.proposal_id) === Number(this.props.id)) {
-				pdfParameters[`qt${counter}`] = question.question;
-				pdfParameters[`at${counter}`] = question.answer;
-				counter++;
-				qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
-			}
-		});
+		if (this.props.addQuestionsTxt) {
+			this.props.addQuestionsTxt.map((question) => { 
+				if (Number(question.proposal_id) === Number(this.props.id)) {
+					pdfParameters[`qt${counter}`] = question.question;
+					pdfParameters[`at${counter}`] = question.answer;
+					counter++;
+					qsAndAs.push({ q: question.question, a: question.answer, type: 'txt' });
+				}
+			});
+		}
+		
+		if (this.props.addQuestionsImage) {
+			this.props.addQuestionsImage.map((question) => { 
+				if (Number(question.proposal_id) === Number(this.props.id)) {
+					pdfParameters[`qt${counter}`] = question.question;
+					pdfParameters[`at${counter}`] = question.answer;
+					counter++;
+					qsAndAs.push({ q: question.question, a: question.answer, type: 'upload' });
+				}
+			});
+		}
 
 		pdfParameters.numberOfQs = counter;
 		stringifiedState = qs.stringify(pdfParameters);

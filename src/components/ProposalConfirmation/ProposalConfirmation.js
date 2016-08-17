@@ -15,16 +15,18 @@ export default class ProposalConfirmation extends Component {
 			object = sel.qsAndAs,
 			stringQsAndAs = '',
 			proposal_id = '';
+
 		for (let property in object) {
-		    if (object.hasOwnProperty(property)) {
-		        if (object[property].type === 'upload') {
-		        	image = object[property].a;
-		        	delete object[property];
-		        } else {
-		        	stringQsAndAs += object[property].q + '*' + object[property].a + '*';
-		        }
-		    }
+	    if (object.hasOwnProperty(property)) {
+        if (object[property].type === 'upload') {
+        	image = object[property].a;
+        	delete object[property];
+        } else {
+        	stringQsAndAs += object[property].q + '*' + object[property].a + '*';
+        }
+	    }
 		}
+
 		stringQsAndAs = stringQsAndAs.slice(0,-1);
 
 		$.ajax({
@@ -45,6 +47,11 @@ export default class ProposalConfirmation extends Component {
 				formData.append('area', sel.area);
 				formData.append('category', this.props.category);
 				formData.append('image', image);
+
+				if (!user.id) {
+					alert('Por favor inicia sesión antes de crear una propouesta.');
+					return;
+				}
 
     		$.ajax({
 	      	url: '/api/proposals/crud/',

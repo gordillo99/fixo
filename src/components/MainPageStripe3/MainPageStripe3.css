@@ -4,13 +4,13 @@
 .welcomePageHeader {
   padding-top: 0px;
   margin-top: 0px;
-  color: black;
+  color: #5E5E5E;
 }
 
 .stripe3Jumbotron {
   background-color: #f8f8f8;
   padding-top: 0px;
-  color: black;
+  color: #5E5E5E;
   margin-bottom: 0px;
   padding-top: 30px;
 }
@@ -29,7 +29,7 @@
 }
 
 .reasonDesc {
-  color: black;
+  color: #5E5E5E;
 }
 
 .nameWithIcon {

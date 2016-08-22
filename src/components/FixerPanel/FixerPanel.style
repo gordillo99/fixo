@@ -21,3 +21,7 @@
 .leftAlignedDiv {
   text-align: left;
 }
+
+.thumbnail>img {
+  max-width: 30%;
+}

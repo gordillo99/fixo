@@ -60,9 +60,9 @@ export default class MainPageStripe2 extends Component {
   
   _createSteps() {
     let steps = [ 
-      { id: 0, name: 'Ingresa tu problema', desc: 'Encuentra tu categoría yBR describe tu problema', icon: require('./images/pencil.png') } , 
-      { id: 1, name: 'Encuentra un fixer', desc: 'Te encontramos al BRfixer que necesitas', icon: require('./images/magglass.png') }, 
-      { id: 2, name: 'Realiza tu trabajo', desc: 'El fixer resuelva BRtu problema', icon: require('./images/check.png') }
+      { id: 0, name: 'Dinos que necesitas', desc: 'Danos detalles sobre BRlo que tú necesitas', icon: require('./images/pencil.png') } , 
+      { id: 1, name: 'Encuentra un fixer', desc: 'Te mostramos los BRfixers disponibles', icon: require('./images/magglass.png') }, 
+      { id: 2, name: 'Realiza tu trabajo', desc: 'El fixer se BRencarga de todo', icon: require('./images/check.png') }
     ];
     let index = 0;
 

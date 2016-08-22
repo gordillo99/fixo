@@ -68,6 +68,7 @@ export default class DatePicker extends Component {
           onDayClick={this.handleDayClick}
           locale='es' 
           localeUtils={ localeUtils }
+          //disabledDays={ DateUtils.isPastDay }
           disabledDays={ this._disableDays }
           selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
         />

@@ -8,7 +8,7 @@ export default class ProgressionStatus extends Component {
 
   _showProgressInTabs() {
     let stages = [ 
-      { id: 0, name: 'Describe tu problema' },
+      { id: 0, name: 'Dinos lo que necesitas' },
       { id: 1, name: 'Ingresa tus datos' },
       { id: 2, name: 'Encuentra a tu fixer' }, 
       { id: 3, name: 'Confirma' }
@@ -16,7 +16,7 @@ export default class ProgressionStatus extends Component {
 
     return stages.map((stage, index) => {
       let tab = null;
-      let tabStr = `${index + 1}.) ${stage.name}`;
+      let tabStr = `${index + 1}. ${stage.name}`;
 
       if ((stage.id === this.props.currentStage)) {
         tab = <NavItem key={'stage-' + stage.id} eventKey={index}>{tabStr}</NavItem>

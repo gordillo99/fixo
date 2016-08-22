@@ -5,7 +5,7 @@ import { Panel, Thumbnail, Button, Modal } from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import FixerReviewsDisplay from '../reviewComponents/FixerReviewsDisplay';
 import FixerDetailsModal from '../FixerDetailsModal';
-import s from './FixerPanel.css';
+import s from './FixerPanel.style';
 
 export default class FixerPanel extends Component {
 

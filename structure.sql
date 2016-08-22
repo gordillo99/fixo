@@ -52,9 +52,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	handle dates better (2-3 days)
 	find scheduler workaround
-	make changes to show fixers in grid
 
 	figure out all fixer info that should be displayed
 	add right text to terms, about, and contact

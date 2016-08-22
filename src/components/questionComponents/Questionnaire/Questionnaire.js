@@ -60,7 +60,7 @@ export default class Questionnaire extends Component {
                                     />
                           break;
                         case 'upload':
-                          prompt =  <div>
+                          prompt =  <div key={'div-' + index}>
                                       <FormControl key={'qFileUpload-' + index} type="file" onChange={this._updateAttachedImage.bind(this, index)} />
                                       <HelpBlock key={'helpblock-' + index}>Tamaño máximo es 2 MB</HelpBlock>
                                     </div>
@@ -70,7 +70,7 @@ export default class Questionnaire extends Component {
                           break;
                       } 
                       return (
-                        <div>
+                        <div key={'div-' + index}>
                           <FormGroup controlId='addQsControl' key={'qFormGroup-' + index}>
                             <ControlLabel className={cx(s.questionLabel)} key={'qControlLabel-' + index}>
                               {qAndA.q}

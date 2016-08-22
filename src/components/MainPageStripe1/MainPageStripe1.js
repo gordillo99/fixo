@@ -15,7 +15,7 @@ export default class MainPageStripe1 extends Component {
     super();
     this.state = {
       stage: 0,
-      bgImages: [tools2, tools1, gardening]
+      bgImages: [tools2, tools1]
     };
   }
 
@@ -31,7 +31,7 @@ export default class MainPageStripe1 extends Component {
 
   _changeBackground() {
     let nextStage = this.state.stage;
-    if (nextStage === 2) {
+    if (nextStage === 1) {
       nextStage = 0;
     } else {
       nextStage++;
@@ -80,7 +80,7 @@ export default class MainPageStripe1 extends Component {
       <div className={s.root}>
         <div className={cx(s.centralizedDiv)}>
           <Jumbotron style={divStyle} className={cx(s.stripe1Jumbotron)}>
-            <h1 className={cx(s.welcomePageHeader)}>¿Qué necesitas?</h1>
+            <h1 className={cx(s.welcomePageHeader)}>Encuentra gratis a tu fixer</h1>
             <Row className={s.row}>
               <Col md={8} xs={12} className={s.centerBlock}>
                 <div className={s.catsWrapper}>

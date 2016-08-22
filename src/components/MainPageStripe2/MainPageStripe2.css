@@ -5,6 +5,7 @@
   padding-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+  color: #5E5E5E;
 }
 
 .header {
@@ -23,7 +24,7 @@
 }
 
 .stepDesc {
-  color: black;
+  color: #5E5E5E;
 }
 
 .nameWithIcon {

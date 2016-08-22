@@ -26,6 +26,13 @@ export default class DatePicker extends Component {
     }
   }
 
+  _disableDays(d) {
+    var targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 3);
+    targetDate.setHours(0, 0, 0, 0);
+    return d < targetDate;
+  }
+
   render() {
     let WEEKDAYS_LONG = {
       "en": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -40,7 +47,8 @@ export default class DatePicker extends Component {
       "es": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
     };
     let FIRST_DAY = {
-      "en": 0
+      "en": 0,
+      "es": 0
     };
 
     let localeUtils = {
@@ -52,6 +60,7 @@ export default class DatePicker extends Component {
     };
 
     const { selectedDay } = this.state;
+
     return (
       <div>
         <DayPicker
@@ -59,7 +68,8 @@ export default class DatePicker extends Component {
           onDayClick={this.handleDayClick}
           locale='es' 
           localeUtils={ localeUtils }
-          disabledDays={ DateUtils.isPastDay }
+          //disabledDays={ DateUtils.isPastDay }
+          disabledDays={ this._disableDays }
           selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
         />
       </div>

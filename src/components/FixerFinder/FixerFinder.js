@@ -21,7 +21,7 @@ export default class FixerFinder extends Component {
 
 	componentWillMount() {
 		$.ajax({
-			url: '/api/fixers/crud/' + this.props.area + '/' + this.props.category,
+			url: `/api/fixers/crud/${this.props.area}/${this.props.category}`,
 			type: 'GET',
 			dataType: 'json',
 			cache: false,
@@ -52,7 +52,13 @@ export default class FixerFinder extends Component {
 			fixerList = <div>
 										<h1>Selecciona a tu fixer</h1>
 										{this.state.fixers.map( (fixer, index) => {return(
-											<FixerPanel showReviews={true} fixer={fixer} showSelected={true} confirmSelection={this._confirmFixerSelection.bind(this)} showConfirmBtn={true}/>
+											<FixerPanel 
+												key={`fixerPanel-${index}`}
+												showReviews={true}
+												fixer={fixer} showSelected={true}
+												confirmSelection={this._confirmFixerSelection.bind(this)}
+												showConfirmBtn={true}
+											/>
 										)})}
 									</div>
 		}
@@ -63,7 +69,7 @@ export default class FixerFinder extends Component {
 				  <Row className={s.row}>
 				  	<Col md={4} xs={12} className={s.centerBlock}>
 					  <div className={s.centeringDiv}>
-						{this.state.resultsTitle}
+							{this.state.resultsTitle}
 					  </div>
 					  {fixerList}
 					</Col>

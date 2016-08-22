@@ -55,6 +55,7 @@ export default class Setup extends Component {
   _nextStage(e) {
     if (e !== undefined) e.preventDefault();
     this.setState({ setupStage: ++this.state.setupStage });
+    window.scrollTo(0,0);
   }
 
   componentDidMount() {

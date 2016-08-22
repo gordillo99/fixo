@@ -46,7 +46,7 @@ export default class ProfileProposals extends Component {
     return (
       <div className={s.root}>
         <div className={cx(s.centralizedDiv)}>
-          <h2>Tus futuros trabajos</h2>
+          <h2>Tus trabajos</h2>
           {resultTitle}
           <Row className={s.row}>
             <Col md={5} xs={12} className={s.centerBlock}>

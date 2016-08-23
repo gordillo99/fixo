@@ -97,7 +97,7 @@ export default class MainPageStripe2 extends Component {
             </div>
           </div>
           <div id={`back-tile-${id}`} className={cx(s.backTile, s.relativePosition, s.flip, s.side2, flipStyle2)}>
-            <h1 className={s.backTileNumber}>{Number(id) + 1}</h1>
+            <h1 className={s.backTileNumber}>{`Paso ${(Number(id) + 1)}`}</h1>
           </div>
         </li>
       </ul>

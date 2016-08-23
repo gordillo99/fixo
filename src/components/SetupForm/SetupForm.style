@@ -73,3 +73,21 @@
   margin-right: 0px;
   margin-left: 0px;
 }
+
+.chosenDate {
+  margin-top: 5px;
+}
+
+.colStyle {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.form-control {
+  padding: 6px 3px;
+}
+
+.jumbotron p {
+  font-size: 15px;
+  margin-bottom: 25px;
+}

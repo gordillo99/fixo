@@ -3,7 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { FormGroup, ControlLabel, FormControl, Button, Jumbotron, ButtonGroup, Row, Col } from 'react-bootstrap';
 import DatePicker from './../DatePicker';
-import s from './SetupForm.css';
+import s from './SetupForm.style';
 
 export default class SetupForm extends Component {
 
@@ -30,13 +30,44 @@ export default class SetupForm extends Component {
     this.props.toNextStage();
   }
 
+  _createSelectTimeForms() {
+    const hoursArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    const minsArray = ['00', '30'];
+
+    return this.props.dates.map((date, index) => {
+      return(
+        <Row className={s.row}>
+         <Col md={3} xs={3} className={s.colStyle}>
+            <p className={s.chosenDate}>{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</p>
+          </Col>
+          <Col md={3} xs={3}>
+            <FormControl value={this.props.times[index]} componentClass='select' onChange={this.props.updateDateArray.bind(this, 'times', index)}>
+              {hoursArray.map((opt, i) => { return <option key={'selOptTime-' + i} value={opt}>{opt}:</option> })}                   
+            </FormControl>
+          </Col>
+          <Col md={3} xs={3}>
+            <FormControl value={this.props.mins[index]} componentClass='select' onChange={this.props.updateDateArray.bind(this, 'mins', index)}>
+              {minsArray.map((opt, i) => { return <option key={'selOptMins-' + i} value={opt}>{opt}</option> })}                      
+            </FormControl>
+          </Col>
+          <Col md={3} xs={3}>
+            <FormControl value={this.props.ampm[index]} componentClass='select' onChange={this.props.updateDateArray.bind(this, 'ampm', index)}>
+              <option value={'AM'}>AM</option>
+              <option value={'PM'}>PM</option>               
+            </FormControl>
+          </Col>
+        </Row>
+      );
+    });
+  }
+
   render() {
     return (
       <div>
         <Jumbotron className={cx(s.stripeJumbotron)}>
           <div className={cx(s.root)}>
             <Row className={s.row}>
-              <Col md={4} xs={10} className={s.centerBlock}>
+              <Col md={4} xs={12} className={s.centerBlock}>
                 <div className={cx(s.formWrapper)}>
                   <h2 className={s.centralizedDiv}>Ingresa tus datos</h2>
                   <form>
@@ -55,30 +86,13 @@ export default class SetupForm extends Component {
                     <h2 className={s.centralizedDiv}>¿Qué fecha prefieres?</h2>
                     <div className={cx(s.datePicker)}>
                       <DatePicker
+                        isSameDate={this.props.isSameDate}
                         dayChange={this.props.updateDay}
-                        selectedDay={this.props.date}
+                        selectedDay={this.props.dates}
                       />
                     </div>
                     <div className={cx(s.centralizedDiv)}>
-                      <div className={cx(s.morningAfternoonButtons)}>
-                        <ButtonGroup>
-                          <Button 
-                            onClick={this.props.updateTime} 
-                            disabled={this.props.morning}>
-                              Mañana
-                          </Button>
-                          <Button
-                            onClick={this.props.updateTime}
-                            disabled={!this.props.morning}>
-                              Tarde
-                          </Button>
-                        </ButtonGroup>
-                      </div>
-                      <div className={cx(s.dateDesc)}>
-                        <p>
-                          Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
-                        </p>
-                      </div>
+                      {this._createSelectTimeForms()}
                       <Button bsStyle='primary' onClick={this._confirm.bind(this)} type="submit" className={cx(s.acceptBtn)}>
                         Aceptar
                       </Button>
@@ -95,3 +109,16 @@ export default class SetupForm extends Component {
 }
 
 export default withStyles(s)(SetupForm);
+
+/*  
+<div className={cx(s.dateDesc)}>
+    <p>
+      {this.state.dates.map(date => {
+        
+      })}
+      Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
+    </p>
+  </div>
+
+
+*/

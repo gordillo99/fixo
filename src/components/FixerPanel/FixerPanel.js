@@ -43,8 +43,8 @@ export default class FixerPanel extends Component {
 
 		return (
 			<Modal show={this.state.showModal} onHide={this._closeModal.bind(this)}>
-        <FixerDetailsModal fixer={this.props.fixer} close={this._closeModal.bind(this)}/>
-      </Modal>
+				<FixerDetailsModal fixer={this.props.fixer} close={this._closeModal.bind(this)}/>
+			</Modal>
 		);
 	}
 

@@ -29,6 +29,7 @@ export default class ProposalConfirmation extends Component {
 		var image = false,
 			object = sel.qsAndAs,
 			stringQsAndAs = '',
+			datesObject = {},
 			proposal_id = '';
 
 		for (let property in object) {
@@ -44,6 +45,15 @@ export default class ProposalConfirmation extends Component {
 
 		stringQsAndAs = stringQsAndAs.slice(0,-1);
 
+		sel.dates.map((date, index) => {
+			datesObject[index] = {
+				date: `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`,
+				time: this.props.selection.times[index],
+				mins: this.props.selection.mins[index],
+				ampm: this.props.selection.ampm[index]
+			};
+		});
+
 		$.ajax({
     	url: '/getUserId',
     	type: 'GET',
@@ -54,8 +64,7 @@ export default class ProposalConfirmation extends Component {
 				formData.append('address', sel.address);
 				formData.append('phone', sel.phone);
 				formData.append('email', sel.email);
-				formData.append('date', (sel.date.getMonth() + 1) + '/' + sel.date.getDate() + '/' + sel.date.getFullYear());
-				formData.append('morning', sel.morning ? 0 : 1);
+				formData.append('dates', JSON.stringify(datesObject));
 				formData.append('qsAndAs', stringQsAndAs);
 				formData.append('fixer_id', Number(sel.selectedFixer.id));
 				formData.append('user_id', user.id);

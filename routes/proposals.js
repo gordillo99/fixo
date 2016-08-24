@@ -150,10 +150,10 @@ router.route('/crud')
     };
 
     var addDates = function(proposal_id) {
-      let dateQueryString = '';
-      let params = [];
-      let counter = 0;
-      let datesObj = JSON.parse(data.dates);
+      var dateQueryString = '';
+      var params = [];
+      var counter = 0;
+      var datesObj = JSON.parse(data.dates);
 
       var propNames = Object.getOwnPropertyNames(datesObj);
 

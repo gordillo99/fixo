@@ -57,6 +57,8 @@ TODOs:
 
 	find scheduler workaround
 	set the selected date (from the ones the user proposes)
+	whats this toolpicks
+	add all dates to pdf
 
 	figure out all fixer info that should be displayed
 	add right text to terms, about, and contact

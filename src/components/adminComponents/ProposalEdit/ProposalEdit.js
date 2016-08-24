@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
-import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel, Table } from 'react-bootstrap';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import OfferEdit from '../OfferEdit';
@@ -21,7 +21,6 @@ export default class ProposalEdit extends Component {
 			u_firstname: this.props.u_firstname,
 			u_lastname: this.props.u_lastname,
 			phone: this.props.phone,
-			prop_date: dateFormat(this.props.prop_date, 'dd/mm/yyyy').toString(),
 			created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
 			morning: this.props.morning,
 			email: this.props.email,
@@ -34,6 +33,19 @@ export default class ProposalEdit extends Component {
 			status: this.props.status,
 			open: false
 		};
+	}
+
+	componentDidMount() {
+		$.ajax({
+			url: '/api/proposals/get/dates/' + this.state.id,
+			type: 'GET',
+			success: function(data) {
+				this.setState({ dates: data });
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
+		});
 	}
 
 	_updateProposalStatus() {
@@ -97,13 +109,30 @@ export default class ProposalEdit extends Component {
     	type: 'GET',
     	success: function(response) {
     		console.log(response);
-    		//alert('Propuesta fue borrada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
     	}.bind(this)
 	  });
 	}
+
+	_displayProposedDates() {
+    let dateFormat = require('dateformat');
+		
+		if (!this.state.dates) return null;
+
+    return this.state.dates.map((date, index) => {
+			const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+			const time = date.prop_time;
+			const mins = date.prop_mins;
+			const ampm = date.prop_ampm;
+			return (
+				<tr>
+					<td>{`${formattedDate}`}</td>
+					<td>{`${time}:${mins} ${ampm}`}</td>
+				</tr>
+			)});
+  }
 
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
@@ -157,7 +186,7 @@ export default class ProposalEdit extends Component {
 		return(
 			<div>
 				<Button onClick={() => this.setState({ open: !this.state.open })}>
-         	{this.state.id + '.) ' + this.state.u_firstname + ' ' + this.state.u_lastname + ', ' + this.state.prop_date + ', ' + this.state.category}
+         	{this.state.id + '.) ' + this.state.u_firstname + ' ' + this.state.u_lastname + ', ' + this.state.category}
         </Button>
         <Panel collapsible expanded={this.state.open}>
         	<h3>Descripción de propuesta</h3>
@@ -194,7 +223,15 @@ export default class ProposalEdit extends Component {
 				        Fecha (dd/mm/yyyy)
 				      </Col>
 				      <Col sm={6}>
-				        <FormControl value={this.state.prop_date} type="text" placeholder="fecha propuesta" disabled/>
+				         <Table responsive striped={false} bordered={true} hover={false}>
+										<tbody>
+											<tr>
+												<th>Fecha</th>
+												<th>Hora</th>
+											</tr>	
+										{this._displayProposedDates()}
+										</tbody>
+									</Table>
 				      </Col>
 				    </FormGroup>
 

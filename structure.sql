@@ -56,6 +56,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 TODOs:
 
 	find scheduler workaround
+	set the selected date (from the ones the user proposes)
 
 	figure out all fixer info that should be displayed
 	add right text to terms, about, and contact

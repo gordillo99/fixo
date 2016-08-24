@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
-import { Col, Row, Button, Panel, Glyphicon } from 'react-bootstrap';
+import { Col, Row, Button, Panel, Glyphicon, Table } from 'react-bootstrap';
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import FixerPanel from '../../FixerPanel';
@@ -23,7 +23,8 @@ export default class ProposalCard extends Component {
       addQuestionsTxt: null,
       addQuestionsImage: null,
       showProposalContent: true,
-      open: false
+      open: false,
+      dates: []
     };
   }
 
@@ -37,6 +38,21 @@ export default class ProposalCard extends Component {
         this.setState({ 
           addQuestionsTxt: data.addQuestionsTxt,
           addQuestionsImage: data.addQuestionsImage
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }.bind(this)
+    });
+
+    $.ajax({
+      url: `/api/proposals/get/dates/${this.props.proposal.proposal_id}`,
+      type: 'GET',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({ 
+          dates: data
         });
       }.bind(this),
       error: function(xhr, status, err) {
@@ -88,6 +104,22 @@ export default class ProposalCard extends Component {
     } else {
       this.setState({ open: !this.state.open, showProposalContent: false });
     }
+  }
+
+  _displayProposedDates() {
+    let dateFormat = require('dateformat');
+
+    return this.state.dates.map((date, index) => {
+			const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+			const time = date.prop_time;
+			const mins = date.prop_mins;
+			const ampm = date.prop_ampm;
+			return (
+				<tr>
+					<td>{`${formattedDate}`}</td>
+					<td>{`${time}:${mins} ${ampm}`}</td>
+				</tr>
+			)});
   }
 
   render() {
@@ -155,6 +187,18 @@ export default class ProposalCard extends Component {
                         <div className={s.leftAlignedDiv}>
                           <p>{`Categoría: ${catEnglishToSpanish(this.props.proposal.category)}`}</p>
                           <p>{`Estado: ${(this.props.proposal.status === 0) ? 'Fixer aún no ha sido notificado' : 'Fixer ha sido notificado'}`}</p>
+                          <div className={s.centralizedDiv}>
+                            <p className={s.proposalTitle}>{`Fechas que propusiste a tu fixer`}</p>
+                          </div>
+                           <Table responsive striped={false} bordered={true} hover={false}>
+                            <tbody>
+                              <tr>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                              </tr>	
+                            {this._displayProposedDates()}
+                            </tbody>
+                          </Table>
                         </div>
                         <div>
                           <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
@@ -184,7 +228,7 @@ export default class ProposalCard extends Component {
               <div className={s.leftAlignedDiv}>
                 <ul className={s.noListStyle}>
                   <li className={s.inlineEles}>
-                    <h4>{`Trabajo para el ${propDate}`}</h4>
+                    <h4>{`Propuesta creada el ${createdAt}, fixer: ${fixer.firstname} ${fixer.lastname}`}</h4>
                   </li>
                   <li className={s.inlineEles, s.centralizedDiv}>
                     <Button 

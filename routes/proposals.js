@@ -311,6 +311,23 @@ router.route('/get/:user_id')
     });
   });
 
+router.route('/get/dates/:proposal_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-dates-for-proposal",
+      text: "select prop_date, prop_time, prop_mins, prop_ampm from dates_to_proposals where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
 router.route('/get/additional_info/:proposal_id')
 
   .get(function(req, res) {

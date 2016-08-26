@@ -20,7 +20,10 @@ export default class Setup extends Component {
       address: '',
       phone: '',
       email: '',
-      date: new Date(),
+      dates: [],
+      times: [],
+      mins: [],
+      ampm:[],
       morning: true,
       qsAndAs: {},
       selectedFixer: {},
@@ -34,17 +37,61 @@ export default class Setup extends Component {
       setupStage: ++this.state.setupStage,
       qsAndAs: answAndQs
     });
+    window.scrollTo(0,0);
+  }
+
+  _isSameDate(date1, date2) {
+    return date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() && 
+      date1.getFullYear() === date2.getFullYear();
+  }
+
+  _updateDateArray(propName, index, event) {
+    let array = this.state[propName];
+    array[index] = event.target.value;
+    this.setState({ [propName]: array });
   }
 
   _handleDayChange(date) {
-    this.setState( { date: date } );
+    let datesArray = this.state.dates;
+    let timesArray = this.state.times;
+    let ampmArray = this.state.ampm;
+    let minsArray = this.state.mins;
+    let index;
+    let dateWasFound = false;
+
+    for (index =  0; index < datesArray.length; index++) {
+      if (this._isSameDate(datesArray[index], date)) {
+        dateWasFound = true;
+        break;
+      }
+    }
+
+    if (dateWasFound) {
+      datesArray.splice(index, 1);
+      ampmArray.splice(index, 1);
+      minsArray.splice(index, 1);
+      timesArray.splice(index, 1);
+
+    } else {
+      datesArray.push(date);
+      timesArray.push('1');
+      minsArray.push('00');
+      ampmArray.push('PM');
+    }
+
+    this.setState( { 
+      dates: datesArray,
+      times: timesArray,
+      ampm: ampmArray
+    });
   }
 
   _handleFixerChange(fixer) {
     this.setState( { selectedFixer: fixer } );
   }
 
-  _updateProperty(property, e) {
+  _updatesProperty(property, e) {
     this.setState({ [property]: e.target.value });
   }
 
@@ -86,14 +133,19 @@ export default class Setup extends Component {
         break;
       case 1:
         content = <SetupForm
+                    updateDateArray={this._updateDateArray.bind(this)}
+                    isSameDate={this._isSameDate}
                     updateDay={this._handleDayChange.bind(this)}
-                    updateAddress={this._updateProperty.bind(this)}
-                    updateEmail={this._updateProperty.bind(this)}
+                    updateAddress={this._updatesProperty.bind(this)}
+                    updateEmail={this._updatesProperty.bind(this)}
                     updateTime={this._handleTimeChange.bind(this)}
-                    updatePhone={this._updateProperty.bind(this)}
-                    updateArea={this._updateProperty.bind(this)}
+                    updatePhone={this._updatesProperty.bind(this)}
+                    updateArea={this._updatesProperty.bind(this)}
                     morning={this.state.morning}
-                    date={this.state.date}
+                    dates={this.state.dates}
+                    times={this.state.times}
+                    mins={this.state.mins}
+                    ampm={this.state.ampm}
                     email={this.state.email}
                     address={this.state.address}
                     area={this.state.area}

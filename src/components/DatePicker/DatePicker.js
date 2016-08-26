@@ -10,7 +10,9 @@ export default class DatePicker extends Component {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
-      selectedDay: null,
+      selectedDay1: null,
+      selectedDay2: null,
+      selectedDay3: null,
     };
   }
   
@@ -18,10 +20,37 @@ export default class DatePicker extends Component {
     let today = new Date();
     today.setHours(0);
     today.setMinutes(0);
+    today.setDate(today.getDate() + 3);
     if (day >= today) {
-      this.setState({
-        selectedDay: selected ? null : day
-      });
+      if (selected) {
+        if (this.state.selectedDay1 && this.props.isSameDate(this.state.selectedDay1, day)) {
+          this.setState({
+            selectedDay1: null
+          });
+        } else if (this.state.selectedDay2 &&  this.props.isSameDate(this.state.selectedDay2, day)) {
+          this.setState({
+            selectedDay2: null
+          });
+        } else if(this.state.selectedDay3 && this.props.isSameDate(this.state.selectedDay3, day)) {
+          this.setState({
+            selectedDay3: null
+          });
+        }
+      } else {
+        if (this.state.selectedDay1 === null) {
+          this.setState({
+            selectedDay1: day
+          });
+        } else if (this.state.selectedDay2 === null) {
+          this.setState({
+            selectedDay2: day
+          });
+        } else if(this.state.selectedDay3 === null) {
+          this.setState({
+            selectedDay3: day
+          });
+        }
+      }
       this.props.dayChange(day); 
     }
   }
@@ -64,13 +93,12 @@ export default class DatePicker extends Component {
     return (
       <div>
         <DayPicker
-          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
+          selectedDays={day => DateUtils.isSameDay(this.state.selectedDay1, day) || DateUtils.isSameDay(this.state.selectedDay2, day) || DateUtils.isSameDay(this.state.selectedDay3, day)}
           onDayClick={this.handleDayClick}
           locale='es' 
           localeUtils={ localeUtils }
           //disabledDays={ DateUtils.isPastDay }
           disabledDays={ this._disableDays }
-          selectedDays={day => DateUtils.isSameDay(selectedDay, day)}
         />
       </div>
     );

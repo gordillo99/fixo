@@ -17,7 +17,7 @@ export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 export const customerServiceEmail = 'fixo.comercial@gmail.com';
 export const customerServicePass = 'ventas1fixo2017';
 export const customerServiceUser = 'fixo.comercial';
-export const adminEmails = ['jose_javier_gordillo@hotmail.com'];
+export const adminEmails = ['jose_javier_gordillo@hotmail.com, fixo.comercial@gmail.com'];
 
 const prodFlag = process.env.NODE_ENV === 'production';
 

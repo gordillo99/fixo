@@ -32,6 +32,9 @@ create table proposals (id bigserial primary key, user_id varchar(255) reference
 	0 fixer has not been notified
 	1 fixer notified
 
+DATES_TO_PROPOSALS
+create table dates_to_proposals (id bigserial primary key, proposal_id int references proposals(id) ON DELETE CASCADE, prop_date varchar(5) not null, prop_time varchar(5) not null, prop_mins varchar(5) not null, prop_ampm varchar(5) not null);
+
 ADD_QUESTIONS_TXT
 create table add_questions_txt (id bigserial primary key, proposal_id int references proposals(id) ON DELETE CASCADE, question varchar(255) not null, answer varchar(255) not null);
 
@@ -53,6 +56,9 @@ create table offers (id bigserial primary key unique, proposal_id int references
 TODOs:
 
 	find scheduler workaround
+	set the selected date (from the ones the user proposes)
+	whats this toolpicks
+	add all dates to pdf
 
 	figure out all fixer info that should be displayed
 	add right text to terms, about, and contact

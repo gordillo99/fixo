@@ -71,11 +71,13 @@ router.route('/crud')
     var data;
     var imageData = null;
 
+    /*
     var emailForReview = function() {
       var dataCopy = data;
       var schedule = require('node-schedule');
-      //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
-      var date = new Date(Date.now() + (1000 * 60 * 3));
+      // sec * min * hour * day
+      //var date = new Date(Date.now() + (1000  * 60 * 60  * 24  * 10));
+      /*var date = new Date(Date.now() + (1000 * 60 * 3));
       var job = schedule.scheduleJob(date, function(y){
         
         // create reusable transporter object using the default SMTP transport
@@ -96,7 +98,7 @@ router.route('/crud')
         });
 
       }.bind(null, dataCopy));
-    }
+    }*/
 
     var createImageQuestions = function(id) {
       connection.db.none({
@@ -120,6 +122,7 @@ router.route('/crud')
           query = '',
           partsOfQsAndAs = data.qsAndAs.split('*'),
           proposal_id = id;
+          
 
       partsOfQsAndAs.map((qAndA, index) => {
         if (index % 2 === 0) {
@@ -148,12 +151,44 @@ router.route('/crud')
       });
     };
 
+    var addDates = function(proposal_id) {
+      var dateQueryString = '';
+      var params = [];
+      var counter = 0;
+      var datesObj = JSON.parse(data.dates);
+
+      var propNames = Object.getOwnPropertyNames(datesObj);
+
+      propNames.forEach(function(name){
+        params.push(proposal_id);
+        params.push(datesObj[name].date);
+        params.push(datesObj[name].time);
+        params.push(datesObj[name].mins);
+        params.push(datesObj[name].ampm);
+        dateQueryString += `($${++counter}, $${++counter}, $${++counter}, $${++counter}, $${++counter}),`
+      });
+
+      dateQueryString = dateQueryString.slice(0,-1);
+
+      connection.db.manyOrNone({
+        name: "add-proposal-dates",
+        text: `insert into dates_to_proposals (proposal_id, prop_date, prop_time, prop_mins, prop_ampm) values ${dateQueryString};`,
+        values: params
+      })
+        .then(function () {
+          console.log('Proposed dates were added successfully.');
+        })
+        .catch(function (error) {
+          console.log(error);   
+      });
+    };
+
     var createProposal = function() {
       emailForReview();
       connection.db.one({
         name: "create-proposal",
-        text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, prop_date, morning, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now(), 0) returning id;",
-        values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.prop_date, data.morning, data.category]
+        text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, now(), 0) returning id;",
+        values: [data.user_id, data.fixer_id, data.area, data.address, data.email, data.phone_number, data.category]
       })
         .then(function (data) {
           // create reusable transporter object using the default SMTP transport
@@ -187,6 +222,7 @@ router.route('/crud')
             } else {
               createTxtQuestions(data.id);
             }
+            addDates(data.id);
           });
         })
         .catch(function (error) {
@@ -202,8 +238,7 @@ router.route('/crud')
       address: req.body.address, 
       email: req.body.email, 
       phone_number: req.body.phone, 
-      prop_date: req.body.date, 
-      morning: req.body.morning,
+      dates: req.body.dates, 
       category: req.body.category, 
       qsAndAs: req.body.qsAndAs
     };
@@ -265,8 +300,25 @@ router.route('/get/:user_id')
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "get-proposal-for-user",
-      text: "select p.id as proposal_id, p.user_id, p.has_review, p.area, p.address, p.email, p.phone_number, p.prop_date, p.morning, p.category, p.created_at, p.status, f.id as fixer_id, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic, f.avg_rating, f.num_ratings from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1 order by created_at desc;",
+      text: "select p.id as proposal_id, p.user_id, p.has_review, p.area, p.address, p.email, p.phone_number, p.category, p.created_at, p.status, f.id as fixer_id, f.firstname, f.lastname, f.phone, f.email, f.age, f.gender, f.description, f.profilepic, f.avg_rating, f.num_ratings from proposals as p inner join fixers as f on p.fixer_id = f.id where p.user_id=$1 order by created_at desc;",
       values: [req.params.user_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(error);    
+    });
+  });
+
+router.route('/get/dates/:proposal_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-dates-for-proposal",
+      text: "select * from dates_to_proposals where proposal_id = $1;",
+      values: [req.params.proposal_id]
     })
       .then(function (data) {
         res.send(data);
@@ -322,6 +374,35 @@ router.route('/updateHasReview/:proposal_id')
       .catch(function (error) {
         console.log(error);
         res.send(error);    
+    });
+  });
+
+router.route('/updateSelectedDate/:proposal_id')
+
+  .post(function(req, res) {
+
+    connection.db.manyOrNone({
+      name: "update-selected-date",
+      text: "update dates_to_proposals set selected = false where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function () {
+        connection.db.manyOrNone({
+          name: "update-selected-date",
+          text: "update dates_to_proposals set selected = true where id = $1;",
+          values: [req.body.id]
+        })
+          .then(function () {
+            res.send(true);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.send(false);    
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(false);    
     });
   });
 

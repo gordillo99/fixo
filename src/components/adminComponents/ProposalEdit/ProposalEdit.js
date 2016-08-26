@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
-import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Row, Form, FormControl, FormGroup, Col, ControlLabel, Button, Panel, Table } from 'react-bootstrap';
+import { RadioGroup, Radio } from 'react-radio-group';
 import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.js';
 import AnswersDisplay from '../../questionComponents/AnswersDisplay';
 import OfferEdit from '../OfferEdit';
@@ -21,9 +22,7 @@ export default class ProposalEdit extends Component {
 			u_firstname: this.props.u_firstname,
 			u_lastname: this.props.u_lastname,
 			phone: this.props.phone,
-			prop_date: dateFormat(this.props.prop_date, 'dd/mm/yyyy').toString(),
 			created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
-			morning: this.props.morning,
 			email: this.props.email,
 			address: this.props.address,
 			area: this.props.area,
@@ -32,8 +31,27 @@ export default class ProposalEdit extends Component {
 			f_lastname: this.props.f_lastname,
 			category: catEnglishToSpanish(this.props.category),
 			status: this.props.status,
-			open: false
+			open: false,
+			selectedDate: null
 		};
+	}
+
+	componentDidMount() {
+		$.ajax({
+			url: '/api/proposals/get/dates/' + this.state.id,
+			type: 'GET',
+			success: function(data) {
+				let i;
+				let selectedDate = null;
+				for (i = 0; i < data.length; i++) {
+					if (data[i] !== null && data[i] !== undefined) selectedDate = i; 
+				}
+				this.setState({ dates: data, selectedDate: selectedDate });
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
+		});
 	}
 
 	_updateProposalStatus() {
@@ -89,7 +107,8 @@ export default class ProposalEdit extends Component {
 
 	_generatePDF() {
 		let data = {
-			id: this.state.id
+			id: this.state.id,
+			dates: dates
 		};
 
 		$.ajax({
@@ -97,9 +116,111 @@ export default class ProposalEdit extends Component {
     	type: 'GET',
     	success: function(response) {
     		console.log(response);
-    		//alert('Propuesta fue borrada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_displayProposedDates() {
+    let dateFormat = require('dateformat');
+		
+		if (!this.state.dates) return null;
+
+    return this.state.dates.map((date, index) => {
+			const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+			const time = date.prop_time;
+			const mins = date.prop_mins;
+			const ampm = date.prop_ampm;
+			return (
+				<tr>
+					<td>{`${formattedDate}`}</td>
+					<td>{`${time}:${mins} ${ampm}`}</td>
+					<td>{date.selected ? 'si' : 'no'}</td>
+				</tr>
+			)});
+  }
+
+	_renderDateSelectionForm() {
+		let dateFormat = require('dateformat');
+
+		if (!this.state.dates) return null;
+
+		return this.state.dates.map((date, index) => {
+			return (
+				<label className={s.radioButtonLabel}>
+					<Radio className={s.radioButtonLabel} value={index} />  {dateFormat(date.prop_date, 'dd/mm/yyyy').toString()}
+				</label>
+			)
+		});
+	}
+
+	_handleChange(value) {
+		let dates = this.state.dates;
+		dates[this.state.selectedDate].selected = false;
+		dates[value].selected = true;
+    this.setState({ selectedDate: value, dates: dates });
+  }
+
+	_sendEmailUpdatedDateEmailToUser() {
+		const selDate = this.state.dates[this.state.selectedDate];
+		let dateFormat = require('dateformat');
+
+		let data = {
+			proposal: {
+				f_firstname: this.state.f_firstname,
+				f_lastname: this.state.f_lastname,
+				category: this.state.category,
+				email: this.props.email,
+				address: this.props.address
+			},
+			selectedDate: `${dateFormat(selDate.prop_date, 'dd/mm/yyyy').toString()}`,
+			selectedTime: `${selDate.prop_time}:${selDate.prop_mins} ${selDate.prop_ampm}`
+		};
+
+		$.ajax({
+    	url: `/mail/updatedDate/sendEmail`,
+    	type: 'POST',
+    	data: JSON.stringify(data),
+    	cache: false,
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
+    	success: function(data) {
+				if (data) alert('Propuesta fue actualizada exitosamente!');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+				alert(err);
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_updateSelectedDate() {
+		if (this.state.selectedDate === null || this.state.selectedDate === undefined) {
+			alert('Por favor escoger una fecha.');
+			return;
+		}
+
+		let data = {
+			id: this.state.dates[this.state.selectedDate].id
+		};
+
+		$.ajax({
+    	url: `/api/proposals/updateSelectedDate/${this.state.id}`,
+    	type: 'POST',
+    	data: JSON.stringify(data),
+    	cache: false,
+    	contentType:'application/json',
+    	handleAs: 'json',
+			processData: false,
+    	success: function(data) {
+				this._sendEmailUpdatedDateEmailToUser();
+				if (data) alert('Propuesta fue actualizada exitosamente! Enviando email a usuario...');
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+				alert(err);
      		console.log(err);
     	}.bind(this)
 	  });
@@ -151,13 +272,19 @@ export default class ProposalEdit extends Component {
 			});
 		}
 
+		if (this.state.dates){
+			this.state.dates.map((date, index) => {
+				pdfParameters[`date${index}`] = date;
+			});
+		}
+
 		pdfParameters.numberOfQs = counter;
 		stringifiedState = qs.stringify(pdfParameters);
 
 		return(
 			<div>
 				<Button onClick={() => this.setState({ open: !this.state.open })}>
-         	{this.state.id + '.) ' + this.state.u_firstname + ' ' + this.state.u_lastname + ', ' + this.state.prop_date + ', ' + this.state.category}
+         	{this.state.id + '.) ' + this.state.u_firstname + ' ' + this.state.u_lastname + ', ' + this.state.category}
         </Button>
         <Panel collapsible expanded={this.state.open}>
         	<h3>Descripción de propuesta</h3>
@@ -194,9 +321,35 @@ export default class ProposalEdit extends Component {
 				        Fecha (dd/mm/yyyy)
 				      </Col>
 				      <Col sm={6}>
-				        <FormControl value={this.state.prop_date} type="text" placeholder="fecha propuesta" disabled/>
+				         <Table responsive striped={false} bordered={true} hover={false}>
+										<tbody>
+											<tr>
+												<th>Fecha</th>
+												<th>Hora</th>
+												<th>Seleccionada</th>
+											</tr>	
+										{this._displayProposedDates()}
+										</tbody>
+									</Table>
 				      </Col>
 				    </FormGroup>
+
+						<FormGroup>
+							<Col componentClass={ControlLabel} sm={2}>
+				        Fecha seleccionada
+				      </Col>
+							<Col sm={6}>
+				        <RadioGroup
+									className={s.radioGroup}
+									name="selectedDateForm"
+									selectedValue={this.state.selectedDate}
+									onChange={this._handleChange.bind(this)}
+								>
+								{this._renderDateSelectionForm()}
+								</RadioGroup>
+								<Button onClick={this._updateSelectedDate.bind(this)}>Actualizar</Button>
+				      </Col>
+						</FormGroup>
 
 				    <FormGroup controlId="formControlsId">
 				      <Col componentClass={ControlLabel} sm={2}>

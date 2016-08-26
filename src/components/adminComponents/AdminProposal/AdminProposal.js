@@ -116,7 +116,6 @@ export default class AdminProposal extends Component {
 							fixer_id={proposal.fixer_id}
 							morning={proposal.morning}
 							phone={proposal.phone_number}
-							prop_date={proposal.prop_date}
 							u_firstname={proposal.u_firstname}
 							u_lastname={proposal.u_lastname}
 							user_id={proposal.user_id}

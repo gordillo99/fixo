@@ -6,12 +6,21 @@ var PDFDocument = require('pdfkit');
 router.route('/pdfGenerator')
 
 	.get(function(req, res){
+		var dateFormat = require('dateformat');
 		var query = req.query;
 	  var doc = new PDFDocument();
 	  var i;
 	  var limit = Number(req.query.numberOfQs);
+		console.log();
 	  var content = 'Información de propuesta\n\n'; 
-	  content += `ID de propuesta: ${query.id}\nNombre de usuario: ${query.u_firstname} ${query.u_lastname}\nFecha propuesta: ${query.prop_date}\nTeléfono de usuario: ${query.phone}\nEmail de usuario: ${query.email}\nDirección: ${query.address}\nÁrea: ${query.area}\nFecha de creación: ${query.created_at}\nID de fixer: ${query.fixer_id}\nNombre de fixer: ${query.f_firstname} ${query.f_lastname}\n`;
+	  content += `ID de propuesta: ${query.id}\nNombre de usuario: ${query.u_firstname} ${query.u_lastname}\nTeléfono de usuario: ${query.phone}\nEmail de usuario: ${query.email}\nDirección: ${query.address}\nÁrea: ${query.area}\nFecha de creación: ${query.created_at}\nID de fixer: ${query.fixer_id}\nNombre de fixer: ${query.f_firstname} ${query.f_lastname}\n`;
+		content += '\nFechas\n\n';
+		var counter;
+		for (counter = 0; counter < 3; counter++) {
+			var date = query[`date${counter}`];
+			if (date) content += `Fecha ${counter + 1}: ${dateFormat(date.prop_date, 'dd/mm/yyyy').toString()} ${date.prop_time}:${date.prop_mins} ${date.prop_ampm}\n`;
+		}
+
 	  content += '\nInformación adicional\n\n';
 
 	  for (i = 1; i < limit; i++) {

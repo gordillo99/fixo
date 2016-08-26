@@ -123,7 +123,6 @@ export default class ProposalCard extends Component {
   }
 
   render() {
-    console.log('render');
     let dateFormat = require('dateformat');
     let answersDisplay = null;
     let qsAndAs = [];
@@ -132,6 +131,9 @@ export default class ProposalCard extends Component {
     let propDate = `${dateFormat(this.props.proposal.prop_date, 'dd/mm/yyyy').toString()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
     let panelContent = null;
     let reviewBtnText = '';
+    let selectedDateflag = false;
+    let dateContent = null;
+    let chosenDateIdx = 0;
     let fixer = {
       profilepic: this.props.proposal.profilepic,
       description: this.props.proposal.description,
@@ -168,6 +170,30 @@ export default class ProposalCard extends Component {
         fixerLastName={fixer.lastname}
       />;
     }
+    console.log(this.state.dates);
+    this.state.dates.map((date, index) => {
+      if (date.selected) {
+        selectedDateflag = true;
+        chosenDateIdx = index;
+      }
+    });
+    console.log(chosenDateIdx);
+    if (selectedDateflag) {
+      dateContent = <Table responsive striped={false} bordered={true} hover={false}>
+                      <tbody>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Hora</th>
+                        </tr>	
+                      {this._displayProposedDates()}
+                      </tbody>
+                    </Table>
+    } else {
+      if (this.state.dates.length) {
+        const dateObj = this.state.dates[chosenDateIdx];
+        dateContent = <p>{`Fecha confirmada: ${dateFormat(dateObj.prop_date, 'dd/mm/yyyy').toString()} ${dateObj.prop_time}:${dateObj.prop_mins} ${dateObj.prop_ampm}`}</p>
+      }
+    }
 
     /*
 
@@ -190,16 +216,8 @@ export default class ProposalCard extends Component {
                           <div className={s.centralizedDiv}>
                             <p className={s.proposalTitle}>{`Fechas que propusiste a tu fixer`}</p>
                           </div>
-                           <Table responsive striped={false} bordered={true} hover={false}>
-                            <tbody>
-                              <tr>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                              </tr>	
-                            {this._displayProposedDates()}
-                            </tbody>
-                          </Table>
                         </div>
+                        {dateContent}
                         <div>
                           <p className={s.proposalTitle}>{`Sobre tu fixer`}</p>
                           <FixerPanel showReviews={false} fixer={fixer} />

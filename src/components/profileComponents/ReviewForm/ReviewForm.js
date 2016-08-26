@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Form, FormGroup, Button, Glyphicon, FormControl } from 'react-bootstrap';
-import { RadioGroup, Radio } from "react-radio-group";
+import { RadioGroup, Radio } from 'react-radio-group';
 import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import s from './ReviewForm.css';
 import $ from 'jquery';

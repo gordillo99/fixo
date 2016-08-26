@@ -71,11 +71,13 @@ router.route('/crud')
     var data;
     var imageData = null;
 
+    /*
     var emailForReview = function() {
       var dataCopy = data;
       var schedule = require('node-schedule');
-      //var date = new Date(Date.now() + (1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 10));
-      var date = new Date(Date.now() + (1000 * 60 * 3));
+      // sec * min * hour * day
+      //var date = new Date(Date.now() + (1000  * 60 * 60  * 24  * 10));
+      /*var date = new Date(Date.now() + (1000 * 60 * 3));
       var job = schedule.scheduleJob(date, function(y){
         
         // create reusable transporter object using the default SMTP transport
@@ -96,7 +98,7 @@ router.route('/crud')
         });
 
       }.bind(null, dataCopy));
-    }
+    }*/
 
     var createImageQuestions = function(id) {
       connection.db.none({
@@ -167,8 +169,7 @@ router.route('/crud')
       });
 
       dateQueryString = dateQueryString.slice(0,-1);
-      console.log(params);
-      console.log(dateQueryString);
+
       connection.db.manyOrNone({
         name: "add-proposal-dates",
         text: `insert into dates_to_proposals (proposal_id, prop_date, prop_time, prop_mins, prop_ampm) values ${dateQueryString};`,
@@ -316,7 +317,7 @@ router.route('/get/dates/:proposal_id')
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "get-dates-for-proposal",
-      text: "select prop_date, prop_time, prop_mins, prop_ampm from dates_to_proposals where proposal_id = $1;",
+      text: "select * from dates_to_proposals where proposal_id = $1;",
       values: [req.params.proposal_id]
     })
       .then(function (data) {
@@ -373,6 +374,35 @@ router.route('/updateHasReview/:proposal_id')
       .catch(function (error) {
         console.log(error);
         res.send(error);    
+    });
+  });
+
+router.route('/updateSelectedDate/:proposal_id')
+
+  .post(function(req, res) {
+
+    connection.db.manyOrNone({
+      name: "update-selected-date",
+      text: "update dates_to_proposals set selected = false where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function () {
+        connection.db.manyOrNone({
+          name: "update-selected-date",
+          text: "update dates_to_proposals set selected = true where id = $1;",
+          values: [req.body.id]
+        })
+          .then(function () {
+            res.send(true);
+          })
+          .catch(function (error) {
+            console.log(error);
+            res.send(false);    
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(false);    
     });
   });
 

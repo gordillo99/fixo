@@ -33,6 +33,7 @@ import categoriesRest from './../routes/categories.js';
 import offersRest from './../routes/offers.js';
 import reviewsRest from './../routes/reviews.js';
 import pdfGenerator from './../routes/pdf/pdfGenerator.js';
+import updatedDateMailer from './../routes/emails/updatedDateMailer.js';
 
 const app = express();
 
@@ -73,6 +74,7 @@ app.use('/api/categories', categoriesRest);
 app.use('/api/offers', offersRest);
 app.use('/api/reviews', reviewsRest);
 app.use('/pdf', pdfGenerator);
+app.use('/mail/updatedDate', updatedDateMailer);
 
 //
 // Authentication

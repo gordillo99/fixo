@@ -13,8 +13,7 @@ export default class ThankYouDisplay extends Component {
       <div>
         <h1 className={cx(s.headingDecoration)}>¡Gracias por usar fixo!</h1>
         <h4 className={cx(s.headingDecoration)}>
-          El fixer que has escogido será notificado de esta propuesta. <br/>
-          Te contactaremos por correo o teléfono.
+          Tu fixer será notificado sobre tu propuesta. Te contactaremos por <br/>teléfono y correo en cuanto el fixer confirme en que fecha llegará.
         </h4>
         <Button bsStyle='primary'  className={cx(s.homeButton)} href='/'>Ir a la página principal</Button>
       </div>

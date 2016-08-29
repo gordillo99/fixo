@@ -85,7 +85,7 @@ export default class DatePicker extends Component {
       formatMonthTitle: (d, locale='es') => `${MONTHS[locale][d.getMonth()]} ${d.getFullYear()}`,
       formatWeekdayShort: (i, locale='es') => WEEKDAYS_SHORT[locale][i],
       formatWeekdayLong: (i, locale='es') => WEEKDAYS_LONG[locale][i],
-      getFirstDayOfWeek: (locale='en') => FIRST_DAY[locale]
+      getFirstDayOfWeek: (locale='es') => FIRST_DAY[locale]
     };
 
     const { selectedDay } = this.state;

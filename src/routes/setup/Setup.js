@@ -74,10 +74,12 @@ export default class Setup extends Component {
       timesArray.splice(index, 1);
 
     } else {
-      datesArray.push(date);
-      timesArray.push('1');
-      minsArray.push('00');
-      ampmArray.push('PM');
+      if (datesArray.length < 3) {
+        datesArray.push(date);
+        timesArray.push('1');
+        minsArray.push('00');
+        ampmArray.push('PM');
+      }
     }
 
     this.setState( { 

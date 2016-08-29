@@ -83,7 +83,8 @@ export default class SetupForm extends Component {
                     <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea.bind(this, 'area')}>
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
-                    <h2 className={s.centralizedDiv}>¿Qué fecha prefieres?</h2>
+                    <h2 className={s.centralizedDiv}>¿Cuándo debería llegar el fixer?</h2>
+                    <h4 className={s.centralizedDiv}>Para maximizar la posibilidad que el fixer esté disponible, por favor escoge varias fechas (3 máximo). Luego te confirmaremos cual fecha fue escogida.</h4>
                     <div className={cx(s.datePicker)}>
                       <DatePicker
                         isSameDate={this.props.isSameDate}

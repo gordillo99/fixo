@@ -23,8 +23,12 @@ export default class MainPageStripe1 extends Component {
     this._startChangingBackground();
   }
 
+  componentWillUnmount() {
+    this.loadInterval && clearInterval(this.loadInterval);
+  }
+
   _startChangingBackground() {
-    setInterval(() => {
+    this.loadInterval = setInterval(() => {
       this._changeBackground();
     }, 6000);
   }

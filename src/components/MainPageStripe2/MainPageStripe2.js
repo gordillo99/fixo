@@ -22,8 +22,12 @@ export default class MainPageStripe2 extends Component {
     this._startFlipping();
   }
 
+  componentWillUnmount() {
+    this.loadInterval && clearInterval(this.loadInterval);
+  }
+
   _startFlipping() {
-    setInterval(() => {
+    this.loadInterval = setInterval(() => {
       this._flipTiles();
     }, 4000);
   }

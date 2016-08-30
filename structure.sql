@@ -56,7 +56,6 @@ create table offers (id bigserial primary key unique, proposal_id int references
 TODOs:
 
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
-	whats this toolpicks
 
 	figure out all fixer info that should be displayed
 	add right text to terms, about, and contact

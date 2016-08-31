@@ -63,6 +63,7 @@ export default class DatePicker extends Component {
   }
 
   render() {
+    let moment = require('moment');
     let WEEKDAYS_LONG = {
       "en": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       "es": ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"]
@@ -90,6 +91,15 @@ export default class DatePicker extends Component {
 
     const { selectedDay } = this.state;
 
+    let now = new Date();
+    const dateToday = now.getDate();
+    const daysInThisMonth = moment().daysInMonth();
+
+    if (daysInThisMonth - dateToday <= 2) {
+      now = new Date(now.setDate(1))
+      now = new Date(now.setMonth(now.getMonth() + 1));
+    }
+
     return (
       <div>
         <DayPicker
@@ -99,6 +109,7 @@ export default class DatePicker extends Component {
           localeUtils={ localeUtils }
           //disabledDays={ DateUtils.isPastDay }
           disabledDays={ this._disableDays }
+          initialMonth={now}
         />
       </div>
     );

@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap';
-import tools2 from './images/tools2-background.jpg';
-import tools1 from './images/tools-background.jpg';
-import gardening from './images/gardening-background.jpg';
+import tools1 from './images/tools-bg.jpg';
 import s from './MainPageStripe1.css';
 import $ from 'jquery';
 import Link from '../Link';
@@ -15,7 +13,7 @@ export default class MainPageStripe1 extends Component {
     super();
     this.state = {
       stage: 0,
-      bgImages: [tools2, tools1]
+      bgImages: [tools1]
     };
   }
 
@@ -35,21 +33,17 @@ export default class MainPageStripe1 extends Component {
 
   _changeBackground() {
     let nextStage = this.state.stage;
-    if (nextStage === 1) {
-      nextStage = 0;
-    } else {
-      nextStage++;
-    }
+    nextStage = 0;
     this.setState({ stage: nextStage });
   }
 
   _createCategoryOptions() {
     let categories = [ 
-      { id: 0, name: 'Jardinero', icon: require('./images/gardening.png'), route: 'gardening' }, 
-      { id: 1, name: 'Carpintero', icon: require('./images/carpentry.png'), route: 'carpentry' }, 
+      { id: 0, name: 'Jardinero', icon: require('./images/gardening.jpg'), route: 'gardening' }, 
+      { id: 1, name: 'Carpintero', icon: require('./images/carpentry.jpg'), route: 'carpentry' }, 
       { id: 2, name: 'Pintor', icon: require('./images/painting.png'), route: 'painting' }, 
-      { id: 3, name: 'Electricista', icon: require('./images/electricity.png'), route: 'electricity' }, 
-      { id: 4, name: 'Fontanero' , icon: require('./images/plumbing.png'), route: 'plumbing' }
+      { id: 3, name: 'Electricista', icon: require('./images/electricity.jpg'), route: 'electricity' }, 
+      { id: 4, name: 'Fontanero' , icon: require('./images/plumbing.jpg'), route: 'plumbing' }
     ];
 
     return categories.map((category) => {

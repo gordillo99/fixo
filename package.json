@@ -36,7 +36,7 @@
     "jquery": "^3.0.0",
     "jsonwebtoken": "7.0.0",
     "markdown-it": "6.0.5",
-    "moment": "^2.13.0",
+    "moment": "^2.14.1",
     "multer": "^1.1.0",
     "node-fetch": "1.5.3",
     "node-schedule": "^1.1.1",

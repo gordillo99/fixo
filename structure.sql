@@ -56,9 +56,10 @@ create table offers (id bigserial primary key unique, proposal_id int references
 TODOs:
 
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
+	investigate ssl and https (lets encrypt)
 
 	figure out all fixer info that should be displayed
-	add right text to terms, about, and contact
+	add right text to terms and contact
 	add all form validation (includes: enforce database entries max-string length)
 	security measures for website
 

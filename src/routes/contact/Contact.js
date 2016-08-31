@@ -23,7 +23,6 @@ function Contact(props, context) {
                 <p className={cx(s.centeringDiv, s.boldedText)}>Información de contacto</p>
                 <Col md={6} mdOffset={3}>
                   <p>Email: fixo.comercial@gmail.com</p>
-                  <p>Número de teléfono: 4586 8659</p>
                 </Col>
               </div>
             </div>

@@ -8,7 +8,7 @@ export default class ProgressionStatus extends Component {
 
   _showProgressInTabs() {
     let stages = [ 
-      { id: 0, name: 'Dinos lo que necesitas' },
+      { id: 0, name: 'Dinos qué necesitas' },
       { id: 1, name: 'Ingresa tus datos' },
       { id: 2, name: 'Encuentra a tu fixer' }, 
       { id: 3, name: 'Confirma' }

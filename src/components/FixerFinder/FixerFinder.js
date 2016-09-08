@@ -14,7 +14,7 @@ export default class FixerFinder extends Component {
 		this.state = {
 			fixers: [],
 			selectedFixer: {},
-			resultsTitle: <h1 className={cx(s.loadingTitle)}>Cargando datos...</h1>,
+			resultsTitle: <h1 className={cx(s.loadingTitle)}>Danos un ratito, estamos econtrando a los fixers más pilas...</h1>,
 			noResults: true
 		}
 	}

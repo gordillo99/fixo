@@ -64,7 +64,6 @@ TODOs:
 	add all form validation (includes: enforce database entries max-string length)
 	security measures for website
 
-
 alternative to google analytics
 https://piwik.org/
 

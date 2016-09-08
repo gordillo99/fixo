@@ -215,11 +215,11 @@ router.route('/getAllAreas')
         values: [fixerProps.fixer.id]
       })
         .then(function () {
-            insertNewFixerToCategories();
+          insertNewFixerToCategories();
         })
         .catch(function (error) {
-            console.log(error);
-            res.send(error);    
+          console.log(error);
+          res.send(error);    
         });
     }
 
@@ -247,11 +247,11 @@ router.route('/getAllAreas')
         values: arrayOfVals
       })
         .then(function () {
-          removeAllFixToCatRels();
+          return;
         })
         .catch(function (error) {
-            console.log(error);
-            return error;   
+          console.log(error);
+          return error;   
         });
     }
 
@@ -288,6 +288,8 @@ router.route('/getAllAreas')
     }
 
     removeAllFixToAreaRels();
+    removeAllFixToCatRels();
+
     res.send(true);
   });
 

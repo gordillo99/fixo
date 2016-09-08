@@ -23,7 +23,7 @@ export default class AboutUsCarousel extends Component {
 			      	<Image className={s.carouselImage} width={700} height={400} alt='Guatemala' src={guatemalaImage}/>
 			      </div>
 			      <Caption>
-			        <img width={180} height={165} alt='fixo' src={fixoWhite} />
+			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
 			      </Caption>
 			    </Item>
 					<Item>
@@ -32,7 +32,7 @@ export default class AboutUsCarousel extends Component {
 			      	<Image className={s.carouselImage} width={700} height={400} alt='Gardening' src={gardeningImage}/>
 			      </div>
 			      <Caption>
-			        <img width={180} height={165} alt='fixo' src={fixoWhite} />
+			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
 			      </Caption>
 			    </Item>
 					<Item>
@@ -41,7 +41,7 @@ export default class AboutUsCarousel extends Component {
 			      	<Image className={s.carouselImage} width={700} height={400} alt='Emprendimiento' src={entrepreneurImage}/>
 			      </div>
 			      <Caption>
-			        <img width={180} height={165} alt='fixo' src={fixoWhite} />
+			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
 			      </Caption>
 			    </Item>
 			    <Item>
@@ -50,7 +50,7 @@ export default class AboutUsCarousel extends Component {
 			      	<Image className={s.carouselImage} width={700} height={400} alt='Programming' src={programmingImage}/>
 			      </div>
 			      <Caption>
-			        <img width={180} height={165} alt='fixo' src={fixoWhite} />
+			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
 			      </Caption>
 			    </Item>
 			  </Carousel>

@@ -163,3 +163,17 @@
   border-bottom: 1px solid #ddd;
   content: '';
 }
+
+.iconCredit {
+  font-size: 2px;
+  margin: 0px;
+  padding-bottom: 0px;
+}
+
+.minimalBottomPadding {
+  padding-bottom: 2px;
+}
+
+.leftAligned {
+  text-align: left;
+}

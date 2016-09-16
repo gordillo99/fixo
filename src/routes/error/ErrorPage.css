@@ -58,3 +58,18 @@ pre {
   }
 
 }
+
+.iconCredit {
+  font-size: 2px;
+  margin: 0px;
+  padding-bottom: 0px;
+}
+
+.minimalBottomPadding {
+  padding-bottom: 2px;
+}
+
+.centerAligned {
+  text-align: center;
+  margin: auto;
+}

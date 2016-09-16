@@ -184,7 +184,7 @@ router.route('/crud')
     };
 
     var createProposal = function() {
-      emailForReview();
+      //emailForReview();
       connection.db.one({
         name: "create-proposal",
         text: "insert into proposals (user_id, fixer_id, area, address, email, phone_number, category, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, now(), 0) returning id;",

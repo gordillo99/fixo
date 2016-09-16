@@ -55,8 +55,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	make login page nicer (not a robot)
-	improve error page (we need a fixer here)
+	move fb login (use context) (look at how error page does it)
 	add describe problem to all categories (update questions)
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
 	investigate ssl and https (lets encrypt)

@@ -10,15 +10,18 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './ErrorPage.css';
+import tools from './images/tools.png';
+import handyman from './images/handyman.png';
+import cx from 'classnames';
 
 function ErrorPage({ error }, context) {
   let title = 'Error';
-  let content = 'Lo sentimos, un error crítico acaba de ocurrir.';
+  let content = 'Lo sentimos, un error acaba de ocurrir. ¡Parece que necesitamos un fixer aquí!';
   let errorMessage = null;
 
   if (error.status === 404) {
     title = 'Página no fue encontrada';
-    content = 'Lo sentimos, esta página no existe.';
+    content = 'Quizás necesitemos que un fixer venga a crear esta página...';
   } else if (process.env.NODE_ENV !== 'production') {
     errorMessage = <pre>{error.stack}</pre>;
   }
@@ -30,6 +33,12 @@ function ErrorPage({ error }, context) {
       <h1>{title}</h1>
       <p>{content}</p>
       {errorMessage}
+      <img src={handyman} height='128px' width='128px' />
+      <img src={tools} height='128px' width='128px' />
+      <div className={s.centerAligned}>
+        <p className={s.iconCredit}>Icon made by Freepik from www.flaticon.com</p>
+        <p className={cx(s.iconCredit, s.minimalBottomPadding)}>Icon made by Freepik from www.flaticon.com</p>
+      </div>
     </div>
   );
 }

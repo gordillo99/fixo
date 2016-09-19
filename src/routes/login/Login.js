@@ -24,7 +24,7 @@ function Login(props, context) {
       <div className={s.root}>
         <div className={s.container}>
           <h1 className={cx(s.loginHeader)}>{title}</h1>
-          <p className={s.lead}>Para proteger tu privacidad y asegurarnos que no eres un robot, por favor inicia sesión usando tu cuenta de Facebook.</p>
+          <p className={s.lead}>Para proteger tu privacidad y asegurarnos que no eres un robot, por favor inicia sesión usando tu cuenta de Facebook</p>
           <img src={technology} height='128px' width='128px' />
           <img src={security} height='128px' width='128px' />
           <div className={s.leftAligned}>

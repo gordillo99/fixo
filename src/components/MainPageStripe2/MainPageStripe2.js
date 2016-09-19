@@ -64,9 +64,9 @@ export default class MainPageStripe2 extends Component {
   
   _createSteps() {
     let steps = [ 
-      { id: 0, name: 'Dinos qué necesitas', desc: 'Danos detalles sobre BRlo que tú necesitas', icon: require('./images/pencil.png') } , 
-      { id: 1, name: 'Encuentra un fixer', desc: 'Te mostramos los BRfixers disponibles', icon: require('./images/magglass.png') }, 
-      { id: 2, name: 'Realiza tu trabajo', desc: 'El fixer se BRencarga de todo', icon: require('./images/check.png') }
+      { id: 0, name: 'Dinos qué necesitas', desc: 'Selecciona una categoría BRy describe lo que necesitas', icon: require('./images/pencil.png') } , 
+      { id: 1, name: 'Encuentra un fixer', desc: 'Listamos fixers para que BRescojas al que prefieras', icon: require('./images/magglass.png') }, 
+      { id: 2, name: 'Realiza tu trabajo', desc: 'El fixer llega, completa el BRtrabajo y le pagas directamente', icon: require('./images/check.png') }
     ];
     let index = 0;
 
@@ -111,7 +111,7 @@ export default class MainPageStripe2 extends Component {
   render() {
     return (
       <Jumbotron className={cx(s.stripe2Jumbotron)}>
-        <h1 className={cx(s.header)}>¡Así de fácil!</h1>
+        <h1 className={cx(s.header)}>Así funciona fixo</h1>
         <Row className={s.row}>
           <Col md={12} xs={12} className={s.centerBlock}>
               {this._createSteps()}

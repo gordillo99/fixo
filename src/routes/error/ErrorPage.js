@@ -25,6 +25,7 @@ function ErrorPage({ error }, context) {
   } else if (process.env.NODE_ENV !== 'production') {
     errorMessage = <pre>{error.stack}</pre>;
   }
+  console.log(error);
 
   context.setTitle(title);
 

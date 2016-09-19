@@ -8,8 +8,8 @@ export default class MainPageStripe3 extends Component {
 
   _createReasons() {
     let reasons = [
-      { id: 0, name: 'Es seguro', desc: 'Nuestros fixers son BRde confianza', icon: require('./images/lock.png')},
-      { id: 1, name: 'Es simple', desc: 'Encuentra soluciones BRrápidamente', icon: require('./images/bulb.png') },
+      { id: 0, name: 'Es simple', desc: 'Encuentra soluciones BRrápidamente', icon: require('./images/bulb.png')},
+      { id: 1, name: 'Es seguro', desc: 'Los fixers son escogidos BRy filtrados por nosotros', icon: require('./images/lock.png')},
       { id: 2, name: 'Es gratis', desc: 'Encuentra a tu fixerBRsin ningún costo', icon: require('./images/service.png') }
     ];
     let index = 0;

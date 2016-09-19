@@ -19,8 +19,21 @@
   vertical-align: middle;
   margin-bottom: 0px;
   text-align: center;
-  margin-right: 0px;
-  padding-right: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+ 
+@media only screen and (max-device-width: 1200px) {
+  /* define mobile specific styles come here */
+  .inlineSteps {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 280px;
+  }
 }
 
 .stepDesc {

@@ -47,7 +47,7 @@ function About() {
             <div className={s.leftAlignedDiv}>
               <div>
                 <div>
-                  <MediaQuery minDeviceWidth={1224}>
+                  <MediaQuery minDeviceWidth={1224} values={{deviceWidth: 1600}}>
                     <div className={s.topMargin}>
                       <Media>
                         <Left>
@@ -69,7 +69,7 @@ function About() {
                       </Media>
                     </div>
                   </MediaQuery>
-                  <MediaQuery maxDeviceWidth={1224}>
+                  <MediaQuery maxDeviceWidth={1224} values={{deviceWidth: 1600}}>
                     <h2>Social</h2>
                     <p>{socialText}</p>
                     <h2>Servicio</h2>

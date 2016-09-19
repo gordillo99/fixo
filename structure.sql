@@ -55,8 +55,10 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
+	clever text for profile (specially when no proposals are present) and also add Rafas text suggestions for starting page
+	add stars to ui
+	update carousel
 	move fb login (use context) (look at how error page does it)
-	add describe problem to all categories (update questions)
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
 	investigate ssl and https (lets encrypt)
 	add caching to fetching

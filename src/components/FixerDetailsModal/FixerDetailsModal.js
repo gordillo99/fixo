@@ -46,7 +46,7 @@ export default class FixerDetailsModal extends Component {
 				      </tr>
 				      <tr>
 				        <th>Calidad de servicio</th>
-				        <td>{fixer.avg_rating} / 5</td>
+				        <td>{parseFloat(fixer.avg_rating).toFixed(1)} / 5</td>
 				      </tr>
 				      <tr>
 				        <th>Número de reseñas</th>

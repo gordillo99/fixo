@@ -81,7 +81,6 @@ export default class AdditionalQuestions extends Component {
   }
 
   render() {
-
     return (
       <div className={cx(s.formWrapper)}>
         <h2 className={s.centralizedDiv}>Danos detalles sobre lo que necesitas</h2>

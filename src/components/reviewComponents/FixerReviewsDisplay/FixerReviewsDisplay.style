@@ -4,8 +4,8 @@
 	text-align: center;
 }
 
-.leftAligned {
-	text-align: left;
+.paddingAbove {
+	padding-top: 10px;
 }
 
 .inlineEles {
@@ -21,4 +21,9 @@
 
 .noBottomMargin {
 	margin-bottom: 0px;
+}
+
+.list-group-item-info {
+    color: white;
+    background-color: #337AB7;
 }

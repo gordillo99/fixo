@@ -59,8 +59,8 @@ export default class FixerPanel extends Component {
 			  <Thumbnail src={showImage} alt='242x200'>
 			  	<h3>{this.props.fixer.firstname + ' ' + this.props.fixer.lastname}</h3>
 			  	<div className={s.leftAlignedDiv}>
-				  	<p>{this.props.fixer.description}</p>
-				  </div>
+				  <p>{this.props.fixer.description}</p>
+				</div>
 			  	<FixerReviewsDisplay 
 			  		showMoreReviews={this.props.showReviews}
 			  		fixerRating={this.props.fixer.avg_rating}

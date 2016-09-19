@@ -55,7 +55,7 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	clever text for profile (specially when no proposals are present) and also add Rafas text suggestions for starting page
+	clever text for profile (specially when no proposals are present)
 	add stars to ui
 	update carousel
 	move fb login (use context) (look at how error page does it)

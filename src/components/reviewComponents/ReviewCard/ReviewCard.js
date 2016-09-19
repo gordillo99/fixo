@@ -11,7 +11,7 @@ export default class ReviewCard extends Component {
 	render() {
 
 		return(
-			<div>
+			<div className={s.leftAligned}>
 				<ListGroupItem>
 					<p className={s.noBottomMargin}>Nombre: {this.props.review.firstname} {this.props.review.lastname[0] + '.'}<br/></p>
 					<ul className={s.noListStyle}>

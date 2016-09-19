@@ -30,6 +30,51 @@ export default class Questionnaire extends Component {
   }
 
   render() {
+    let questionForm = null;
+
+    if (this.props.qsAndAs) {
+      questionForm = this.props.qsAndAs.map((qAndA, index) => {
+        let prompt;
+        switch(qAndA.type) {
+          case 'select':
+            prompt =  <FormControl key={'qPromptSel-' + index} value={this.props.qsAndAs.a} componentClass='select' onChange={this._updateAnswers.bind(this, index)}>
+                        {qAndA.opts.map((opt, i) => { return <option key={'selOpt-' + i} value={opt}>{opt}</option> })}                      
+                      </FormControl>
+            break;
+          case 'textarea':
+            prompt = <FormControl key={'qPromptTa-' + index} value={this.props.qsAndAs.a} componentClass='textarea' onChange={this._updateAnswers.bind(this, index)} />
+            break;
+          case 'input':
+            prompt =  <FormControl
+                        key={'qPromptIn-' + index}
+                        type='text'
+                        onChange={this._updateAnswers.bind(this, index)}
+                        className={cx(s.qAnswers)}
+                        value={this.props.qsAndAs.a}
+                      />
+            break;
+          case 'upload':
+            prompt =  <div key={'div-' + index}>
+                        <FormControl key={'qFileUpload-' + index} type="file" onChange={this._updateAttachedImage.bind(this, index)} />
+                        <HelpBlock key={'helpblock-' + index}>Tamaño máximo es 2 MB</HelpBlock>
+                      </div>
+            break;
+          default:
+            prompt = null;
+            break;
+        } 
+        return (
+          <div key={'div-' + index}>
+            <FormGroup controlId='addQsControl' key={'qFormGroup-' + index}>
+              <ControlLabel className={cx(s.questionLabel)} key={'qControlLabel-' + index}>
+                {qAndA.q}
+              </ControlLabel>
+              {prompt}
+            </FormGroup>
+          </div>
+        )
+      })
+    }
 
     return (
       <div className={s.root}>
@@ -39,47 +84,7 @@ export default class Questionnaire extends Component {
               <Col md={4} xs={10} className={s.centerBlock}>
                 <div className={s.leftAlignedDiv}>
                   <form>
-                    {this.props.qsAndAs.map((qAndA, index) => {
-                      let prompt;
-                      switch(qAndA.type) {
-                        case 'select':
-                          prompt =  <FormControl key={'qPromptSel-' + index} value={this.props.qsAndAs.a} componentClass='select' onChange={this._updateAnswers.bind(this, index)}>
-                                      {qAndA.opts.map((opt, i) => { return <option key={'selOpt-' + i} value={opt}>{opt}</option> })}                      
-                                    </FormControl>
-                          break;
-                        case 'textarea':
-                          prompt = <FormControl key={'qPromptTa-' + index} value={this.props.qsAndAs.a} componentClass='textarea' onChange={this._updateAnswers.bind(this, index)} />
-                          break;
-                        case 'input':
-                          prompt =  <FormControl
-                                      key={'qPromptIn-' + index}
-                                      type='text'
-                                      onChange={this._updateAnswers.bind(this, index)}
-                                      className={cx(s.qAnswers)}
-                                      value={this.props.qsAndAs.a}
-                                    />
-                          break;
-                        case 'upload':
-                          prompt =  <div key={'div-' + index}>
-                                      <FormControl key={'qFileUpload-' + index} type="file" onChange={this._updateAttachedImage.bind(this, index)} />
-                                      <HelpBlock key={'helpblock-' + index}>Tamaño máximo es 2 MB</HelpBlock>
-                                    </div>
-                          break;
-                        default:
-                          prompt = null;
-                          break;
-                      } 
-                      return (
-                        <div key={'div-' + index}>
-                          <FormGroup controlId='addQsControl' key={'qFormGroup-' + index}>
-                            <ControlLabel className={cx(s.questionLabel)} key={'qControlLabel-' + index}>
-                              {qAndA.q}
-                            </ControlLabel>
-                            {prompt}
-                          </FormGroup>
-                        </div>
-                      )
-                    })}
+                    {questionForm}
                     <div className={cx(s.centeringDiv)}>
                       <Button bsStyle='primary' onClick={this._submitFinalAnswers.bind(this)} className={cx(s.acceptBtn)} type="submit">
                         Aceptar

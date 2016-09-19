@@ -3,8 +3,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Glyphicon, ListGroup, ListGroupItem } from 'react-bootstrap';
 import ReviewDisplay from '../ReviewDisplay';
+import StarDisplayer from '../StarDisplayer';
 import $ from 'jquery';
-import s from './FixerReviewsDisplay.css';
+import s from './FixerReviewsDisplay.style';
 
 export default class FixerReviewsDisplay extends Component {
 
@@ -45,7 +46,7 @@ export default class FixerReviewsDisplay extends Component {
 		} else if (this.props.numRatings > 1) {
 			if (this.props.showMoreReviews) {
 				return <div className={cx(s.centralizedDiv, s.paddingAbove)}>
-					       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver más reseñas</a>
+					       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver reseñas</a>
 				       </div>
 			}
 		}
@@ -59,7 +60,13 @@ export default class FixerReviewsDisplay extends Component {
 
 		return(
 			<ListGroup>
-		    <ListGroupItem bsStyle="info">Calidad de servicio: {this.props.fixerRating} / 5<br/> Número de reseñas: {this.props.numRatings}</ListGroupItem>
+		    <ListGroupItem bsStyle="info">
+			<ul className={s.noListStyle}>
+				<li className={s.inlineEles}><p>Calidad de servicio:</p></li>
+				<li className={s.inlineEles}><StarDisplayer starAmount={this.props.fixerRating}/></li>
+			</ul>
+			Número de reseñas: {this.props.numRatings}
+			</ListGroupItem>
 		    {this._handleReviewsDisplay()}
 		  </ListGroup>
 		);

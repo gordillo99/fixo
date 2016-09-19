@@ -18,10 +18,10 @@ export default class ReviewDisplay extends Component {
 	render() {
 
 		let reviewCards = this.props.reviews.map((review, index) => {
-					return <ReviewCard
-										key={`reviewCard-${index}`}
-										review={review}
-									/>
+			return <ReviewCard
+						key={`reviewCard-${index}`}
+						review={review}
+					/>
 		});
 
 		return(

@@ -15,7 +15,7 @@ export default class FixerCreate extends Component {
 			lastname: '',
 			phone: '',
 			email: '',
-			gender: 0,
+			gender: 1,
 			age: null,
 			profilepic: null,
 			fixersToAreas: [],
@@ -67,7 +67,7 @@ export default class FixerCreate extends Component {
 		var formData = new FormData();
 		formData.append('firstname', this.state.firstname);
 		formData.append('lastname', this.state.lastname);
-		formData.append('gender', (this.state.gender === 'hombre') ? 0 : 1);
+		formData.append('gender', (this.state.gender === 'hombre') ? 1 : 0);
 		formData.append('email', this.state.email);
 		formData.append('description', this.state.description);
 		formData.append('age', this.state.age);
@@ -184,8 +184,8 @@ export default class FixerCreate extends Component {
 				      </Col>
 				      <Col sm={6}>
 					      <FormControl value={this.props.gender} componentClass="select" onChange={this._updateProperty.bind(this, 'gender')}>
-					        <option value="hombre">hombre</option>
-					        <option value="mujer">mujer</option>
+					        <option value="1">hombre</option>
+					        <option value="0">mujer</option>
 					      </FormControl>
 				      </Col>
 				    </FormGroup>

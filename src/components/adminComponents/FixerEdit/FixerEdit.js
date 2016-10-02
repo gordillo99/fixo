@@ -189,7 +189,7 @@ export default class FixerEdit extends Component {
 		let selectedAreas = [];
 		let selectedCategories = [];
 		let showImagePreview = null;
-
+		console.log(this.state.gender);
 		this.state.fixersToAreas.map( (fixToArea) => {
 			selectedAreas.push(fixToArea.area_id - 1);
 		});
@@ -260,8 +260,8 @@ export default class FixerEdit extends Component {
 				      </Col>
 				      <Col sm={6}>
 					      <FormControl value={this.state.gender} componentClass="select" onChange={this._updateProperty.bind(this, 'gender')}>
-					        <option value="hombre">hombre</option>
-					        <option value="mujer">mujer</option>
+					        <option value="1">hombre</option>
+					        <option value="0">mujer</option>
 					      </FormControl>
 				      </Col>
 				    </FormGroup>

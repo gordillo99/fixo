@@ -57,3 +57,13 @@
   margin-left: 0px;
 }
 
+.indentedOnce {
+  text-indent: 1em;
+}
+
+.indentedTwice {
+  text-indent: 2em;
+}
+
+
+

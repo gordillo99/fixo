@@ -42,7 +42,7 @@ export default class FixerDetailsModal extends Component {
 				      </tr>
 				      <tr>
 				        <th>Género</th>
-				        <td>{(fixer.gender) ? 'mujer' : 'hombre'}</td>
+				        <td>{(fixer.gender) ? 'hombre' : 'mujer'}</td>
 				      </tr>
 				      <tr>
 				        <th>Calidad de servicio</th>

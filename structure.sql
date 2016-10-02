@@ -55,16 +55,14 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
+	investigate fixer create and update (make almost all fields not mandatory)
 	clever text for profile (specially when no proposals are present)
 	move fb login (use context) (look at how error page does it)
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
 	investigate ssl and https (lets encrypt)
 	add caching to fetching
-
-	figure out all fixer info that should be displayed
 	add right text to terms and contact
 	add all form validation (includes: enforce database entries max-string length)
-	security measures for website
 
 alternative to google analytics
 https://piwik.org/

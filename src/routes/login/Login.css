@@ -31,6 +31,12 @@
   padding-bottom: 20px;
 }
 
+.disclaimer {
+  font-size: 1em;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
 .formGroup {
   margin-bottom: 15px;
 }
@@ -98,7 +104,7 @@
 }
 
 .facebook:hover {
-  background: #2d4373;
+  background: white;
 }
 
 .google {

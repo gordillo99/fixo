@@ -189,7 +189,7 @@ export default class FixerEdit extends Component {
 		let selectedAreas = [];
 		let selectedCategories = [];
 		let showImagePreview = null;
-		console.log(this.state.gender);
+
 		this.state.fixersToAreas.map( (fixToArea) => {
 			selectedAreas.push(fixToArea.area_id - 1);
 		});

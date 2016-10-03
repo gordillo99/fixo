@@ -78,7 +78,7 @@ export default class MainPageStripe1 extends Component {
       <div className={s.root}>
         <div className={cx(s.centralizedDiv)}>
           <Jumbotron style={divStyle} className={cx(s.stripe1Jumbotron)}>
-            <h1 className={cx(s.welcomePageHeader)}>Encuentra gratis a tu fixer</h1>
+            <h1 className={cx(s.welcomePageHeader)}>Encuentra gratis a tu fixer!</h1>
             <Row className={s.row}>
               <Col md={8} xs={12} className={s.centerBlock}>
                 <div className={s.catsWrapper}>

@@ -25,3 +25,36 @@
 	/*border: 3px dotted white;*/
 	z-index: -1;
 }
+
+.bgImage {
+	background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.stripeText {
+	display: inline-block;
+	text-align: right;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    .stripeImage {
+		display: inline-block;
+		width: 100%;
+		height: 150px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+    .stripeImage {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.leftAligned {
+	width: 100%;
+	text-align: left;
+}

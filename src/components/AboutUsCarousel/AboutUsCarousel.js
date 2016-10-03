@@ -7,16 +7,34 @@ import programmingImage from './images/programming.jpg';
 import gardeningImage from './images/gardening.jpg';
 import entrepreneurImage from './images/emprendimiento.jpg';
 import fixoWhite from './images/fixo-white.png';
+import tools from './images/tools.jpg';
 import s from './AboutUsCarousel.css';
+import $ from 'jquery';
 
 export default class AboutUsCarousel extends Component {
 
   render() {
   	const Item = Carousel.Item;
   	const Caption = Carousel.Caption;
+		/*let divStyle = {
+      backgroundImage: `url(${tools})`
+    }*/
+		
     return (
       <div className={cx(s.root)}>
-      	<Carousel interval={5000} pauseOnHover={false}>
+      	<div className={s.leftAligned}>
+					<img className={s.stripeImage} src={tools} />
+				</div>
+      </div>
+    );
+  }
+}
+
+export default withStyles(s)(AboutUsCarousel);
+
+/*
+
+<Carousel interval={5000} pauseOnHover={false}>
 			    <Item>
 			    	<div className={s.centralizedDiv}>
 			    		<h1 className={s.header}>Operando orgullosamente en Guatemala</h1>
@@ -54,9 +72,4 @@ export default class AboutUsCarousel extends Component {
 			      </Caption>
 			    </Item>
 			  </Carousel>
-      </div>
-    );
-  }
-}
-
-export default withStyles(s)(AboutUsCarousel);
+*/

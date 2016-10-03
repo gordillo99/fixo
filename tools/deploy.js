@@ -15,7 +15,7 @@ import fetch from './lib/fetch';
 // For more information visit http://gitolite.com/deploy.html
 const getRemote = (slot) => ({
   name: 'production',
-  url: 'https://git.heroku.com/fixo.git',
+  url: 'https://git.heroku.com/fixostaging.git',
   website: 'http://fixo.herokuapp.com/',
 });
 

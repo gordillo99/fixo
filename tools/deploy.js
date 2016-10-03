@@ -13,18 +13,11 @@ import fetch from './lib/fetch';
 
 // TODO: Update deployment URL
 // For more information visit http://gitolite.com/deploy.html
-const getRemote = (slot) => {
-  let targetUrl = 'https://git.heroku.com/fixo.git';
-  if (slot === 'staging') {
-    targetUrl = 'https://git.heroku.com/fixostaging.git';
-  }
-
-  return {
-    name: 'production',
-    url: targetUrl,
-    website: 'http://fixo.herokuapp.com/',
-  }
-};
+const getRemote = (slot) => ({
+  name: 'production',
+  url: 'https://git.heroku.com/fixo.git',
+  website: 'http://fixo.herokuapp.com/',
+});
 
 /**
  * Deploy the contents of the `/build` folder to a remote

@@ -9,6 +9,10 @@ create table fixers (id bigserial primary key, firstname varchar(255) not null, 
 
 insert into fixers (firstname, lastname, phone, email, age, gender, profilepic) VALUES ('Yoly', 'Flores', '64648093','thatemai456l@gmail.com', 25, 1, NULL);
 
+	#possible genders:
+	0 female
+	1 male
+
 FIXERS_TO_AREAS
 create table fixers_to_areas (id bigserial primary key, fixer_id int references fixers(id) ON DELETE CASCADE, area_id int references areas(id));
 
@@ -59,11 +63,11 @@ TODOs:
 	clever text for profile (specially when no proposals are present)
 	move fb login (use context) (look at how error page does it)
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
-	investigate ssl and https (lets encrypt)
+	implement own ssl certificate ssl heroku endpoint
 	add caching to fetching
-	add right text to terms and contact
 	add all form validation (includes: enforce database entries max-string length)
 
 alternative to google analytics
 https://piwik.org/
 
+cat .\create_tables.sql | heroku pg:psql -a fixostaging

@@ -1,7 +1,7 @@
 @import '../variables.css';
 
 .root {
-	background-color: #1A8CF0;
+	/*background-color: #1A8CF0;*/
 }
 
 .centralizedDiv {
@@ -42,7 +42,16 @@
     .stripeImage {
 		display: inline-block;
 		width: 100%;
-		height: 150px;
+		height: 100px;
+	}
+
+	.mobileInvisible {
+		display: none;
+		visibility: hidden;
+	}
+
+	.mobileVisible {
+		visibility: visible;
 	}
 }
 
@@ -51,6 +60,15 @@
 		display: inline-block;
 		width: 100%;
 		height: auto;
+	}
+
+	.mobileInvisible {
+		visibility: visible;
+	}
+
+	.mobileVisible {
+		display: none;
+		visibility: hidden;
 	}
 }
 

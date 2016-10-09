@@ -27,10 +27,6 @@ function Login(props, context) {
           <p className={s.lead}>Para proteger tu privacidad y asegurarnos que no eres un robot, por favor inicia sesión usando tu cuenta de Facebook</p>
           <img src={technology} height='128px' width='128px' />
           <img src={security} height='128px' width='128px' />
-          <div className={s.leftAligned}>
-            <p className={s.iconCredit}>Icon made by Freepik from www.flaticon.com</p>
-            <p className={cx(s.iconCredit, s.minimalBottomPadding)}>Icon made by AnhGreen from www.flaticon.com</p>
-          </div>
           <p className={s.disclaimer}>Al iniciar sesión, estas aceptando<br/> nuestros <a href="/terms">términos y condiciones</a></p>
           <div className={s.formGroup}>
             <a className={s.facebook} href={redirectAddress}>
@@ -47,6 +43,10 @@ function Login(props, context) {
               </svg>
               <span>Inicia Sesión con Facebook</span>
             </a>
+          </div>
+            <div className={s.leftAligned}>
+            <p className={s.iconCredit}>Icon made by Freepik from www.flaticon.com</p>
+            <p className={cx(s.iconCredit, s.minimalBottomPadding)}>Icon made by AnhGreen from www.flaticon.com</p>
           </div>
         </div>
       </div>

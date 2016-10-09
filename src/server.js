@@ -48,6 +48,11 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.join(__dirname, 'public')));
+// temporary for lets encrypt
+app.use(express.static('files'));
+app.use('/.well-known/acme-challenge', express.static('files'));
+
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ 
     extended: false,

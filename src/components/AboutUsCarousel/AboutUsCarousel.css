@@ -1,7 +1,7 @@
 @import '../variables.css';
 
 .root {
-	background-color: #1A8CF0;
+	/*background-color: #1A8CF0;*/
 }
 
 .centralizedDiv {
@@ -24,4 +24,55 @@
 	/*width: 100%;*/
 	/*border: 3px dotted white;*/
 	z-index: -1;
+}
+
+.bgImage {
+	background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.stripeText {
+	display: inline-block;
+	text-align: right;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    .stripeImage {
+		display: inline-block;
+		width: 100%;
+		height: 100px;
+	}
+
+	.mobileInvisible {
+		display: none;
+		visibility: hidden;
+	}
+
+	.mobileVisible {
+		visibility: visible;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+    .stripeImage {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+
+	.mobileInvisible {
+		visibility: visible;
+	}
+
+	.mobileVisible {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+.leftAligned {
+	width: 100%;
+	text-align: left;
 }

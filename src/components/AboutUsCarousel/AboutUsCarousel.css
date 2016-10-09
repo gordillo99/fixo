@@ -38,7 +38,7 @@
 
 
 
-@media only screen and (max-width:700px) {
+@media only screen and (max-width: 1000px) {
     .stripeImage {
 		display: inline-block;
 		width: 100%;
@@ -55,7 +55,7 @@
 	}
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 1000px) {
     .stripeImage {
 		display: inline-block;
 		width: 100%;

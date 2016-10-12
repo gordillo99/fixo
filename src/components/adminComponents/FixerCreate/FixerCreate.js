@@ -65,11 +65,11 @@ export default class FixerCreate extends Component {
 
 	_createFixer() {
 		var formData = new FormData();
-		formData.append('firstname', this.state.firstname);
-		formData.append('lastname', this.state.lastname);
+		formData.append('firstname', this.state.firstname ? this.state.firstname : "");
+		formData.append('lastname', this.state.lastname ? this.state.lastname : "");
 		formData.append('gender', (this.state.gender === 'hombre') ? 1 : 0);
-		formData.append('email', this.state.email);
-		formData.append('description', this.state.description);
+		formData.append('email', this.state.email ? this.state.email : "");
+		formData.append('description', this.state.description ? this.state.description : "");
 		formData.append('age', this.state.age);
 		formData.append('phone', this.state.phone);
 		if (this.state.profilepic !== null && this.state.profilepic !== undefined) {

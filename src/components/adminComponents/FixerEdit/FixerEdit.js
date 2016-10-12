@@ -28,14 +28,14 @@ export default class FixerEdit extends Component {
 
 		this.state = {
 			id: this.props.id,
-			firstname: this.props.firstname,
-			lastname: this.props.lastname,
-			phone: this.props.phone,
-			email: this.props.email,
+			firstname: this.props.firstname ? this.props.firstname : "",
+			lastname: this.props.lastname ? this.props.lastname : "",
+			phone: this.props.phone ? this.props.phone : "",
+			email: this.props.email ? this.props.email : "",
 			gender: this.props.gender,
 			age: this.props.age,
 			profilepic: this.props.profilepic,
-			description: this.props.description,
+			description: this.props.description ? this.state.description : "",
 			fixersToAreas: fixersToAreas,
 			fixersToCategories: fixersToCategories,
 			open: false

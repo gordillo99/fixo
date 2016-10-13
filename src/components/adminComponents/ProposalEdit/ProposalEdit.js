@@ -167,7 +167,8 @@ export default class ProposalEdit extends Component {
   }
 
 	_sendEmailUpdatedDateEmailToUser() {
-		if (this.props.emaill == null || this.props.email == undefined || this.props.email.length === 0) {
+		console.log(this.props.email);
+		if (this.props.email === null || this.props.email === undefined || this.props.email.length === 0) {
 			return false;
 		}
 

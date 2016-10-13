@@ -17,11 +17,12 @@ export default class AnswersDisplay extends Component {
 	        		let answer = null;
 	        		let image = null;
 	        		if (qAndA.type === 'upload') {
-	        			if (this.props.rawImages) {
+	        			/*if (this.props.rawImages) {
 		        			image = 'data:image/png;base64,' + arrBuffToBase64(qAndA.a.data);
 		        		} else {
 		        			image = URL.createObjectURL(qAndA.a);
-		        		}
+		        		}*/
+						image = 'data:image/png;base64,' + arrBuffToBase64(qAndA.a.data);
 	        			answer = <img height='80px' widt='80px' src={image} alt='image'/>
 	        		} else {
 	        			answer = <p>{qAndA.a}</p>

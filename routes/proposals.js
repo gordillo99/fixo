@@ -41,7 +41,7 @@ router.route('/crud/addQuestionsImage')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
@@ -66,9 +66,8 @@ router.route('/crud')
 
     var fs = require('fs'),
         imageFile,
-        imagePath;
-
-    var data,
+        imagePath,
+        data,
         imageData = null,
         response = res;
 
@@ -159,6 +158,7 @@ router.route('/crud')
       var datesObj = JSON.parse(data.dates);
 
       var propNames = Object.getOwnPropertyNames(datesObj);
+      if (Object.keys(propNames).length === 0) return; 
 
       propNames.forEach(function(name){
         params.push(proposal_id);

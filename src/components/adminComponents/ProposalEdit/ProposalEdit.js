@@ -169,6 +169,7 @@ export default class ProposalEdit extends Component {
 	_sendEmailUpdatedDateEmailToUser() {
 		console.log(this.props.email);
 		if (this.props.email === null || this.props.email === undefined || this.props.email.length === 0) {
+			console.log('return false');
 			return false;
 		}
 
@@ -196,13 +197,14 @@ export default class ProposalEdit extends Component {
     	handleAs: 'json',
 			processData: false,
     	success: function(data) {
-				if (data) alert('Propuesta fue actualizada exitosamente!');
+				if (data) alert('Correo fue enviado al usuario.');
     	}.bind(this),
     	error: function(xhr, status, err) {
 				alert('Error enviando correo al usuario.');
      		console.log(err);
     	}.bind(this)
 	  });
+		return true;
 	}
 
 	_updateSelectedDate() {
@@ -227,7 +229,7 @@ export default class ProposalEdit extends Component {
 				if (!this._sendEmailUpdatedDateEmailToUser()) {
 					alert('Email de usuario es incorrecto. No se pudo enviar correo avisando de nueva fecha. Por favor contactar a usuario directamente.');
 				}
-				if (data) alert('Propuesta fue actualizada exitosamente!');
+				//if (data) alert('Propuesta fue actualizada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
 				alert('Error actualizando la fecha de la propuesta.');

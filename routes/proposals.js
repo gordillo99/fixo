@@ -45,6 +45,23 @@ router.route('/crud/addQuestionsImage')
     });
   });
 
+  router.route('/get/attachedImages/:proposal_id')
+
+  .get(function(req, res) {
+    connection.db.manyOrNone({
+      name: "get-attached-image-for-proposal",
+      text: "select * from add_questions_image where proposal_id = $1;",
+      values: [req.params.proposal_id]
+    })
+      .then(function (data) {
+        res.send(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.send(500);    
+    });
+  });
+
 router.route('/crud')
 
   .get(function(req, res) {

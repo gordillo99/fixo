@@ -32,7 +32,8 @@ export default class ProposalEdit extends Component {
 			category: catEnglishToSpanish(this.props.category),
 			status: this.props.status,
 			open: false,
-			selectedDate: null
+			selectedDate: null,
+			attachedImage: null
 		};
 	}
 
@@ -167,9 +168,7 @@ export default class ProposalEdit extends Component {
   }
 
 	_sendEmailUpdatedDateEmailToUser() {
-		console.log(this.props.email);
 		if (this.props.email === null || this.props.email === undefined || this.props.email.length === 0) {
-			console.log('return false');
 			return false;
 		}
 
@@ -238,6 +237,23 @@ export default class ProposalEdit extends Component {
 	  });
 	}
 
+	_showAttachedImages() {
+		$.ajax({
+    	url: `/api/proposals/get/attachedImages/${this.state.id}`,
+    	type: 'GET',
+    	cache: false,
+    	success: function(data) {
+				console.log(data);
+				if (data.length === 0) this.setState({attachedImage: 'No hay imágenes añadidas.'}); 
+				else this.setState({attachedImage: data});
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+				alert('Error mostrando imágenes añadidas.');
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
 		let qsAndAs = [];
@@ -288,6 +304,16 @@ export default class ProposalEdit extends Component {
 			this.state.dates.map((date, index) => {
 				pdfParameters[`date${index}`] = date;
 			});
+		}
+
+		let attachedImageComponent = null;
+		if (this.state.attachedImage) {
+			if(this.state.attachedImage === 'No hay imágenes añadidas.') {
+				attachedImageComponent = <h4>No hay imágenes añadidas.</h4>
+			} else if(this.state.attachedImage.length > 0){
+				const image = 'data:image/png;base64,' + arrBuffToBase64(this.state.attachedImage[0].answer.data);
+	      attachedImageComponent = <img height='80px' widt='80px' src={image} alt='image'/>
+			}
 		}
 
 		pdfParameters.numberOfQs = counter;
@@ -435,9 +461,15 @@ export default class ProposalEdit extends Component {
 				      </Col>
 				    </FormGroup>
 				  </Form>
+					{attachedImageComponent}
 				  <Row className={s.row}>
 			      <Col sm={10}>
 			      	<ul className={cx(s.noListStyle)}>
+								<li className={cx(s.inline)}>
+									<Button onClick={this._showAttachedImages.bind(this)}>
+										Mostrar Imagen 
+									</Button>
+					      </li>
 			      		<li className={cx(s.inline)}>
 			      			<a href={`/pdf/pdfGenerator?${stringifiedState}`}>
 						        <Button>

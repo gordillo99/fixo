@@ -23,7 +23,7 @@ export default class AdminProposal extends Component {
 		let areas = null;
 		let categories = null;
 		let txtQsAndAs = null;
-		let imgQsAndAs = null;
+		//let imgQsAndAs = null;
 
 	  let getAreas = $.ajax({
     	url: '/api/areas/crud/',
@@ -67,7 +67,7 @@ export default class AdminProposal extends Component {
     	}.bind(this)
 	  });
 
-	  let getImgQsAndAs = $.ajax({
+	  /*let getImgQsAndAs = $.ajax({
     	url: '/api/proposals/crud/addQuestionsImage',
     	type: 'GET',
     	dataType: 'json',
@@ -79,7 +79,7 @@ export default class AdminProposal extends Component {
      		console.log(err);
 			 alert('Error obteniendo la información de la propuesta.');
     	}.bind(this)
-	  });
+	  });*/
 
 	  let getProposals = $.ajax({
     	url: '/api/proposals/crud/',
@@ -92,7 +92,7 @@ export default class AdminProposal extends Component {
     			areas: areas,
     			categories: categories,
     			addQuestionsTxt: txtQsAndAs,
-    			addQuestionsImage: imgQsAndAs
+    			//addQuestionsImage: imgQsAndAs
     		});
     	}.bind(this),
     	error: function(xhr, status, err) {
@@ -101,7 +101,8 @@ export default class AdminProposal extends Component {
     	}.bind(this)
 	  });
 
-	  $.when(getAreas, getCategories, getTxtQsAndAs, getImgQsAndAs).then(getProposals);
+	  //$.when(getAreas, getCategories, getTxtQsAndAs, getImgQsAndAs).then(getProposals);
+	  $.when(getAreas, getCategories, getTxtQsAndAs).then(getProposals);
 	}
 
 	render() {

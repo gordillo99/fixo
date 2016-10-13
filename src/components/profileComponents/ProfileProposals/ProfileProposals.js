@@ -34,6 +34,7 @@ export default class ProfileProposals extends Component {
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
+        alert('Un error ocurrió mientras recolectabamos tu información. Por favor refresca la página.');
       }.bind(this)
     });
   }

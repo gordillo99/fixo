@@ -24,7 +24,7 @@ router.route('/crud/addQuestionsTxt')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
@@ -58,7 +58,7 @@ router.route('/crud')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   })
 
@@ -68,8 +68,9 @@ router.route('/crud')
         imageFile,
         imagePath;
 
-    var data;
-    var imageData = null;
+    var data,
+        imageData = null,
+        response = res;
 
     /*
     var emailForReview = function() {
@@ -111,7 +112,7 @@ router.route('/crud')
         })
         .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          response.send(500);    
       });
     };
 
@@ -147,7 +148,7 @@ router.route('/crud')
         })
         .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          response.send(500);  
       });
     };
 
@@ -179,7 +180,8 @@ router.route('/crud')
           console.log('Proposed dates were added successfully.');
         })
         .catch(function (error) {
-          console.log(error);   
+          console.log(error);
+          response.send(500);  
       });
     };
 
@@ -227,7 +229,7 @@ router.route('/crud')
         })
         .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          response.send(500);    
       });
     };
 
@@ -274,7 +276,7 @@ router.route('/crud')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
@@ -291,7 +293,7 @@ router.route('/updateProposalState')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
@@ -308,7 +310,7 @@ router.route('/get/:user_id')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
@@ -325,13 +327,14 @@ router.route('/get/dates/:proposal_id')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
 router.route('/get/additional_info/:proposal_id')
 
   .get(function(req, res) {
+    var response = res;
     connection.db.manyOrNone({
       name: "add-info-txt",
       text: "select * from add_questions_txt where proposal_id = $1;",
@@ -351,12 +354,12 @@ router.route('/get/additional_info/:proposal_id')
           })
           .catch(function (error) {
             console.log(error);
-            res.send(error);    
+            response.send(500);    
         });
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        response.send(500);    
     });
   });
 
@@ -373,14 +376,14 @@ router.route('/updateHasReview/:proposal_id')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
     });
   });
 
 router.route('/updateSelectedDate/:proposal_id')
 
   .post(function(req, res) {
-
+    var response = res;
     connection.db.manyOrNone({
       name: "update-selected-date",
       text: "update dates_to_proposals set selected = false where proposal_id = $1;",
@@ -397,12 +400,12 @@ router.route('/updateSelectedDate/:proposal_id')
           })
           .catch(function (error) {
             console.log(error);
-            res.send(false);    
+            response.send(500);    
         });
       })
       .catch(function (error) {
         console.log(error);
-        res.send(false);    
+        response.send(500);    
     });
   });
 

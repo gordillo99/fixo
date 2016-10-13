@@ -42,6 +42,7 @@ export default class ProposalCard extends Component {
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
+        alert('Error obteniendo la información para esta propuesta. Por favor refrescar la página.');
       }.bind(this)
     });
 

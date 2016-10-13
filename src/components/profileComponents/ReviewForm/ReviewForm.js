@@ -59,7 +59,7 @@ export default class ReviewForm extends Component {
             });
           }.bind(this),
           error: function(xhr, status, err) {
-            alert(err);
+            alert('Error creando tu reseña. Por favor vuelva a intentar más tarde.');
             console.log(err);
           }.bind(this)
         });

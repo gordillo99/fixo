@@ -35,6 +35,7 @@ export default class AdminProposal extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			alert('Error obteniendo la información de las áreas.');
     	}.bind(this)
 	  });
 
@@ -48,6 +49,7 @@ export default class AdminProposal extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			alert('Error obteniendo las categorías.');
     	}.bind(this)
 	  });
 
@@ -61,6 +63,7 @@ export default class AdminProposal extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			alert('Error obteniendo la información de la propuesta.');
     	}.bind(this)
 	  });
 
@@ -74,6 +77,7 @@ export default class AdminProposal extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			 alert('Error obteniendo la información de la propuesta.');
     	}.bind(this)
 	  });
 
@@ -93,6 +97,7 @@ export default class AdminProposal extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			alert('Error obteniendo la información de la propuesta.');
     	}.bind(this)
 	  });
 

@@ -90,6 +90,7 @@ export default class ProposalConfirmation extends Component {
 	      	}.bind(this),
 	      	error: function(xhr, status, err) {
 	       		console.log(err);
+				alert('Error creando la propuesta. Por favor refresque la página y vuelva a intentar.');
 	      	}.bind(this)
 		    });
 		    this.props.toNextStage();

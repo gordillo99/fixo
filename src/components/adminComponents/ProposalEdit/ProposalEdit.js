@@ -50,6 +50,7 @@ export default class ProposalEdit extends Component {
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.log(err);
+				alert('Error obteniendo las fechas de una propuesta.');
 			}.bind(this)
 		});
 	}
@@ -79,6 +80,7 @@ export default class ProposalEdit extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+				alert('Error actualizando la propuesta.');
     	}.bind(this)
 	  });
 	}
@@ -101,6 +103,7 @@ export default class ProposalEdit extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+				alert('Error borrando la propuesta.');
     	}.bind(this)
 	  });
 	}
@@ -164,6 +167,10 @@ export default class ProposalEdit extends Component {
   }
 
 	_sendEmailUpdatedDateEmailToUser() {
+		if (this.props.emaill == null || this.props.email == undefined || this.props.email.length === 0) {
+			return false;
+		}
+
 		const selDate = this.state.dates[this.state.selectedDate];
 		let dateFormat = require('dateformat');
 
@@ -191,7 +198,7 @@ export default class ProposalEdit extends Component {
 				if (data) alert('Propuesta fue actualizada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
-				alert(err);
+				alert('Error enviando correo al usuario.');
      		console.log(err);
     	}.bind(this)
 	  });
@@ -216,11 +223,13 @@ export default class ProposalEdit extends Component {
     	handleAs: 'json',
 			processData: false,
     	success: function(data) {
-				this._sendEmailUpdatedDateEmailToUser();
-				if (data) alert('Propuesta fue actualizada exitosamente! Enviando email a usuario...');
+				if (!this._sendEmailUpdatedDateEmailToUser()) {
+					alert('Email de usuario es incorrecto. No se pudo enviar correo avisando de nueva fecha. Por favor contactar a usuario directamente.');
+				}
+				if (data) alert('Propuesta fue actualizada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
-				alert(err);
+				alert('Error actualizando la fecha de la propuesta.');
      		console.log(err);
     	}.bind(this)
 	  });

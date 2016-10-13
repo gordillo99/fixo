@@ -38,7 +38,7 @@ export default class UserEdit extends Component {
     		alert('El usuario fue actualizado exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
-    		alert(err);
+    		alert('Error actualizando usuario');
      		console.log(err);
     	}.bind(this)
 	  });
@@ -59,7 +59,7 @@ export default class UserEdit extends Component {
 	    		alert('El usuario fue borrado exitosamente!');
 	    	}.bind(this),
 	    	error: function(xhr, status, err) {
-	    		alert(err);
+	    		alert('Error borrando usuario');
 	     		console.log(err);
 	    	}.bind(this)
 		  });

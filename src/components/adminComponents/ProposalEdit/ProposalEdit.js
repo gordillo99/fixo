@@ -32,7 +32,8 @@ export default class ProposalEdit extends Component {
 			category: catEnglishToSpanish(this.props.category),
 			status: this.props.status,
 			open: false,
-			selectedDate: null
+			selectedDate: null,
+			attachedImage: null
 		};
 	}
 
@@ -50,6 +51,7 @@ export default class ProposalEdit extends Component {
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.log(err);
+				alert('Error obteniendo las fechas de una propuesta.');
 			}.bind(this)
 		});
 	}
@@ -79,6 +81,7 @@ export default class ProposalEdit extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+				alert('Error actualizando la propuesta.');
     	}.bind(this)
 	  });
 	}
@@ -101,6 +104,7 @@ export default class ProposalEdit extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+				alert('Error borrando la propuesta.');
     	}.bind(this)
 	  });
 	}
@@ -164,6 +168,10 @@ export default class ProposalEdit extends Component {
   }
 
 	_sendEmailUpdatedDateEmailToUser() {
+		if (this.props.email === null || this.props.email === undefined || this.props.email.length === 0) {
+			return false;
+		}
+
 		const selDate = this.state.dates[this.state.selectedDate];
 		let dateFormat = require('dateformat');
 
@@ -188,13 +196,14 @@ export default class ProposalEdit extends Component {
     	handleAs: 'json',
 			processData: false,
     	success: function(data) {
-				if (data) alert('Propuesta fue actualizada exitosamente!');
+				if (data) alert('Correo fue enviado al usuario.');
     	}.bind(this),
     	error: function(xhr, status, err) {
-				alert(err);
+				alert('Error enviando correo al usuario.');
      		console.log(err);
     	}.bind(this)
 	  });
+		return true;
 	}
 
 	_updateSelectedDate() {
@@ -216,11 +225,30 @@ export default class ProposalEdit extends Component {
     	handleAs: 'json',
 			processData: false,
     	success: function(data) {
-				this._sendEmailUpdatedDateEmailToUser();
-				if (data) alert('Propuesta fue actualizada exitosamente! Enviando email a usuario...');
+				if (!this._sendEmailUpdatedDateEmailToUser()) {
+					alert('Email de usuario es incorrecto. No se pudo enviar correo avisando de nueva fecha. Por favor contactar a usuario directamente.');
+				}
+				//if (data) alert('Propuesta fue actualizada exitosamente!');
     	}.bind(this),
     	error: function(xhr, status, err) {
-				alert(err);
+				alert('Error actualizando la fecha de la propuesta.');
+     		console.log(err);
+    	}.bind(this)
+	  });
+	}
+
+	_showAttachedImages() {
+		$.ajax({
+    	url: `/api/proposals/get/attachedImages/${this.state.id}`,
+    	type: 'GET',
+    	cache: false,
+    	success: function(data) {
+				console.log(data);
+				if (data.length === 0) this.setState({attachedImage: 'No hay imágenes añadidas.'}); 
+				else this.setState({attachedImage: data});
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+				alert('Error mostrando imágenes añadidas.');
      		console.log(err);
     	}.bind(this)
 	  });
@@ -276,6 +304,16 @@ export default class ProposalEdit extends Component {
 			this.state.dates.map((date, index) => {
 				pdfParameters[`date${index}`] = date;
 			});
+		}
+
+		let attachedImageComponent = null;
+		if (this.state.attachedImage) {
+			if(this.state.attachedImage === 'No hay imágenes añadidas.') {
+				attachedImageComponent = <h4>No hay imágenes añadidas.</h4>
+			} else if(this.state.attachedImage.length > 0){
+				const image = 'data:image/png;base64,' + arrBuffToBase64(this.state.attachedImage[0].answer.data);
+	      attachedImageComponent = <img height='80px' widt='80px' src={image} alt='image'/>
+			}
 		}
 
 		pdfParameters.numberOfQs = counter;
@@ -423,9 +461,15 @@ export default class ProposalEdit extends Component {
 				      </Col>
 				    </FormGroup>
 				  </Form>
+					{attachedImageComponent}
 				  <Row className={s.row}>
 			      <Col sm={10}>
 			      	<ul className={cx(s.noListStyle)}>
+								<li className={cx(s.inline)}>
+									<Button onClick={this._showAttachedImages.bind(this)}>
+										Mostrar Imagen 
+									</Button>
+					      </li>
 			      		<li className={cx(s.inline)}>
 			      			<a href={`/pdf/pdfGenerator?${stringifiedState}`}>
 						        <Button>

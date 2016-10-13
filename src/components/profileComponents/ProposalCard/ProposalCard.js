@@ -42,6 +42,7 @@ export default class ProposalCard extends Component {
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
+        alert('Error obteniendo la información para esta propuesta. Por favor refrescar la página.');
       }.bind(this)
     });
 
@@ -248,7 +249,7 @@ export default class ProposalCard extends Component {
                   <li className={s.inlineEles}>
                     <h4>{`Propuesta creada el ${createdAt}, fixer: ${fixer.firstname} ${fixer.lastname}`}</h4>
                   </li>
-                  <li className={s.inlineEles, s.centralizedDiv}>
+                  <li className={cx(s.inlineEles, s.centralizedDiv)}>
                     <Button 
                       bsStyle='primary'
                       onClick={this._showProposalDetailsBtn.bind(this)}

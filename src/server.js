@@ -102,13 +102,8 @@ function redirectIfNotLoggedIn(req, res, next) {
 
 // route middleware to make sure a user is logged in (redirect if not)
 function handleCategoryRedirection(req, res, next) {
-  console.log(req.params);
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated()) return next();
-
-  if (req.params.cat === 'favicon.ico') {
-    return;
-  }
 
   // if they aren't redirect them to the home page
   res.redirect(`/login?redirectTo=setup/${req.params.cat}`);

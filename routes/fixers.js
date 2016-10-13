@@ -55,7 +55,8 @@ router.route('/crud/')
         })
         .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          error.errStat = true;
+          response.send(error);    
         });
     }
 
@@ -83,7 +84,7 @@ router.route('/crud/')
       })
       .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          res.send(false);    
       });
   });
 
@@ -121,39 +122,40 @@ router.route('/getAllAreas')
       });
   });
 
-  var updateFixer = function(fixer, imgData) {
-    var queryUpdateImage = '';
-    var values = [];
-
-    if (imgData !== null && imgData !== undefined) {
-      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9;";
-      values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, imgData, fixer.id];
-    } else {
-      queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7 where id=$8;"
-      values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.id];
-    }
-
-    connection.db.manyOrNone({
-      name: "update-fixer",
-      text: queryUpdateImage,
-      values: values
-    })
-      .then(function () {
-        return;
-      })
-      .catch(function (error) {
-        console.log(error);
-        res.send(error);    
-      });
-  }
-
   router.route('/crud/updateFixerAtributes')
 
   .post(multer({ dest: __dirname + '/temp/' }).single('profilepic'), function(req, res) {
-
     var fs = require('fs'),
+        response = res,
         imageFile,
         imagePath;
+
+    var updateFixer = function(fixer, imgData) {
+      var queryUpdateImage = '';
+      var values = [];
+
+      if (imgData !== null && imgData !== undefined) {
+        queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7, profilepic=$8 where id=$9;";
+        values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, imgData, fixer.id];
+      } else {
+        queryUpdateImage = "update fixers set firstname=$1, lastname=$2, phone=$3, email=$4, age=$5, gender=$6, description=$7 where id=$8;"
+        values = [fixer.firstname, fixer.lastname, fixer.phone, fixer.email, fixer.age, fixer.gender, fixer.description, fixer.id];
+      }
+
+      connection.db.manyOrNone({
+        name: "update-fixer",
+        text: queryUpdateImage,
+        values: values
+      })
+        .then(function () {
+          console.log('Fixer updated successfully!');
+          response.send(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+          response.send(false);  
+        });
+    }
 
     fixer = {
       id: req.body.id,
@@ -172,15 +174,18 @@ router.route('/getAllAreas')
       console.log('reading file...');
       // read in image in raw format (as type Buffer):
       fs.readFile(imagePath, function (err, imgData) {
-        if (err) console.log(err);
+        if (err) {
+          console.log(err);
+          res.send(false);
+          return;
+        }
+
         fs.unlink(imagePath, function() {
           updateFixer(fixer, imgData);
-          res.send(true);
         });
       });
     } else {
       updateFixer(fixer, null);
-      res.send(true);
     }
   });
 
@@ -230,7 +235,7 @@ router.route('/getAllAreas')
       var counter = 1;
 
       if(fixerProps.fixersToCategories.length === 0) {
-        insertNewFixerToCategories();
+        return;
       }
 
       fixerProps.fixersToAreas.map((fixToArea) => {

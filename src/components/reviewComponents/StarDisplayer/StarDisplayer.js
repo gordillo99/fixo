@@ -13,7 +13,7 @@ export default class StarDisplayer extends Component {
 	render() {
 		let starDisplay = null;
     let starNumber = (Math.round(parseFloat(this.props.starAmount) * 2) / 2).toFixed(1).toString();
-    console.log(`star number: ${starNumber}`);
+
 		switch (starNumber) {
       case '0.0':
         starDisplay = <ul className={s.noListStyle}>

@@ -28,14 +28,14 @@ export default class FixerEdit extends Component {
 
 		this.state = {
 			id: this.props.id,
-			firstname: this.props.firstname,
-			lastname: this.props.lastname,
-			phone: this.props.phone,
-			email: this.props.email,
+			firstname: this.props.firstname ? this.props.firstname : "",
+			lastname: this.props.lastname ? this.props.lastname : "",
+			phone: this.props.phone ? this.props.phone : "",
+			email: this.props.email ? this.props.email : "",
 			gender: this.props.gender,
 			age: this.props.age,
 			profilepic: this.props.profilepic,
-			description: this.props.description,
+			description: this.props.description ? this.props.description : "",
 			fixersToAreas: fixersToAreas,
 			fixersToCategories: fixersToCategories,
 			open: false
@@ -122,7 +122,7 @@ export default class FixerEdit extends Component {
 		formData.append('description', fixer.description);
 		formData.append('age', fixer.age);
 		formData.append('phone', fixer.phone);
-		formData.append('profilepic', fixer.profilepic.fileObject);
+		formData.append('profilepic', fixer.profilepic ? fixer.profilepic.fileObject : null);
 
 		data.fixer = fixer;
 		data.fixersToCategories = fixersToCategories;
@@ -136,7 +136,13 @@ export default class FixerEdit extends Component {
     	cache: false,
     	contentType: false,
 			processData: false,
-    	success: function() {
+    	success: function(status) {
+				if (!status) {
+					console.log('Error actualizando fixer.');
+					alert('Error actualizando fixer.');
+					return;
+				}
+
     		$.ajax({
 		    	url: '/api/fixers/crud/updateFixerCatsAndAreas',
 		    	type: 'POST',
@@ -148,6 +154,7 @@ export default class FixerEdit extends Component {
 		    	success: function() {
 		    		console.log('Fixer updated successfully!');
 		    		alert('El fixer fue actualizado exitosamente!');
+						location.reload();
 		    	}.bind(this),
 		    	error: function(xhr, status, err) {
 		    		alert(err);
@@ -172,9 +179,14 @@ export default class FixerEdit extends Component {
 	    	data: {
 	    		id: this.state.id
 	    	},
-	    	success: function() {
+	    	success: function(status) {
+					if (!status) {
+						alert('Error borrando al fixer.');
+						return;
+					} 
 	    		console.log('Fixer borrado successfully!');
 	    		alert('El fixer fue borrado exitosamente!');
+					location.reload();
 	    	}.bind(this),
 	    	error: function(xhr, status, err) {
 	    		alert(err);

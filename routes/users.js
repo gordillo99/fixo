@@ -16,7 +16,7 @@ router.route('/crud')
       })
       .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          res.send(500);    
       });
   })
 
@@ -31,7 +31,7 @@ router.route('/crud')
       })
       .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          res.send(500);    
       });
   })
 
@@ -46,7 +46,7 @@ router.route('/crud')
       })
       .catch(function (error) {
           console.log(error);
-          res.send(error);    
+          res.send(500);    
       });
   });
 

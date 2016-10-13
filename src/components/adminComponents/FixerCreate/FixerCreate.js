@@ -13,6 +13,7 @@ export default class FixerCreate extends Component {
 		this.state = {
 			firstname: '',
 			lastname: '',
+			description: '',
 			phone: '',
 			email: '',
 			gender: 1,
@@ -65,13 +66,13 @@ export default class FixerCreate extends Component {
 
 	_createFixer() {
 		var formData = new FormData();
-		formData.append('firstname', this.state.firstname);
-		formData.append('lastname', this.state.lastname);
+		formData.append('firstname', this.state.firstname ? this.state.firstname : "");
+		formData.append('lastname', this.state.lastname ? this.state.lastname : "");
 		formData.append('gender', (this.state.gender === 'hombre') ? 1 : 0);
-		formData.append('email', this.state.email);
-		formData.append('description', this.state.description);
-		formData.append('age', this.state.age);
-		formData.append('phone', this.state.phone);
+		formData.append('email', this.state.email ? this.state.email : "");
+		formData.append('description', this.state.description ? this.state.description : "");
+		formData.append('age', this.state.age ? this.state.age : 0);
+		formData.append('phone', this.state.phone ? this.state.phone : "");
 		if (this.state.profilepic !== null && this.state.profilepic !== undefined) {
 			formData.append('profilepic', this.state.profilepic.fileObject);
 		}
@@ -85,9 +86,16 @@ export default class FixerCreate extends Component {
     	contentType: false,
 			processData: false,
     	success: function(fixerId) {
+				if (fixerId.errStat) {
+					console.log(fixerId);
+					alert('Error fixer no fue creado.');
+					return;
+				}
     		let data = {};
     		data.fixer = {};
     		data.fixer.id = Number(fixerId[0].id);
+				console.log(this.state);
+				console.log(this.state.fixersToAreas);
 				data.fixersToAreas = this.state.fixersToAreas.map((ele) => { return { fixer_id: Number(data.fixer.id), area_id: Number(ele.category_id) } });
 				data.fixersToCategories = this.state.fixersToCategories.map((ele) => { return { fixer_id: Number(data.fixer.id), category_id: Number(ele.category_id) } });
 

@@ -26,6 +26,7 @@ export default class AdminUser extends Component {
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
+			alert('Error obteniendo a los usuarios.');
     	}.bind(this)
 	  });
 	}

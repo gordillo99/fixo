@@ -58,8 +58,8 @@
 }
 
 .textImage {
-  border: 2px solid black;
-  border-radius: 5px;
+  /*border: 2px solid black;
+  border-radius: 5px;*/
 }
 
 .topMargin {
@@ -83,4 +83,28 @@
 .workerName{
   margin-top: 5px;
   margin-bottom: 0px;
+}
+
+@media only screen and (max-width: 1000px) {
+
+	.mobileInvisible {
+		display: none;
+		visibility: hidden;
+	}
+
+	.mobileVisible {
+		visibility: visible;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+
+	.mobileInvisible {
+		visibility: visible;
+	}
+
+	.mobileVisible {
+		display: none;
+		visibility: hidden;
+	}
 }

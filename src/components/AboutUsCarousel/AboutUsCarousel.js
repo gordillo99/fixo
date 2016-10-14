@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Carousel, Jumbotron, Image } from 'react-bootstrap';
-import guatemalaImage from './images/guate-night.jpg';
-import programmingImage from './images/programming.jpg';
+import guatemalaImage from './images/guatemala-night.jpg';
+import programmingImage from './images/programming1.png';
 import gardeningImage from './images/gardening.jpg';
 import entrepreneurImage from './images/emprendimiento.jpg';
 import fixoWhite from './images/fixo-white.png';
@@ -13,9 +13,48 @@ import $ from 'jquery';
 
 export default class AboutUsCarousel extends Component {
 
-  render() {
-  	const Item = Carousel.Item;
+	_generateCarousel() {
+		const Item = Carousel.Item;
   	const Caption = Carousel.Caption;
+		const carouselArray = [
+			{
+				line: 'Operando orgullosamente en Guatemala',
+				alt: 'Guatemala',
+				image: guatemalaImage
+			},
+			{
+				line: 'Ayudamos a fixers a encontrar más trabajo',
+				alt: 'Gardening',
+				image: gardeningImage
+			},
+			{
+				line: 'Somos emprendimiento social',
+				alt: 'Emprendimiento',
+				image: entrepreneurImage
+			},
+			{
+				line: 'Usamos tecnología de punta',
+				alt: 'Programming',
+				image: programmingImage
+			},
+		];
+
+		return carouselArray.map((item, index) => {
+			return(
+				<Item key={`carousel-item-${index}`}>
+					<div key={`carousel-div-${index}`} className={s.centralizedDiv}>
+						<h1 className={s.header} key={`carousel-titles-${index}`}>{item.line}</h1>
+						<Image key={`carousel-image-${index}`} className={s.carouselImage} width={700} height={400} alt={item.alt} src={item.image}/>
+					</div>
+					<Caption key={`carousel-caption-${index}`}>
+						<img key={`carousel-logo-${index}`} width={180} height={145} alt='fixo' src={fixoWhite} />
+					</Caption>
+				</Item>
+			);
+		});
+	}
+
+  render() {
 		/*let divStyle = {
       backgroundImage: `url(${tools})`
     }*/
@@ -26,42 +65,7 @@ export default class AboutUsCarousel extends Component {
 					<img className={cx(s.stripeImage, s.mobileInvisible)} src={tools} />
 					<div className={s.mobileVisible}>
 						<Carousel interval={5000} pauseOnHover={false}>
-							<Item>
-								<div className={s.centralizedDiv}>
-									<h1 className={s.header}>Operando orgullosamente en Guatemala</h1>
-									<Image className={s.carouselImage} width={700} height={400} alt='Guatemala' src={guatemalaImage}/>
-								</div>
-								<Caption>
-									<img width={180} height={145} alt='fixo' src={fixoWhite} />
-								</Caption>
-							</Item>
-							<Item>
-								<div className={s.centralizedDiv}>
-									<h1 className={s.header}>Ayudamos a fixers a encontrar más trabajo</h1>
-									<Image className={s.carouselImage} width={700} height={400} alt='Gardening' src={gardeningImage}/>
-								</div>
-								<Caption>
-									<img width={180} height={145} alt='fixo' src={fixoWhite} />
-								</Caption>
-							</Item>
-							<Item>
-								<div className={s.centralizedDiv}>
-									<h1 className={s.header}>Somos emprendimiento social</h1>
-									<Image className={s.carouselImage} width={700} height={400} alt='Emprendimiento' src={entrepreneurImage}/>
-								</div>
-								<Caption>
-									<img width={180} height={145} alt='fixo' src={fixoWhite} />
-								</Caption>
-							</Item>
-							<Item>
-								<div className={s.centralizedDiv}>
-									<h1 className={s.header}>Usamos tecnología de punta</h1>
-									<Image className={s.carouselImage} width={700} height={400} alt='Programming' src={programmingImage}/>
-								</div>
-								<Caption>
-									<img width={180} height={145} alt='fixo' src={fixoWhite} />
-								</Caption>
-							</Item>
+							{this._generateCarousel()}
 						</Carousel>
 					</div>
 				</div>
@@ -71,45 +75,3 @@ export default class AboutUsCarousel extends Component {
 }
 
 export default withStyles(s)(AboutUsCarousel);
-
-/*
-
-<Carousel interval={5000} pauseOnHover={false}>
-			    <Item>
-			    	<div className={s.centralizedDiv}>
-			    		<h1 className={s.header}>Operando orgullosamente en Guatemala</h1>
-			      	<Image className={s.carouselImage} width={700} height={400} alt='Guatemala' src={guatemalaImage}/>
-			      </div>
-			      <Caption>
-			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
-			      </Caption>
-			    </Item>
-					<Item>
-			    	<div className={s.centralizedDiv}>
-			    		<h1 className={s.header}>Ayudamos a fixers a encontrar más trabajo</h1>
-			      	<Image className={s.carouselImage} width={700} height={400} alt='Gardening' src={gardeningImage}/>
-			      </div>
-			      <Caption>
-			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
-			      </Caption>
-			    </Item>
-					<Item>
-			    	<div className={s.centralizedDiv}>
-			    		<h1 className={s.header}>Somos emprendimiento social</h1>
-			      	<Image className={s.carouselImage} width={700} height={400} alt='Emprendimiento' src={entrepreneurImage}/>
-			      </div>
-			      <Caption>
-			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
-			      </Caption>
-			    </Item>
-			    <Item>
-			    	<div className={s.centralizedDiv}>
-			    		<h1 className={s.header}>Usamos tecnología de punta</h1>
-			      	<Image className={s.carouselImage} width={700} height={400} alt='Programming' src={programmingImage}/>
-			      </div>
-			      <Caption>
-			        <img width={180} height={145} alt='fixo' src={fixoWhite} />
-			      </Caption>
-			    </Item>
-			  </Carousel>
-*/

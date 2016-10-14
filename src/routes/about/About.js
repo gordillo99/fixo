@@ -75,7 +75,7 @@ function About() {
                         </Left>
                         <Body>
                           <Heading className={cx(s.boldedText)}>Tecnología</Heading>
-                          <p>{socialText}</p>
+                          <p>{technologyText}</p>
                         </Body>
                       </Media>
                     </div>
@@ -85,6 +85,8 @@ function About() {
                     <p>{socialText}</p>
                     <h2>Servicio</h2>
                     <p>{serviceText}</p>
+                    <h2>Tecnología</h2>
+                    <p>{technologyText}</p>
                   </div>
                 </div>
                 <br/>

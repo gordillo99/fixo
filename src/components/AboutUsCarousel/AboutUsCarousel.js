@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Carousel, Jumbotron, Image } from 'react-bootstrap';
-import guatemalaImage from './images/guate-night.jpg';
+import guatemalaImage from './images/guatemala-night.jpg';
 import programmingImage from './images/programming1.png';
 import gardeningImage from './images/gardening.jpg';
 import entrepreneurImage from './images/emprendimiento.jpg';

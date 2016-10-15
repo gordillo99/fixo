@@ -8,26 +8,93 @@ import s from './SetupForm.style';
 export default class SetupForm extends Component {
 
   _getValidationStateOfAddr() {
-    const length = this.props.address.length;
-    if (length === 0) return 'error';
+    if (this.props.address.length === 0 || this.props.address.length > 255) return 'error';
     return 'success';
   }
 
   _getValidationStateOfPhone() {
-    const length = this.props.phone.length;
-    if (length < 8) return 'error';
+    if (this.props.phone.length < 8 || this.props.phone.length > 20) return 'error';
     return 'success';
   }
 
   _getValidationStateOfEmail() {
-    const length = this.props.email.length;
-    if (length === 0) return 'error';
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (this.props.email.length === 0 || !re.test(this.props.email) || this.props.email > 255) return 'error';
     return 'success';
   }
 
   _confirm(evt) {
     evt.preventDefault();
+    
+    if (!this._validatePhone(this.props.phone)) return;
+    if (!this._validateEmail(this.props.email)) return;
+    if (!this._validateAddress(this.props.address)) return;
+    if (!this._validateDates(this.props.dates)) return;
+    
     this.props.toNextStage();
+  }
+
+  _validatePhone(phone) {
+    if (phone.length > 20) {
+      alert('Por favor ingresar un número de teléfono con menos de 20 caracteres.');
+      return false;
+    }
+    if (phone.length === 0) {
+      alert('Por favor ingresar un número de teléfono.');
+      return false;
+    }
+    return true;
+  }
+
+  _validateAddress(address) {
+    if (address.length > 255) {
+      alert('Por favor ingresar un dirección con menos de 255 caracteres.');
+      return false;
+    }
+    if (address.length === 0) {
+      alert('Por favor ingresar una dirección.');
+      return false;
+    }
+    return true;
+  }
+
+  _validateEmail(mail) {
+    if (mail.length > 255) {
+      alert('Por favor ingresar un email con menos de 255 caracteres.');
+      return false;
+    }
+
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(mail)) {
+      return true;
+    } else {
+      alert('Tu email es inválido. Por favor ingresar un email válido.');  
+      return false;  
+    } 
+  }
+
+  _validateDates() {
+    if (this.props.dates.length === 0) {
+      alert('Por favor seleccionar al menos una fecha.');
+      return false;
+    }
+
+    let i = 0;
+    for (; i < this.props.dates.length ; i++) {
+      if (this.props.ampm[i] === 'AM') {
+        if (parseInt(this.props.times[i]) < 9 || parseInt(this.props.times[i]) > 11) {
+          alert('Por favor seleccionar una hora entre 9 AM y 5 PM.');
+          return false;
+        }
+      } else if (this.props.ampm[i] === 'PM') {
+        if (parseInt(this.props.times[i]) > 5 && parseInt(this.props.times[i]) !== 12) {
+          alert('Por favor seleccionar una hora entre 9 AM y 5 PM.');
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+    return true;
   }
 
   _createSelectTimeForms() {
@@ -62,6 +129,11 @@ export default class SetupForm extends Component {
   }
 
   render() {
+    console.log(this.props.dates);
+    console.log(this.props.times);
+    console.log(this.props.mins);
+    console.log(this.props.ampm);
+
     return (
       <div>
         <Jumbotron className={cx(s.stripeJumbotron)}>
@@ -110,16 +182,3 @@ export default class SetupForm extends Component {
 }
 
 export default withStyles(s)(SetupForm);
-
-/*  
-<div className={cx(s.dateDesc)}>
-    <p>
-      {this.state.dates.map(date => {
-        
-      })}
-      Ha seleccionado el {this.props.date.getDate() + '/' + (this.props.date.getMonth() + 1) + '/' + this.props.date.getFullYear()} en la { (this.props.morning) ? 'mañana' : 'tarde' }
-    </p>
-  </div>
-
-
-*/

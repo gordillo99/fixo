@@ -16,13 +16,14 @@ router.route('/crud/:proposal_id')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        res.send(500);    
       });
   });
 
 router.route('/crud')
 
   .post(function(req, res) {
+    var response = res;
     connection.db.manyOrNone({
       name: "create-a-review",
       text: "insert into reviews (user_id, fixer_id, proposal_id, rating, comment) values ($1, $2, $3, $4, $5);",
@@ -35,7 +36,7 @@ router.route('/crud')
           values: [req.body.fixer_id]
         })
           .then(function (data) {
-            var sum = 4; //default starting value
+            var sum = 5; //default starting value
             var totalEles = data.length + 1; //default starting review
             data.map((review, index) =>{
               sum += review.rating;
@@ -50,21 +51,21 @@ router.route('/crud')
               values: [avg, totalEles, req.body.fixer_id]
             })
               .then(function () {
-                res.send(true)
+                response.send(true)
               })
               .catch(function (error) {
                 console.log(error);
-                res.send(error);    
+                response.send(500);    
               });
           })
           .catch(function (error) {
             console.log(error);
-            res.send(error);    
+            response.send(500);    
           });
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error);    
+        response.send(500);    
       });
   });
 
@@ -81,7 +82,7 @@ router.route('/crud/fixer/:fixer_id')
       })
       .catch(function (error) {
         console.log(error);
-        res.send(error); 
+        res.send(500); 
       });
   });
 

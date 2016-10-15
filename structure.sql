@@ -59,14 +59,13 @@ create table offers (id bigserial primary key unique, proposal_id int references
 
 TODOs:
 
-	investigate fixer create and update (make almost all fields not mandatory)
+	add all form validation (includes: enforce database entries max-string length)
 	clever text for profile (specially when no proposals are present)
 	move fb login (use context) (look at how error page does it)
 	implement scheduler workaround http://www.spacjer.com/blog/2014/02/10/defining-node-dot-js-task-for-heroku-scheduler/
 	implement own ssl certificate ssl heroku endpoint
 	add caching to fetching
-	add all form validation (includes: enforce database entries max-string length)
-
+	
 alternative to google analytics
 https://piwik.org/
 

@@ -55,11 +55,11 @@
   width: 150px;
   height: 150px;
   background: #1A8CF0;
-  border: 3px dotted white;
+  /*border: 3px dotted white;*/
   text-align: center;
   margin: auto;
 }
 
 .circleIcon {
-  margin-top: 37px;
+  margin-top: 45px;
 }

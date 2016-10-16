@@ -77,6 +77,14 @@ export default class AdditionalQuestions extends Component {
   }
 
   _updateFinalAnswers(answers) {
+    if (answers[0].a.length === 0) {
+      alert('Por favor ingresa una breve descripción de lo que necesitas.');
+      return;
+    }
+    if (answers[0].a.length > 254) {
+      alert('Por favor describe lo que necesitas en menos de 254 caracteres.');
+      return;
+    }
     this.props.saveAnswers(answers);
   }
 

@@ -37,11 +37,11 @@ passport.use(new FacebookStrategy({
 }, (req, accessToken, refreshToken, profile, done) => {
   /* eslint-disable no-underscore-dangle */
 
-  fbId = profile.id;
-  name = profile.name;
-  profileUrl = profile.profileUrl;
-  emails = profile.emails;
-  gender = profile.gender;
+  fbId = profile.id ? profile.id : 'id';
+  name = profile.name ? profile.name : {givenName: 'firstname', familyName: 'lastname'};
+  profileUrl = profile.profileUrl ? profile.profileUrl : 'profileurl';
+  emails = profile.emails ? profile.emails : ['defaultEmail'];
+  gender = profile.gender ? profile.gender : 'male';
 
   let genderForDb;
 

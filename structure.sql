@@ -70,3 +70,13 @@ alternative to google analytics
 https://piwik.org/
 
 cat .\create_tables.sql | heroku pg:psql -a fixostaging
+
+
+
+//run commands on heroku server
+heroku run bash -a fixo
+
+
+logs from app on heroku 
+//-n is number of lines
+heroku logs -n 1000 --source app -a fixo

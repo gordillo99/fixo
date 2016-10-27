@@ -26,6 +26,11 @@ export default class ReviewForm extends Component {
   }
 
   _createReviewInDb() {
+    if (this.state.comment.length > 255) {
+      alert("Por favor ingresar comentarios de menos de 255 caracteres,");
+      return;
+    }
+
     let data = {
       rating: Number(this.state.selectedValue),
       comment: this.state.comment,

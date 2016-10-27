@@ -29,7 +29,7 @@ export default class SetupForm extends Component {
     if (!this._validatePhone(this.props.phone)) return;
     if (!this._validateEmail(this.props.email)) return;
     if (!this._validateAddress(this.props.address)) return;
-    if (!this._validateDates(this.props.dates)) return;
+    if (!this._validateDates()) return;
     
     this.props.toNextStage();
   }
@@ -73,8 +73,9 @@ export default class SetupForm extends Component {
   }
 
   _validateDates() {
-    if (this.props.dates.length === 0) {
-      alert('Por favor seleccionar al menos una fecha.');
+    console.log("dates " + this.props.dates.length);
+    if (this.props.dates.length < 3) {
+      alert('Por favor seleccionar 3 fechas diferentes.');
       return false;
     }
 
@@ -156,7 +157,7 @@ export default class SetupForm extends Component {
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
                     <h2 className={s.centralizedDiv}>¿Cuándo debería llegar el fixer?</h2>
-                    <h4 className={s.centralizedDiv}>Para asegurar que tu fixer esté disponible, escoge 3 fechas como máximo y, luego, te confirmaremos qué fecha escogió tu fixer.</h4>
+                    <h4 className={s.centralizedDiv}>Para asegurar que tu fixer esté disponible, escoge 3 fechas y, luego, te confirmaremos qué fecha escogió tu fixer.</h4>
                     <div className={cx(s.datePicker)}>
                       <DatePicker
                         isSameDate={this.props.isSameDate}

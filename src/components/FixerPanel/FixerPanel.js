@@ -12,9 +12,14 @@ export default class FixerPanel extends Component {
 	constructor(props, context) {
 		super();
 		this.state = {
-			showModal: false,
-			context: context
+			showModal: false
 		};
+	}
+
+	_confirmSelection() {
+		this.context.setFixer(this.props.fixer);
+		console.log(this.context.getFixer());
+		this.props.confirmSelection().bind(this, this.props.fixer);
 	}
 
 	_returnConfirmBtn() {
@@ -52,7 +57,7 @@ export default class FixerPanel extends Component {
 	render() {
 		//this.state.context.setFixer({hey: 'fuck yeah'});
 		//console.log(this.state.context.setFixer({mother: 'fucker'}));
-		console.log(this.state.context.getFixer());
+		console.log(this.context.getFixer());
 		let showImage = null;
 		if (this.props.fixer.profilepic) {
 			showImage = 'data:image/png;base64,' + arrBuffToBase64(this.props.fixer.profilepic.data);

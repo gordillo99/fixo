@@ -11,6 +11,10 @@ import s from './ProposalConfirmation.css';
 
 export default class ProposalConfirmation extends Component {
 
+	constructor(props, context) {
+		super();
+	}
+
 	_showProposedDates() {
 		return this.props.selection.dates.map((date, index) => {
 			const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -146,5 +150,10 @@ export default class ProposalConfirmation extends Component {
 		);
 	}
 }
+
+ProposalConfirmation.contextTypes = {
+	getFixer: PropTypes.func.isRequired,
+	getProposal: PropTypes.func.isRequired,
+};
 
 export default withStyles(s)(ProposalConfirmation);

@@ -20,6 +20,7 @@ import {
   windowScrollX,
   windowScrollY,
 } from './core/DOMUtils';
+import $ from 'jquery';
 
 let fixer = { hey: 'asdf' };
 let proposal = { there: 'asdfasdf' };
@@ -27,8 +28,8 @@ let proposal = { there: 'asdfasdf' };
 const context = {
   getProposal: () => { return proposal },
   getFixer: () => { return fixer },
-  setProposal: (p) => { proposal = p },
-  setFixer: (f) => { fixer = f },
+  setProposal: (p) => { proposal = $.extend({}, p) },
+  setFixer: (f) => { fixer = $.extend({}, f) },
   insertCss: (...styles) => {
     const removeCss = styles.map(style => style._insertCss()); // eslint-disable-line no-underscore-dangle, max-len
     return () => {

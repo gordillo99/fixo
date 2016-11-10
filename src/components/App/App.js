@@ -22,6 +22,10 @@ class App extends Component {
       insertCss: PropTypes.func,
       setTitle: PropTypes.func,
       setMeta: PropTypes.func,
+      setFixer: PropTypes.func,
+      setProposal: PropTypes.func,
+      getFixer: PropTypes.func,
+      getProposal: PropTypes.func,
     }),
     children: PropTypes.element.isRequired,
     error: PropTypes.object,
@@ -31,6 +35,10 @@ class App extends Component {
     insertCss: PropTypes.func.isRequired,
     setTitle: PropTypes.func.isRequired,
     setMeta: PropTypes.func.isRequired,
+    setFixer: PropTypes.func.isRequired,
+    setProposal: PropTypes.func.isRequired,
+    getFixer: PropTypes.func.isRequired,
+    getProposal: PropTypes.func.isRequired,
   };
 
   getChildContext() {
@@ -39,6 +47,10 @@ class App extends Component {
       insertCss: context.insertCss || emptyFunction,
       setTitle: context.setTitle || emptyFunction,
       setMeta: context.setMeta || emptyFunction,
+      setFixer: context.setFixer || emptyFunction,
+      setProposal: context.setProposal || emptyFunction,
+      getFixer: context.getFixer || emptyFunction,
+      getProposal: context.getProposal || emptyFunction,
     };
   }
 

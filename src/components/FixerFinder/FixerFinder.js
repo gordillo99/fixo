@@ -50,21 +50,21 @@ export default class FixerFinder extends Component {
 
 		if (!this.state.noResults) {
 			fixerList = <div>
-										<h1>Selecciona a tu fixer</h1>
-										{this.state.fixers.map( (fixer, index) => {return(
-											<FixerPanel 
-												key={`fixerPanel-${index}`}
-												showReviews={true}
-												fixer={fixer} showSelected={true}
-												confirmSelection={this._confirmFixerSelection.bind(this)}
-												showConfirmBtn={true}
-											/>
-										)})}
-									</div>
+							<h1>Selecciona a tu fixer</h1>
+							{this.state.fixers.map( (fixer, index) => {return(
+								<FixerPanel 
+									key={`fixerPanel-${index}`}
+									showReviews={true}
+									fixer={fixer} showSelected={true}
+									confirmSelection={this._confirmFixerSelection.bind(this)}
+									showConfirmBtn={true}
+								/>
+							)})}
+						</div>
 		}
 		
 		return (
-			<div>
+			  <div>
 				<Grid>
 				  <Row className={s.row}>
 				  	<Col md={4} xs={12} className={s.centerBlock}>

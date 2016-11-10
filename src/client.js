@@ -21,7 +21,14 @@ import {
   windowScrollY,
 } from './core/DOMUtils';
 
+let fixer = { hey: 'asdf' };
+let proposal = { there: 'asdfasdf' };
+
 const context = {
+  getProposal: () => { return proposal },
+  getFixer: () => { return fixer },
+  setProposal: (p) => { proposal = p },
+  setFixer: (f) => { fixer = f },
   insertCss: (...styles) => {
     const removeCss = styles.map(style => style._insertCss()); // eslint-disable-line no-underscore-dangle, max-len
     return () => {

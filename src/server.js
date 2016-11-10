@@ -203,7 +203,7 @@ app.get('*', async (req, res, next) => {
     let css = [];
     let statusCode = 200;
     const template = require('./views/index.jade'); // eslint-disable-line global-require
-    const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
+    const data = { title: '', description: '', css: '', body: '', entry: assets.main.js, fixer: {}, proposal: {} };
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
@@ -218,6 +218,10 @@ app.get('*', async (req, res, next) => {
         },
         setTitle: value => (data.title = value),
         setMeta: (key, value) => (data[key] = value),
+        setFixer: (fixer) => (data.fixer = fixer),
+        setProposal: (proposal) => (data.proposal = proposal),
+        getFixer: () => { return data.fixer },
+        getProposal: () => { return data.proposal },
       },
       render(component, status = 200) {
         css = [];

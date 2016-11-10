@@ -9,10 +9,11 @@ import s from './FixerPanel.style';
 
 export default class FixerPanel extends Component {
 
-	constructor() {
+	constructor(props, context) {
 		super();
 		this.state = {
-			showModal: false
+			showModal: false,
+			context: context
 		};
 	}
 
@@ -28,12 +29,12 @@ export default class FixerPanel extends Component {
 	}
 
 	_closeModal() {
-    this.setState({ showModal: false });
-  }
+		this.setState({ showModal: false });
+	}
 
-  _openModal() {
-    this.setState({ showModal: true });
-  }
+	_openModal() {
+		this.setState({ showModal: true });
+	}
 
 	_showModal() {
 		const Header = Modal.Header;
@@ -49,6 +50,9 @@ export default class FixerPanel extends Component {
 	}
 
 	render() {
+		//this.state.context.setFixer({hey: 'fuck yeah'});
+		//console.log(this.state.context.setFixer({mother: 'fucker'}));
+		console.log(this.state.context.getFixer());
 		let showImage = null;
 		if (this.props.fixer.profilepic) {
 			showImage = 'data:image/png;base64,' + arrBuffToBase64(this.props.fixer.profilepic.data);
@@ -75,5 +79,13 @@ export default class FixerPanel extends Component {
 		);
 	}
 }
+
+FixerPanel.contextTypes = {
+	setTitle: PropTypes.func.isRequired,
+	setFixer: PropTypes.func.isRequired,
+	setProposal: PropTypes.func.isRequired,
+	getFixer: PropTypes.func.isRequired,
+	getProposal: PropTypes.func.isRequired,
+};
 
 export default withStyles(s)(FixerPanel);

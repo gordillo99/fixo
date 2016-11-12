@@ -5,6 +5,7 @@ import { Panel, Thumbnail, Button, Modal } from 'react-bootstrap';
 import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import FixerReviewsDisplay from '../reviewComponents/FixerReviewsDisplay';
 import FixerDetailsModal from '../FixerDetailsModal';
+import $ from 'jquery';
 import s from './FixerPanel.style';
 
 export default class FixerPanel extends Component {
@@ -12,13 +13,40 @@ export default class FixerPanel extends Component {
 	constructor() {
 		super();
 		this.state = {
-			showModal: false
+			showModal: false,
+			isLoggedIn: false
 		};
+	}
+
+	 componentDidMount() {
+		$.ajax({
+			url: '/isLoggedIn',
+			type: 'GET',
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({ isLoggedIn: data });
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
+		});
+	}
+
+	_confirmSelection() {
+		const sel = this.props.selection;
+		sel.selectedFixer = this.props.fixer;
+		localStorage.setItem('fixer', this.props.fixer.id);
+		localStorage.setItem('proposal', JSON.stringify(this.props.selection));
+		localStorage.setItem('category', this.props.category);
+		if (this.state.isLoggedIn) window.location.replace('/confirmation');
+		else window.location.replace('/login?redirectTo=confirmation');
+		//this.props.confirmSelection(this.props.fixer);
 	}
 
 	_returnConfirmBtn() {
 		if (this.props.showConfirmBtn) {
-			return <Button bsStyle='primary' className={cx(s.acceptButton)} onClick={this.props.confirmSelection.bind(this, this.props.fixer)}>Confirmar fixer </Button>
+			return <Button bsStyle='primary' className={cx(s.acceptButton)} onClick={this._confirmSelection.bind(this)}>Confirmar fixer </Button>
 		}
 		return null;
 	}

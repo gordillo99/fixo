@@ -5,18 +5,37 @@ import { Jumbotron, Button, Panel, Row, Col, Table } from 'react-bootstrap';
 import FixerPanel from '../FixerPanel';
 import AnswersDisplay from '../questionComponents/AnswersDisplay';
 import arrBuffToBase64 from '../../helpers/helpers.js';
+import { catEnglishToSpanish } from '../../helpers/helpers.js';
 import $ from 'jquery';
 
 import s from './ProposalConfirmation.css';
 
 export default class ProposalConfirmation extends Component {
 
+	constructor() {
+		super();
+		this.state = {
+			category: null,
+			selection: null,
+			fixer: null
+		}
+	}
+
+	componentDidMount() {
+		this.setState({
+			category: localStorage.getItem('category'),
+			selection: JSON.parse(localStorage.getItem('proposal')),
+			fixer: localStorage.getItem('fixer')
+		});
+	}
+
 	_showProposedDates() {
-		return this.props.selection.dates.map((date, index) => {
-			const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-			const time = this.props.selection.times[index];
-			const mins = this.props.selection.mins[index];
-			const ampm = this.props.selection.ampm[index];
+		return this.state.selection.dates.map((date, index) => {
+			const d = new Date(date);
+			const formattedDate = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+			const time = this.state.selection.times[index];
+			const mins = this.state.selection.mins[index];
+			const ampm = this.state.selection.ampm[index];
 			return (
 				<tr>
 					<td>{`${formattedDate}`}</td>
@@ -48,9 +67,9 @@ export default class ProposalConfirmation extends Component {
 		sel.dates.map((date, index) => {
 			datesObject[index] = {
 				date: `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`,
-				time: this.props.selection.times[index],
-				mins: this.props.selection.mins[index],
-				ampm: this.props.selection.ampm[index]
+				time: this.state.selection.times[index],
+				mins: this.state.selection.mins[index],
+				ampm: this.state.selection.ampm[index]
 			};
 		});
 
@@ -69,7 +88,7 @@ export default class ProposalConfirmation extends Component {
 				formData.append('fixer_id', Number(sel.selectedFixer.id));
 				formData.append('user_id', user.id);
 				formData.append('area', sel.area);
-				formData.append('category', this.props.category);
+				formData.append('category', this.state.category);
 				formData.append('image', image);
 
 				if (!user.id) {
@@ -102,11 +121,15 @@ export default class ProposalConfirmation extends Component {
 	}
 
 	render() {
-		let sel = this.props.selection;
+		if (!this.state.category || !this.state.fixer || !this.state.selection) return null; 
+		let sel = this.state.selection;
 		let areaDesc = sel.areas[Number(sel.area) - 1].description;
 		return(
 			<div className={cx(s.containerDiv)}>
 				<div className={cx(s.leftAlignedDiv)}>
+					<Jumbotron className={s.stripeJumbotron}>
+						<h1 className={s.pageHeader}>{catEnglishToSpanish(this.state.category)}</h1>
+					</Jumbotron>
 					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>
 							<h2 className={s.centeringDiv}>Confirma tu solicitud</h2>

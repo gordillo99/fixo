@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
-import { Jumbotron, Button, Panel, Row, Col, Table } from 'react-bootstrap';
+import { Jumbotron, Button, Panel, Row, Col, Table, HelpBlock, FormControl } from 'react-bootstrap';
 import FixerPanel from '../FixerPanel';
 import AnswersDisplay from '../questionComponents/AnswersDisplay';
 import arrBuffToBase64 from '../../helpers/helpers.js';
+import ProgressionStatus from './../../components/ProgressionStatus';
 import { catEnglishToSpanish } from '../../helpers/helpers.js';
 import $ from 'jquery';
 
@@ -29,6 +30,18 @@ export default class ProposalConfirmation extends Component {
 		});
 	}
 
+	_updateAttachedImage(index, event) {
+		let tempQsAndAs = this.state.selection.qsAndAs;
+		tempQsAndAs[tempQsAndAs.length].a = $(event.target)[0].files[0];
+		// if the image size is bigger than 2 MB, return
+		if (tempQsAndAs[index].a.size > 200000) {
+		alert('Este archivo no sera subido. El límite es 2 MB.');
+		return;
+		}
+		//this.props.updateAnswers(tempQsAndAs);
+
+	}
+
 	_showProposedDates() {
 		return this.state.selection.dates.map((date, index) => {
 			const d = new Date(date);
@@ -45,6 +58,10 @@ export default class ProposalConfirmation extends Component {
 	}
 
 	_createProposal(sel) {
+		localStorage.removeItem('category');
+		localStorage.removeItem('selection');
+		localStorage.removeItem('fixer');
+
 		var image = false,
 			object = sel.qsAndAs,
 			stringQsAndAs = '',
@@ -112,11 +129,12 @@ export default class ProposalConfirmation extends Component {
 				alert('Error creando la propuesta. Por favor refresque la página y vuelva a intentar.');
 	      	}.bind(this)
 		    });
-		    this.props.toNextStage();
+		    //this.props.toNextStage();
+			window.location.replace(`/thankyou?category=${this.state.category}`);
     	}.bind(this),
     	error: function(xhr, status, err) {
      		console.log(err);
-    	}.bind(this)
+		}.bind(this)
 	  });
 	}
 
@@ -129,6 +147,7 @@ export default class ProposalConfirmation extends Component {
 				<div className={cx(s.leftAlignedDiv)}>
 					<Jumbotron className={s.stripeJumbotron}>
 						<h1 className={s.pageHeader}>{catEnglishToSpanish(this.state.category)}</h1>
+						<ProgressionStatus currentStage={3}/>
 					</Jumbotron>
 					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>
@@ -157,6 +176,9 @@ export default class ProposalConfirmation extends Component {
 									</Table>
 									<h3>Preguntas adicionales</h3>
 									<AnswersDisplay qsAndAs={sel.qsAndAs} />
+									<h3>Añade una imagen (opcional)</h3>
+									<FormControl type="file" onChange={this._updateAttachedImage.bind(this)} />
+                        			<HelpBlock>Tamaño máximo es 2 MB</HelpBlock>
 									<div className={cx(s.confirmBtnWrapper)}>
 										<Button bsStyle='primary' onClick={this._createProposal.bind(this, sel)} className={cx(s.confirmBtn)}>Informar al fixer</Button>
 									</div>

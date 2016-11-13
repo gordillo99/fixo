@@ -30,13 +30,14 @@ export default class ProposalConfirmation extends Component {
 		});
 	}
 
-	_updateAttachedImage(index, event) {
+	_updateAttachedImage(event) {
 		let tempQsAndAs = this.state.selection.qsAndAs;
-		tempQsAndAs[tempQsAndAs.length].a = $(event.target)[0].files[0];
+		tempQsAndAs.push({ q: 'Selecciona una imagen (opcional)', a: '', type: 'upload'});
+		tempQsAndAs[tempQsAndAs.length - 1].a = $(event.target)[0].files[0];
 		// if the image size is bigger than 2 MB, return
-		if (tempQsAndAs[index].a.size > 200000) {
-		alert('Este archivo no sera subido. El límite es 2 MB.');
-		return;
+		if (tempQsAndAs[tempQsAndAs.length - 1].a.size > 200000) {
+			alert('Este archivo no sera subido. El límite es 2 MB.');
+			return;
 		}
 		//this.props.updateAnswers(tempQsAndAs);
 
@@ -82,8 +83,9 @@ export default class ProposalConfirmation extends Component {
 		stringQsAndAs = stringQsAndAs.slice(0,-1);
 
 		sel.dates.map((date, index) => {
+			const d = new Date(date);
 			datesObject[index] = {
-				date: `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`,
+				date: `${(d.getMonth() + 1)}/${d.getDate()}/${d.getFullYear()}`,
 				time: this.state.selection.times[index],
 				mins: this.state.selection.mins[index],
 				ampm: this.state.selection.ampm[index]
@@ -91,50 +93,50 @@ export default class ProposalConfirmation extends Component {
 		});
 
 		$.ajax({
-    	url: '/getUserId',
-    	type: 'GET',
-    	dataType: 'json',
-    	cache: false,
-    	success: function(user) {
-    		var formData = new FormData();
-				formData.append('address', sel.address);
-				formData.append('phone', sel.phone);
-				formData.append('email', sel.email);
-				formData.append('dates', JSON.stringify(datesObject));
-				formData.append('qsAndAs', stringQsAndAs);
-				formData.append('fixer_id', Number(sel.selectedFixer.id));
-				formData.append('user_id', user.id);
-				formData.append('area', sel.area);
-				formData.append('category', this.state.category);
-				formData.append('image', image);
+			url: '/getUserId',
+			type: 'GET',
+			dataType: 'json',
+			cache: false,
+			success: function(user) {
+				var formData = new FormData();
+					formData.append('address', sel.address);
+					formData.append('phone', sel.phone);
+					formData.append('email', sel.email);
+					formData.append('dates', JSON.stringify(datesObject));
+					formData.append('qsAndAs', stringQsAndAs);
+					formData.append('fixer_id', Number(sel.selectedFixer.id));
+					formData.append('user_id', user.id);
+					formData.append('area', sel.area);
+					formData.append('category', this.state.category);
+					formData.append('image', image);
 
-				if (!user.id) {
-					alert('Por favor inicia sesión antes de crear una propouesta.');
-					return;
-				}
+					if (!user.id) {
+						alert('Por favor inicia sesión antes de crear una propouesta.');
+						return;
+					}
 
-    		$.ajax({
-	      	url: '/api/proposals/crud/',
-	      	type: 'POST',
-	      	dataType: 'json',
-	      	data: formData,
-	      	cache: false,
-	      	contentType: false,
-    			processData: false,
-	      	success: function(data) {
-	      		console.log('Proposal created successfully');
-	      	}.bind(this),
-	      	error: function(xhr, status, err) {
-	       		console.log(err);
-				alert('Error creando la propuesta. Por favor refresque la página y vuelva a intentar.');
-	      	}.bind(this)
-		    });
-		    //this.props.toNextStage();
-			window.location.replace(`/thankyou?category=${this.state.category}`);
-    	}.bind(this),
-    	error: function(xhr, status, err) {
-     		console.log(err);
-		}.bind(this)
+				$.ajax({
+					url: '/api/proposals/crud/',
+					type: 'POST',
+					dataType: 'json',
+					data: formData,
+					cache: false,
+					contentType: false,
+						processData: false,
+					success: function(data) {
+						console.log('Proposal created successfully');
+					}.bind(this),
+					error: function(xhr, status, err) {
+						console.log(err);
+						alert('Error creando la propuesta. Por favor refresque la página y vuelva a intentar.');
+					}.bind(this)
+				});
+				//this.props.toNextStage();
+				window.location.replace(`/thankyou?category=${this.state.category}`);
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
 	  });
 	}
 

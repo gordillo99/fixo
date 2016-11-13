@@ -55,7 +55,8 @@ export default class AdditionalQuestions extends Component {
           { q: '¿Es una nueva instalación o reparación de algo antiguo?', a: 'Reparación', type: 'select', opts: ['Reparación', 'Instalación', 'Mejora']},
           { q: '¿En qué área lo necesitas? (Cocina, baños, instalación general de la casa, etc.)', a: 'Cocina', type: 'select', opts: [ 'Cocina', 'Baños', 'Instalación general de la casa', 'Otra' ] },
           { q: '¿Tiene los materiales para el trabajo?', a: 'Sí', opts: ['Sí', 'No, necesito que el fixer traiga', 'No, compraré después', 'No aplica'] , type: 'select'},
-          { q: '¿Tiene las herramientas para realizar el trabajo?', a: 'Sí', opts: ['Sí', 'No', 'No, necesito que el fixer las traiga', 'No, las compraré después'] , type: 'select'}
+          { q: '¿Tiene las herramientas para realizar el trabajo?', a: 'Sí', opts: ['Sí', 'No', 'No, necesito que el fixer las traiga', 'No, las compraré después'] , type: 'select'},
+          //{ q: 'Selecciona una imagen (opcional)', a: '', type: 'upload'}
         ];
         break;
       default:

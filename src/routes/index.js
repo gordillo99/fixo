@@ -22,6 +22,8 @@ import setup from './setup';
 import admin from './admin';
 import profile from './profile';
 import terms from './terms';
+import confirmation from './confirmation';
+import thankyou from './thankyou';
 
 export default {
 
@@ -36,6 +38,8 @@ export default {
     contact,
     about,
     terms,
+    confirmation,
+    thankyou,
 
     //place new routes before these:
     //content,

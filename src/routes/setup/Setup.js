@@ -162,9 +162,10 @@ export default class Setup extends Component {
                     area={this.state.area}
                     toNextStage={this._nextStage.bind(this)}
                     changeFixer={this._handleFixerChange.bind(this)}
+                    selection={this.state}
                   />
         break;
-      case 3:
+      /*case 3:
         content = <ProposalConfirmation
                     category={this.props.category}
                     toNextStage={this._nextStage.bind(this)}
@@ -174,7 +175,7 @@ export default class Setup extends Component {
       case 4:
         content = <ThankYouDisplay />;
         progression = null;
-        break;
+        break;*/
       default:
         content = null; 
         break;

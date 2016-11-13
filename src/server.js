@@ -133,9 +133,10 @@ app.all('/profile', redirectIfNotLoggedIn, function(req, res, next) {
   next(); 
 });
 
+/*
 app.all('/setup/:cat', handleCategoryRedirection, function(req, res, next) {
   next(); 
-});
+});*/
 
 app.all('/admin', isAdmin, function(req, res, next) {
   next(); 

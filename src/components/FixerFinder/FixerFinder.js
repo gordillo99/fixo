@@ -58,6 +58,8 @@ export default class FixerFinder extends Component {
 												fixer={fixer} showSelected={true}
 												confirmSelection={this._confirmFixerSelection.bind(this)}
 												showConfirmBtn={true}
+												selection={this.props.selection}
+												category={this.props.category}
 											/>
 										)})}
 									</div>

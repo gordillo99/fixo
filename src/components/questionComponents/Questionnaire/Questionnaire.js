@@ -53,12 +53,12 @@ export default class Questionnaire extends Component {
                         value={this.props.qsAndAs.a}
                       />
             break;
-          case 'upload':
+          /*case 'upload':
             prompt =  <div key={'div-' + index}>
                         <FormControl key={'qFileUpload-' + index} type="file" onChange={this._updateAttachedImage.bind(this, index)} />
                         <HelpBlock key={'helpblock-' + index}>Tamaño máximo es 2 MB</HelpBlock>
                       </div>
-            break;
+            break;*/
           default:
             prompt = null;
             break;

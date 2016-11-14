@@ -23,7 +23,7 @@
   padding: 0px;
 }
  
-@media only screen and (max-device-width: 1200px) {
+@media only screen and (max-device-width: 700px) {
   /* define mobile specific styles come here */
   .inlineSteps {
     display: inline-block;
@@ -41,21 +41,21 @@
 }
 
 .nameWithIcon {
-  margin-right: 0px;
+  margin: 0px;
 }
 
 .listElement {
   color: #1A8CF0;
   padding: 0px;
-  margin-left: 10px;
-  margin-right: 10px;
+  /*margin-left: 10px;
+  margin-right: 10px;*/
   vertical-align: text-bottom;
   display: table;
   margin-bottom: 30px;
 }
 
 .listEleWrapper {
-  height: 50px;
+  height: 30px;
   text-align: center;
 }
 

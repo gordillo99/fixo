@@ -18,21 +18,21 @@ export default class MainPageStripe2 extends Component {
   }
 
   componentDidMount() {
-    this._flipTiles();
-    this._startFlipping();
+    //this._flipTiles();
+    //this._startFlipping();
   }
 
   componentWillUnmount() {
-    this.loadInterval && clearInterval(this.loadInterval);
+    //this.loadInterval && clearInterval(this.loadInterval);
   }
 
-  _startFlipping() {
+  /*_startFlipping() {
     this.loadInterval = setInterval(() => {
       this._flipTiles();
     }, 4000);
-  }
+  }*/
 
-  _flipTiles() {
+  /*_flipTiles() {
     let tile0 = true;
     let tile1 = true;
     let tile2 = true;
@@ -60,13 +60,13 @@ export default class MainPageStripe2 extends Component {
         break;
     }
     this.setState({ stage: stage, tile0: tile0, tile1: tile1, tile2: tile2 });
-  }
+  }*/
   
   _createSteps() {
     let steps = [ 
-      { id: 0, name: 'Dinos qué necesitas', desc: 'Selecciona una categoría BRy describe lo que necesitas', icon: require('./images/pencil.png') } , 
-      { id: 1, name: 'Encuentra un fixer', desc: 'Listamos fixers para que BRescojas al que prefieras', icon: require('./images/magglass.png') }, 
-      { id: 2, name: 'Realiza tu trabajo', desc: 'El fixer llega, completa el BRtrabajo y le pagas directamente', icon: require('./images/check.png') }
+      { id: 0, name: '1. Dinos qué necesitas', desc: 'Selecciona una categoría BRy describe lo que necesitas', icon: require('./images/pencil.png') } , 
+      { id: 1, name: '2. Encuentra un fixer', desc: 'Listamos fixers para que BRescojas al que prefieras', icon: require('./images/magglass.png') }, 
+      { id: 2, name: '3. Realiza tu trabajo', desc: 'El fixer llega, completa el BRtrabajo y le pagas directamente', icon: require('./images/check.png') }
     ];
     let index = 0;
 
@@ -79,11 +79,10 @@ export default class MainPageStripe2 extends Component {
     let descArr = desc.split('BR');
     let flipStyle1 = null;
     let flipStyle2 = null;
-    let content = null;
 
     if (this.state[`tile${id}`]) {
-      flipStyle1 = s.flipSide2;
-      flipStyle2 = s.flipSide1;
+      flipStyle1 = s.flipSide1;
+      flipStyle2 = s.flipSide2;
     }
 
     return (

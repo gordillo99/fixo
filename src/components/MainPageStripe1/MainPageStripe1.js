@@ -60,7 +60,7 @@ export default class MainPageStripe1 extends Component {
       <div className={s.marginWrapper}>
         <div className={cx(s.catContainer)}>
           <ul key={'catEle-' + id} className={cx(s.noListStyle, s.listCatEle)}> 
-            <li><img src={icon} height='110px' width='140px' /></li>
+            <li><img className={s.catImage} src={icon} /></li>
             <li><h3 className={s.catTitle}>{name}</h3></li> 
             <li><Button bsStyle={'primary'} href={'/setup/' + route} className={s.selectCatBtn}>Solicitar</Button></li>
           </ul>

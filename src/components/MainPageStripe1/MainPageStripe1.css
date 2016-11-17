@@ -22,14 +22,59 @@
   padding-bottom: 20px;
 }
 
-.catContainer {
-  color: black;
-  width: 146px;
-  height: 210px;
-  border: 3px #f8f8f8 solid;
-  border-radius: 5px;
-  background-color: #f8f8f8;
-  margin-bottom: 15px;
+@media only screen and (max-device-width: 700px) {
+  .catImage {
+    /*display: none;
+		visibility: hidden;*/
+    height: 60px;
+    width: 83px;
+    border-radius: 5px;
+  }
+
+  .catContainer {
+    color: black;
+    width: 90px;
+    height: 140px;
+    border: 3px #f8f8f8 solid;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    margin-bottom: 15px;
+  }
+
+  .catTitle {
+    font-size: 15px;
+    margin: 10px;
+  }
+
+  .selectCatBtn {
+    margin-bottom: 0px;
+  }
+}
+
+@media only screen and (min-device-width: 700px) {
+  .catImage {
+      height: 110px;
+      width: 140px;
+      border-radius: 5px;
+  }
+
+  .catContainer {
+    color: black;
+    width: 146px;
+    height: 210px;
+    border: 3px #f8f8f8 solid;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    margin-bottom: 15px;
+  }
+
+  .catTitle {
+    margin: 10px;
+  }
+
+  .selectCatBtn {
+    margin-bottom: 10px;
+  }
 }
 
 .marginWrapper {
@@ -39,14 +84,6 @@
 
 .listCatEle {
   /*background-color: #1A8CF0;*/
-}
-
-.catTitle {
-  margin: 10px;
-}
-
-.selectCatBtn {
-  margin-bottom: 10px;
 }
 
 .inlineCategories {

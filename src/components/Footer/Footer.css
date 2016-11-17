@@ -12,12 +12,14 @@
 .root {
   background: #333;
   color: white;
-  background-color: #1A8CF0;
+  /*background-color: #1A8CF0;*/
+  background-color: #f8f8f8;
   border-top: 1px solid gray;
 }
 
 .text {
-  color: white;
+  /*color: white;*/
+  color: #1A8CF0;
   font-weight: bold;
 }
 
@@ -46,7 +48,8 @@
 .link,
 .link:active,
 .link:visited {
-  color: white;
+  /*color: white;*/
+  color: #1A8CF0;
   text-decoration: none;
   font-weight: bold;
 }

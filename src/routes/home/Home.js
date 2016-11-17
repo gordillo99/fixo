@@ -5,6 +5,7 @@ import MainPageStripe1 from './../../components/MainPageStripe1';
 import MainPageStripe2 from './../../components/MainPageStripe2';
 import MainPageStripe3 from './../../components/MainPageStripe3';
 import AboutUsCarousel from './../../components/AboutUsCarousel';
+import BeAFixerStripe from './../../components/BeAFixerStripe';
 import s from './Home.css';
 
 export default class Home extends Component {
@@ -17,6 +18,7 @@ export default class Home extends Component {
           <MainPageStripe2 />
           <AboutUsCarousel />
           <MainPageStripe3 />
+          <BeAFixerStripe />
         </div>
       </div>
     );

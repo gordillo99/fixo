@@ -8,6 +8,7 @@ import gardeningImage from './images/gardening.jpg';
 import entrepreneurImage from './images/emprendimiento.jpg';
 import fixoWhite from './images/fixo-white.png';
 import tools from './images/banner.png';
+import toolsmob from './images/bannermob.png';
 import s from './AboutUsCarousel.css';
 import $ from 'jquery';
 
@@ -63,11 +64,7 @@ export default class AboutUsCarousel extends Component {
       <div className={cx(s.root)}>
       	<div className={s.leftAligned}>
 					<img className={cx(s.stripeImage, s.mobileInvisible)} src={tools} />
-					<div className={s.mobileVisible}>
-						<Carousel interval={5000} pauseOnHover={false}>
-							{this._generateCarousel()}
-						</Carousel>
-					</div>
+					<img className={cx(s.stripeImage, s.mobileVisible)} src={toolsmob} />
 				</div>
       </div>
     );

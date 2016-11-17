@@ -43,7 +43,7 @@ export default class MainPageStripe1 extends Component {
       { id: 1, name: 'Carpintero', icon: require('./images/carpentry.jpg'), route: 'carpentry' }, 
       { id: 2, name: 'Pintor', icon: require('./images/painting.jpg'), route: 'painting' }, 
       { id: 3, name: 'Electricista', icon: require('./images/electricity.jpg'), route: 'electricity' }, 
-      { id: 4, name: 'Fontanero' , icon: require('./images/plumbing.jpg'), route: 'plumbing' }
+      { id: 4, name: 'Plomero' , icon: require('./images/plumbing.jpg'), route: 'plumbing' }
     ];
 
     return categories.map((category) => {

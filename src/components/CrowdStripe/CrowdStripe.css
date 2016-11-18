@@ -1,0 +1,47 @@
+@import '../variables.css';
+
+.root {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+centeredDiv {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1000px) {
+    .bannerImage {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+        margin-top: 80px;
+        margin-bottom: 20px;
+	}
+
+	.mobileInvisible {
+		display: none;
+		visibility: hidden;
+	}
+
+	.mobileVisible {
+		visibility: visible;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+    .bannerImage {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+        margin-top: 70px;
+	}
+
+	.mobileInvisible {
+		visibility: visible;
+	}
+
+	.mobileVisible {
+		display: none;
+		visibility: hidden;
+	}
+}

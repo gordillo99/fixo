@@ -6,6 +6,7 @@ import MainPageStripe2 from './../../components/MainPageStripe2';
 import MainPageStripe3 from './../../components/MainPageStripe3';
 import AboutUsCarousel from './../../components/AboutUsCarousel';
 import BeAFixerStripe from './../../components/BeAFixerStripe';
+import CrowdStripe from './../../components/CrowdStripe';
 import s from './Home.css';
 
 export default class Home extends Component {
@@ -14,6 +15,7 @@ export default class Home extends Component {
     return (
       <div className={s.root}>
         <div className={cx(s.centralizedDiv)}>
+          <CrowdStripe />
           <MainPageStripe1 />
           <MainPageStripe2 />
           <AboutUsCarousel />

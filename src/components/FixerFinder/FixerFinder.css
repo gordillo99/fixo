@@ -61,3 +61,8 @@
   margin-right: 0px;
   margin-left: 0px;
 }
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}

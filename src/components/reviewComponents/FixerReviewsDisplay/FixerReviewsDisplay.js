@@ -60,15 +60,15 @@ export default class FixerReviewsDisplay extends Component {
 
 		return(
 			<ListGroup>
-		    <ListGroupItem bsStyle="info">
-			<ul className={s.noListStyle}>
-				<li className={s.inlineEles}><p>Calidad de servicio:</p></li>
-				<li className={s.inlineEles}><StarDisplayer starAmount={this.props.fixerRating}/></li>
-			</ul>
-			Número de reseñas: {this.props.numRatings}
-			</ListGroupItem>
-		    {this._handleReviewsDisplay()}
-		  </ListGroup>
+				<ListGroupItem bsStyle="info">
+					<ul className={s.noListStyle}>
+						<li className={s.inlineEles}><p>Calidad de servicio:</p></li>
+						<li className={s.inlineEles}><StarDisplayer starAmount={this.props.fixerRating}/></li>
+					</ul>
+					<p className={s.leftAligned}> Número de reseñas: {this.props.numRatings} </p>
+				</ListGroupItem>
+				{this._handleReviewsDisplay()}
+		   </ListGroup>
 		);
 	}
 }

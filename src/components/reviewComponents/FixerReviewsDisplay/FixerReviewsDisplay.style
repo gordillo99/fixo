@@ -17,6 +17,7 @@
 	list-style: none;
 	padding-left: 0px;
 	margin-bottom: 0px;
+	text-align: left;
 }
 
 .noBottomMargin {
@@ -26,4 +27,8 @@
 .list-group-item-info {
     color: white;
     background-color: #337AB7;
+}
+
+.leftAligned {
+	text-align: left;
 }

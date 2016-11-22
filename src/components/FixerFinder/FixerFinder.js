@@ -70,8 +70,7 @@ export default class FixerFinder extends Component {
 				}
 				else {
 					fixerList = <div>
-									<h1>Selecciona a tu fixer</h1>
-									{fixerArray.map( (fixer, index) => { return(
+									{fixerArray.map((fixer, index) => { return(
 										<FixerPanel 
 											key={`fixerPanel-${index}`}
 											showReviews={true}
@@ -92,17 +91,17 @@ export default class FixerFinder extends Component {
 			<div>
 				<Grid>
 				  <Row className={s.row}>
-				  	<Col md={4} xs={12} className={s.centerBlock}>
-					  <h1>Selecciona a tu área</h1>
+				  	<Col md={6} xs={12} className={s.centerBlock}>
+					  <h1>Elige un área para ver los fixers disponibles</h1>
 					  <form>
 					  	<Row className={s.centered}>
-              				<Col md={7} xs={6}>
+              				<Col md={8} xs={8}>
 								<FormControl value={this.props.area ? this.props.area : 0} componentClass='select'onChange={this.props.updateArea.bind(this, 'area')}>
 									{this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i } value={opt.id}>{opt.description}</option> })}                      
 								</FormControl>
 							</Col>
-							<Col md={3} xs={3}>
-								<Button bsStyle='primary' onClick={this._updateFixers.bind(this)} type="submit">
+							<Col md={4} xs={4}>
+								<Button className={s.updateAreaBtn} bsStyle='primary' onClick={this._updateFixers.bind(this)} type="submit">
 									Actualizar área
 								</Button>
 							</Col>

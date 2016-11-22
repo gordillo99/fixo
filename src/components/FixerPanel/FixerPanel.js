@@ -14,11 +14,11 @@ export default class FixerPanel extends Component {
 		super();
 		this.state = {
 			showModal: false,
-			isLoggedIn: false
+			//isLoggedIn: false
 		};
 	}
 
-	 componentDidMount() {
+	 /*componentDidMount() {
 		$.ajax({
 			url: '/isLoggedIn',
 			type: 'GET',
@@ -31,17 +31,17 @@ export default class FixerPanel extends Component {
 				console.log(err);
 			}.bind(this)
 		});
-	}
+	}*/
 
 	_confirmSelection() {
-		const sel = this.props.selection;
+		/*const sel = this.props.selection;
 		sel.selectedFixer = this.props.fixer;
 		localStorage.setItem('fixer', this.props.fixer.id);
 		localStorage.setItem('proposal', JSON.stringify(this.props.selection));
 		localStorage.setItem('category', this.props.category);
 		if (this.state.isLoggedIn) window.location.replace('/confirmation');
-		else window.location.replace('/login?redirectTo=confirmation');
-		//this.props.confirmSelection(this.props.fixer);
+		else window.location.replace('/login?redirectTo=confirmation');*/
+		this.props.confirmSelection(this.props.fixer);
 	}
 
 	_returnConfirmBtn() {
@@ -56,8 +56,8 @@ export default class FixerPanel extends Component {
 	}
 
 	_closeModal() {
-    this.setState({ showModal: false });
-  }
+	  this.setState({ showModal: false });
+	}
 
   _openModal() {
     this.setState({ showModal: true });

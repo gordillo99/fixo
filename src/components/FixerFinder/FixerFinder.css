@@ -61,3 +61,16 @@
   margin-right: 0px;
   margin-left: 0px;
 }
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.updateAreaBtn {
+  margin-bottom: 20px;
+}
+
+.autoRightMargin {
+  margin-right: auto;
+}

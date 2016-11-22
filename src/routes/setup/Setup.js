@@ -27,7 +27,7 @@ export default class Setup extends Component {
       morning: true,
       qsAndAs: {},
       selectedFixer: {},
-      area: '1',
+      area: null,
       areas: []
     };
   }
@@ -114,7 +114,7 @@ export default class Setup extends Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState( { areas: data } );
+        this.setState({ areas: data });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
@@ -134,7 +134,20 @@ export default class Setup extends Component {
                   />
         break;
       case 1:
+        content = <FixerFinder 
+                    category={this.props.category}
+                    area={this.state.area}
+                    toNextStage={this._nextStage.bind(this)}
+                    changeFixer={this._handleFixerChange.bind(this)}
+                    areas={this.state.areas}
+                    updateArea={this._updatesProperty.bind(this)}
+                    area={this.state.area}
+                  />
+        
+        break;
+      case 2:
         content = <SetupForm
+                    selection={this.state}
                     updateDateArray={this._updateDateArray.bind(this)}
                     isSameDate={this._isSameDate}
                     updateDay={this._handleDayChange.bind(this)}
@@ -142,7 +155,6 @@ export default class Setup extends Component {
                     updateEmail={this._updatesProperty.bind(this)}
                     updateTime={this._handleTimeChange.bind(this)}
                     updatePhone={this._updatesProperty.bind(this)}
-                    updateArea={this._updatesProperty.bind(this)}
                     morning={this.state.morning}
                     dates={this.state.dates}
                     times={this.state.times}
@@ -154,15 +166,8 @@ export default class Setup extends Component {
                     phone={this.state.phone}
                     toNextStage={this._nextStage.bind(this)}
                     areas={this.state.areas}
-                  />
-        break;
-      case 2:
-        content = <FixerFinder 
+                    fixer={this.state.selectedFixer}
                     category={this.props.category}
-                    area={this.state.area}
-                    toNextStage={this._nextStage.bind(this)}
-                    changeFixer={this._handleFixerChange.bind(this)}
-                    selection={this.state}
                   />
         break;
       /*case 3:

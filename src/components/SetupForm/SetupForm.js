@@ -3,9 +3,33 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { FormGroup, ControlLabel, FormControl, Button, Jumbotron, ButtonGroup, Row, Col } from 'react-bootstrap';
 import DatePicker from './../DatePicker';
+import $ from 'jquery';
 import s from './SetupForm.style';
 
 export default class SetupForm extends Component {
+
+  constructor() {
+		super();
+		this.state = {
+			showModal: false,
+			isLoggedIn: false
+		};
+	}
+
+	 componentDidMount() {
+		$.ajax({
+			url: '/isLoggedIn',
+			type: 'GET',
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({ isLoggedIn: data });
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log(err);
+			}.bind(this)
+		});
+	}
 
   _getValidationStateOfAddr() {
     if (this.props.address.length === 0 || this.props.address.length > 255) return 'error';
@@ -31,7 +55,14 @@ export default class SetupForm extends Component {
     if (!this._validateAddress(this.props.address)) return;
     if (!this._validateDates()) return;
     
-    this.props.toNextStage();
+    //this.props.toNextStage();
+    const sel = this.props.selection;
+		sel.selectedFixer = this.props.fixer;
+		localStorage.setItem('fixer', this.props.fixer.id);
+		localStorage.setItem('proposal', JSON.stringify(this.props.selection));
+		localStorage.setItem('category', this.props.category);
+		if (this.state.isLoggedIn) window.location.replace('/confirmation');
+		else window.location.replace('/login?redirectTo=confirmation');
   }
 
   _validatePhone(phone) {
@@ -130,10 +161,6 @@ export default class SetupForm extends Component {
   }
 
   render() {
-    console.log(this.props.dates);
-    console.log(this.props.times);
-    console.log(this.props.mins);
-    console.log(this.props.ampm);
 
     return (
       <div>
@@ -153,7 +180,7 @@ export default class SetupForm extends Component {
                     <FormGroup validationState={this._getValidationStateOfAddr()} controlId="formControlsText">
                       <FormControl value={this.props.address} onChange={this.props.updateAddress.bind(this, 'address')} type="text" placeholder="Dirección" />
                     </FormGroup>
-                    <FormControl value={this.props.area} componentClass='select' onChange={this.props.updateArea.bind(this, 'area')}>
+                    <FormControl value={this.props.area} componentClass='select' disabled>
                       {this.props.areas.map((opt, i) => { return <option key={'selOpt-' + i} value={opt.id}>{opt.description}</option> })}                      
                     </FormControl>
                     <h2 className={s.centralizedDiv}>¿Cuándo debería llegar el fixer?</h2>

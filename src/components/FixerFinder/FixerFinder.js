@@ -59,7 +59,6 @@ export default class FixerFinder extends Component {
 
 	render() {
 		let fixerList = null;
-		let fixerArray = this.state.fixers;
 
 		if (this.props.selectedArea !== null) {
 			if (!this.state.showFixers) {
@@ -70,7 +69,7 @@ export default class FixerFinder extends Component {
 				}
 				else {
 					fixerList = <div>
-									{fixerArray.map((fixer, index) => { return(
+									{this.state.fixers.map((fixer, index) => { return(
 										<FixerPanel 
 											key={`fixerPanel-${index}`}
 											showReviews={true}

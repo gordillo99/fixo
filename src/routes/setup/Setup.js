@@ -27,7 +27,7 @@ export default class Setup extends Component {
       morning: true,
       qsAndAs: {},
       selectedFixer: {},
-      area: null,
+      area: 1,
       areas: []
     };
   }

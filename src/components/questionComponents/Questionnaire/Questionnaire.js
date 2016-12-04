@@ -87,7 +87,7 @@ export default class Questionnaire extends Component {
                     {questionForm}
                     <div className={cx(s.centeringDiv)}>
                       <Button bsStyle='primary' onClick={this._submitFinalAnswers.bind(this)} className={cx(s.acceptBtn)} type="submit">
-                        Aceptar
+                        Siguiente
                       </Button>
                     </div>
                   </form>

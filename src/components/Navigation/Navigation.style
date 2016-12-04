@@ -27,7 +27,7 @@
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: #1A8CF0;
+  color: #09ADFF;
   font-weight: bold;
 }
 

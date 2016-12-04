@@ -30,6 +30,7 @@
 
 .centeringDiv {
   text-align: center;
+  margin: auto;
 }
 
 .leftAlignedDiv {
@@ -39,7 +40,7 @@
 .headerJumbotron {
   color: white;
   margin-bottom: 0px;
-  background-color: #1A8CF0;
+  background-color: #09ADFF;
   padding-bottom: 5px;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -66,12 +67,45 @@
   margin-top: 20px;
 }
 
+.positionTitle {
+  color: #09ADFF;
+}
+
+@media only screen and (max-width: 325px) and (min-width: 1px){
+  .descImg {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+}
+
+@media only screen and (max-width: 360px) and (min-width: 326px){
+  .descImg {
+    margin-right: 20%;
+    margin-left: 20%;
+  }
+}
+
+@media only screen and (max-width: 410px) and (min-width: 361px){
+  .descImg {
+    margin-right: 25%;
+    margin-left: 25%;
+  }
+}
+
+@media only screen and (max-width: 700px) and (min-width: 411px){
+  .descImg {
+    margin-right: 35%;
+    margin-left: 35%;
+  }
+}
+
+
 .inlineEles {
   display: inline-block;
   padding: 0px;
   margin-top: 0px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .noListStyle {
@@ -87,6 +121,13 @@
 
 @media only screen and (max-width: 1000px) {
 
+  .stripeImage {
+    margin-top: 50px;
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+
 	.mobileInvisible {
 		display: none;
 		visibility: hidden;
@@ -95,10 +136,21 @@
 	.mobileVisible {
 		visibility: visible;
 	}
+
+  .adaptableAligning {
+    text-align: center;
+    margin: auto;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
 
+  .stripeImage {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+
 	.mobileInvisible {
 		visibility: visible;
 	}
@@ -107,4 +159,8 @@
 		display: none;
 		visibility: hidden;
 	}
+
+  .adaptableAligning {
+    text-align: left;
+  }
 }

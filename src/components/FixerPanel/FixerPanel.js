@@ -46,7 +46,7 @@ export default class FixerPanel extends Component {
 
 	_returnConfirmBtn() {
 		if (this.props.showConfirmBtn) {
-			return <Button bsStyle='primary' className={cx(s.acceptButton)} onClick={this._confirmSelection.bind(this)}>Confirmar fixer </Button>
+			return <Button bsStyle='primary' className={cx(s.acceptButton)} onClick={this._confirmSelection.bind(this)}>Escoger fixer </Button>
 		}
 		return null;
 	}

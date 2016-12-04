@@ -58,13 +58,13 @@ export default class Navigation extends Component {
 
     switch (this.state.isLoggedIn.type) {
       case 'regular':
-        rightSideComponents = [ { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
+        rightSideComponents = [ { id: 4, text: "Sobre fixo", href: "/about" }, { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
         break;
       case 'admin':
-        rightSideComponents = [ { id: 3, text: "Admin", href: "/admin" }, { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
+        rightSideComponents = [ { id: 3, text: "Admin", href: "/admin" }, { id: 4, text: "Sobre fixo", href: "/about" }, { id: 0, text: "Perfil", href: "/profile" } , { id: 1, text: "Cerrar Sesión", href: "", method: this._logout.bind(this) }]
         break;
       default:
-        rightSideComponents = [ { id: 2, text: "Iniciar Sesión", href: "/login" } ];
+        rightSideComponents = [ { id: 4, text: "Sobre fixo", href: "/about" }, { id: 2, text: "Iniciar Sesión", href: "/login" } ];
         break;
     }
     const Header = Navbar.Header;

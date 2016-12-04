@@ -22,7 +22,7 @@ function Contact(props, context) {
                 <div className={s.centeringDiv}>
                   <img src={fixo} width={180} height={140} />
                 </div>
-                <p className={cx(s.centeringDiv, s.boldedText)}>Contáctanos: fixo.comercial@gmail.com</p>
+                <p className={cx(s.centeringDiv, s.boldedText)}>Contáctanos: teayudamos@fixo.gt</p>
                 
               </div>
             </div>

@@ -195,7 +195,7 @@ export default class SetupForm extends Component {
                     <div className={cx(s.centralizedDiv)}>
                       {this._createSelectTimeForms()}
                       <Button bsStyle='primary' onClick={this._confirm.bind(this)} type="submit" className={cx(s.acceptBtn)}>
-                        Aceptar
+                        Siguiente
                       </Button>
                     </div>
                   </form>

@@ -78,7 +78,7 @@ function About() {
               <br/>
               <div className={cx(s.centeringDiv)}>
                 <h1>¿Cómo funciona fixo?</h1>
-                <Col md={5} mdOffset={1} xs={12} className={s.centerBlock}>
+                <Col md={12} xs={12} className={s.centerBlock}>
                   <div className={s.leftAlignedDiv}>
                     <ul className={cx(s.leftAlignedDiv, s.noListStyle)}>
                       {processDesc}

@@ -27,7 +27,7 @@ function Login(props, context) {
           <p className={s.lead}>Para proteger tu privacidad y asegurarnos que no eres un robot, por favor inicia sesión usando tu cuenta de Facebook</p>
           <img src={technology} height='128px' width='128px' />
           <img src={security} height='128px' width='128px' />
-          <p className={s.disclaimer}>Al iniciar sesión, estas aceptando<br/> nuestros <a href="/terms">términos y condiciones</a></p>
+          <p className={s.disclaimer}>Al iniciar sesión, estás aceptando<br/> nuestros <a href="/terms">términos y condiciones</a></p>
           <div className={s.formGroup}>
             <a className={s.facebook} href={redirectAddress}>
               <svg

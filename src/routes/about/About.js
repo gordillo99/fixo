@@ -43,8 +43,8 @@ function About() {
     return (
       <li key={`profile-li-${i}`} className={s.inlineEles}>
         <Image key={`profile-img-${i}`} height='200px' width='200px' src={profile.pic} circle />
-        <p key={`profile-name-${i}`} className={s.workerName}>{profile.name}</p>
-        <p key={`profile-title-${i}`} className={s.positionTitle}>{profile.title}</p>
+        <p key={`profile-name-${i}`} className={cx(s.workerName, s.text)}>{profile.name}</p>
+        <p key={`profile-title-${i}`} className={cx(s.positionTitle, s.text)}>{profile.title}</p>
       </li>
     );
   });
@@ -59,8 +59,8 @@ function About() {
           <li className={s.inlineEles}>
             <ul className={cx(s.noListStyle)}>
               <li className={s.leftAlignedDiv}><h3 key={`desc-title-${i}`} className={s.positionTitle}>{desc.title}</h3></li>
-              <li className={s.leftAlignedDiv}><p key={`desc1-${i}`} className={cx(s.workerName)}>{desc.desc1}</p></li>
-              <li className={s.leftAlignedDiv}><p key={`desc2-${i}`} className={cx(s.workerName)}>{desc.desc2}</p></li>
+              <li className={s.leftAlignedDiv}><p key={`desc1-${i}`} className={cx(s.workerName, s.text)}>{desc.desc1}</p></li>
+              <li className={s.leftAlignedDiv}><p key={`desc2-${i}`} className={cx(s.workerName, s.text)}>{desc.desc2}</p></li>
             </ul>
           </li>
         </ul>
@@ -77,23 +77,23 @@ function About() {
             <div>
               <br/>
               <div className={cx(s.centeringDiv)}>
-                <h1>¿Cómo funciona fixo?</h1>
-                <Col md={5} mdOffset={1} xs={12} className={s.centerBlock}>
+                <h1 className={s.title}>¿Cómo funciona fixo?</h1>
+                <Col md={7} mdOffset={3} xs={12} className={s.centerBlock}>
                   <div className={s.leftAlignedDiv}>
                     <ul className={cx(s.leftAlignedDiv, s.noListStyle)}>
                       {processDesc}
                     </ul>
                   </div>
                 </Col>
-                <h1>Conoce a nuestro equipo</h1>
+                <h1 className={s.title}>Conoce a nuestro equipo</h1>
                 <ul className={s.noListStyle}>
                   {profilePics}
                 </ul>
               </div>
               <br/>
               <div className={cx(s.centeringDiv)}>
-                <h1>Agradecimientos</h1>
-                <p>Agradecemos profundamente a <a href='https://www.facebook.com/JPGPhoto7/?hc_ref=NEWSFEED'>JPG Photography</a> por varias de las fotos en la página.</p>
+                <h1 className={s.title}>Agradecimientos</h1>
+                <p className={s.text}>Agradecemos profundamente a <a href='https://www.facebook.com/JPGPhoto7/?hc_ref=NEWSFEED'>JPG Photography</a> por varias de las fotos en la página.</p>
               </div>
             </div>
           </div>

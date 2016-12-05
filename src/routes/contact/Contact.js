@@ -1,33 +1,40 @@
-
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Jumbotron, Col, Row } from 'react-bootstrap';
+import { Jumbotron, Col, Row, Image } from 'react-bootstrap';
 import cx from 'classnames';
 import s from './Contact.css';
 import fixo from './fixo.png';
+import banner from './images/banner.png';
+import bannermobile from './images/bannermobile.png';
+import email from './images/Correo.png';
+import fb from './images/facebook.png';
 
 function Contact(props, context) {
+
+  const contactArray = [
+    { desc: 'teayudamos@fixo.gt', pic: email, width: 60 },
+    { desc: 'facebook.com/fixoempresa', pic: fb, width: 50 }
+  ];
+
+  const contactInfo = contactArray.map((contact, i) => {
+    return (
+      <li key={`contact-li-${i}`} className={s.inlineEles}>
+        <Image key={`contact-img-${i}`} height={50} width={contact.width} src={contact.pic} />
+        <p key={`contact-name-${i}`} className={s.contactInfo}>{contact.desc}</p>
+      </li>
+    );
+  });
 
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <Jumbotron className={s.headerJumbotron}>
-          <h1 className={cx(s.centeringDiv, s.pageHeader)}>Contáctanos</h1>
-        </Jumbotron>
-         <Row className={s.row}>
-          <Col md={6} xs={10} className={s.centerBlock}>
-            <div className={s.centeringDiv}>
-              <div className={cx(s.leftAlignedDiv)}>
-                <h2 className={s.centeringDiv}>¡Nos encanta escuchar tu opinión!</h2>
-                <div className={s.centeringDiv}>
-                  <img src={fixo} width={180} height={140} />
-                </div>
-                <p className={cx(s.centeringDiv, s.boldedText)}>Contáctanos: teayudamos@fixo.gt</p>
-                
-              </div>
-            </div>
-          </Col>
-        </Row>
+        <img className={cx(s.stripeImage, s.mobileInvisible)} src={banner} />
+        <img className={cx(s.stripeImage, s.mobileVisible)} src={bannermobile} />
+          <div className={s.centeringDiv}>
+            <ul className={cx(s.noListStyle, s.topPadding)}>
+              {contactInfo}
+            </ul>
+          </div>
       </div>
     </div>
   );

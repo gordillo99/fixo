@@ -53,6 +53,14 @@
   font-weight: bold;
 }
 
+.title {
+  font-size: 300%;
+}
+
+.text {
+  font-size: 150%;
+}
+
 .row {
   margin-right: 0px;
   margin-left: 0px;
@@ -146,6 +154,7 @@
 @media only screen and (min-width: 1000px) {
 
   .stripeImage {
+    margin-top: 50px;
 		display: inline-block;
 		width: 100%;
 		height: auto;

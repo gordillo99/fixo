@@ -3,7 +3,7 @@
 .welcomePageHeader {
   padding-top: 0px;
   /*font-weight: bold;*/
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
 }
 
 @media only screen and (max-device-width: 700px) {
@@ -11,7 +11,7 @@
   .welcomePageHeader {
     padding-top: 30px;
     /*font-weight: bold;*/
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray;
   }
 }
 
@@ -27,18 +27,18 @@
     /*display: none;
 		visibility: hidden;*/
     height: 60px;
-    width: 83px;
-    border-radius: 5px;
+    width: 90px;
+    /*border-radius: 5px;*/
   }
 
   .catContainer {
     color: black;
     width: 90px;
     height: 140px;
-    border: 3px #f8f8f8 solid;
-    border-radius: 5px;
+    /*border: 3px #f8f8f8 solid;*/
+    /*border-radius: 5px;*/
     background-color: #f8f8f8;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
   }
 
   .catTitle {
@@ -48,24 +48,26 @@
 
   .selectCatBtn {
     margin-bottom: 0px;
+   
+    
   }
 }
 
 @media only screen and (min-device-width: 700px) {
   .catImage {
       height: 110px;
-      width: 140px;
-      border-radius: 5px;
+      width: 146px;
+      /*border-radius: 5px;*/
   }
 
   .catContainer {
     color: black;
     width: 146px;
     height: 210px;
-    border: 3px #f8f8f8 solid;
-    border-radius: 5px;
+    /*border: 3px #f8f8f8 solid;*/
+    /*border-radius: 5px;*/
     background-color: #f8f8f8;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
   }
 
   .catTitle {
@@ -74,6 +76,9 @@
 
   .selectCatBtn {
     margin-bottom: 10px;
+    background-color: #f8f8f8;
+    border-color: #09ADFF;
+    color: #09ADFF;
   }
 }
 
@@ -99,6 +104,11 @@
 
 .catsWrapper {
 
+}
+
+.borderDiv {
+  border: 1px gray solid;
+  margin-bottom: 15px;
 }
 
 .row {

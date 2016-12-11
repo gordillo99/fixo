@@ -23,7 +23,7 @@
 }
 
 .navbar-brand {
-  padding: 0px;
+  padding-top: 5px;
 }
 
 .navbar-default .navbar-nav>li>a {

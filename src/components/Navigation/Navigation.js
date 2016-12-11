@@ -80,7 +80,7 @@ export default class Navigation extends Component {
               <a href='/'>
                 <img
                   src={fixoLogo}
-                  height='60px'
+                  height='50px'
                   width='80px'
                 />
               </a>

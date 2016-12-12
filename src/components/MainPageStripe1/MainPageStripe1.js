@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import { Jumbotron, Row, Col, Button } from 'react-bootstrap';
-import tools1 from './images/tools-bg.jpg';
-import s from './MainPageStripe1.css';
+import tools1 from './images/fotofondo6.jpg';
+import s from './MainPageStripe1.style';
 import $ from 'jquery';
 import Link from '../Link';
 
@@ -58,6 +58,7 @@ export default class MainPageStripe1 extends Component {
   _createCatsWithIcons(id, name, icon, route) {
     return (
       <div className={s.marginWrapper}>
+        <div className={s.borderDiv}>
         <div className={cx(s.catContainer)}>
           <ul key={'catEle-' + id} className={cx(s.noListStyle, s.listCatEle)}> 
             <li><img className={s.catImage} src={icon} /></li>
@@ -65,13 +66,16 @@ export default class MainPageStripe1 extends Component {
             <li><Button bsStyle={'primary'} href={'/setup/' + route} className={s.selectCatBtn}>Ver fixers</Button></li>
           </ul>
         </div>
+        </div>
       </div>
     )
   }
 
   render() {
+    //const divStyle = null;
     let divStyle = {
-      backgroundImage: `url(${this.state.bgImages[this.state.stage]})`
+      backgroundImage: `url(${this.state.bgImages[this.state.stage]})`,
+      backgroundPosition: `2350px 1000px`
     }
 
     return (

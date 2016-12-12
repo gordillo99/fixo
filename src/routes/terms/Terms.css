@@ -65,5 +65,42 @@
   text-indent: 2em;
 }
 
+@media only screen and (max-width: 1000px) {
+
+  .stripeImage {
+    margin-top: 50px;
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+
+	.mobileInvisible {
+		display: none;
+		visibility: hidden;
+	}
+
+	.mobileVisible {
+		visibility: visible;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+
+  .stripeImage {
+    margin-top: 50px;
+		display: inline-block;
+		width: 100%;
+		height: auto;
+	}
+
+	.mobileInvisible {
+		visibility: visible;
+	}
+
+	.mobileVisible {
+		display: none;
+		visibility: hidden;
+	}
+}
 
 

@@ -8,8 +8,7 @@ import arrBuffToBase64 from '../../helpers/helpers.js';
 import ProgressionStatus from './../../components/ProgressionStatus';
 import { catEnglishToSpanish } from '../../helpers/helpers.js';
 import $ from 'jquery';
-
-import s from './ProposalConfirmation.css';
+import s from './ProposalConfirmation.style';
 
 export default class ProposalConfirmation extends Component {
 
@@ -149,7 +148,9 @@ export default class ProposalConfirmation extends Component {
 				<div className={cx(s.leftAlignedDiv)}>
 					<Jumbotron className={s.stripeJumbotron}>
 						<h1 className={s.pageHeader}>{catEnglishToSpanish(this.state.category)}</h1>
+						<div className={s.underline}/>
 						<ProgressionStatus currentStage={3}/>
+						<hr className={s.hrSeparator} />
 					</Jumbotron>
 					<Row className={s.row}>
 						<Col md={4} xs={10} className={s.centerBlock}>

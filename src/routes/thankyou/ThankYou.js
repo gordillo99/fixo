@@ -10,9 +10,6 @@ function ThankYou(props) {
   return (
     <div className={s.root}>
       <div className={s.centralizedDiv}>
-        <Jumbotron className={s.stripeJumbotron}>
-						<h1 className={s.pageHeader}>{title}</h1>
-					</Jumbotron>
         <ThankYouDisplay />
       </div>
     </div>

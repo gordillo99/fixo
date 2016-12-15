@@ -10,7 +10,7 @@ export default class ThankYouDisplay extends Component {
   render() {
 
     return (
-      <div>
+      <div className={s.topMargin}>
         <h1 className={cx(s.headingDecoration)}>¡Gracias por usar fixo!</h1>
         <h4 className={cx(s.headingDecoration)}>
           Tu fixer será notificado sobre tu propuesta. Te contactaremos por <br/>teléfono y correo en cuanto el fixer confirme en qué fecha llegará.

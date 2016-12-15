@@ -48,7 +48,9 @@
 
   .selectCatBtn {
     margin-bottom: 0px;
-   
+   background-color: #f8f8f8;
+    border-color: #09ADFF;
+    color: #09ADFF;
     
   }
 }

@@ -50,9 +50,9 @@
 }
 
 .nav-tabs.nav-justified>li>a {
-	color: white;
+	color: #09ADFF;
 }
 
 .nav-tabs.nav-justified>.active>a {
-	color: #09ADFF;
+	color: black;
 }

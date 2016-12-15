@@ -1,19 +1,9 @@
 @import '../../components/variables.css';
 
-.root {
-
-}
-
-.container {
-  margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: var(--max-content-width);
-}
-
 .pageHeader {
   padding-top: 20px;
-  /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
   margin-bottom: 0px;
+  /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
 }
 
 .stripeJumbotron {

@@ -45,7 +45,7 @@ export default class FixerReviewsDisplay extends Component {
 			return <ReviewDisplay reviews={this.state.reviews} hideReviews={this._hideReviews.bind(this)} fixerId={this.props.fixerId}/>;
 		} else if (this.props.numRatings > 1) {
 			if (this.props.showMoreReviews) {
-				return <div className={cx(s.centralizedDiv, s.paddingAbove)}>
+				return <div className={cx(s.leftAligned, s.paddingAbove)}>
 					       <a onClick={this._getAllReviewsFromDb.bind(this)}>Ver reseñas</a>
 				       </div>
 			}
@@ -55,20 +55,14 @@ export default class FixerReviewsDisplay extends Component {
 
 	render() {
 		let seeMoreReviews = null;
-
-		
-
 		return(
-			<ListGroup>
-				<ListGroupItem bsStyle="info">
-					<ul className={s.noListStyle}>
-						<li className={s.inlineEles}><p>Calidad de servicio:</p></li>
-						<li className={s.inlineEles}><StarDisplayer starAmount={this.props.fixerRating}/></li>
-					</ul>
-					<p className={s.leftAligned}> Número de reseñas: {this.props.numRatings} </p>
-				</ListGroupItem>
+			<div>
+				<ul className={s.noListStyle}>
+					<li className={s.inlineEles}><StarDisplayer starAmount={this.props.fixerRating}/></li>
+				</ul>
+				<p className={s.leftAligned}> {this.props.numRatings} {(this.props.numRatings > 1 ? "reseñas" : "reseña")}</p>
 				{this._handleReviewsDisplay()}
-		   </ListGroup>
+			</div>
 		);
 	}
 }

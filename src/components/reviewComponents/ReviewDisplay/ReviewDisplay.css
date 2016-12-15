@@ -1,7 +1,7 @@
 @import '../../variables.css';
 
-.centralizedDiv {
-	text-align: center;
+.leftAligned {
+	text-align: left;
 }
 
 .paddingAbove {

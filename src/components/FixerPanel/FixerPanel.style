@@ -7,6 +7,10 @@
 .acceptButton {
   margin-left: 5px;
   margin-right: 5px;
+  background-color: white;
+  border-color: #09ADFF;
+  color: #09ADFF;
+  margin-bottom: 5px;
 }
 
 .centerBlock {
@@ -22,6 +26,30 @@
   text-align: left;
 }
 
+.rightAlignedDiv {
+  text-align: right;
+}
+
 .thumbnail>img {
   max-width: 30%;
+}
+
+.inline {
+  display: inline-block;
+	margin-right: 15px;
+}
+
+.noListStyle {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.fixerImg {
+  width: 100%;
+}
+
+.imgContainer { 
+    width: 64px; 
+    height: 75px; 
+    overflow: hidden; 
 }

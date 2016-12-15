@@ -7,8 +7,8 @@ import programmingImage from './images/programming1.png';
 import gardeningImage from './images/gardening.jpg';
 import entrepreneurImage from './images/emprendimiento.jpg';
 import fixoWhite from './images/fixo-white.png';
-import tools from './images/banner.png';
-import toolsmob from './images/bannermob.png';
+import tools from './images/banner1.png';
+import toolsmob from './images/bannermob1.png';
 import s from './AboutUsCarousel.css';
 import $ from 'jquery';
 

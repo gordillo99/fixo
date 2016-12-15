@@ -101,7 +101,7 @@ export default class FixerFinder extends Component {
 							</Col>
 							<Col md={4} xs={4}>
 								<Button className={s.updateAreaBtn} bsStyle='primary' onClick={this._updateFixers.bind(this)} type="submit">
-									Actualizar área
+									Actualizar
 								</Button>
 							</Col>
 					    </Row>

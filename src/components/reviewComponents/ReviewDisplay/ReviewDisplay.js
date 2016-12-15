@@ -27,7 +27,7 @@ export default class ReviewDisplay extends Component {
 		return(
 			<div>
 				{reviewCards}
-				<div className={cx(s.centralizedDiv, s.paddingAbove)}>  
+				<div className={cx(s.leftAligned, s.paddingAbove)}>  
 				  <a onClick={this.props.hideReviews}>Ocultar reseñas</a>
 				</div>
 			</div>

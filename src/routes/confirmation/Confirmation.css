@@ -16,12 +16,13 @@
 }
 
 .stripeJumbotron {
-  color: white;
+  color: black;
   margin-bottom: 0px;
-  background-color: #09ADFF;
+  background-color: white;
   padding-bottom: 5px;
 }
 
 .centralizedDiv {
   text-align: center;
 }
+

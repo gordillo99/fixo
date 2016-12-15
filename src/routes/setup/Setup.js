@@ -9,7 +9,7 @@ import FixerFinder from './../../components/FixerFinder';
 import ProposalConfirmation from './../../components/ProposalConfirmation';
 import ThankYouDisplay from './../../components/ThankYouDisplay';
 import $ from 'jquery';
-import s from './Setup.css';
+import s from './Setup.style';
 
 export default class Setup extends Component {
 
@@ -191,7 +191,10 @@ export default class Setup extends Component {
         <div className={s.centralizedDiv}>
           <Jumbotron className={s.stripeJumbotron}>
             <h1 className={s.pageHeader}>{this.props.categoria}</h1>
+            <div className={s.underline}/>
             {progression}
+            <br/>
+            <hr className={s.hrSeparator} />
           </Jumbotron>
           {content}
         </div>

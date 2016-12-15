@@ -67,6 +67,9 @@
 
 .acceptBtn {
   width: 120px;
+  background-color: white;
+  border-color: #09ADFF;
+  color: #09ADFF;
 }
 
 .row {

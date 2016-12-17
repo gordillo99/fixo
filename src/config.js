@@ -14,8 +14,8 @@ export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 // email settings
-export const customerServiceEmail = 'fixo.comercial@gmail.com';
-export const customerServicePass = 'ventas1fixo2017nuevo';
+export const customerServiceEmail = 'teayudamos@fixo.gt';
+export const customerServicePass = '!HELP9588feliz';
 export const customerServiceUser = 'fixo.comercial';
 export const adminEmails = ['manuel@fixo.gt, rafael@fixo.gt, jose@fixo.gt, fixo.comercial@gmail.com'];
 

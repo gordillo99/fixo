@@ -211,8 +211,16 @@ router.route('/crud')
       })
         .then(function (data) {
           // create reusable transporter object using the default SMTP transport
-          var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
-
+         // var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+         var transporter = nodemailer.createTransport({
+            host: 'smtp.zoho.com',
+            port: 465,
+            secure: true, // use SSL
+            auth: {
+                user: 'teayudamos@fixo.gt',
+                pass: '!HELP9588feliz'
+            }
+        });
           console.log('proposal created successfully!');
           var adminEmails = '';
           config.adminEmails.map((email) => {
@@ -232,9 +240,12 @@ router.route('/crud')
           // send mail with defined transport object
           transporter.sendMail(mailOptions, function(error, info){
             if(error){
+              console.log("PUTA MADRE");
+              console.log(error);
               res.send(false);
               return console.log(error);
             }
+
             console.log('Message sent: ' + info.response);
             if (imageData) {
               createTxtQuestions(data.id, createImageQuestions);

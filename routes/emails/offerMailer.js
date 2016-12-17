@@ -5,7 +5,16 @@ var nodemailer = require('nodemailer');
 var emailTemplates = require('../emailTemplates/offerEmailForUser.js');
 
 // create reusable transporter object using the default SMTP transport
-var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+//var transporter = nodemailer.createTransport('smtps://'+config.customerServiceUser+'%40gmail.com:'+config.customerServicePass+'@smtp.gmail.com');
+var transporter = nodemailer.createTransport({
+		host: 'smtp.zoho.com',
+		port: 465,
+		secure: true, // use SSL
+		auth: {
+				user: 'teayudamos@fixo.gt',
+				pass: '!HELP9588feliz'
+		}
+});
 
 router.route('/mail/offer')
 

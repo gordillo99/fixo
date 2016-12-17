@@ -231,6 +231,13 @@ router.route('/crud')
 
           // send mail with defined transport object
           transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+              console.log("PUTA MADRE");
+              console.log(error);
+              res.send(false);
+              return console.log(error);
+            }
+
             console.log('Message sent: ' + info.response);
             if (imageData) {
               createTxtQuestions(data.id, createImageQuestions);

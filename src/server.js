@@ -57,21 +57,24 @@ app.use(bodyParser.json({
     extended: false,
     parameterLimit: 10000,
     limit: 1024 * 1024 * 10 }));
-    
+
 //
 // Setup Helmet
 //
 var helmet = require('helmet');
 var hsts = require('hsts');
 
-app.use(hsts({
-  // Must be at least 18 weeks to be approved by Google
-  maxAge: 10886400,
+if (process.env.NODE_ENV === 'production') {
+  app.use(hsts({
+    // Must be at least 18 weeks to be approved by Google
+    maxAge: 10886400,
 
-  // Must be enabled to be approved by Google
-  includeSubDomains: true,
-  preload: true
-}));
+    // Must be enabled to be approved by Google
+    includeSubDomains: true,
+    preload: true
+  }));
+
+}
 
 app.use(helmet());
 
@@ -218,6 +221,10 @@ app.get('*', async (req, res, next) => {
     const template = require('./views/index.jade'); // eslint-disable-line global-require
     const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
 
+    /*if(req.headers['x-forwarded-proto']!=='https'){
+      res.redirect(301, 'https://www.fixo.gt'+req.url);
+    }*/
+
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
     }
@@ -243,6 +250,11 @@ app.get('*', async (req, res, next) => {
 
     res.status(statusCode);
     res.send(template(data));
+    if(process.env.NODE_ENV === 'production'){
+      if(req.headers['x-forwarded-proto']!=='https'){
+        res.redirect(301, 'https://www.fixo.gt'+req.url);
+      }
+    }
   } catch (err) {
     next(err);
   }

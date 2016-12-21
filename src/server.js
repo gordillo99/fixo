@@ -221,9 +221,11 @@ app.get('*', async (req, res, next) => {
     const template = require('./views/index.jade'); // eslint-disable-line global-require
     const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
 
-    /*if(req.headers['x-forwarded-proto']!=='https'){
-      res.redirect(301, 'https://www.fixo.gt'+req.url);
-    }*/
+    if(process.env.NODE_ENV === 'production'){
+      if(req.headers['x-forwarded-proto']!=='https'){
+        res.redirect(301, 'https://www.fixo.gt'+req.url);
+      }
+    }
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
@@ -250,11 +252,7 @@ app.get('*', async (req, res, next) => {
 
     res.status(statusCode);
     res.send(template(data));
-    if(process.env.NODE_ENV === 'production'){
-      if(req.headers['x-forwarded-proto']!=='https'){
-        res.redirect(301, 'https://www.fixo.gt'+req.url);
-      }
-    }
+    
   } catch (err) {
     next(err);
   }

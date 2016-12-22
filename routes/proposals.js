@@ -240,7 +240,6 @@ router.route('/crud')
           // send mail with defined transport object
           transporter.sendMail(mailOptions, function(error, info){
             if(error){
-              console.log("PUTA MADRE");
               console.log(error);
               res.send(false);
               return console.log(error);
@@ -412,6 +411,7 @@ router.route('/updateSelectedDate/:proposal_id')
 
   .post(function(req, res) {
     var response = res;
+
     connection.db.manyOrNone({
       name: "update-selected-date",
       text: "update dates_to_proposals set selected = false where proposal_id = $1;",

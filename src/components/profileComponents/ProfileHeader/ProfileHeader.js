@@ -12,6 +12,7 @@ export default class ProfileHeader extends Component {
         <div className={cx(s.centralizedDiv)}>
           <Jumbotron className={cx(s.stripeJumbotron)}>
             <h1 className={s.pageHeader}>Tu perfil</h1>
+            <div className={s.underline}/>
           </Jumbotron>
         </div>
       </div>

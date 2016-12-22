@@ -133,7 +133,9 @@ export default class ProposalEdit extends Component {
 		if (!this.state.dates) return null;
 
     return this.state.dates.map((date, index) => {
-			const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+			const formattedDate = dateFormat(date.prop_date, 'longDate').toString();
+			console.log(date.prop_date);
+			console.log(typeof date.prop_date);
 			const time = date.prop_time;
 			const mins = date.prop_mins;
 			const ampm = date.prop_ampm;

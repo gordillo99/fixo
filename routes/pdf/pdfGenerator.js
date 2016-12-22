@@ -18,7 +18,11 @@ router.route('/pdfGenerator')
 		var counter;
 		for (counter = 0; counter < 3; counter++) {
 			var date = query[`date${counter}`];
-			if (date) content += `Fecha ${counter + 1}: ${dateFormat(date.prop_date, 'dd/mm/yyyy').toString()} ${date.prop_time}:${date.prop_mins} ${date.prop_ampm}\n`;
+			if (date) {
+				const d = new Date(date.prop_date);
+				content += `Fecha ${counter + 1}: ${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()} ${date.prop_time}:${date.prop_mins} ${date.prop_ampm}\n`;
+				//content += `Fecha ${counter + 1}: ${dateFormat(date.prop_date, 'dd/mm/yyyy').toString()} ${date.prop_time}:${date.prop_mins} ${date.prop_ampm}\n`;
+			}
 		}
 
 	  content += '\nInformación adicional\n\n';

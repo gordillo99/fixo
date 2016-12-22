@@ -111,7 +111,10 @@ export default class ProposalCard extends Component {
     let dateFormat = require('dateformat');
 
     return this.state.dates.map((date, index) => {
-			const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+      
+			//const formattedDate = dateFormat(date.prop_date, 'dd/mm/yyyy').toString();
+      const d = new Date(date.prop_date);
+			const formattedDate = `${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`;
 			const time = date.prop_time;
 			const mins = date.prop_mins;
 			const ampm = date.prop_ampm;
@@ -124,12 +127,17 @@ export default class ProposalCard extends Component {
   }
 
   render() {
+    const d1 = new Date(this.props.proposal.created_at);
+    const d2 = new Date(this.props.proposal.prop_date);
+		const formattedDate = `${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`;
     let dateFormat = require('dateformat');
     let answersDisplay = null;
     let qsAndAs = [];
     let reviewContent = null;
-    let createdAt = dateFormat(this.props.proposal.created_at, 'dd/mm/yyyy').toString();
-    let propDate = `${dateFormat(this.props.proposal.prop_date, 'dd/mm/yyyy').toString()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
+    let createdAt = `${d1.getUTCDate()}/${d1.getUTCMonth()+1}/${d1.getUTCFullYear()}`;
+    let propDate = `${d2.getUTCDate()}/${d2.getUTCMonth()+1}/${d2.getUTCFullYear()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
+    //let createdAt = dateFormat(this.props.proposal.created_at, 'dd/mm/yyyy').toString();
+    //let propDate = `${dateFormat(this.props.proposal.prop_date, 'dd/mm/yyyy').toString()} en la ${(this.props.proposal.morning === 1) ? 'mañana' : 'tarde'}`;
     let panelContent = null;
     let reviewBtnText = '';
     let selectedDateflag = false;
@@ -192,7 +200,9 @@ export default class ProposalCard extends Component {
     } else {
       if (this.state.dates.length) {
         const dateObj = this.state.dates[chosenDateIdx];
-        dateContent = <p>{`Fecha confirmada: ${dateFormat(dateObj.prop_date, 'dd/mm/yyyy').toString()} ${dateObj.prop_time}:${dateObj.prop_mins} ${dateObj.prop_ampm}`}</p>
+        const d = new Date(dateObj.prop_time);
+
+        dateContent = <p>{`Fecha confirmada: ${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()} ${dateObj.prop_time}:${dateObj.prop_mins} ${dateObj.prop_ampm}`}</p>
       }
     }
 

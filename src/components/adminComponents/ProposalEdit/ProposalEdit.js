@@ -15,6 +15,7 @@ export default class ProposalEdit extends Component {
 	constructor(props) {
 		super(props);
 		let dateFormat = require('dateformat');
+		const d = new Date(this.props.created_at);
 
 		this.state = {
 			id: this.props.id,
@@ -22,7 +23,8 @@ export default class ProposalEdit extends Component {
 			u_firstname: this.props.u_firstname,
 			u_lastname: this.props.u_lastname,
 			phone: this.props.phone,
-			created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
+			//created_at: dateFormat(this.props.created_at, 'dd/mm/yyyy').toString(),
+			created_at: `${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`,
 			email: this.props.email,
 			address: this.props.address,
 			area: this.props.area,
@@ -133,9 +135,10 @@ export default class ProposalEdit extends Component {
 		if (!this.state.dates) return null;
 
     return this.state.dates.map((date, index) => {
-			const formattedDate = dateFormat(date.prop_date, 'longDate').toString();
-			console.log(date.prop_date);
-			console.log(typeof date.prop_date);
+			//const formattedDate = dateFormat(date.prop_date, 'longDate').toString();
+			const d = new Date(date.prop_date);
+			const formattedDate = `${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`;
+
 			const time = date.prop_time;
 			const mins = date.prop_mins;
 			const ampm = date.prop_ampm;
@@ -154,9 +157,10 @@ export default class ProposalEdit extends Component {
 		if (!this.state.dates) return null;
 
 		return this.state.dates.map((date, index) => {
+			const d = new Date(date.prop_date);
 			return (
 				<label className={s.radioButtonLabel}>
-					<Radio className={s.radioButtonLabel} value={index} />  {dateFormat(date.prop_date, 'dd/mm/yyyy').toString()}
+					<Radio className={s.radioButtonLabel} value={index} />  {`${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`}
 				</label>
 			)
 		});
@@ -176,6 +180,7 @@ export default class ProposalEdit extends Component {
 
 		const selDate = this.state.dates[this.state.selectedDate];
 		let dateFormat = require('dateformat');
+		const d = new Date(selDate.prop_date);
 
 		let data = {
 			proposal: {
@@ -185,7 +190,8 @@ export default class ProposalEdit extends Component {
 				email: this.props.email,
 				address: this.props.address
 			},
-			selectedDate: `${dateFormat(selDate.prop_date, 'dd/mm/yyyy').toString()}`,
+			//selectedDate: `${dateFormat(selDate.prop_date, 'dd/mm/yyyy').toString()}`,
+			selectedDate: `${d.getUTCDate()}/${d.getUTCMonth()+1}/${d.getUTCFullYear()}`,
 			selectedTime: `${selDate.prop_time}:${selDate.prop_mins} ${selDate.prop_ampm}`
 		};
 
@@ -213,7 +219,7 @@ export default class ProposalEdit extends Component {
 			alert('Por favor escoger una fecha.');
 			return;
 		}
-
+		console.log(this.state.dates[this.state.selectedDate]);
 		let data = {
 			id: this.state.dates[this.state.selectedDate].id
 		};

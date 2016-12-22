@@ -35,7 +35,8 @@ export default class ProposalEdit extends Component {
 			status: this.props.status,
 			open: false,
 			selectedDate: null,
-			attachedImage: null
+			attachedImage: null,
+			txtQsAndAs: null
 		};
 	}
 
@@ -219,7 +220,7 @@ export default class ProposalEdit extends Component {
 			alert('Por favor escoger una fecha.');
 			return;
 		}
-		console.log(this.state.dates[this.state.selectedDate]);
+
 		let data = {
 			id: this.state.dates[this.state.selectedDate].id
 		};
@@ -262,6 +263,23 @@ export default class ProposalEdit extends Component {
 	  });
 	}
 
+	_getAdditionalInformation() {
+		$.ajax({
+    	url: `/api/proposals/crud/addQuestionsTxtForProposal/${this.state.id}`,
+    	type: 'GET',
+    	dataType: 'json',
+    	cache: false,
+    	success: function(txtQsAndAsData) {
+    		//txtQsAndAs = txtQsAndAsData;
+				this.setState({ txtQsAndAs: txtQsAndAsData });
+    	}.bind(this),
+    	error: function(xhr, status, err) {
+     		console.log(err);
+			alert('Error obteniendo la información de la propuesta.');
+    	}.bind(this)
+	  });
+	}
+
 	render() {
 		let areaDesc = this.props.areas[Number(this.state.area)] ? this.props.areas[Number(this.state.area)].description : '' ;
 		let qsAndAs = [];
@@ -286,8 +304,8 @@ export default class ProposalEdit extends Component {
 				break;
 		}
 
-		if (this.props.addQuestionsTxt) {
-			this.props.addQuestionsTxt.map((question) => { 
+		if (this.state.txtQsAndAs) {
+			this.state.txtQsAndAs.map((question) => { 
 				if (Number(question.proposal_id) === Number(this.props.id)) {
 					pdfParameters[`qt${counter}`] = question.question;
 					pdfParameters[`at${counter}`] = question.answer;
@@ -459,7 +477,9 @@ export default class ProposalEdit extends Component {
 				        <FormControl value={this.state.f_firstname + ' ' + this.state.f_lastname} type="text" placeholder="nombre de fixer" disabled/>
 				      </Col>
 				    </FormGroup>
+
 				    <AnswersDisplay rawImages={true} qsAndAs={qsAndAs} />
+						
 				    <FormGroup controlId="formUserId">
 				      <Col componentClass={ControlLabel} sm={2}>
 				        Estado de propuesta
@@ -473,6 +493,11 @@ export default class ProposalEdit extends Component {
 				  <Row className={s.row}>
 			      <Col sm={10}>
 			      	<ul className={cx(s.noListStyle)}>
+							<li className={cx(s.inline)}>
+									<Button onClick={this._getAdditionalInformation.bind(this)}>
+										Mostrar Info Adicional 
+									</Button>
+					      </li>
 								<li className={cx(s.inline)}>
 									<Button onClick={this._showAttachedImages.bind(this)}>
 										Mostrar Imagen 

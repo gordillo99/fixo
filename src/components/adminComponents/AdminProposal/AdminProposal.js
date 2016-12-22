@@ -53,7 +53,7 @@ export default class AdminProposal extends Component {
     	}.bind(this)
 	  });
 
-	  let getTxtQsAndAs = $.ajax({
+	  /*let getTxtQsAndAs = $.ajax({
     	url: '/api/proposals/crud/addQuestionsTxt',
     	type: 'GET',
     	dataType: 'json',
@@ -65,7 +65,7 @@ export default class AdminProposal extends Component {
      		console.log(err);
 			alert('Error obteniendo la información de la propuesta.');
     	}.bind(this)
-	  });
+	  });*/
 
 	  /*let getImgQsAndAs = $.ajax({
     	url: '/api/proposals/crud/addQuestionsImage',
@@ -91,7 +91,7 @@ export default class AdminProposal extends Component {
     			proposals: proposals.sort(function(a, b) { return Number(a.id) - Number(b.id) }),
     			areas: areas,
     			categories: categories,
-    			addQuestionsTxt: txtQsAndAs,
+    			//addQuestionsTxt: txtQsAndAs,
     			//addQuestionsImage: imgQsAndAs
     		});
     	}.bind(this),
@@ -102,7 +102,8 @@ export default class AdminProposal extends Component {
 	  });
 
 	  //$.when(getAreas, getCategories, getTxtQsAndAs, getImgQsAndAs).then(getProposals);
-	  $.when(getAreas, getCategories, getTxtQsAndAs).then(getProposals);
+	  //$.when(getAreas, getCategories, getTxtQsAndAs).then(getProposals);
+	  $.when(getAreas, getCategories).then(getProposals);
 	}
 
 	render() {
@@ -130,8 +131,8 @@ export default class AdminProposal extends Component {
 							category={proposal.category}
 							categories={this.state.categories}
 							areas={this.state.areas}
-							addQuestionsTxt={this.state.addQuestionsTxt}
-							addQuestionsImage={this.state.addQuestionsImage}
+							//addQuestionsTxt={this.state.addQuestionsTxt}
+							//addQuestionsImage={this.state.addQuestionsImage}
 						/>);
 			  })}
 		  </div>

@@ -11,13 +11,13 @@ var nodemailer = require('nodemailer');
 var emailTemplateProposalForAdmin = require('../emailTemplates/proposalEmailForAdmins.js');
 var emailTemplateReviewForUser = require('../emailTemplates/reviewReminderEmailForUsers.js');
 
-router.route('/crud/addQuestionsTxt')
+router.route('/crud/addQuestionsTxtForProposal/:proposal_id')
 
   .get(function(req, res) {
     connection.db.manyOrNone({
       name: "get-all-additional-Qs-txt",
-      text: "select * from add_questions_txt;",
-      values: []
+      text: "select * from add_questions_txt where proposal_id = $1;",
+      values: [req.params.proposal_id]
     })
       .then(function (data) {
         res.send(data);

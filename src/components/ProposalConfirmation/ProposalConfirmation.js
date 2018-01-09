@@ -10,7 +10,7 @@ import { catEnglishToSpanish } from '../../helpers/helpers.js';
 import $ from 'jquery';
 import s from './ProposalConfirmation.style';
 
-export default class ProposalConfirmation extends Component {
+export class ProposalConfirmation extends Component {
 
 	constructor() {
 		super();

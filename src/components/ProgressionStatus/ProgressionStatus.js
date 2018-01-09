@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Jumbotron, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import s from './ProgressionStatus.style';
 
-export default class ProgressionStatus extends Component {
+export class ProgressionStatus extends Component {
 
   _showProgressInTabs() {
     let stages = [ 

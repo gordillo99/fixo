@@ -6,7 +6,7 @@ import ReviewCard from '../ReviewCard';
 import $ from 'jquery';
 import s from './ReviewDisplay.css';
 
-export default class ReviewDisplay extends Component {
+export class ReviewDisplay extends Component {
 
 	constructor() {
 		super();

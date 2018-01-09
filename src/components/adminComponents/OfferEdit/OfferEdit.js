@@ -6,7 +6,7 @@ import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import $ from 'jquery';
 import s from './OfferEdit.css';
 
-export default class OfferEdit extends Component {
+export class OfferEdit extends Component {
 
 	constructor(props) {
 		super(props);

@@ -6,7 +6,7 @@ import ProposalEdit from '../ProposalEdit';
 import $ from 'jquery';
 import s from './AdminProposal.css';
 
-export default class AdminProposal extends Component {
+export class AdminProposal extends Component {
 
 	constructor(props) {
 		super(props);

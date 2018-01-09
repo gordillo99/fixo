@@ -9,7 +9,7 @@ import AdminProposal from '../../components/adminComponents/AdminProposal';
 import $ from 'jquery';
 import s from './Admin.css';
 
-export default class Admin extends Component {
+export class Admin extends Component {
 
 	render() {					
 		const tabsInstance = (

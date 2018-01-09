@@ -6,7 +6,7 @@ import FixerCreate from '../FixerCreate';
 import $ from 'jquery';
 import s from './AdminFixer.css';
 
-export default class AdminFixer extends Component {
+export class AdminFixer extends Component {
 
 	constructor(props) {
 		super(props);

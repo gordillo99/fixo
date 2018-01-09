@@ -6,7 +6,7 @@ import DatePicker from './../DatePicker';
 import $ from 'jquery';
 import s from './SetupForm.style';
 
-export default class SetupForm extends Component {
+export class SetupForm extends Component {
 
   constructor() {
 		super();

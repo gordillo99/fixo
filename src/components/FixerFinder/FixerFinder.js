@@ -7,7 +7,7 @@ import FixerPanel from '../FixerPanel';
 import $ from 'jquery';
 import s from './FixerFinder.css';
 
-export default class FixerFinder extends Component {
+export class FixerFinder extends Component {
 
 	constructor() {
 		super();

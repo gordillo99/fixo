@@ -8,7 +8,7 @@ import StarDisplayer from '../../reviewComponents/StarDisplayer';
 import s from './ReviewDisplay.css';
 import $ from 'jquery';
 
-export default class ReviewDisplay extends Component {
+export class ReviewDisplay extends Component {
 
   render() {
     let starDisplay = null;

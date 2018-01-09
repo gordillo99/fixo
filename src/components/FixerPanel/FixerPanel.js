@@ -8,7 +8,7 @@ import FixerDetailsModal from '../FixerDetailsModal';
 import $ from 'jquery';
 import s from './FixerPanel.style';
 
-export default class FixerPanel extends Component {
+export class FixerPanel extends Component {
 
 	constructor() {
 		super();

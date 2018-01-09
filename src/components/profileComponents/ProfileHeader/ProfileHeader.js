@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Jumbotron } from 'react-bootstrap';
 import s from './ProfileHeader.css';
 
-export default class ProfileHeader extends Component {
+export class ProfileHeader extends Component {
 
   render() {
     return (

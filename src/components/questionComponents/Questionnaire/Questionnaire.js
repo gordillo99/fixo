@@ -5,7 +5,7 @@ import { Button, FormGroup, ControlLabel, FormControl, Jumbotron, HelpBlock, Row
 import $ from 'jquery';
 import s from './Questionnaire.css';
 
-export default class Questionnaire extends Component {
+export class Questionnaire extends Component {
 
   _updateAnswers(index, event) {
     let tempQsAndAs = this.props.qsAndAs;

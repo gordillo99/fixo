@@ -15,7 +15,7 @@ import fixoLogo from './fixo.png';
 import $ from 'jquery';
 import s from './Navigation.style';
 
-export default class Navigation extends Component {
+export class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {

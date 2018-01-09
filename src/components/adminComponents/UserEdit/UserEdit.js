@@ -5,7 +5,7 @@ import { Panel, Form, FormControl, FormGroup, Col, Row, ControlLabel, Button} fr
 import $ from 'jquery';
 import s from './UserEdit.css';
 
-export default class UserEdit extends Component {
+export class UserEdit extends Component {
 
 	constructor(props) {
 		super(props);

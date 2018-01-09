@@ -11,7 +11,7 @@ import ThankYouDisplay from './../../components/ThankYouDisplay';
 import $ from 'jquery';
 import s from './Setup.style';
 
-export default class Setup extends Component {
+export class Setup extends Component {
 
   constructor(){
     super();

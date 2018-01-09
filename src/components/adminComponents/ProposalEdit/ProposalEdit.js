@@ -10,7 +10,7 @@ import qs from 'qs';
 import $ from 'jquery';
 import s from './ProposalEdit.css';
 
-export default class ProposalEdit extends Component {
+export class ProposalEdit extends Component {
 
 	constructor(props) {
 		super(props);

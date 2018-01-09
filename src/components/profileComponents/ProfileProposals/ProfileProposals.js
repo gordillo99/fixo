@@ -6,7 +6,7 @@ import ProposalCard from '../ProposalCard';
 import s from './ProfileProposals.css';
 import $ from 'jquery';
 
-export default class ProfileProposals extends Component {
+export class ProfileProposals extends Component {
 
   constructor(props) {
     super();

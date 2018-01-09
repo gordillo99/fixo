@@ -5,7 +5,7 @@ import { arrBuffToBase64 } from '../../../helpers/helpers.js';
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import s from './AnswersDisplay.css';
 
-export default class AnswersDisplay extends Component {
+export class AnswersDisplay extends Component {
 
   render() {
 

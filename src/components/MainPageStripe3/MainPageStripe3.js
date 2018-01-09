@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Jumbotron } from 'react-bootstrap';
 import s from './MainPageStripe3.css';
 
-export default class MainPageStripe3 extends Component {
+export class MainPageStripe3 extends Component {
 
   _createReasons() {
     let reasons = [

@@ -6,7 +6,7 @@ import image1 from './image-1.jpeg';
 import image2 from './image-2.jpeg';
 import s from './CarouselStripe.style';
 
-export default class CarouselStripe extends Component {
+export class CarouselStripe extends Component {
 
   render() {
     const Item = Carousel.Item;

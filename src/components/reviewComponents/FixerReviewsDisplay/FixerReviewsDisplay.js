@@ -7,7 +7,7 @@ import StarDisplayer from '../StarDisplayer';
 import $ from 'jquery';
 import s from './FixerReviewsDisplay.style';
 
-export default class FixerReviewsDisplay extends Component {
+export class FixerReviewsDisplay extends Component {
 
 	constructor(props) {
 		super(props);

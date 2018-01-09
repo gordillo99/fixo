@@ -6,7 +6,7 @@ import befixermob from './images/befixermob2.png';
 import s from './BeAFixerStripe.css';
 import $ from 'jquery';
 
-export default class BeAFixerStripe extends Component {
+export class BeAFixerStripe extends Component {
 
   render() {
 		

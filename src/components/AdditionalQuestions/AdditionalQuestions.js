@@ -5,7 +5,7 @@ import { Button, FormGroup, ControlLabel, FormControl, Jumbotron } from 'react-b
 import Questionnaire from '../questionComponents/Questionnaire';
 import s from './AdditionalQuestions.css';
 
-export default class AdditionalQuestions extends Component {
+export class AdditionalQuestions extends Component {
 
   constructor(props) {
     super(props);

@@ -8,7 +8,7 @@ import AboutUsCarousel from './../../components/AboutUsCarousel';
 import BeAFixerStripe from './../../components/BeAFixerStripe';
 import s from './Home.css';
 
-export default class Home extends Component {
+export class Home extends Component {
 
   render() {
     return (

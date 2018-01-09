@@ -10,7 +10,7 @@ import ReviewDisplay from '../ReviewDisplay';
 import s from './ProposalCard.css';
 import $ from 'jquery';
 
-export default class ProposalCard extends Component {
+export class ProposalCard extends Component {
 
   constructor(props) {
     super(props);

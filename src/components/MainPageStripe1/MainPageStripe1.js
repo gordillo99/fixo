@@ -7,7 +7,7 @@ import s from './MainPageStripe1.style';
 import $ from 'jquery';
 import Link from '../Link';
 
-export default class MainPageStripe1 extends Component {
+export class MainPageStripe1 extends Component {
 
   constructor() {
     super();

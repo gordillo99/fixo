@@ -4,7 +4,7 @@ import cx from 'classnames';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import s from './DatePicker.style';
 
-export default class DatePicker extends Component {
+export class DatePicker extends Component {
   
   constructor(props) {
     super(props);

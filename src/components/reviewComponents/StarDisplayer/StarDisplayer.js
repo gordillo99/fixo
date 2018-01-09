@@ -8,7 +8,7 @@ import empty from './images/star_empty.png';
 import $ from 'jquery';
 import s from './StarDisplayer.css';
 
-export default class StarDisplayer extends Component {
+export class StarDisplayer extends Component {
 
 	render() {
 		let starDisplay = null;

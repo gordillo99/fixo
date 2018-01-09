@@ -6,7 +6,7 @@ import { arrBuffToBase64 } from '../../helpers/helpers.js';
 import FixerReviewsDisplay from '../reviewComponents/FixerReviewsDisplay';
 import s from './FixerDetailsModal.css';
 
-export default class FixerDetailsModal extends Component {
+export class FixerDetailsModal extends Component {
 
 	_closeModal(event) {
 		this.props.changeModalStatus(false);

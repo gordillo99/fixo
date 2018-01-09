@@ -6,7 +6,7 @@ import { arrBuffToBase64, catEnglishToSpanish } from '../../../helpers/helpers.j
 import $ from 'jquery';
 import s from './FixerEdit.css';
 
-export default class FixerEdit extends Component {
+export class FixerEdit extends Component {
 
 	constructor(props) {
 		super(props);

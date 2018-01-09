@@ -16,7 +16,7 @@ import fetch from './lib/fetch';
 const getRemote = (slot) => ({
   name: 'production',
   url: 'https://git.heroku.com/fixo.git',
-  website: 'http://fixo.herokuapp.com/',
+  website: 'http://fixostaging.herokuapp.com/',
 });
 
 /**

@@ -6,7 +6,7 @@ import StarDisplayer from '../StarDisplayer';
 import $ from 'jquery';
 import s from './ReviewCard.css';
 
-export default class ReviewCard extends Component {
+export class ReviewCard extends Component {
 
 	render() {
 

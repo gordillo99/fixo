@@ -6,7 +6,7 @@ import ProfileProposals from '../../components/profileComponents/ProfileProposal
 import s from './Profile.css';
 import $ from 'jquery';
 
-export default class Profile extends Component {
+export class Profile extends Component {
 
 	constructor() {
 		super();

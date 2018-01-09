@@ -7,7 +7,7 @@ import { catEnglishToSpanish } from '../../../helpers/helpers.js';
 import s from './ReviewForm.css';
 import $ from 'jquery';
 
-export default class ReviewForm extends Component {
+export class ReviewForm extends Component {
 
   constructor() {
     super();

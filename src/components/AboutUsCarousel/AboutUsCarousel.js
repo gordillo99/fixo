@@ -12,7 +12,7 @@ import toolsmob from './images/bannermob1.png';
 import s from './AboutUsCarousel.css';
 import $ from 'jquery';
 
-export default class AboutUsCarousel extends Component {
+export class AboutUsCarousel extends Component {
 
 	_generateCarousel() {
 		const Item = Carousel.Item;

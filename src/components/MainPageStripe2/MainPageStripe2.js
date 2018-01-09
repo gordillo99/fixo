@@ -5,7 +5,7 @@ import { Jumbotron, Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
 import s from './MainPageStripe2.css';
 
-export default class MainPageStripe2 extends Component {
+export class MainPageStripe2 extends Component {
 
   constructor() {
     super();

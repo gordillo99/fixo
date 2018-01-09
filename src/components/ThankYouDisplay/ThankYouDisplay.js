@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import DatePicker from './../DatePicker';
 import s from './ThankYouDisplay.css';
 
-export default class ThankYouDisplay extends Component {
+export class ThankYouDisplay extends Component {
 
   render() {
 

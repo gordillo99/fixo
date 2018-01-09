@@ -21,7 +21,6 @@ function About() {
   const Right = Media.Right;
   const Body = Media.Body;
   const Heading = Media.Heading;
-  const MediaQuery = require('react-responsive');
 
   const socialText = 'Nos apasiona poder ayudar a los fixers a encontrar mejores oportunidades. Existimos para potenciar a individuos por medio del crowdsourcing.';
   const serviceText = 'Nuestro objetivo es que los servicios para el hogar sean lo más sencillo que puedan ser. ¡Estamos comprometidos con dar el mejor servicio para ti!';

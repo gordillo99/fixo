@@ -6,7 +6,7 @@ import { Row, Panel, Form, FormControl, FormGroup, Col, ControlLabel, Button, He
 import $ from 'jquery';
 import s from './FixerCreate.css';
 
-export default class FixerCreate extends Component {
+export class FixerCreate extends Component {
 
 	constructor(props) {
 		super(props);

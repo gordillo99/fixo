@@ -6,7 +6,7 @@ import UserEdit from '../UserEdit';
 import $ from 'jquery';
 import s from './AdminUser.css';
 
-export default class AdminUser extends Component {
+export class AdminUser extends Component {
 
 	constructor(props) {
 		super(props);

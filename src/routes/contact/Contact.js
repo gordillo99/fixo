@@ -6,7 +6,7 @@ import s from './Contact.css';
 import fixo from './fixo.png';
 import banner from './images/banner.png';
 import bannermobile from './images/bannermobile.png';
-import email from './images/Correo.png';
+import email from './images/correo.png';
 import fb from './images/facebook.png';
 
 function Contact(props, context) {
